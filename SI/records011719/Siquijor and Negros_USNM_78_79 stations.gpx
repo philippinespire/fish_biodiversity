@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<gpx version="1.1" creator="GPS Visualizer http://www.gpsvisualizer.com/" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<wpt lat="9.225812782" lon="123.481009641">
+  <name>LK 79-13_Caticugan</name>
+  <sym>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</sym>
+</wpt>
+<wpt lat="9.225023568" lon="123.470246335">
+  <name>LK 79-15_Tongo Point</name>
+  <sym>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</sym>
+</wpt>
+<wpt lat="9.246957194" lon="123.572243207">
+  <name>LK 79-16_Larena</name>
+  <sym>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</sym>
+</wpt>
+<wpt lat="9.23712172" lon="123.567542191">
+  <name>LK 79-17_Sabang tidal inlet</name>
+  <sym>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</sym>
+</wpt>
+<wpt lat="9.174413893" lon="123.463871434">
+  <name>SP 78-3_Puntod</name>
+  <sym>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</sym>
+</wpt>
+<wpt lat="9.147788446" lon="123.500593455">
+  <name>SP 78-4_Maite</name>
+  <sym>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</sym>
+</wpt>
+<wpt lat="9.186741678" lon="123.447898707">
+  <name>SP 78-5_Bocabuc</name>
+  <sym>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</sym>
+</wpt>
+<wpt lat="9.150502261" lon="123.496242417">
+  <name>SP 78-6_Maite2</name>
+  <sym>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</sym>
+</wpt>
+<wpt lat="9.144930079" lon="123.503500454">
+  <name>SP 78-7_Tubod</name>
+  <sym>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</sym>
+</wpt>
+<wpt lat="9.053032452" lon="123.111063295">
+  <name>SP 78-8 (Bonbonon_Shallow)</name>
+  <sym>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</sym>
+</wpt>
+<wpt lat="9.044594151" lon="123.12693733">
+  <name>SP 78-9 (Bonbonon Point)</name>
+  <sym>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</sym>
+</wpt>
+<wpt lat="9.045113109" lon="123.127742159">
+  <name>Sp 78-10 (Bonbonon Point 2)</name>
+  <sym>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</sym>
+</wpt>
+<wpt lat="9.5717" lon="123.15">
+  <name>SP 78-15_Talabong</name>
+  <sym>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</sym>
+</wpt>
+<wpt lat="9.60869773" lon="123.174653604">
+  <name>SP 78-16_East of Dyutay Island</name>
+  <sym>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</sym>
+</wpt>
+<wpt lat="9.58614189" lon="123.174369968">
+  <name>SP 78-45_East of Bais</name>
+  <sym>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</sym>
+</wpt>
+<wpt lat="9.383412308" lon="123.260722576">
+  <name>SP 78-37_Ajong</name>
+  <sym>http://maps.google.com/mapfiles/kml/pushpin/ylw-pushpin.png</sym>
+</wpt>
+</gpx>

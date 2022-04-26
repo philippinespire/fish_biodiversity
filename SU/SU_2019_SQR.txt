@@ -1,0 +1,156 @@
+SU_2019_SQR	*SampleSet*	1	1	1
+157	3			
+GENUS species	SU-19-01_LK-79-13	SU-19-02_SP-78-07	SU-19-03_SP-78-04	
+Amblyglyphidodon leucogaster		1		
+Amphiprion brenatus			1	
+Amsichthys knighti cf		3	3	
+Apogon crassiceps			4	
+Apogon duryssa		1		
+Apogon semiornatus	1			
+Asterropteryx senoui			1	
+Balistapus undulatus		2	2	
+Bathygobius laddi			1	
+Bodianus mesothorax			1	
+Carangoides ferdan			1	
+Centropyge tibicen	1			
+Centropyge vrolikii		1	3	
+Chaetodon baronessa			1	
+Chaetodon kleinii		1		
+Chaetodon lunalatus			5	
+Cheilinus oxycephalus			2	
+Cheilinus trilobatus		1		
+Cheilodipterus alleni			1	
+Cheilodipterus artus		2		
+Cheilodipterus isostigmus	2			
+Chlorurus spilurus	1			
+Chromis amboinensis	37	1	58	
+Chromis analis	1			
+Chromis delta	8			
+Chromis margaritifer			8	
+Chromis retrofasciata 	15	40	19	
+Chromis ternatensis		1	6	
+Chrysiptera rollandi	1	3		
+Chrysiptera talboti		10	6	
+Cirrhilabrus lubbocki	3			
+Cirrhilabrus ryukyuensis	52			
+Cirrhilaorus rubrimarginatus	1			
+Ctenochaetus tominiensis			2	
+Dascyllus trimaculatus			2	
+Dendrochirus biocellatus			1	
+Dinemitichthys sp. (yellow)			2	
+Discotrema crinophila			1	
+Discotrema lineatus			1	
+Dunckerocampus dactyliophorus	3			
+Enchelycore bayeri			1	
+Epinephelus merra			1	
+Eviota albolineata		1		
+Eviota atriventris	2	3	1	
+Eviota distigma		2	7	
+Eviota nigramembrana		1	1	
+Eviota occasa cf		1		
+Eviota rubrisparsa cf			1	
+Eviota sp.		2		
+Eviota sparsa	10	2		
+Eviota winterbottomi		3		
+Fowleria isostigma	1			
+Fowleria marmorata		2		
+Fowleria vaiulae	1			
+Fusigobius aureus	1	2		
+Fusigobius humeralis			2	
+Fusigobius signipinnis		2		
+Gnatholepis aujerensis	1	2		
+Grammistops ocellatus		1	2	
+Gymnothorax buroensis			1	
+Gymnothorax chilospilus			2	
+Gymnothorax margaritophorus			2	
+Gymnothorax sp. (brown)			1	
+Gymnothorax zonipectis	2	2		
+Halicampus nitidus			1	
+Halichoeres prosopeion	1			
+Heniochus varius			1	
+Kaupichthys brachychirus			5	
+Kaupichthys diodontus			3	
+Labroides dimidiatus	1		1	
+Liopropoma mitratum	1	1		
+Liopropoma susumi			1	
+Macropharyngodon meleagris			1	
+Myripristis hexagona	1			
+Myripristis pralinia			1	
+Nectamia fusca			1	
+Neoglyphidodon nigroris 			7	
+Ophichthus sp		3		
+Opistognathus randalli	2			
+Ostarhinchus nigrofasciatas	8			
+Ostorhinchus angustatus		1		
+Ostorhinchus multilineatus			4	
+Ostorhinchus nigrofasciatus		16	35	
+Ostorhinchus wassinki	1			
+Oxycheilinus arenatus			1	
+Oxycheilinus digramma	1		3	
+Parapercis multiplicata	1			
+Parascorpaena aurita			1	
+Pictichromis prophyreus	12			
+Plagiotremas rhinorhynchos			1	
+Pleurosicya mossambica		2		
+Plutosus lineatus	1			
+Pomacentrus alexanderae		3	2	
+Pomacentrus amboinensis			25	
+Pomacentrus blankanensis		1		
+Pomacentrus brachialis	10	3	21	
+Pomacentrus coelestis 			7	
+Pomacentrus lepidogenys			10	
+Pomacentrus moluccensis		8		
+Pomacentrus stigma	2			
+Priacanthus sagittarius	1			
+Priolepis fallacincta	1	1		
+Pristapogon kalleapterus		2	1	
+Pristiapogon fraenatus	1			
+Pristicon trimaculatus		1	2	
+Pritiapogon kallopterus			1	
+Pseudamia hayashi		1		
+Pseudanthia sp.		1		
+Pseudanthia tuba		1		
+Pseudanthias huchtii			7	
+Pseudocheilinus evanidus	2	3		
+Pseudocheilinus hexataenia		2	5	
+Pseudochromis flavopunctatus			4	
+Pseudogramma polyacantha		3	13	
+Pseudoplesiops rosae			4	
+Ptectroglyphidodon lacrymatus			12	
+Pteragobus guttatus		1		
+Pterois antennata	4	2	2	
+Pygoplites diacanthus		1	1	
+Sargocentron cornutum	1	2	2	
+Sargocentron diadema			2	
+Sargocentron melanospilus	1			
+Sargocentron punctatissimum			4	
+Sargocentron tiereoides	1			
+Saurida gracilis			4	
+Scarus niger		1		
+Scarus rubroviolaceus		1		
+Scorpaenodes guamensis	3	1		
+Scorpaenodes parvipinnis			1	
+Scorpaenopsis possi		3	1	
+Scorpaenopsis vittapinna cf	1			
+Spratelloides gracilis			1	
+Sueviota lechneri			1	
+Synchiropus splendidus		1	2	
+Synodus variegatus	1			
+Thalassoma lunare			4	
+Thysanophrys chiltonae	1			
+Trimma agrena			2	
+Trimma benjamini	4	5		
+Trimma cana	2	4	1	
+Trimma habrum		1		
+Trimma haimassum	1			
+Trimma macrophthalma		3	4	
+Trimma nasa		4		
+Trimma naudei		1		
+Trimma preclarum		2	1	
+Trimma sp.		8		
+Trimma stobbsi		23	4	
+Trimma trioculatum	1	1		
+Ungusurculus williamsi		2		
+Uropterygius concolor			1	
+Wetmorella nigropinnata		1	2	
+Xenisthmus polyzonatus		2	2	

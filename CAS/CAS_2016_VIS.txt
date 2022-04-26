@@ -1,0 +1,294 @@
+CAS_2016_VIS	*SampleSet*	1	1	1										
+291	14													
+Genus species	ZAM-05	ZAM-08	SQR-06	SQR-09	SIA-03	SIA-06	DAU-09	SQR-12	SQR-15	DAU-15	DAU-18	DAU-19	SQR-18	SQR-21
+Acanthurus mata		5												
+Acreichthys radiatus						2								
+Alticus montanoi														1
+Amblyeleotris guttata					3	1								
+Amblyeleotris periophthalma	1													
+Amblyglyphidodon leucogaster			3		2	2		6						
+Amphiprion clarkii			2		1			1					1	5
+Amphiprion frenatus														1
+Amphiprion ocellaris										3				
+Amphiprion perideraion	2						3	1						1
+Amsichthys knighti			1					1					2	
+Antennarius coccineus							1							
+Antennarius commerson		1												
+Antennarius nummifer		1							1	1			1	
+Antennatus tuberosus														1
+Apogon articycla	8													
+Apogon semiornatus	1	2			1	2	4	1		3			1	2
+Aseraggodes suzumotoi				2										
+Asterorhombus intermedius	1													
+Asterropteryx bipunctata			2		1									
+Asterropteryx ensifera	1					4							2	
+Asterropteryx semipunctata							1							
+Asterropteryx striata	37	17								1				
+Atrosalarias hosokawai			1											
+Balistapus undulatus		1			1	2							1	1
+Belonepterygion fasciolatum									2					
+Bhanotia pauciradiata						1				1				
+Bodianus dictynna					1									
+Bodianus mesothorax								1						
+Bothus pantherinus										1				
+Cabillus lacertops													1	
+Cabillus tragarevae				1										
+Callechelys marmorata				2										
+Callogobius flavobrunneus						2								
+Callogobius hasseltii													1	
+Callogobius sclateri	1												1	
+Calotomus spinidens	3													
+Calumia profunda			4		1			1						
+Cantherhines pardalis														1
+Canthigaster valentini	2				1		1			3			1	1
+Canthigaster bennetti											1			
+Centropyge bicolor						1								
+Centropyge bispinosa			1											
+Centropyge nox			1		1									
+Centropyge tibicen										3				
+Centropyge vrolicki					3			2			3		5	8
+Cephalopholis aitha			1											
+Cephalopholis boenak										1				
+Cephalopholis microprion					4	4	2							
+Cephalopholis spiloparaea			2											
+Cephalopholis urodeta													1	1
+Chaetodon baronessa						1								
+Chaetodon kleinii	1					11				1				
+Cheilinus oxycephalus						1			1					
+Cheilodipterus alleni			1											
+Cheilodipterus artus			4		6	1								
+Cheilodipterus isostigmus			11		8	3	4							
+Cheilodipterus macrodon			1				2							2
+Cheilodipterus quinquelineatus	3													
+Cheilodipterus singapurensis								1						
+Chromis amboinensis			1		8	19		6						
+Chromis analis					11			1		2				
+Chromis atripectoralis								1						
+Chromis delta										9				
+Chromis margaritifer					2									
+Chromis retrofasciata	2		16		13	52	2	19					28	
+Chromis ternatensis			7			10		2			2			
+Chromis trifasciatus											5			
+Chromis viridis											1			
+Chrysiptera rollandi	2		3		5	7		8					4	
+Chrysiptera springeri						1								
+Chrysiptera talboti	1			1	3		2							
+Cirrhilabrus lubbocki					12									
+Cirrhilabrus ryukyuensis	42		16	1	7	20	12	11					12	
+Cirrhitichthys aprinus		14												
+Cirrhitus pinnulatus														1
+Cirripectes castaneus														1
+Cirripectes filamentosus														2
+Cocotropus dermacanthus			1											
+Coris gaimard											1			
+Corythoichthys flavofasciatus									1					
+Cosmocampus banneri											1			
+Cosmocampus investigatoris											1			
+Ctenochaetus binotatus			2		2									1
+Ctenogobiops pomastictus				1										
+Dascyllus aruanus													3	
+Dascyllus reticulatus	3			45	2	26	24				205		78	
+Dascyllus trimaculatus	8	4	11	1			3	23		4			5	34
+Diademichthys lineatus	1													
+Diodon liturosus		1												
+Discordipinna griessingeri								1						
+Discotrema crinophila							1					12	2	
+Dunckerocampus dactyliophorus							1	1					1	
+Ecsenius monoculus														3
+Entomacrodus caudofasciatus														2
+Entomacrodus thalassinus														1
+Epinephelus fasciatus					2								1	
+Epinephelus merra				1										
+Epinephelus ongus						1								
+Eviota atriventris	7		2		10	7	12	7		9			5	
+Eviota guttata													6	
+Eviota infulata						1								
+Eviota latifasciata								2					4	
+Eviota melasma	1				2	1	6			1			13	
+Eviota n.sp. (red)								3						
+Eviota n.sp. (yellow caudal)								1						
+Eviota nebulosa														9
+Eviota punctulata			1		1			2					1	
+Eviota queenslandica														4
+Eviota sebreei					1			1		1				
+Eviota shimadai			2		2			1					11	
+Eviota sigillata			1											
+Eviota sparsa						1							19	
+Fowleria marmorata						1			1					
+Fowleria sp. (cf. marmorata)						3								
+Fowleria vaiulae	17				3	3	8			13			1	2
+Fusigobius duospilus								1						
+Fusigobius gracilis					1								2	
+Fusigobius humeralis	2													
+Fusigobius melacron													3	
+Fusigobius signipinnis	2		1		2	5		1						
+Gnatholepis cauerensis	54		3		13	10	9	8		19			6	1
+Gobiodon quinquestrigatus													2	
+Gobiodon rivulatus						1								
+Grallenia n.sp.													7	
+Grammistes sexlineatus														2
+Gymnothorax chilospilus		3					1							2
+Gymnothorax fimbriatus										1				
+Gymnothorax melatremus					2			1						
+Gymnothorax sp.					2									
+Gymnothorax zonipectis	5				2	2	1	2	1	1			1	
+Halicampus brocki		1												
+Halicampus macrorhynchus	1													
+Halichoeres bicolor											2			
+Halichoeres chrysus	2						1			4				
+Halichoeres hartzfeldii	3	9					5			5	3		1	
+Halichoeres nebulosus											1			
+Halichoeres podostigma			1											
+Halichoeres prosopeion					4									
+Helcogramma striata							1							
+Heniochus chrysostomus								1						
+Heniochus varius			2											
+Heteroconger polyzona											11			
+Heteromycteris hartzfeldii											4			
+Ichthyapus vulturus				1							2			
+Istigobius decoratus										2				
+Kaupichthys atronasus													1	
+Kaupichthys brachychirus					2	1		3					2	
+Kaupichthys diodontus	4													
+Koumansetta hectori						2								
+Labroides dimidiatus	1				1	2	1			1	1			1
+Leptojulis cyanopleura	1													
+Limnichthys nitidus				5										
+Liopropoma swalesi			1											
+Luposicya lupus		2												
+Macropharyngodon negrosensis							2							
+Meiacanthus grammistes							1							
+Moringua sp.													1	
+Muraenichthys schultzei				1										
+Myripristis violacea											1			
+Myripristis berndti											11			2
+Myripristis kochiensis			1					2						
+Myripristis kuntee			2		2			2			5			
+Myripristis pralinea			1					2						
+Neamia octospina						1								
+Nectamia luxuria			2					14						
+Neopomacentrus violascens	1									4				
+Opistognathus randalli													4	
+Opistognathus solorensis	1													
+Opistognathus sp. 6 (Allen & Erdmann)	1													
+Oplopomus caninoides	4													
+Ostorhinchus aureus	101										40			
+Ostorhinchus hoeveni									5					
+Ostorhinchus multilineatus	1			1		1	5			3	1			
+Ostorhinchus nigrofasciatus	14		11		22	11	13	6		3			8	1
+Ostorhinchus novemfasciatus							1							
+Ostorhinchus rubrimacula	19				1	8	73	3			2			
+Oxycheilinus bimaculatus	65	79			11	1	15	1		13			12	7
+Oxycheilinus digramma					1	5								1
+Paracheilinus carpenteri	10	1			1		2			1				
+Paragobiodon modestus							1							
+Paragobiodon xanthosoma						1								
+Parapercis bimacula													3	
+Parapercis cylindrica	5	7						3		2	2			1
+Parapercis millepunctata											1			
+Parapercis schauinslandii		2								2				
+Parapercis tetracantha	1						7				1		2	1
+Parapercis xanthozona	1	2			1					1				
+Pardachirus paroninus				1										
+Parupeneus barberinoides				1										
+Parupeneus multifasciatus					1									
+Pentapodus caninus	2						6			6				
+Pervagor janthinosoma														1
+Pervagor melanocephalus			1											
+Petroscirtes breviceps		10												
+Phoxocampus tetrophthalmus							1							
+Plectorhynchus lessonii							1							
+Plectranthias longimanus	3	1			6		3			6			7	
+Plectroglyphidodon dickii								23						
+Pleurosicya boldinghi					1									
+Pleurosicya coerulea													1	
+Pleurosicya elongata													1	
+Pleurosicya micheli					2									
+Pleurosicya mossambica								1						
+Plotosus lineatus														11
+Pomacanthus semicircularis														1
+Pomacentrus alexanderae					13	6		5						
+Pomacentrus amboinensis	12		1		22	6	20	4		6			82	
+Pomacentrus brachialis	4		1		24	7	14	5		16	11		26	
+Pomacentrus coelestis	13	10		1			51			13	32		5	
+Pomacentrus moluccensis						5		4			1			
+Pomacentrus nagasakiensis	1	1		1			1							
+Pomacentrus nigromarginatus			2		1									
+Pomacentrus stigma	1		1		4								1	
+Priacanthus sagittarius								2						
+Priolepis agrena													2	
+Priolepis cinctus						1				1				1
+Priolepis fallacincta						4								
+Pristiapogon exostigma			1					1						
+Pristiapogon fraenatus	3		1				8			1	3		1	
+Pristiapogon kallopterus											7			
+Pseudamia amblyuropterus										1				
+Pseudanthias huchtii	1										6		6	
+Pseudanthias hypselosoma	17													
+Pseudanthias squamipinnis					2		11	1						2
+Pseudanthias tuka						2								
+Pseudocheilinus evanidus	1		7		19	12		3		1			1	
+Pseudocheilinus hexataenia						12		1		1			1	
+Pseudochromis bitaeniatus			2					3						
+Pseudochromis marshallensis	1			1				6					2	
+Pseudochromis sp.										1				
+Pseudochromis tapeinosoma														1
+Pseudocoris yamashiroi							1							
+Pseudogramma polyacantha	8	1			1		7	1		2			1	
+Pseudoplesiops annae			1											
+Pteragogus cryptus								1						
+Pterois antennata	2		1		3		3				5		2	
+Pygoplites diacanthus													2	
+Rogadius patriciae							1							
+Samariscus triocellatus						5		1						
+Sargocentron cornutum					1			2					1	
+Sargocentron diadema					1			1						
+Sargocentron punctatissimum								1						1
+Sargocentron tiereoides			1											
+Saurida gracilis	1				1									
+Scarus flavipectoralis							2							
+Scarus hypselopterus	2													
+Scolopsis bilineata	4													1
+Scorpaenodes guamensis	2				2		9	1		6	1		8	
+Scorpaenodes kelloggi		1												
+Scorpaenopsis oxycephala	1													
+Scorpaenopsis possi														1
+Scorpaenopsis vittapinna		3	1		1			1					1	
+Sebastapistes cyanostigma														4
+Sebastapistes fowleri	2					1	1							
+Sebastapistes strongia	1	5												
+Siphamia jebbi													8	
+Spratelloides delicatulus									1					48
+Spratelloides gracilis														518
+Steeneichthys nativitatus			4											
+Stethojulis interrupta						1							1	3
+Sunagocia arenicola				1										
+Synchiropus ocellatus										1				
+Synchiropus sp.		2												
+Synchiropus splendidus						1								
+Synodus dermatogenys	2													
+Synodus jaculum	1	2									1			
+Synodus variegatus	2	3	1	4		4	3	1		6	2		4	1
+Taenianotus triacanthus											2			
+Thalassoma lunare	1	2		2	1		2	1			1		1	2
+Thysanophrys celebicus	2													
+Thysanophrys chiltonae	5			1	1					2	8			
+Trachyrhamphus longirostris														1
+Trimma agrena							1						1	
+Trimma annosum														8
+Trimma benjamini			15		17	5	11	17		1			28	
+Trimma cana			3										3	
+Trimma haimassum					1	1		1		1			17	
+Trimma halonevum					41		6			11			8	
+Trimma macrophthalma	1				2					1			18	10
+Trimma nasa					1									
+Trimma okinawae														2
+Trimma preclarum					1			10					10	
+Trimma sp.2 (Allen & Erdmann)			1											
+Trimma stobbsi	1				10	2	3	4		3			23	1
+Trimma striatum								1						
+Trimma yanoi										2				
+Uranoscopus sulphureus				1										
+Uropterygius nagoensis			1											
+Xenisthmus polyzonatus	1													
+Zebrasoma scopas						1								
