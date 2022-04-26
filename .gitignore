@@ -37,3 +37,7 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+# Large Files to Ignore
+Rotenone_ID_Guide_Gobiidae.pptx
+
