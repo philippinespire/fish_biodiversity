@@ -7,10 +7,13 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 library(tidyverse)
 library(readxl)
+library(janitor)
 
 data_roving <-
   read_excel("RotenoneRovingCombined.xlsx",
-             sheet = "Roving")
+             sheet = "Roving") %>%
+  rename(species=...1) %>%
+  clean_names()
 
 data_rotenone <-
   read_excel("RotenoneRovingCombined.xlsx",
