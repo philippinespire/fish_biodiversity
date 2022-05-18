@@ -2,6 +2,8 @@
 
 the purpose of this repo is to centralize all data pertaining to Philippines PIRE fish biodiversity surveys.
 
+---
+
 ## Directories
 
 * SI: 1978-79 Smithsonian Expedition
@@ -9,11 +11,16 @@ the purpose of this repo is to centralize all data pertaining to Philippines PIR
 * CAS: 2016 Cal Academy of Sciences Expedition
 * data: 20teens data from Kent Carpenter
 
+## Notes
 
+Rpackage to do what [EstimateS](https://www.robertkcolwell.org/pages/estimates) does: Vegan
 
 ---
 
 ## Useful Links
+
+This is where all the data is.  We probably need to spend some time searching and transferring data from google to this repo
+
 Google Drive → Philippines PIRE → [Rotenone_Database](https://drive.google.com/drive/folders/1n1yQ6lLybuoX6wJJQ5qRgplAQ09lOYHq?usp=sharing)
 
 [Rotenone_stations](https://www.google.com/maps/d/edit?mid=1xB7u9XTp1JbzET8mogF0nwA_v32L6aGO&usp=sharing)
