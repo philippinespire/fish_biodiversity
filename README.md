@@ -4,6 +4,11 @@ the purpose of this repo is to centralize all data pertaining to Philippines PIR
 
 ## Directories
 
+* SI: 1978-79 Smithsonian Expedition
+* SU: 2019-present PIRE Expeditions
+* CAS: 2016 Cal Academy of Sciences Expedition
+* data: 20teens data from Kent Carpenter
+
 
 
 ---
