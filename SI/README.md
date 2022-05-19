@@ -8,8 +8,9 @@
 * Coordinates
 * CrypticIDs
 * DataAnalysis
-* Field_Data_Records
-* Pictures
+* `Field_Data_Records/`
+	* `jpg/`:  images of data sheets
+	* `./`: images and pdf of same data sheets that are in `./jpg`
 * records011719
 	* mostly gis files
 	* excel file with Negros & Siquijor Complete Data
