@@ -33,14 +33,14 @@ data_si <-
          collectors = collector_s) %>%
   mutate(odu_station_code = str_replace(field_number,
                                         " ",
-                                        "_"))
+                                        "_"),
+         collection_method = str_to_lower(collection_method),
+         depth_m_min = str_remove(depth_m,
+                                  " .*$"),
+         depth_m_max = str_remove(depth_m,
+                                  "^.* "))
 
 #### READ IN GIS DATA ####
-data_si_gis <-
-  data_si %>%
-  left_join(data_gis,
-            by = "odu_station_code")
-
 data_gis <-
   read_excel(gisDataFile) %>%
   clean_names() %>%
@@ -49,7 +49,27 @@ data_gis <-
          -starts_with("x"))
 
 #### JOIN DATA ####
+data_si_gis <-
+  data_si %>%
+  left_join(data_gis,
+            by = "odu_station_code")
 
+#### DATA VISUALIZE ####
+data_si %>%
+  select(odu_station_code,
+         starts_with("depth_")) %>%
+  pivot_longer(cols = depth_m:depth_m_max,
+               names_to = "depth_cat",
+               values_to = "meters") %>%
+  filter(depth_cat != "depth_m") %>%
+  distinct() %>%
+  ggplot(aes(x=odu_station_code,
+             y=meters,
+             color = depth_cat)) +
+  geom_point() +
+  theme(axis.text.x = element_text(angle = 90,
+                             hjust = 1,
+                             vjust = 0.5))
 
 # #### DATA CHECKING ####
 # data_si %>% 
