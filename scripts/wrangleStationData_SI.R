@@ -40,7 +40,8 @@ data_si <-
                                              " .*$")),
          depth_m_max = as.numeric(str_remove(depth_m,
                                              "^.* "))) %>%
-  filter(kind_of_object != "Image")
+  filter(kind_of_object != "Image",
+         !is.na(field_number))
 
 data_si %>% filter(is.na(depth_m_min)) %>% view()
 data_si %>% filter(is.na(depth_m_max)) %>% view()
@@ -79,6 +80,16 @@ data_si %>%
                                    hjust = 1,
                                    vjust = 0.5))
 
+data_si %>%
+  select(odu_station_code,
+         starts_with("depth_m_max")) %>%
+
+  distinct() %>%
+  
+  ggplot(aes(x=depth_m_max)) +
+  geom_histogram() +
+  theme_classic()
+
 # #### DATA CHECKING ####
 # data_si %>% 
 #   select(field_number_s) %>%
@@ -113,7 +124,6 @@ data_si %>%
          archipelago,
          island_grouping,
          island_name,
-         continent,
          country,
          province_state,
          district_county,
@@ -127,5 +137,8 @@ data_si %>%
          expedition,
          collection_method,
          depth_m,
-         ,
-         )
+         odu_station_code,
+         depth_m_min,
+         depth_m_max) %>%
+  distinct() %>%
+  write_csv("station_info.csv")
