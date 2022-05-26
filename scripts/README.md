@@ -11,3 +11,7 @@ Reads in data from 20teens shared by Kent Carpenter, but we don't have station d
 ## `wrangleStationData_SI.R`
 
 Wrangle fish biodiversity data from 1978-9 Smithsonian Expedition
+
+Smithsonian db was queried, we read in the results of three queries, remove duplicated rows, remove columns with no data
+
+We removed all rows with no field_number because we determined that 30 were likely otter trawls i the Stingray V, and the other NA record was from Ayungon while the site collected on the same day was farther south near Bais.

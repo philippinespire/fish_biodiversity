@@ -26,6 +26,7 @@ data_si <-
       ~ read_csv(.x)) %>%
   bind_rows() %>%
   clean_names() %>%
+  remove_empty(which = c("cols")) %>%
   distinct(catalog_number_usnm, # if we don't do this, get 2 more records
            .keep_all = TRUE) %>%
   rename(prep_loc_count = preparation_details_preparation_location_count,
@@ -35,10 +36,12 @@ data_si <-
                                         " ",
                                         "_"),
          collection_method = str_to_lower(collection_method),
-         depth_m_min = str_remove(depth_m,
-                                  " .*$"),
-         depth_m_max = str_remove(depth_m,
-                                  "^.* "))
+         depth_m_min = as.numeric(str_remove(depth_m,
+                                             " .*$")),
+         depth_m_max = as.numeric(str_remove(depth_m,
+                                             "^.* "))) %>%
+  filter(kind_of_object != "Image")
+
 data_si %>% filter(is.na(depth_m_min)) %>% view()
 data_si %>% filter(is.na(depth_m_max)) %>% view()
 data_si %>% filter(is.na(depth_m_min), is.na(depth_m_max)) %>% view()
@@ -62,19 +65,19 @@ data_si_gis <-
 #### DATA VISUALIZE ####
 data_si %>%
   select(odu_station_code,
-         starts_with("depth_")) %>%
-  pivot_longer(cols = depth_m:depth_m_max,
+         starts_with("depth_m_")) %>%
+  pivot_longer(cols = depth_m_min:depth_m_max,
                names_to = "depth_cat",
                values_to = "meters") %>%
-  filter(depth_cat != "depth_m") %>%
   distinct() %>%
+  
   ggplot(aes(x=odu_station_code,
              y=meters,
              color = depth_cat)) +
   geom_point() +
   theme(axis.text.x = element_text(angle = 90,
-                             hjust = 1,
-                             vjust = 0.5))
+                                   hjust = 1,
+                                   vjust = 0.5))
 
 # #### DATA CHECKING ####
 # data_si %>% 
@@ -102,3 +105,27 @@ data_si %>%
 #           date_collected) %>%
 #   view()
 # 
+#### CREATE STATION METADATA ####
+data_si %>%
+  select(date_collected,
+         ocean,
+         sea_gulf,
+         archipelago,
+         island_grouping,
+         island_name,
+         continent,
+         country,
+         province_state,
+         district_county,
+         precise_locality,
+         starts_with("centroid"),
+         collectors,
+         field_number,
+         vessel,
+         cruise,
+         station,
+         expedition,
+         collection_method,
+         depth_m,
+         ,
+         )
