@@ -39,6 +39,11 @@ data_si <-
                                   " .*$"),
          depth_m_max = str_remove(depth_m,
                                   "^.* "))
+data_si %>% filter(is.na(depth_m_min)) %>% view()
+data_si %>% filter(is.na(depth_m_max)) %>% view()
+data_si %>% filter(is.na(depth_m_min), is.na(depth_m_max)) %>% view()
+
+# 9 out of 9 "min/max depth = NA" were due to the cells being empty
 
 #### READ IN GIS DATA ####
 data_gis <-
