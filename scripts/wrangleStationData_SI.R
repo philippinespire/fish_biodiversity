@@ -41,11 +41,12 @@ data_si <-
          depth_m_max = as.numeric(str_remove(depth_m,
                                              "^.* "))) %>%
   filter(kind_of_object != "Image",
+         date_collected != "4 Dec 1967 (1967 Dec 04 - 0000 00 00; 14:15 - 15:15)",
          !is.na(field_number))
 
-data_si %>% filter(is.na(depth_m_min)) %>% view()
-data_si %>% filter(is.na(depth_m_max)) %>% view()
-data_si %>% filter(is.na(depth_m_min), is.na(depth_m_max)) %>% view()
+# data_si %>% filter(is.na(depth_m_min)) %>% view()
+# data_si %>% filter(is.na(depth_m_max)) %>% view()
+# data_si %>% filter(is.na(depth_m_min), is.na(depth_m_max)) %>% view()
 
 # 9 out of 9 "min/max depth = NA" were due to the cells being empty
 
