@@ -14,6 +14,7 @@ library(purrr)
 querydataDir = "../SI/Collections_Data"
 querydataPattern = "*.csv"
 gisDataFile = "../SI/Coordinates/Coordinate_Conversions.xlsx"
+siteMetaDataFile = "station_info.xlsx"
 
 
 #### READ IN COUNT DATA ####
@@ -49,6 +50,53 @@ data_si <-
 # data_si %>% filter(is.na(depth_m_min), is.na(depth_m_max)) %>% view()
 
 # 9 out of 9 "min/max depth = NA" were due to the cells being empty
+#### CREATE STATION METADATA ####
+data_si %>%
+  select(date_collected,
+         ocean,
+         sea_gulf,
+         archipelago,
+         island_grouping,
+         island_name,
+         country,
+         province_state,
+         district_county,
+         precise_locality,
+         starts_with("centroid"),
+         collectors,
+         field_number,
+         vessel,
+         cruise,
+         station,
+         expedition,
+         collection_method,
+         depth_m,
+         odu_station_code,
+         depth_m_min,
+         depth_m_max) %>%
+  distinct() %>%
+  write_csv("station_info.csv")
+
+#### JOIN FIELD DATA RECORDS WITH data_si ####
+data_si_station <- 
+  data_si %>%
+    left_join(read_excel(siteMetaDataFile,
+                         na = c("NA",
+                                "",
+                                "na"))) %>%
+    mutate(dist_shore_m_min = case_when(str_detect(dist_shore,
+                                                   "\\'") ~ as.numeric(str_remove(dist_shore,
+                                                                                  " .*$")) * 0.3048,
+                                        str_detect(dist_shore,
+                                                   "m *$") ~ as.numeric(str_remove(dist_shore,
+                                                                                   " .*$")) * 1,
+                                        str_detect(dist_shore,
+                                                   "yds") ~ as.numeric(str_remove(dist_shore,
+                                                                                  " .*$")) * 0.9144,
+                                        str_detect(dist_shore,
+                                                   "mi") ~ as.numeric(str_remove(dist_shore,
+                                                                                 " .*$")) * 1609.344))
+
 
 #### READ IN GIS DATA ####
 data_gis <-
@@ -117,29 +165,4 @@ data_si %>%
 #           date_collected) %>%
 #   view()
 # 
-#### CREATE STATION METADATA ####
-data_si %>%
-  select(date_collected,
-         ocean,
-         sea_gulf,
-         archipelago,
-         island_grouping,
-         island_name,
-         country,
-         province_state,
-         district_county,
-         precise_locality,
-         starts_with("centroid"),
-         collectors,
-         field_number,
-         vessel,
-         cruise,
-         station,
-         expedition,
-         collection_method,
-         depth_m,
-         odu_station_code,
-         depth_m_min,
-         depth_m_max) %>%
-  distinct() %>%
-  write_csv("station_info.csv")
+
