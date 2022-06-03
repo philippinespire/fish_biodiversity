@@ -51,31 +51,31 @@ data_si <-
 
 # 9 out of 9 "min/max depth = NA" were due to the cells being empty
 #### CREATE STATION METADATA ####
-data_si %>%
-  select(date_collected,
-         ocean,
-         sea_gulf,
-         archipelago,
-         island_grouping,
-         island_name,
-         country,
-         province_state,
-         district_county,
-         precise_locality,
-         starts_with("centroid"),
-         collectors,
-         field_number,
-         vessel,
-         cruise,
-         station,
-         expedition,
-         collection_method,
-         depth_m,
-         odu_station_code,
-         depth_m_min,
-         depth_m_max) %>%
-  distinct() %>%
-  write_csv("station_info.csv")
+# data_si %>%
+#   select(date_collected,
+#          ocean,
+#          sea_gulf,
+#          archipelago,
+#          island_grouping,
+#          island_name,
+#          country,
+#          province_state,
+#          district_county,
+#          precise_locality,
+#          starts_with("centroid"),
+#          collectors,
+#          field_number,
+#          vessel,
+#          cruise,
+#          station,
+#          expedition,
+#          collection_method,
+#          depth_m,
+#          odu_station_code,
+#          depth_m_min,
+#          depth_m_max) %>%
+#   distinct() %>%
+#   write_csv("station_info.csv")
 
 #### JOIN FIELD DATA RECORDS WITH data_si ####
 data_si_station <- 
@@ -83,7 +83,8 @@ data_si_station <-
     left_join(read_excel(siteMetaDataFile,
                          na = c("NA",
                                 "",
-                                "na"))) %>%
+                                "na")) %>%
+                clean_names()) %>%
     mutate(dist_shore_m_min = case_when(str_detect(dist_shore,
                                                    "\\'") ~ as.numeric(str_remove(dist_shore,
                                                                                   " .*$")) * 0.3048,
@@ -95,7 +96,33 @@ data_si_station <-
                                                                                   " .*$")) * 0.9144,
                                         str_detect(dist_shore,
                                                    "mi") ~ as.numeric(str_remove(dist_shore,
-                                                                                 " .*$")) * 1609.344))
+                                                                                 " .*$")) * 1609.344),
+           ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+           ## figure out how to isolate max dist
+           ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+           # dist_shore_m_max = case_when(str_detect(dist_shore,
+           #                                         "\\'") ~ as.numeric(str_replace(dist_shore,
+           #                                                                        "^.* \\- *")) * 0.3048,
+           #                              str_detect(dist_shore,
+           #                                         "m *$") ~ as.numeric(str_remove(dist_shore,
+           #                                                                         " .*$")) * 1,
+           #                              str_detect(dist_shore,
+           #                                         "yds") ~ as.numeric(str_remove(dist_shore,
+           #                                                                        " .*$")) * 0.9144,
+           #                              str_detect(dist_shore,
+           #                                         "mi") ~ as.numeric(str_remove(dist_shore,
+           #                                                                       " .*$")) * 1609.344)
+           
+           collection_method_manual = str_to_lower(collection_method_manual),
+           chemical_euthanasia = case_when(str_detect(collection_method_type,
+                                                      "rotenone") ~ "yes",
+                                           str_detect(collection_method_manual,  #remove if field data record overrules the si database
+                                                      "rotenone") ~ "yes",
+                                           !is.na(collection_method_type) ~ "no",
+                                           TRUE ~ NA_character_),
+           ) %>%
+  
+  filter(chemical_euthanasia == "yes")
 
 
 #### READ IN GIS DATA ####
@@ -107,13 +134,17 @@ data_gis <-
          -starts_with("x"))
 
 #### JOIN DATA ####
-data_si_gis <-
-  data_si %>%
+data_si_station_gis <-
+  data_si_station %>%
   left_join(data_gis,
             by = "odu_station_code")
 
+rm(data_si,
+   data_si_station,
+   data_gis)
+
 #### DATA VISUALIZE ####
-data_si %>%
+data_si_station_gis %>%
   select(odu_station_code,
          starts_with("depth_m_")) %>%
   pivot_longer(cols = depth_m_min:depth_m_max,
@@ -129,16 +160,33 @@ data_si %>%
                                    hjust = 1,
                                    vjust = 0.5))
 
-data_si %>%
+data_si_station_gis %>%
   select(odu_station_code,
          starts_with("depth_m_max")) %>%
 
   distinct() %>%
   
   ggplot(aes(x=depth_m_max)) +
-  geom_histogram() +
+  geom_histogram(bins = 43) +
   theme_classic()
 
+
+data_si_station_gis %>%
+  mutate(depth_cat = case_when(depth_m_max < 2 ~ "<2m",
+                               depth_m_max <= 15 ~ "2-15m",
+                               depth_m_max >15 ~ ">15m",
+                               TRUE ~ NA_character_),
+         depth_cat = factor(depth_cat,
+                            levels = c("<2m",
+                                       "2-15m",
+                                       ">15m"))) %>%
+  filter(!is.na(depth_cat)) %>%
+  select(odu_station_code,
+         starts_with("depth_cat")) %>%
+  distinct() %>%
+  ggplot(aes(x=depth_cat)) +
+  geom_bar() +
+  theme_classic()
 # #### DATA CHECKING ####
 # data_si %>% 
 #   select(field_number_s) %>%
