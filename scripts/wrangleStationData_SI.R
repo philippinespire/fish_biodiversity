@@ -40,7 +40,15 @@ data_si <-
          depth_m_min = as.numeric(str_remove(depth_m,
                                              " .*$")),
          depth_m_max = as.numeric(str_remove(depth_m,
-                                             "^.* "))) %>%
+                                             "^.* ")),
+         depth_cat = case_when(depth_m_max < 2 ~ "<2m",
+                               depth_m_max <= 15 ~ "2-15m",
+                               depth_m_max >15 ~ ">15m",
+                               TRUE ~ NA_character_),
+         depth_cat = factor(depth_cat,
+                            levels = c("<2m",
+                                       "2-15m",
+                                       ">15m"))) %>%
   filter(kind_of_object != "Image",
          date_collected != "4 Dec 1967 (1967 Dec 04 - 0000 00 00; 14:15 - 15:15)",
          !is.na(field_number))
@@ -119,8 +127,7 @@ data_si_station <-
                                            str_detect(collection_method_manual,  #remove if field data record overrules the si database
                                                       "rotenone") ~ "yes",
                                            !is.na(collection_method_type) ~ "no",
-                                           TRUE ~ NA_character_),
-           ) %>%
+                                           TRUE ~ NA_character_)) %>%
   
   filter(chemical_euthanasia == "yes")
 
@@ -214,3 +221,75 @@ data_si_station_gis %>%
 #   view()
 # 
 
+#### Make EstimateS Files ####
+
+# whole data set in 1 file
+data_set_name = "SI_78-79_all"
+estimates_file_name = str_c(data_set_name,
+                            "tsv",
+                            sep = ".")
+
+num_species <-
+  data_si_station_gis %>%
+  select(identification) %>%
+  distinct() %>%
+  pull() %>%
+  length()
+
+num_sites <-
+  data_si_station_gis %>%
+  select(odu_station_code) %>%
+  distinct() %>%
+  pull() %>%
+  length()
+
+data_si_station_gis_estimates <-
+  data_si_station_gis %>%
+    select(odu_station_code, 
+           identification,
+           specimen_count) %>%
+    # group_by(odu_station_code,
+    #          identification) %>%
+    # summarize(specimen_count = sum(specimen_count)) %>%
+    # ungroup() %>%
+    pivot_wider(names_from = odu_station_code,
+                values_from = specimen_count,
+                values_fill = 0,
+                values_fn = sum)
+
+
+estimates_inFile <- 
+  bind_rows(as_tibble(colnames(data_si_station_gis_estimates)) %>%
+              mutate(index=value) %>%
+              pivot_wider(names_from = index) %>%
+              mutate(across(.cols=everything(),
+                            .fns = ~str_replace(.,
+                                                ".*",
+                                                ""))) %>%
+              mutate(identification = data_set_name, # better to use column num
+                     `SP_78-37A` = "*SampleSet*",
+                     `SP_78-22` = "1",
+                     `SP_78-1` = "1",
+                     `SP_78-10` = "1"),
+            as_tibble(colnames(data_si_station_gis_estimates)) %>%
+              mutate(index=value) %>%
+              pivot_wider(names_from = index) %>%
+              mutate(across(.cols=everything(),
+                            .fns = ~str_replace(.,
+                                               ".*",
+                                               ""))) %>%
+              mutate(identification = as.character(num_species), # better to use column num
+                     `SP_78-37A` = as.character(num_sites)), # bettern to use column num
+            as_tibble(colnames(data_si_station_gis_estimates)) %>%
+              mutate(index=value) %>%
+              pivot_wider(names_from = index) %>%
+              mutate(identification = str_replace(identification,
+                                                  "identification",
+                                                  "")),
+            data_si_station_gis_estimates %>%
+              mutate(across(.cols = everything(),
+                            .fns = ~ as.character(.)))) 
+
+write_tsv(estimates_inFile,
+          estimates_file_name,
+          col_names = FALSE)  
