@@ -14,8 +14,13 @@ library(purrr)
 querydataDir = "../SI/Collections_Data"
 querydataPattern = "*.csv"
 gisDataFile = "../SI/Coordinates/Coordinate_Conversions.xlsx"
-siteMetaDataFile = "station_info.xlsx"
+siteMetaDataFile = "../data/station_info.xlsx"
+dataDir = "../data"
 
+
+dataDir = str_replace(dataDir,
+                      "\\/$",
+                      "")
 
 #### READ IN COUNT DATA ####
 
@@ -83,7 +88,9 @@ data_si <-
 #          depth_m_min,
 #          depth_m_max) %>%
 #   distinct() %>%
-#   write_csv("station_info.csv")
+  # write_csv(str_c(dataDir,
+  #                 "station_info.csv",
+  #                 sep = "/"))
 
 #### JOIN FIELD DATA RECORDS WITH data_si ####
 data_si_station <- 
@@ -225,9 +232,11 @@ data_si_station_gis %>%
 
 # whole data set in 1 file
 data_set_name = "SI_78-79_all"
-estimates_file_name = str_c(data_set_name,
-                            "tsv",
-                            sep = ".")
+estimates_file_name = str_c(dataDir,
+                            "/",
+                            data_set_name,
+                            ".tsv",
+                            sep = "")
 
 num_species <-
   data_si_station_gis %>%
