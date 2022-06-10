@@ -9,6 +9,7 @@ library(tidyverse)
 library(readxl)
 library(janitor)
 library(purrr)
+library(magrittr)
 
 #### USER DEFINED VARIABLES ####
 querydataDir = "../SI/Collections_Data"
@@ -228,15 +229,14 @@ data_si_station_gis %>%
 #   view()
 # 
 
-#### Make EstimateS File All 78-79 ####
+#### Make EstimateS File Function ####
 
 # whole data set in 1 file
 
 mk_estimates_file <-
-  function(inData = data_si_station_gis,
+  function(inData,
            dataDir = "../data",
-           data_set_name = "SI_78-79_all",
-           ){
+           data_set_name = "SI_78-79_all"){
     
     estimates_file_name = str_c(dataDir,
                                 "/",
@@ -287,7 +287,7 @@ mk_estimates_file <-
                               .fns = ~str_c("*SampleSet*")),
                        across(column_names[3:5],
                               .fns = ~str_c("1"))),
-                as_tibble(colnames(data_si_station_gis_estimates)) %>%
+                as_tibble(colnames(inData_estimates)) %>%
                   mutate(index=value) %>%
                   pivot_wider(names_from = index) %>%
                   mutate(across(.cols=everything(),
@@ -300,7 +300,7 @@ mk_estimates_file <-
                                 .fns = ~as.character(num_sites))),       
                   # mutate(identification = as.character(num_species), # better to use column num
                   #        `SP_78-37A` = as.character(num_sites)), # bettern to use column num
-                as_tibble(colnames(data_si_station_gis_estimates)) %>%
+                as_tibble(colnames(inData_estimates)) %>%
                   mutate(index=value) %>%
                   pivot_wider(names_from = index) %>%
                   mutate(across(column_names[1],
@@ -310,7 +310,7 @@ mk_estimates_file <-
                   # mutate(identification = str_replace(identification,
                   #                                     "identification",
                   #                                     "")),
-                data_si_station_gis_estimates %>%
+                inData_estimates %>%
                   mutate(across(.cols = everything(),
                                 .fns = ~ as.character(.)))) 
     
@@ -319,78 +319,17 @@ mk_estimates_file <-
               col_names = FALSE) 
 }
 
+#### Make EstimateS File All 78-79 ####
+data_si_station_gis %>%
+  mk_estimates_file(data_set_name = "SI_78-79_all")
+
 #### Make EstimateS File By Depth 78-79 ####
-
-# whole data set in 1 file
-data_set_name = "SI_78-79_all"
-estimates_file_name = str_c(dataDir,
-                            "/",
-                            data_set_name,
-                            ".tsv",
-                            sep = "")
-
-num_species <-
-  data_si_station_gis %>%
-  select(identification) %>%
-  distinct() %>%
-  pull() %>%
-  length()
-
-num_sites <-
-  data_si_station_gis %>%
-  select(odu_station_code) %>%
-  distinct() %>%
-  pull() %>%
-  length()
-
-data_si_station_gis_estimates <-
-  data_si_station_gis %>%
-  select(odu_station_code, 
-         identification,
-         specimen_count) %>%
-  # group_by(odu_station_code,
-  #          identification) %>%
-  # summarize(specimen_count = sum(specimen_count)) %>%
-  # ungroup() %>%
-  pivot_wider(names_from = odu_station_code,
-              values_from = specimen_count,
-              values_fill = 0,
-              values_fn = sum)
-
-
-estimates_inFile <- 
-  bind_rows(as_tibble(colnames(data_si_station_gis_estimates)) %>%
-              mutate(index=value) %>%
-              pivot_wider(names_from = index) %>%
-              mutate(across(.cols=everything(),
-                            .fns = ~str_replace(.,
-                                                ".*",
-                                                ""))) %>%
-              mutate(identification = data_set_name, # better to use column num
-                     `SP_78-37A` = "*SampleSet*",
-                     `SP_78-22` = "1",
-                     `SP_78-1` = "1",
-                     `SP_78-10` = "1"),
-            as_tibble(colnames(data_si_station_gis_estimates)) %>%
-              mutate(index=value) %>%
-              pivot_wider(names_from = index) %>%
-              mutate(across(.cols=everything(),
-                            .fns = ~str_replace(.,
-                                                ".*",
-                                                ""))) %>%
-              mutate(identification = as.character(num_species), # better to use column num
-                     `SP_78-37A` = as.character(num_sites)), # bettern to use column num
-            as_tibble(colnames(data_si_station_gis_estimates)) %>%
-              mutate(index=value) %>%
-              pivot_wider(names_from = index) %>%
-              mutate(identification = str_replace(identification,
-                                                  "identification",
-                                                  "")),
-            data_si_station_gis_estimates %>%
-              mutate(across(.cols = everything(),
-                            .fns = ~ as.character(.)))) 
-
-write_tsv(estimates_inFile,
-          estimates_file_name,
-          col_names = FALSE)  
-
+data_si_station_gis %>%
+  filter(depth_cat == "<2m") %>%
+  mk_estimates_file(data_set_name = "SI_78-79_0-2m")
+data_si_station_gis %>%
+  filter(depth_cat == "2-15m") %>%
+  mk_estimates_file(data_set_name = "SI_78-79_2-15m")
+data_si_station_gis %>%
+  filter(depth_cat == ">15m") %>%
+  mk_estimates_file(data_set_name = "SI_78-79_15-50m")

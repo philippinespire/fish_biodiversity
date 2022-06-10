@@ -12,6 +12,9 @@ library(purrr)
 
 #### USER DEFINED VARIABLES ####
 spRichnessFile = "../data/PracticeEstimateSResult.txt"
+spRichnessFile = "../data/SI_78-79_0-2m_depth_diversity.tsv"
+spRichnessFile = "../data/SI_78-79_2-15m_depth_diversity.tsv"
+spRichnessFile = "../data/SI_78-79_15-50m_depth_diversity.tsv"
 siteCompFile = "../data/PracticeEstimateSResultSpecies.txt"
 siteMetaDataFile = "../data/station_info.xlsx"
 dataDir = "../data"
@@ -25,7 +28,7 @@ dataDir = str_replace(dataDir,
 
 data_sp_richness <-
   read_tsv(spRichnessFile,
-           skip =  3,
+           skip =  7,
            col_names = TRUE) %>%
   clean_names() %>%
   rename_with(.cols = contains("percent_ci_lower"),
@@ -35,8 +38,26 @@ data_sp_richness <-
   rename_with(.cols = contains("percent_ci_upper"),
               .fn = ~str_replace(.,
                                  "_percent_ci_upper_bound",
-                                 "_ci_up")) %>%
-  select(-x46) 
+                                 "_ci_up")) 
+
+#### READ IN COUNT DATA From Multiple Files ####
+data_sp_richness_depth <- 
+  list.files("../data",
+             "*2m_depth_diversity.tsv",
+             full.names = TRUE) %>%
+    map(read_tsv(.,
+                 skip = 7,
+                 col_names = TRUE) %>%
+             mutate(file_name = .)) %>%
+    clean_names() %>%
+    rename_with(.cols = contains("percent_ci_lower"),
+                .fn = ~str_replace(.,
+                                   "_percent_ci_lower_bound",
+                                   "_ci_lw")) %>%
+    rename_with(.cols = contains("percent_ci_upper"),
+                .fn = ~str_replace(.,
+                                   "_percent_ci_upper_bound",
+                                   "_ci_up"))
 
 #### READ IN SITE COMPARISON DATA ####
 
@@ -58,7 +79,7 @@ data_sp_richness %>%
   geom_errorbar(aes(ymin = s_est_95_ci_lw,
                     ymax = s_est_95_ci_up),
                 width = 0.2) +
-  labs(title = str_to_upper("SI 1978-79: Species Abundance"),
+  labs(title = str_to_upper("SI 1978-79: Species Abundance >15m"),
        subtitle = "Rotenone Stations Only",
        x = "SAMPLING SITES",
        y = "S ESTIMATE") +
@@ -78,6 +99,19 @@ data_sp_richness %>%
        y = "S ESTIMATE") +
   theme_classic()
 
+data_sp_richness_depth %>%
+  ggplot(aes(x=samples,
+             y=s_est,
+             color = file_name)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = s_est_95_ci_lw,
+                    ymax = s_est_95_ci_up),
+                width = 0.2) +
+  labs(title = str_to_upper("SI 1978-79: Species Abundance"),
+       subtitle = "Rotenone Stations Only",
+       x = "SAMPLING SITES",
+       y = "S ESTIMATE") +
+  theme_classic()
 
 data_site_comp %>%
   ggplot(aes(y=first_sample,
