@@ -228,7 +228,98 @@ data_si_station_gis %>%
 #   view()
 # 
 
-#### Make EstimateS Files ####
+#### Make EstimateS File All 78-79 ####
+
+# whole data set in 1 file
+
+mk_estimates_file <-
+  function(inData = data_si_station_gis,
+           dataDir = "../data",
+           data_set_name = "SI_78-79_all",
+           ){
+    
+    estimates_file_name = str_c(dataDir,
+                                "/",
+                                data_set_name,
+                                ".tsv",
+                                sep = "")
+    num_species <-
+      inData %>%
+      select(identification) %>%
+      distinct() %>%
+      pull() %>%
+      length()
+    
+    num_sites <-
+      inData %>%
+      select(odu_station_code) %>%
+      distinct() %>%
+      pull() %>%
+      length()
+    
+    inData_estimates <-
+      inData %>%
+        select(odu_station_code, 
+               identification,
+               specimen_count) %>%
+        # group_by(odu_station_code,
+        #          identification) %>%
+        # summarize(specimen_count = sum(specimen_count)) %>%
+        # ungroup() %>%
+        pivot_wider(names_from = odu_station_code,
+                    values_from = specimen_count,
+                    values_fill = 0,
+                    values_fn = sum)
+    
+    column_names <- colnames(inData_estimates)
+    
+    estimates_inFile <- 
+      bind_rows(as_tibble(colnames(inData_estimates)) %>%
+                mutate(index=value) %>%
+                pivot_wider(names_from = index) %>%
+                mutate(across(.cols=everything(),
+                              .fns = ~str_replace(.,
+                                                  ".*",
+                                                  ""))) %>%
+                mutate(across(column_names[1],
+                              .fns = ~str_c(data_set_name)),
+                       across(column_names[2],
+                              .fns = ~str_c("*SampleSet*")),
+                       across(column_names[3:5],
+                              .fns = ~str_c("1"))),
+                as_tibble(colnames(data_si_station_gis_estimates)) %>%
+                  mutate(index=value) %>%
+                  pivot_wider(names_from = index) %>%
+                  mutate(across(.cols=everything(),
+                                .fns = ~str_replace(.,
+                                                   ".*",
+                                                   ""))) %>%
+                  mutate(across(column_names[1],
+                                .fns = ~as.character(num_species)),
+                         across(column_names[2],
+                                .fns = ~as.character(num_sites))),       
+                  # mutate(identification = as.character(num_species), # better to use column num
+                  #        `SP_78-37A` = as.character(num_sites)), # bettern to use column num
+                as_tibble(colnames(data_si_station_gis_estimates)) %>%
+                  mutate(index=value) %>%
+                  pivot_wider(names_from = index) %>%
+                  mutate(across(column_names[1],
+                                .fns = ~str_replace(identification,
+                                                    "identification",
+                                                    ""))),
+                  # mutate(identification = str_replace(identification,
+                  #                                     "identification",
+                  #                                     "")),
+                data_si_station_gis_estimates %>%
+                  mutate(across(.cols = everything(),
+                                .fns = ~ as.character(.)))) 
+    
+    write_tsv(estimates_inFile,
+              estimates_file_name,
+              col_names = FALSE) 
+}
+
+#### Make EstimateS File By Depth 78-79 ####
 
 # whole data set in 1 file
 data_set_name = "SI_78-79_all"
@@ -254,17 +345,17 @@ num_sites <-
 
 data_si_station_gis_estimates <-
   data_si_station_gis %>%
-    select(odu_station_code, 
-           identification,
-           specimen_count) %>%
-    # group_by(odu_station_code,
-    #          identification) %>%
-    # summarize(specimen_count = sum(specimen_count)) %>%
-    # ungroup() %>%
-    pivot_wider(names_from = odu_station_code,
-                values_from = specimen_count,
-                values_fill = 0,
-                values_fn = sum)
+  select(odu_station_code, 
+         identification,
+         specimen_count) %>%
+  # group_by(odu_station_code,
+  #          identification) %>%
+  # summarize(specimen_count = sum(specimen_count)) %>%
+  # ungroup() %>%
+  pivot_wider(names_from = odu_station_code,
+              values_from = specimen_count,
+              values_fill = 0,
+              values_fn = sum)
 
 
 estimates_inFile <- 
@@ -285,8 +376,8 @@ estimates_inFile <-
               pivot_wider(names_from = index) %>%
               mutate(across(.cols=everything(),
                             .fns = ~str_replace(.,
-                                               ".*",
-                                               ""))) %>%
+                                                ".*",
+                                                ""))) %>%
               mutate(identification = as.character(num_species), # better to use column num
                      `SP_78-37A` = as.character(num_sites)), # bettern to use column num
             as_tibble(colnames(data_si_station_gis_estimates)) %>%
@@ -302,3 +393,4 @@ estimates_inFile <-
 write_tsv(estimates_inFile,
           estimates_file_name,
           col_names = FALSE)  
+
