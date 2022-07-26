@@ -18,10 +18,11 @@ gisDataFile = "../SI/Coordinates/Coordinate_Conversions.xlsx"
 siteMetaDataFile = "../data/station_info.xlsx"
 dataDir = "../data"
 
-
 dataDir = str_replace(dataDir,
                       "\\/$",
                       "")
+
+cnf_names = "../data/All_confirmed_names.xlsx"
 
 #### READ IN COUNT DATA ####
 
@@ -39,7 +40,7 @@ data_si <-
   rename(prep_loc_count = preparation_details_preparation_location_count,
          field_number = field_number_s,
          collectors = collector_s) %>%
-  mutate(odu_station_code = str_replace(field_number,
+  mutate(station_code = str_replace(field_number,
                                         " ",
                                         "_"),
          collection_method = str_to_lower(collection_method),
@@ -85,7 +86,7 @@ data_si <-
 #          expedition,
 #          collection_method,
 #          depth_m,
-#          odu_station_code,
+#          station_code,
 #          depth_m_min,
 #          depth_m_max) %>%
 #   distinct() %>%
@@ -144,7 +145,7 @@ data_si_station <-
 data_gis <-
   read_excel(gisDataFile) %>%
   clean_names() %>%
-  select(odu_station_code:smithsonian_station_code,
+  select(station_code:smithsonian_station_code,
          starts_with("adjusted_"),
          -starts_with("x"))
 
@@ -152,7 +153,9 @@ data_gis <-
 data_si_station_gis <-
   data_si_station %>%
   left_join(data_gis,
-            by = "odu_station_code")
+            by = "station_code") %>%
+  left_join(CAS_verified,
+            by = c("identification" = "original_id"))
 
 rm(data_si,
    data_si_station,
@@ -160,14 +163,14 @@ rm(data_si,
 
 #### DATA VISUALIZE ####
 data_si_station_gis %>%
-  select(odu_station_code,
+  select(station_code,
          starts_with("depth_m_")) %>%
   pivot_longer(cols = depth_m_min:depth_m_max,
                names_to = "depth_cat",
                values_to = "meters") %>%
   distinct() %>%
   
-  ggplot(aes(x=odu_station_code,
+  ggplot(aes(x=station_code,
              y=meters,
              color = depth_cat)) +
   geom_point() +
@@ -176,7 +179,7 @@ data_si_station_gis %>%
                                    vjust = 0.5))
 
 data_si_station_gis %>%
-  select(odu_station_code,
+  select(station_code,
          starts_with("depth_m_max")) %>%
 
   distinct() %>%
@@ -196,7 +199,7 @@ data_si_station_gis %>%
                                        "2-15m",
                                        ">15m"))) %>%
   filter(!is.na(depth_cat)) %>%
-  select(odu_station_code,
+  select(station_code,
          starts_with("depth_cat")) %>%
   distinct() %>%
   ggplot(aes(x=depth_cat)) +
@@ -252,21 +255,21 @@ mk_estimates_file <-
     
     num_sites <-
       inData %>%
-      select(odu_station_code) %>%
+      select(station_code) %>%
       distinct() %>%
       pull() %>%
       length()
     
     inData_estimates <-
       inData %>%
-        select(odu_station_code, 
+        select(station_code, 
                identification,
                specimen_count) %>%
-        # group_by(odu_station_code,
+        # group_by(station_code,
         #          identification) %>%
         # summarize(specimen_count = sum(specimen_count)) %>%
         # ungroup() %>%
-        pivot_wider(names_from = odu_station_code,
+        pivot_wider(names_from = station_code,
                     values_from = specimen_count,
                     values_fill = 0,
                     values_fn = sum)
