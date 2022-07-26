@@ -22,7 +22,7 @@ dataDir = str_replace(dataDir,
                       "\\/$",
                       "")
 
-cnf_names = "../data/All_confirmed_names.xlsx"
+CAS_verified_names = "../data/All_confirmed_names.xlsx"
 
 #### READ IN COUNT DATA ####
 
@@ -145,6 +145,7 @@ data_si_station <-
 data_gis <-
   read_excel(gisDataFile) %>%
   clean_names() %>%
+  rename(station_code = odu_station_code) %>%
   select(station_code:smithsonian_station_code,
          starts_with("adjusted_"),
          -starts_with("x"))
@@ -154,8 +155,10 @@ data_si_station_gis <-
   data_si_station %>%
   left_join(data_gis,
             by = "station_code") %>%
-  left_join(CAS_verified,
-            by = c("identification" = "original_id"))
+  left_join(read_excel(CAS_verified_names),
+            by = c("identification" = "original_id")) %>%
+  mutate(lowest_tax = case_when(is.na(lowest_tax) ~ identification,
+                                TRUE ~ lowest_tax))
 
 rm(data_si,
    data_si_station,
