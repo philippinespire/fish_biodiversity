@@ -30,7 +30,7 @@ data_si <-
   list.files(querydataDir,
              querydataPattern,
              full.names = TRUE) %>%
-  map(.,
+  purrr::map(.,
       ~ read_csv(.x)) %>%
   bind_rows() %>%
   clean_names() %>%
@@ -157,8 +157,13 @@ data_si_station_gis <-
             by = "station_code") %>%
   left_join(read_excel(CAS_verified_names),
             by = c("identification" = "original_id")) %>%
-  mutate(lowest_tax = case_when(is.na(lowest_tax) ~ identification,
-                                TRUE ~ lowest_tax))
+  mutate(verified_identification = case_when(is.na(verified_identification) ~ identification,
+                                TRUE ~ verified_identification)) %>%
+  rename(notes = notes.x,
+         notes_cas_verification = notes.y)
+  # rebecca, you need to use rename to make these column names align across the data sets
+
+
 
 rm(data_si,
    data_si_station,
