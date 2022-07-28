@@ -37,7 +37,7 @@ data_si <-
   remove_empty(which = c("cols")) %>%
   distinct(catalog_number_usnm, # if we don't do this, get 2 more records
            .keep_all = TRUE) %>%
-  rename(prep_loc_count = preparation_details_preparation_location_count,
+  dplyr::rename(prep_loc_count = preparation_details_preparation_location_count,
          field_number = field_number_s,
          collectors = collector_s) %>%
   mutate(station_code = str_replace(field_number,
@@ -145,7 +145,7 @@ data_si_station <-
 data_gis <-
   read_excel(gisDataFile) %>%
   clean_names() %>%
-  rename(station_code = odu_station_code) %>%
+  dplyr::rename(station_code = odu_station_code) %>%
   select(station_code:smithsonian_station_code,
          starts_with("adjusted_"),
          -starts_with("x"))
@@ -160,11 +160,24 @@ data_si_station_gis <-
   mutate(verified_identification = case_when(is.na(verified_identification) ~ identification,
                                 TRUE ~ verified_identification)) %>%
   rename(notes = notes.x,
-         notes_cas_verification = notes.y)
-  # rebecca, you need to use rename to make these column names align across the data sets
-
-
-
+         notes_cas_verification = notes.y) %>%
+  select(-kind_of_object,
+         -special_collections,
+         -type_status,
+         -type_citations,
+         -other_identifications,
+         -centroid_latitude,
+         -centroid_longitude,
+         -collectors,
+         -vessel,
+         -prep_loc_count,
+         -measurements,
+         -accession_number,
+         -gen_bank_numbers,
+         -ezid,
+         -other_numbers_type_value,
+         -record_last_modified)
+ 
 rm(data_si,
    data_si_station,
    data_gis)
@@ -256,7 +269,7 @@ mk_estimates_file <-
                                 sep = "")
     num_species <-
       inData %>%
-      select(identification) %>%
+      select(verified_identification) %>%
       distinct() %>%
       pull() %>%
       length()
@@ -271,10 +284,10 @@ mk_estimates_file <-
     inData_estimates <-
       inData %>%
         select(station_code, 
-               identification,
+               verified_identification,
                specimen_count) %>%
         # group_by(station_code,
-        #          identification) %>%
+        #          verified_identification) %>%
         # summarize(specimen_count = sum(specimen_count)) %>%
         # ungroup() %>%
         pivot_wider(names_from = station_code,

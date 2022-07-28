@@ -12,7 +12,7 @@ library(janitor)
 data_roving <-
   read_excel("RotenoneRovingCombined.xlsx",
              sheet = "Roving") %>%
-  rename(genus_species=...1) %>%
+  rename(identification =...1) %>%
   clean_names()
 
 data_rotenone <-

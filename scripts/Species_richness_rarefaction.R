@@ -9,7 +9,7 @@ library(magrittr)
 
 #### READ IN FILES ####
 data_vegan <-
-  CAS_renamed_list %>%
+  CAS_verified_names %>%
   # make unique taxa
 #   mutate(taxon = str_c(family,
 #                        genus,

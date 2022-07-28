@@ -38,7 +38,8 @@ data_su <-
   mutate(verified_identification = case_when(is.na(verified_identification) ~ identification,
                                 TRUE ~ verified_identification)) %>%
   rename(notes = notes.x,
-         notes_cas_verification = notes.y) %>%
+         notes_cas_verification = notes.y,
+         collectors = collector_s) %>%
   mutate(adjusted_latitude = case_when(is.na(centroid_latitude) ~ as.numeric(conv_unit(dms_latitude,
                                                                             from = "deg_min_sec",
                                                                             to = "dec_deg")),
@@ -47,10 +48,21 @@ data_su <-
                                                                               from = "deg_min_sec",
                                                                               to = "dec_deg")),
                                         TRUE ~ centroid_longitude)) %>%
-  select(-i_dcheck_2nd)
-# rebecca, you need to use rename to make these column names align across the data sets
+  select(-i_dcheck_2nd,
+         -i_dcheck_3rd,
+         -i_dcheck_1st,
+         -collectors,
+         -dms_latitude,
+         -dms_longitude,
+         -centroid_latitude,
+         -centroid_longitude,
+         -time_start,
+         -time_end,
+         -preservation_method,
+         -samples_retained) %>%
+
+        
   
-#Need to get running list of all unique names in 2016, 19 etc and historical
 
 all_spec_ids <- 
   unique(c(data_su$identification, data_si$identification))
@@ -60,7 +72,6 @@ capture.output(all_spec_ids, file = "all_spec_ids.tsv")
 all_spec_ids <- data.frame(all_spec_ids)
 write_tsv(all_spec_ids, file = "all_spec_ids.tsv")
 filter(x!=y)
-
 
 all_spec_ids <- tibble(all_spec_ids) %>%
   filter(all_spec_ids != "NA") %>%

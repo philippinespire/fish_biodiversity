@@ -39,7 +39,8 @@ data_cas <-
   drop_na(specimen_count) %>%
   left_join(read_excel(CAS_verified_names),
             by = c("genus_species" = "original_id")) %>%
-  mutate(verified_identification = case_when(is.na(verified_identification) ~ genus_species,
+  rename(identification = genus_species)
+  mutate(verified_identification = case_when(is.na(verified_identification) ~ identification,
                                 TRUE ~ verified_identification)) %>%
   rename(notes = notes.x,
          notes_cas_verification = notes.y)
