@@ -10,6 +10,7 @@ library(readxl)
 library(janitor)
 library(purrr)
 library(magrittr)
+library(lubridate)
 
 #### USER DEFINED VARIABLES ####
 querydataDir = "../SI/Collections_Data"
@@ -55,9 +56,18 @@ data_si <-
          depth_cat = factor(depth_cat,
                             levels = c("<2m",
                                        "2-15m",
-                                       ">15m"))) %>%
+                                       ">15m")),
+         date_collected = str_remove(date_collected,
+                                     " \\(.*$"),
+         date_collected = str_remove(date_collected,
+                                     " to.*$"),
+         date_collected = dmy(date_collected)) %>%
+  # select(catalog_number_usnm,
+  #        date_collected,
+  #        date_collected_2)
   filter(kind_of_object != "Image",
-         date_collected != "4 Dec 1967 (1967 Dec 04 - 0000 00 00; 14:15 - 15:15)",
+         #date_collected != "4 Dec 1967 (1967 Dec 04 - 0000 00 00; 14:15 - 15:15)",
+         date_collected != "1967-12-04",
          !is.na(field_number))
 
 # data_si %>% filter(is.na(depth_m_min)) %>% view()
@@ -99,12 +109,12 @@ data_si_station <-
   data_si %>%
     left_join(read_excel(siteMetaDataFile,
                          na = c("NA",
-                                "",
                                 "na")) %>%
-                clean_names()) %>%
+                clean_names() %>%
+                select(-date_collected)) %>%
     mutate(dist_shore_m_min = case_when(str_detect(dist_shore,
                                                    "\\'") ~ as.numeric(str_remove(dist_shore,
-                                                                                  " .*$")) * 0.3048,
+                                                                                  "[ \\'].*$")) * 0.3048,
                                         str_detect(dist_shore,
                                                    "m *$") ~ as.numeric(str_remove(dist_shore,
                                                                                    " .*$")) * 1,
@@ -112,8 +122,18 @@ data_si_station <-
                                                    "yds") ~ as.numeric(str_remove(dist_shore,
                                                                                   " .*$")) * 0.9144,
                                         str_detect(dist_shore,
+                                                   "1/4") ~ as.numeric(str_replace(dist_shore,
+                                                                                   "1/4",
+                                                                                 "0.25")),
+                                        str_detect(dist_shore,
                                                    "mi") ~ as.numeric(str_remove(dist_shore,
-                                                                                 " .*$")) * 1609.344),
+                                                                                 " .*$")) * 1609.344,
+                                        str_detect(dist_shore,
+                                                   "km") ~ as.numeric(str_remove(dist_shore,
+                                                                                 "km.*$")),
+                                        str_detect(dist_shore,
+                                                   "~") ~ as.numeric(str_remove(dist_shore,
+                                                                                 "~ ")) * 1000),
            ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
            ## figure out how to isolate max dist
            ##!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -155,16 +175,22 @@ data_si_station_gis <-
   data_si_station %>%
   left_join(data_gis,
             by = "station_code") %>%
-  left_join(read_excel(CAS_verified_names),
+  left_join(read_excel(CAS_verified_names) %>%
+              dplyr::select(-family),
             by = c("identification" = "original_id")) %>%
   mutate(verified_identification = case_when(is.na(verified_identification) ~ identification,
-                                TRUE ~ verified_identification)) %>%
+                                TRUE ~ verified_identification),
+         province_state = case_when(is.na(province_state) ~ province,
+                                TRUE ~ province_state)) %>%
   rename(notes = notes.x,
-         notes_cas_verification = notes.y) %>%
-  select(-kind_of_object,
+         notes_cas_verification = notes.y,
+         island = island_name,
+         locality = precise_locality) %>%
+  dplyr::select(-kind_of_object,
          -special_collections,
          -type_status,
          -type_citations,
+         -subfamily,
          -other_identifications,
          -centroid_latitude,
          -centroid_longitude,
@@ -176,184 +202,26 @@ data_si_station_gis <-
          -gen_bank_numbers,
          -ezid,
          -other_numbers_type_value,
-         -record_last_modified)
+         -record_last_modified,
+         -catalog_number_usnm,
+         -name_hierarchy,
+         -ocean,
+         -sea_gulf,
+         -archipelago,
+         -country,
+         -district_county,
+         -cruise:-collection_method,
+         -depth_m_min,
+         -depth_m_max,
+         -depth_cat,
+         -odu_station_code,
+         -collection_method_manual,
+         -method_capture:-chemical_euthanasia,
+         -smithsonian_station_code,
+         -island_grouping,
+         -province,
+         -province_code)
  
 rm(data_si,
    data_si_station,
    data_gis)
-
-#### DATA VISUALIZE ####
-data_si_station_gis %>%
-  select(station_code,
-         starts_with("depth_m_")) %>%
-  pivot_longer(cols = depth_m_min:depth_m_max,
-               names_to = "depth_cat",
-               values_to = "meters") %>%
-  distinct() %>%
-  
-  ggplot(aes(x=station_code,
-             y=meters,
-             color = depth_cat)) +
-  geom_point() +
-  theme(axis.text.x = element_text(angle = 90,
-                                   hjust = 1,
-                                   vjust = 0.5))
-
-data_si_station_gis %>%
-  select(station_code,
-         starts_with("depth_m_max")) %>%
-
-  distinct() %>%
-  
-  ggplot(aes(x=depth_m_max)) +
-  geom_histogram(bins = 43) +
-  theme_classic()
-
-
-data_si_station_gis %>%
-  mutate(depth_cat = case_when(depth_m_max < 2 ~ "<2m",
-                               depth_m_max <= 15 ~ "2-15m",
-                               depth_m_max >15 ~ ">15m",
-                               TRUE ~ NA_character_),
-         depth_cat = factor(depth_cat,
-                            levels = c("<2m",
-                                       "2-15m",
-                                       ">15m"))) %>%
-  filter(!is.na(depth_cat)) %>%
-  select(station_code,
-         starts_with("depth_cat")) %>%
-  distinct() %>%
-  ggplot(aes(x=depth_cat)) +
-  geom_bar() +
-  theme_classic()
-# #### DATA CHECKING ####
-# data_si %>% 
-#   select(field_number_s) %>%
-#   unique() %>%
-#   view()
-#   
-# data_si %>% 
-#   filter(is.na(field_number_s)) %>%
-#   view()
-# 
-# data_si %>% 
-#   select(field_number_s,
-#          date_collected) %>%
-#   distinct() %>%
-#   arrange(date_collected,
-#           field_number_s) %>%
-#   view()
-# 
-# data_si %>% 
-#   select(field_number_s,
-#          date_collected) %>%
-#   distinct() %>%
-#   arrange(field_number_s,
-#           date_collected) %>%
-#   view()
-# 
-
-#### Make EstimateS File Function ####
-
-# whole data set in 1 file
-
-mk_estimates_file <-
-  function(inData,
-           dataDir = "../data",
-           data_set_name = "SI_78-79_all"){
-    
-    estimates_file_name = str_c(dataDir,
-                                "/",
-                                data_set_name,
-                                ".tsv",
-                                sep = "")
-    num_species <-
-      inData %>%
-      select(verified_identification) %>%
-      distinct() %>%
-      pull() %>%
-      length()
-    
-    num_sites <-
-      inData %>%
-      select(station_code) %>%
-      distinct() %>%
-      pull() %>%
-      length()
-    
-    inData_estimates <-
-      inData %>%
-        select(station_code, 
-               verified_identification,
-               specimen_count) %>%
-        # group_by(station_code,
-        #          verified_identification) %>%
-        # summarize(specimen_count = sum(specimen_count)) %>%
-        # ungroup() %>%
-        pivot_wider(names_from = station_code,
-                    values_from = specimen_count,
-                    values_fill = 0,
-                    values_fn = sum)
-    
-    column_names <- colnames(inData_estimates)
-    
-    estimates_inFile <- 
-      bind_rows(as_tibble(colnames(inData_estimates)) %>%
-                mutate(index=value) %>%
-                pivot_wider(names_from = index) %>%
-                mutate(across(.cols=everything(),
-                              .fns = ~str_replace(.,
-                                                  ".*",
-                                                  ""))) %>%
-                mutate(across(column_names[1],
-                              .fns = ~str_c(data_set_name)),
-                       across(column_names[2],
-                              .fns = ~str_c("*SampleSet*")),
-                       across(column_names[3:5],
-                              .fns = ~str_c("1"))),
-                as_tibble(colnames(inData_estimates)) %>%
-                  mutate(index=value) %>%
-                  pivot_wider(names_from = index) %>%
-                  mutate(across(.cols=everything(),
-                                .fns = ~str_replace(.,
-                                                   ".*",
-                                                   ""))) %>%
-                  mutate(across(column_names[1],
-                                .fns = ~as.character(num_species)),
-                         across(column_names[2],
-                                .fns = ~as.character(num_sites))),       
-                  # mutate(identification = as.character(num_species), # better to use column num
-                  #        `SP_78-37A` = as.character(num_sites)), # bettern to use column num
-                as_tibble(colnames(inData_estimates)) %>%
-                  mutate(index=value) %>%
-                  pivot_wider(names_from = index) %>%
-                  mutate(across(column_names[1],
-                                .fns = ~str_replace(identification,
-                                                    "identification",
-                                                    ""))),
-                  # mutate(identification = str_replace(identification,
-                  #                                     "identification",
-                  #                                     "")),
-                inData_estimates %>%
-                  mutate(across(.cols = everything(),
-                                .fns = ~ as.character(.)))) 
-    
-    write_tsv(estimates_inFile,
-              estimates_file_name,
-              col_names = FALSE) 
-}
-
-#### Make EstimateS File All 78-79 ####
-data_si_station_gis %>%
-  mk_estimates_file(data_set_name = "SI_78-79_all")
-
-#### Make EstimateS File By Depth 78-79 ####
-data_si_station_gis %>%
-  filter(depth_cat == "<2m") %>%
-  mk_estimates_file(data_set_name = "SI_78-79_0-2m")
-data_si_station_gis %>%
-  filter(depth_cat == "2-15m") %>%
-  mk_estimates_file(data_set_name = "SI_78-79_2-15m")
-data_si_station_gis %>%
-  filter(depth_cat == ">15m") %>%
-  mk_estimates_file(data_set_name = "SI_78-79_15-50m")

@@ -8,6 +8,7 @@ library(janitor)
 library(purrr)
 library(magrittr)
 library(measurements)
+library(lubridate)
 
 #### USER DEFINED VARIABLES ####
 inFilePath = "../data/SU-SI_Duplicates(1).xlsx"
@@ -17,10 +18,16 @@ CAS_verified_names = "../data/All_confirmed_names.xlsx"
 
 
 data_su <- 
-  read_excel(inFilePath) %>%
+  read_excel(inFilePath,
+             na = "NA") %>%
   clean_names() %>%
   mutate(samples_retained = case_when(!is.na(x53) ~ x53,
-                                      TRUE ~ samples_retained) ) %>%
+                                      TRUE ~ samples_retained),
+        specimen_count = case_when(str_detect(specimen_count,
+                                              "http") ~ NA_character_,
+                                       TRUE ~ specimen_count),
+        specimen_count = as.numeric(specimen_count),
+        date_collected = ymd(date_collected)) %>%
   select(-x53) %>%
   remove_empty(which = c("cols")) %>%
   # group_by(catalog_number) %>%
@@ -37,9 +44,13 @@ data_su <-
             by = c("identification" = "original_id")) %>%
   mutate(verified_identification = case_when(is.na(verified_identification) ~ identification,
                                 TRUE ~ verified_identification)) %>%
-  rename(notes = notes.x,
+  dplyr::rename(notes = notes.x,
          notes_cas_verification = notes.y,
-         collectors = collector_s) %>%
+         collectors = collector_s,
+         ecol_habitat = ecological_habitat,
+         dist_shore = distance_from_shore,
+         depth_m = depth_water,
+         locality = precise_locality) %>%
   mutate(adjusted_latitude = case_when(is.na(centroid_latitude) ~ as.numeric(conv_unit(dms_latitude,
                                                                             from = "deg_min_sec",
                                                                             to = "dec_deg")),
@@ -59,20 +70,28 @@ data_su <-
          -time_start,
          -time_end,
          -preservation_method,
-         -samples_retained) %>%
+         -samples_retained,
+         -i_dnotes,
+         -i_dchange,
+         -i_dprevious,
+         -country,
+         -expedition,
+         -collection_method,
+         -station_code_7879,
+         -lot_id)
 
         
   
 
-all_spec_ids <- 
-  unique(c(data_su$identification, data_si$identification))
-view(all_spec_ids)
-capture.output(all_spec_ids, file = "all_spec_ids.tsv")
-
-all_spec_ids <- data.frame(all_spec_ids)
-write_tsv(all_spec_ids, file = "all_spec_ids.tsv")
-filter(x!=y)
-
-all_spec_ids <- tibble(all_spec_ids) %>%
-  filter(all_spec_ids != "NA") %>%
-  write_tsv(file = "all_spec_ids.tsv")
+# all_spec_ids <- 
+#   unique(c(data_su$identification, data_si$identification))
+# view(all_spec_ids)
+# capture.output(all_spec_ids, file = "all_spec_ids.tsv")
+# 
+# all_spec_ids <- data.frame(all_spec_ids)
+# write_tsv(all_spec_ids, file = "all_spec_ids.tsv")
+# filter(x!=y)
+# 
+# all_spec_ids <- tibble(all_spec_ids) %>%
+#   filter(all_spec_ids != "NA") %>%
+#   write_tsv(file = "all_spec_ids.tsv")

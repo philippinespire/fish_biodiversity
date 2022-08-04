@@ -27,23 +27,24 @@ CAS_verified_names = "../data/All_confirmed_names.xlsx"
 #### READ IN COUNT DATA ####
 
 data_cas <-
-  read_excel(inFilePath,
-             range="A1:AD490",
+  readxl::read_excel(inFilePath,
+             range="B1:AD490",
              sheet = inFileSheet2) %>%
-  clean_names() %>%
-  rename(notes = x1) %>%
+  janitor::clean_names() %>%
+  #dplyr::rename(notes = x1) %>%
   drop_na(family:genus_species) %>%
   pivot_longer(cols = zam_05:mab_356,
                names_to = "station_code",
                values_to = "specimen_count") %>%
   drop_na(specimen_count) %>%
-  left_join(read_excel(CAS_verified_names),
-            by = c("genus_species" = "original_id")) %>%
-  rename(identification = genus_species)
+  left_join(readxl::read_excel(CAS_verified_names) %>%
+              dplyr::select(-family),
+                    by = c("genus_species" = "original_id")) %>%
+  dplyr::rename(identification = genus_species) %>%
   mutate(verified_identification = case_when(is.na(verified_identification) ~ identification,
-                                TRUE ~ verified_identification)) %>%
-  rename(notes = notes.x,
-         notes_cas_verification = notes.y)
+                                TRUE ~ verified_identification))
+  # dplyr::rename(notes = notes.x,
+  #               notes_cas_verification = notes.y)
 
 
 # #### IDENTIFY TAXA TO BE VERIFIED ####
@@ -72,7 +73,22 @@ metadata_cas <-
 data_cas_all <-
   data_cas %>%
   left_join(metadata_cas,
-            by = "station_code") #%>%
-  # rebecca, you need to use rename to make these column names align across the data sets
+            by = "station_code") %>%
+  rename(bottom = bottom_type,
+         depth_m = depth_of_capture,
+         adjusted_latitude = lat_deg_dec_1,
+         adjusted_longitude = long_deg_dec_1,
+         province_state = state) %>%
+  dplyr::select(-coll_date_from,
+                -source,
+                -lat_verbatim_1,
+                -long_verbatim_1,
+                -country,
+                -collector:-continent_ocean,
+                -salinity,
+                -gear:-last_edited_by,
+                -notes)
+  
 
-
+rm(data_cas,
+   metadata_cas)
