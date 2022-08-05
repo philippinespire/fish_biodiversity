@@ -18,18 +18,27 @@ theme_set(
 
 #### USER DEFINED VARIABLES ####
 
-inFilePath3 = "../data/MPA_coordinates.xlsx"
-inFilePath2 = 
+inFilePath = "../data/MPA_coordinates.xlsx"
+#inFilePath2 = 
   # inFilePath2 = "./PHIRES_MetaData.xlsx"
   
   # outFilePath = "./data_combined.tsv"
   
   #### READ IN DATA & CURATE ####
 
-data1 <-
-  read_excel(inFilePath3,
+data <-
+  read_excel(inFilePath,
            na="NA") %>%
   clean_names()
+
+data_mpa <-
+  data %>%
+  clean_names() %>%
+  dplyr::rename(size = area_ha)
+  select(lat,
+         long,
+         size,
+         year)
 
 #### COMBINE DATA ####
 
@@ -43,7 +52,7 @@ data1 <-
 
 #### VISuALIZE METADATA ####
 
-data1 %>%
+data %>%
   ggplot(aes(y=lat,
              x=long,
              color = "black")) +
@@ -73,46 +82,51 @@ map_data("world",
   geom_polygon(fill="lightgray",
                colour = "blue") 
 
-# subregion_label_data <- 
-#   map_data("world",
-#            region = "Philippines") %>%
-#   dplyr::group_by(subregion,
-#                   group) %>%
-#   dplyr::summarize(long = mean(long), 
-#                    lat = mean(lat)) %>%
-#   filter(subregion == "Negros" |
-#            subregion == "Cebu")
-# 
-# region_label_data <- 
-#   map_data("world",
-#            region = "Philippines") %>%
-#   dplyr::group_by(region) %>%
-#   dplyr::summarize(long = mean(long), 
-#                    lat = mean(lat))
-# 
-# map_data("world",
-#          region = "Philippines") %>%
-#   filter(long>122 & long<125,
-#          lat>7.5 & lat<12) %>%
-#   ggplot(aes(long,
-#              lat,
-#              group=group)) +
-#   geom_polygon(fill="lightgray",
-#                color = "white") +
-#   geom_text(data = subregion_label_data,
-#             aes(label = subregion),
-#             size = 6,
-#             hjust = 0.5) +
-#   # geom_text(data = region_label_data,
-#   # aes(x = long,
-#   #   y= lat,
-#   # label = region),
-#   #  size = 10,
-#   # hjust = 0.5,
-#   # inherit.aes = FALSE) +
-#   geom_point(data = data_gis,
-#              aes(x = adjusted_longitude,
-#                  y = adjusted_latitude,
-#                  color = province_code),
-#              inherit.aes = FALSE)
-# 
+subregion_label_data <-
+  map_data("world",
+           region = "Philippines") %>%
+  dplyr::group_by(subregion,
+                  group) %>%
+  dplyr::summarize(long = mean(long),
+                   lat = mean(lat)) %>%
+  filter(subregion == "Negros" |
+           subregion == "Cebu")
+
+region_label_data <-
+  map_data("world",
+           region = "Philippines") %>%
+  dplyr::group_by(region) %>%
+  dplyr::summarize(long = mean(long),
+                   lat = mean(lat))
+
+map_data("world",
+         region = "Philippines") %>%
+  filter(long>122 & long<125,
+         lat>7.5 & lat<12) %>%
+  ggplot(aes(long,
+             lat,
+             group=group)) +
+  geom_polygon(fill="lightgray",
+               color = "white") +
+  geom_text(data = subregion_label_data,
+            aes(label = subregion),
+            size = 6,
+            hjust = 0.5) +
+  # geom_text(data = region_label_data,
+  # aes(x = long,
+  #   y= lat,
+  # label = region),
+  #  size = 10,
+  # hjust = 0.5,
+  # inherit.aes = FALSE) +
+  geom_point(data = data_mpa, #tibble with mpa lat/long I need to create
+             aes(x = long,
+                 y = lat,
+                 color = size,
+                 shape = year,
+                   inherit.aes = FALSE))
+             #very last tutorial map should be used
+             
+             
+             
+      

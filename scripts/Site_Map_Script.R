@@ -21,20 +21,20 @@ theme_set(
 
 inFilePath1 = "./station_info.csv"
 inFilePath2 = 
-# inFilePath2 = "./PHIRES_MetaData.xlsx"
-
-# outFilePath = "./data_combined.tsv"
-
-#### READ IN DATA & CURATE ####
+  # inFilePath2 = "./PHIRES_MetaData.xlsx"
+  
+  # outFilePath = "./data_combined.tsv"
+  
+  #### READ IN DATA & CURATE ####
 
 data <-
   read_csv(inFilePath1,
-             na="NA") %>%
+           na="NA") %>%
   clean_names()
 
 #### COMBINE DATA ####
 
-  # rearrange order of columns, metadata then data
+# rearrange order of columns, metadata then data
 
 
 #### WRITE LONG FORMAT FILE ####
@@ -82,7 +82,7 @@ subregion_label_data <-
   dplyr::summarize(long = mean(long), 
                    lat = mean(lat)) %>%
   filter(subregion == "Negros" |
-  subregion == "Cebu")
+           subregion == "Cebu")
 
 region_label_data <- 
   map_data("world",
@@ -105,15 +105,14 @@ map_data("world",
             size = 6,
             hjust = 0.5) +
   # geom_text(data = region_label_data,
-            # aes(x = long,
-             #   y= lat,
-               # label = region),
-          #  size = 10,
-           # hjust = 0.5,
-           # inherit.aes = FALSE) +
+  # aes(x = long,
+  #   y= lat,
+  # label = region),
+  #  size = 10,
+  # hjust = 0.5,
+  # inherit.aes = FALSE) +
   geom_point(data = data_gis,
              aes(x = adjusted_longitude,
                  y = adjusted_latitude,
                  color = province_code),
              inherit.aes = FALSE)
-
