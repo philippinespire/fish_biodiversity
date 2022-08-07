@@ -34,7 +34,7 @@ data <-
 data_mpa <-
   data %>%
   clean_names() %>%
-  dplyr::rename(size = area_ha)
+  dplyr::rename(size = area_ha) %>%
   select(lat,
          long,
          size,
@@ -52,7 +52,7 @@ data_mpa <-
 
 #### VISuALIZE METADATA ####
 
-data %>%
+data_mpa %>%
   ggplot(aes(y=lat,
              x=long,
              color = "black")) +
