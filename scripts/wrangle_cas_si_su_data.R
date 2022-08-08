@@ -11,6 +11,7 @@ library(janitor)
 library(purrr)
 library(magrittr)
 library(lubridate)
+library(readr)
 
 #### USER DEFINED VARIABLES ####
 
@@ -44,5 +45,5 @@ data_cas_si_su <-
   #          verified_identification:study) %>%
   # summarize(specimen_count = sum(specimen_count))
 
-
+#write_excel_csv(data_cas_si_su, "data_cas_si_su.csv")
   
