@@ -302,7 +302,7 @@ plot(ord, dis="site")
 ordiellipse(ord, study, col=1:3, kind = "ehull", lwd=3)
 plot(ord.fit, col=1:3)
 
-#ordisurf(ord, study, add=TRUE) This gave an error
+ordisurf(ord, study, add=TRUE)
 
 #si data------------------------
 ord <- metaMDS(data_sivegan)
@@ -367,7 +367,7 @@ anova(ord, by="mar", permutations=999)
 anova(ord, by="axis", permutations=999)
 
 #cas 2016 data
-ord <- cca(data_casvegan ~ study, data=data_cas_vegan.env) #error given
+ord <- cca(data_casvegan ~ station_code, data=data_cas_vegan.env) #error given
 ord
 plot(ord, dis="site")
 points(ord, disp="site", pch=21, col=1:3, bg="yellow", cex=1.3)
@@ -378,7 +378,7 @@ anova(ord, by="mar", permutations=999)
 anova(ord, by="axis", permutations=999)
 
 #si data
-ord <- cca(data_sivegan ~ study, data=data_si_vegan.env) #error given
+ord <- cca(data_sivegan ~ station_code, data=data_si_vegan.env) #error given
 ord
 plot(ord, dis="site")
 points(ord, disp="site", pch=21, col=1:3, bg="yellow", cex=1.3)
@@ -389,7 +389,7 @@ anova(ord, by="mar", permutations=999)
 anova(ord, by="axis", permutations=999)
 
 #su data
-ord <- cca(data_suvegan ~ study, data=data_su_vegan.env) #error given
+ord <- cca(data_suvegan ~ station_code, data=data_su_vegan.env) #error given
 ord
 plot(ord, dis="site")
 points(ord, disp="site", pch=21, col=1:3, bg="yellow", cex=1.3)
