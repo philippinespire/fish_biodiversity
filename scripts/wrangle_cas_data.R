@@ -78,7 +78,8 @@ data_cas_all <-
          depth_m = depth_of_capture,
          adjusted_latitude = lat_deg_dec_1,
          adjusted_longitude = long_deg_dec_1,
-         province_state = state) %>%
+         province_state = state,
+         date_collected = verbatim_coll_date) %>%
   dplyr::select(-coll_date_from,
                 -source,
                 -lat_verbatim_1,
@@ -86,7 +87,8 @@ data_cas_all <-
                 -country,
                 -collector:-continent_ocean,
                 -salinity,
-                -gear:-last_edited_by,
+                -gear,
+                -coll_time:-last_edited_by,
                 -notes)
   
 

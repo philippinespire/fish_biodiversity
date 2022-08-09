@@ -38,7 +38,7 @@ data_cas_si_su <-
          -notes,
          -notes_cas_verification,
          -catalog_number,
-         -order:-date_collected,
+         -order,
          -ecol_habitat:-barangay)
   # drop_na() %>%
   # group_by(station_code,

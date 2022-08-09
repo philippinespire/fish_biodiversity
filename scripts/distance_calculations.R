@@ -12,35 +12,63 @@ InFilePath1 = "../data/MPA_coordinates_no_deg.xlsx"
 InFilePath2 = "../data/data_cas_si_su.csv"
 
 
-exceldata <- read_excel(InFilePath1)
-
-exceldata2 <- read_csv(InFilePath2)
-
-list1 <- data.frame(exceldata) %>%
+data_mpa <- 
+  read_excel(InFilePath1,
+             na = c("na",
+                    "NA")) %>%
   clean_names() %>%
-  select(lat,
-         long) %>%
+  mutate(year_established_earliest = str_remove(year_established,
+                                                "[ (].*$"),
+         year_established_earliest = as.numeric(year_established_earliest)) %>%
+  select(-x10) %>%
   drop_na(lat,
           long)
 
-list2 <- data.frame(exceldata2) %>%
+data_study_site <- 
+  read_csv(InFilePath2) %>%
   clean_names() %>%
-  select(adjusted_latitude,
-         adjusted_longitude) %>%
   drop_na(adjusted_latitude,
-          adjusted_longitude)
+          adjusted_longitude) %>%
+  distinct(study,
+           station_code,
+           .keep_all=TRUE) %>%
+  mutate(study_station_code = str_c(study,
+                                    station_code,
+                                    sep = "-"))
+
+list1 <- data.frame(data_mpa) %>%
+  select(lat,
+         long) 
+
+list2 <- data.frame(data_study_site) %>%
+  select(adjusted_latitude,
+         adjusted_longitude) 
 
 # create distance matrix
-mat <- distm(list1[,c('long',
+data_mpa_study_stationcode_distances <- 
+  distm(list1[,c('long',
                       'lat')], 
-             list2[,c('adjusted_longitude',
-                      'adjusted_latitude')], 
-             fun=distVincentyEllipsoid)
+         list2[,c('adjusted_longitude',
+                  'adjusted_latitude')], 
+         fun=distVincentyEllipsoid) %>%
+  as.data.frame(mat) %>%
+  rename_with(.cols = starts_with("V"),
+              .fn = ~ data_study_site$study_station_code) %>%
+  bind_cols(data_mpa)
 
-mat <- as.data.frame(mat)
+data_closest_mpa <-
+  data_mpa_study_stationcode_distances %>%
+  pivot_longer(cols = matches("^[sc][aiu][_s]"),
+               names_to = "study_station_code",
+               values_to = "distance_m") %>%
+  separate(study_station_code,
+           into = c("study"),
+           remove = FALSE) %>%
+  # isolating the closest mpa to each station_code
+  group_by(study_station_code) %>%
+  filter(distance_m == min(distance_m)) %>%
+  # if mpa didn't exist, then se
 
-# assign the name to the point in list1 based on shortest distance in the matrix
-list1$longitude <- list2$longitude[max.col(-mat)]
 
 
-write_excel_csv(mat, file = "distance_matrix.csv")
+
