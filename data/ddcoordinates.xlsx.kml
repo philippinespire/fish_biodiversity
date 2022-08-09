@@ -1,0 +1,2325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>ddcoordinates.xlsx</name>
+    <Style id="icon-1739-000000-normal">
+      <IconStyle>
+        <color>ff000000</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1739-000000-highlight">
+      <IconStyle>
+        <color>ff000000</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1739-000000">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1739-000000-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1739-000000-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1739-0288D1-normal">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1739-0288D1-highlight">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1739-0288D1">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1739-0288D1-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1739-0288D1-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1739-097138-normal">
+      <IconStyle>
+        <color>ff387109</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1739-097138-highlight">
+      <IconStyle>
+        <color>ff387109</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1739-097138">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1739-097138-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1739-097138-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1739-0F9D58-normal">
+      <IconStyle>
+        <color>ff589d0f</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1739-0F9D58-highlight">
+      <IconStyle>
+        <color>ff589d0f</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1739-0F9D58">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1739-0F9D58-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1739-0F9D58-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1739-558B2F-normal">
+      <IconStyle>
+        <color>ff2f8b55</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1739-558B2F-highlight">
+      <IconStyle>
+        <color>ff2f8b55</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1739-558B2F">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1739-558B2F-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1739-558B2F-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1739-A52714-normal">
+      <IconStyle>
+        <color>ff1427a5</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1739-A52714-highlight">
+      <IconStyle>
+        <color>ff1427a5</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1739-A52714">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1739-A52714-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1739-A52714-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1739-E65100-normal">
+      <IconStyle>
+        <color>ff0051e6</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1739-E65100-highlight">
+      <IconStyle>
+        <color>ff0051e6</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1739-E65100">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1739-E65100-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1739-E65100-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1739-FFEA00-normal">
+      <IconStyle>
+        <color>ff00eaff</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1739-FFEA00-highlight">
+      <IconStyle>
+        <color>ff00eaff</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1739-FFEA00">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1739-FFEA00-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1739-FFEA00-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-0288D1-normal">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1899-0288D1-highlight">
+      <IconStyle>
+        <color>ffd18802</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1899-0288D1">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-0288D1-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-0288D1-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Style id="icon-1899-097138-normal">
+      <IconStyle>
+        <color>ff387109</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-1899-097138-highlight">
+      <IconStyle>
+        <color>ff387109</color>
+        <scale>1</scale>
+        <Icon>
+          <href>https://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="32" xunits="pixels" y="64" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-1899-097138">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-1899-097138-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-1899-097138-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Placemark>
+      <name><![CDATA[JL_79-01
+Rotenone
+Siaton
+Recon'd
+Location edited by:
+AAB on 4/12/21
+SIA-06?
+]]></name>
+      <description><![CDATA[<img src="https://doc-0o-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/rhjbreberjm6259t0uvethgdts/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbbZRSYw9XFGtldsRTg8IXbJwasvpEibeyW3Iu25v07p_8pmOklsLwmnhaDmAXDikjHmRYTQjWMQXUc1Lqzr6Xkm7D5UMP-op7drEwAbovWRoxJewke1EvyoPY6lorRFgps_K7j__IUrNV6RkMma-KXoFjCyDj6A3Jfy11PN7sRaAvWs7_rLGewNDyf87O-QZ8?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.051004<br>dd_lon: 123.113797]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.051004</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.113797</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0o-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/rhjbreberjm6259t0uvethgdts/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbbZRSYw9XFGtldsRTg8IXbJwasvpEibeyW3Iu25v07p_8pmOklsLwmnhaDmAXDikjHmRYTQjWMQXUc1Lqzr6Xkm7D5UMP-op7drEwAbovWRoxJewke1EvyoPY6lorRFgps_K7j__IUrNV6RkMma-KXoFjCyDj6A3Jfy11PN7sRaAvWs7_rLGewNDyf87O-QZ8?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.113797,9.051004,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>JL_79-02
+Rotenone
+Tanon Strait
+</name>
+      <description><![CDATA[<img src="https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/t2qvo254dup1i2t6e12ll25m4g/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbCwO2mFewKAW9beqWgPBQBw42P7oeE5AQIeOIhoMrsCSOuVbg7YLXH75UqNREZLYSCrF1RAkCuP0xjzxBQQFTFgvpf5gge1zGGDITWTE5OC_S9a_nsoItdaNryZFqRSkXfsydHG-TiFQqqxHSMlR7xPSpZpySaemQytY60JllyAmxzF1mLkp1ybB5h84pbysQ?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.41333<br>dd_lon: 123.3]]></description>
+      <styleUrl>#icon-1739-0288D1</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.41333</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.3</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/t2qvo254dup1i2t6e12ll25m4g/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbCwO2mFewKAW9beqWgPBQBw42P7oeE5AQIeOIhoMrsCSOuVbg7YLXH75UqNREZLYSCrF1RAkCuP0xjzxBQQFTFgvpf5gge1zGGDITWTE5OC_S9a_nsoItdaNryZFqRSkXfsydHG-TiFQqqxHSMlR7xPSpZpySaemQytY60JllyAmxzF1mLkp1ybB5h84pbysQ?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.3,9.41333,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>JL_79-03
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/ken69o2qgks9fshtv5sjnnhuhs/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZG1huy99N7EMPdPlMQoeQ_Ko7h85XkOfkT75RSqWTWv3Tm9wUx9RyQz9SSnSZBAGbnwh7BykC6Hd-dFygCjO7glIA1uXCBG5O5WhHwWIuTCSzw9PgFyNLGcDGV7jD8e3BVpNCYTqwMzF0uKDAmaQ_I2q0oNvbj87V0NvfzApg33-g5uY6-7095ytJACYnRQto?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.925<br>dd_lon: 123.34167]]></description>
+      <styleUrl>#icon-1739-0288D1</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.925</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.34167</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/ken69o2qgks9fshtv5sjnnhuhs/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZG1huy99N7EMPdPlMQoeQ_Ko7h85XkOfkT75RSqWTWv3Tm9wUx9RyQz9SSnSZBAGbnwh7BykC6Hd-dFygCjO7glIA1uXCBG5O5WhHwWIuTCSzw9PgFyNLGcDGV7jD8e3BVpNCYTqwMzF0uKDAmaQ_I2q0oNvbj87V0NvfzApg33-g5uY6-7095ytJACYnRQto?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.34167,9.925,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>JL_79-04
+Rotenone
+700 ft from Pescador Island MPA</name>
+      <description><![CDATA[<img src="https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/deikq0i6km4hr1b8nnr5qmr07k/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaffILVOwnaMXZnc75JP1gYYXPF_to23wpud5acPkGL67V63OxHV5BBKsNYAQhbu_kcabiHMHGq1ADBv3EavY0weGcjwsv13JI5LF22BxiZtevPSIGSt_z2SpR5JluDrpxgaVLJNcp3A37D90gj1QClm0NVcFbwO4R7M99WUrNL_oq-qrWg9pi_neKQYvUzp-0?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.925<br>dd_lon: 123.34167]]></description>
+      <styleUrl>#icon-1739-FFEA00</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.925</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.34167</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/deikq0i6km4hr1b8nnr5qmr07k/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaffILVOwnaMXZnc75JP1gYYXPF_to23wpud5acPkGL67V63OxHV5BBKsNYAQhbu_kcabiHMHGq1ADBv3EavY0weGcjwsv13JI5LF22BxiZtevPSIGSt_z2SpR5JluDrpxgaVLJNcp3A37D90gj1QClm0NVcFbwO4R7M99WUrNL_oq-qrWg9pi_neKQYvUzp-0?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.34167,9.925,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>JL_79-05
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/0nobl9eembanfiek8r9hq7qvno/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZrnrhl1kJp8-VJaubvo-GKciMMrksS-obcYoizvBgaepANlEo3ztJbK49mjP2xELZv1MmIbcPYeFAPSIZeEx-uXpCzHVHiwO0Awof2ugklWN7cqjE6Y75zR07r_uT4gWMxAKDtZZF0lzbDIOGg0ODuslthZs1NGv_pB0AzkZeP9gI7fgiEol09mpKjSqAKOtk?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.77167<br>dd_lon: 123.34167]]></description>
+      <styleUrl>#icon-1739-0288D1</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.77167</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.34167</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/0nobl9eembanfiek8r9hq7qvno/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZrnrhl1kJp8-VJaubvo-GKciMMrksS-obcYoizvBgaepANlEo3ztJbK49mjP2xELZv1MmIbcPYeFAPSIZeEx-uXpCzHVHiwO0Awof2ugklWN7cqjE6Y75zR07r_uT4gWMxAKDtZZF0lzbDIOGg0ODuslthZs1NGv_pB0AzkZeP9gI7fgiEol09mpKjSqAKOtk?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.34167,9.77167,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>JL_79-06
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-0o-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/vvi2h232fr3hvtfqvk6qpp4im0/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1va1N4yVQm2yGhC8dj4Ez9WhgUL2owSDprCItYfsDynDHYL5SIGXHxjxIcsYNiahfDmNugNe3QE3JkmV7NqbXj8I1OHsCkomcyKvfuulLQ3vw73toWB99ILPVj_mjfkNLFAV16I8mvpkfHM6YBG3PKJxg3lpDUPd1pKsPTq-p8k3-DoEwtfemX7YTrzOPcuc0rM?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.075<br>dd_lon: 123.27333]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.075</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.27333</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0o-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/vvi2h232fr3hvtfqvk6qpp4im0/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1va1N4yVQm2yGhC8dj4Ez9WhgUL2owSDprCItYfsDynDHYL5SIGXHxjxIcsYNiahfDmNugNe3QE3JkmV7NqbXj8I1OHsCkomcyKvfuulLQ3vw73toWB99ILPVj_mjfkNLFAV16I8mvpkfHM6YBG3PKJxg3lpDUPd1pKsPTq-p8k3-DoEwtfemX7YTrzOPcuc0rM?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.27333,9.075,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>JL_79-07
+Rotenone
+Potential trouble getting PIC from Oslob due to whale sharks</name>
+      <description><![CDATA[<img src="https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/gqqjm6d3gh9f441lm9nambl0ss/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaPjpEpI5I0H1d4swpIK0lCHNoNjuMhUD3gXOyk8AafKSd0gPLiTHeZYE5_K8fqjdvKooFZmZv9YjlFCzKivs0kR8le-6lpkVksvhh-3Kt5BP-CNKGUVsOTqPtaF_JDi-0N4Y0wWcTWCyAgXOFrEvep0HG4Vg0198CWqDxA5mWGZjjcBdfWaVteuG4wQiobDeM?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.55125<br>dd_lon: 123.4579]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.55125</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.4579</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/gqqjm6d3gh9f441lm9nambl0ss/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaPjpEpI5I0H1d4swpIK0lCHNoNjuMhUD3gXOyk8AafKSd0gPLiTHeZYE5_K8fqjdvKooFZmZv9YjlFCzKivs0kR8le-6lpkVksvhh-3Kt5BP-CNKGUVsOTqPtaF_JDi-0N4Y0wWcTWCyAgXOFrEvep0HG4Vg0198CWqDxA5mWGZjjcBdfWaVteuG4wQiobDeM?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.4579,9.55125,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK_79-01
+Rotenone
+Tanon Strait
+</name>
+      <description><![CDATA[<img src="https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/6tnhthpvfupaeuokuo4evc1l6o/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZzmemFq5bYYyP39S5dx_77njrFNyUJ5ac-mv48_OEO6ePKDwwGEN_ZeoxoZWAkeGGDn5b69xJLRtAPML2z43DuzXiVYB0RUfpd1Jp0UzL-mPXXUcOKlYH5lQnOCQmsLGCSKvCOKEF7TDXr7UAj5ECj1EJPUXQ5-m2R9wp4F6Lnl3HoR49MpTktt_f_GGij0cU?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.3903148<br>dd_lon: 123.2586159]]></description>
+      <styleUrl>#icon-1739-0288D1</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.3903148</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.2586159</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/6tnhthpvfupaeuokuo4evc1l6o/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZzmemFq5bYYyP39S5dx_77njrFNyUJ5ac-mv48_OEO6ePKDwwGEN_ZeoxoZWAkeGGDn5b69xJLRtAPML2z43DuzXiVYB0RUfpd1Jp0UzL-mPXXUcOKlYH5lQnOCQmsLGCSKvCOKEF7TDXr7UAj5ECj1EJPUXQ5-m2R9wp4F6Lnl3HoR49MpTktt_f_GGij0cU?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.2586159,9.3903148,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK-79-02_SU-22-04
+Duplicated: 5/14/22
+Rotenone
+PIC: SIA
+</name>
+      <description><![CDATA[<img src="https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/9jfhg7ehum7tto4q65e5nhnduo/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbmP2R9Nq0w_LPUJYPHwzGgBZM4Gk7DoN1_IYQ32qg7lTZBs9SJNp0g6NkXwg62YUQWRjiU9pc2alQUSovX_vAZ5GKxN239Tu2ddTMrclPcIDcb1uDcwj3kxpb9oX4hiNI3MEthKir1DY8lox3Bu_mQ4yeidCKefsy-KptZNKJNezwfzx-nKwvF-OuiWJMEMTU?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.0511773<br>dd_lon: 122.9896027]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.0511773</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>122.9896027</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/9jfhg7ehum7tto4q65e5nhnduo/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbmP2R9Nq0w_LPUJYPHwzGgBZM4Gk7DoN1_IYQ32qg7lTZBs9SJNp0g6NkXwg62YUQWRjiU9pc2alQUSovX_vAZ5GKxN239Tu2ddTMrclPcIDcb1uDcwj3kxpb9oX4hiNI3MEthKir1DY8lox3Bu_mQ4yeidCKefsy-KptZNKJNezwfzx-nKwvF-OuiWJMEMTU?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          122.9896027,9.0511773,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK-79-03_SU-22-06
+Duplicated: 5/19/22
+Rotenone
+PIC: SIA
+</name>
+      <description><![CDATA[<img src="https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/ae9cs1k1giqvmgooejm4vc6ik0/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaoeM0HfQOsV3ro1kQ5UJFFVFuAEmQwMYoZfYyn5hrhi-hOKzyFhTgMqpPQgoklcN8-c4670hf9Xci6rcDBpeNXwiA8hyBd2atrCowEIBLd3f29Tq0QJ53m0d4MEA-ZKJ0iVtEKMO5OEbNcrUlNwuobWwI7zvCKJfxKWq4RVlNG-2anASPqchBnOsFGN260IEM?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.0902437<br>dd_lon: 122.9336619]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.0902437</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>122.9336619</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/ae9cs1k1giqvmgooejm4vc6ik0/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaoeM0HfQOsV3ro1kQ5UJFFVFuAEmQwMYoZfYyn5hrhi-hOKzyFhTgMqpPQgoklcN8-c4670hf9Xci6rcDBpeNXwiA8hyBd2atrCowEIBLd3f29Tq0QJ53m0d4MEA-ZKJ0iVtEKMO5OEbNcrUlNwuobWwI7zvCKJfxKWq4RVlNG-2anASPqchBnOsFGN260IEM?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          122.9336619,9.0902437,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK-79-04_SU-22-08
+Duplicated: 5/25/22
+Rotenone
+PIC: SIA
+Location moved by Abner on 5/18/22
+</name>
+      <description><![CDATA[<img src="https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/nbftsig6mg2k5dk8meqoqdu92g/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbfQGLdikKka2-nJUWCWBVPkKW5SHPqAnvnpxZ3DybWLoq2dGkappedjMJs3C_HXHseJXt9zvskO_f1BNmL6429kXXFMcY4Z3Ru-k1kLzIek3sh7h2r6hWdI3qEthM7p3GdlW0gQFkaZF9uM0oX7b82DHPhB8WjXO7UaEhCcqujZjzF1UFfmM6sTETHV0bIeyg?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.0673958<br>dd_lon: 123.1496911]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.0673958</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.1496911</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/nbftsig6mg2k5dk8meqoqdu92g/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbfQGLdikKka2-nJUWCWBVPkKW5SHPqAnvnpxZ3DybWLoq2dGkappedjMJs3C_HXHseJXt9zvskO_f1BNmL6429kXXFMcY4Z3Ru-k1kLzIek3sh7h2r6hWdI3qEthM7p3GdlW0gQFkaZF9uM0oX7b82DHPhB8WjXO7UaEhCcqujZjzF1UFfmM6sTETHV0bIeyg?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.1496911,9.0673958,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK_79-05
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-04-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/fhjbi9bk8ovntsue74k3ekmr5g/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYNuI61jKt6GF59MDsxH_m012T1GYWAaN3SNrXfAAJ5Von02RO4ajv889myhPN_XDQPwjaNXHrZzAaeaTjqGoZJRCTDk_UYmvui04tqMV5WiC6q60zmQfvuwGWaIbRbHRWP7iFRWmHD8eoHVzukhRz4qh31EyvhPiKVuph1CDdDeyrvqjnM9QAkX1MOJ6BL40I?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 8.74667<br>dd_lon: 123.21167]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>8.74667</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.21167</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-04-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/fhjbi9bk8ovntsue74k3ekmr5g/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYNuI61jKt6GF59MDsxH_m012T1GYWAaN3SNrXfAAJ5Von02RO4ajv889myhPN_XDQPwjaNXHrZzAaeaTjqGoZJRCTDk_UYmvui04tqMV5WiC6q60zmQfvuwGWaIbRbHRWP7iFRWmHD8eoHVzukhRz4qh31EyvhPiKVuph1CDdDeyrvqjnM9QAkX1MOJ6BL40I?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.21167,8.74667,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK_79-06
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/989bujb05l4mjgr7r81920894o/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbSk3K4y2MC1QT5u-JD95uFdW72PUe11GvFdYhgCxANAN1BIqN_ZbFY1o9uolY9Q0SOI5pHFSLWlx7cKhj9yB1O-5n52MRFAYbczPvcNXZnFYOxYEkSZgVkdYPQey31uiHG-olZc9fU7IqTbCPxpwxD-A56w197uVvzS2UgxPVtG15aQ_Ybl7DB2FqrhLx7Ewo?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 8.85167<br>dd_lon: 123.41167]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>8.85167</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.41167</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/989bujb05l4mjgr7r81920894o/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbSk3K4y2MC1QT5u-JD95uFdW72PUe11GvFdYhgCxANAN1BIqN_ZbFY1o9uolY9Q0SOI5pHFSLWlx7cKhj9yB1O-5n52MRFAYbczPvcNXZnFYOxYEkSZgVkdYPQey31uiHG-olZc9fU7IqTbCPxpwxD-A56w197uVvzS2UgxPVtG15aQ_Ybl7DB2FqrhLx7Ewo?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.41167,8.85167,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK_79-07
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/g52137p42q4v5i9va94eogaqoo/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZ6t6dsU-84daj9aV62lRRM8SrwxgMDSHB2hklv-cAxJfa5a6GXvxw-Gr5S-wDifGPnq7zhp4AX-H9zD0GxwH9a7WlXChnSFWxES4wOIsG60JPUaIH7arLfcu99jLxig0vfD-3kCRUbhueHFi0JUe_Kl7oLLZN57uWZvPQZYOkzgXepo_VBmhKZUQcBaA3k1A4?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 8.85667<br>dd_lon: 123.41]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>8.85667</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.41</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/g52137p42q4v5i9va94eogaqoo/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZ6t6dsU-84daj9aV62lRRM8SrwxgMDSHB2hklv-cAxJfa5a6GXvxw-Gr5S-wDifGPnq7zhp4AX-H9zD0GxwH9a7WlXChnSFWxES4wOIsG60JPUaIH7arLfcu99jLxig0vfD-3kCRUbhueHFi0JUe_Kl7oLLZN57uWZvPQZYOkzgXepo_VBmhKZUQcBaA3k1A4?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.41,8.85667,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK_79-08
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/gc9pqbpo3bhdb9d10bpipav4uk/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaEVzhved-jUqsWlT_9XDBmARZQ72qQt4kowFJ-3DE4MVJ801I7AZ3krU613twjJR0Oqm4mhqkfepJc1ke-csLSZJ6trs9FFLxpWh6Own632WFUfIn9BICV7cBFtsv_XdStzXsqFLj_5CCXt_VhzMnb5w0J32zXv67azxochAaU2_t-gbG0D1iDk7aRW8AggjE?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 8.855<br>dd_lon: 123.41]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>8.855</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.41</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/gc9pqbpo3bhdb9d10bpipav4uk/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaEVzhved-jUqsWlT_9XDBmARZQ72qQt4kowFJ-3DE4MVJ801I7AZ3krU613twjJR0Oqm4mhqkfepJc1ke-csLSZJ6trs9FFLxpWh6Own632WFUfIn9BICV7cBFtsv_XdStzXsqFLj_5CCXt_VhzMnb5w0J32zXv67azxochAaU2_t-gbG0D1iDk7aRW8AggjE?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.41,8.855,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK_79-09
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-04-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/437g9hi7qc9d8cd7702iuj4cs8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbbWcY9K9dUhoiMj-asTc7jAKEXOvW0veuacS4P-TyOw9nHv4qP1m2r8DanwzFxhoUM-d2TnRZozr4OzMZCitLbmVu1yaCKy3CnDRYxLr2mzV3L9BvSzjyJJ-Lhfqkg4TzJB_ZrJ9t63GKvuNIW_UacPp7DAlH3CwuHjioQrmhXxsfrYLICPO3isHRKFd1DnOE?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 8.86167<br>dd_lon: 123.40833]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>8.86167</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.40833</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-04-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/437g9hi7qc9d8cd7702iuj4cs8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbbWcY9K9dUhoiMj-asTc7jAKEXOvW0veuacS4P-TyOw9nHv4qP1m2r8DanwzFxhoUM-d2TnRZozr4OzMZCitLbmVu1yaCKy3CnDRYxLr2mzV3L9BvSzjyJJ-Lhfqkg4TzJB_ZrJ9t63GKvuNIW_UacPp7DAlH3CwuHjioQrmhXxsfrYLICPO3isHRKFd1DnOE?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.40833,8.86167,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK_79-10
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/53f16c33drv3uib233vino4ieo/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbFvzAXDsjYGgkYpAby0dsWEGNBzPXk2L6AU2IVNgfoZdj-ZMm6PtWamAr9V-GrVYcGYLEN1jzPIJG2FcDXP4TRKVit_q6TXrliM_fEbBxpEAcigXMUKnMxlkrF0BHa7iaufOISvAqS3tFjtELMxv2yFAHMq_iydU7-bEjUdtARUZ4iEJkhMA-QRsKrRKU-Vh8?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 8.86167<br>dd_lon: 123.41]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>8.86167</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.41</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/53f16c33drv3uib233vino4ieo/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbFvzAXDsjYGgkYpAby0dsWEGNBzPXk2L6AU2IVNgfoZdj-ZMm6PtWamAr9V-GrVYcGYLEN1jzPIJG2FcDXP4TRKVit_q6TXrliM_fEbBxpEAcigXMUKnMxlkrF0BHa7iaufOISvAqS3tFjtELMxv2yFAHMq_iydU7-bEjUdtARUZ4iEJkhMA-QRsKrRKU-Vh8?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.41,8.86167,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK_79-11
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-0o-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/nav0apias7bvbpgre5t2m1e1cs/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vb4hPvTXNvrDMry6ddfmzeKtlILgwwDCJIfYz6g_SsZHQErkNC4pbQyDS6eQG7Tn22wogbxkDns5vzAsUUQ6UKSr1qFSmjGeAcKlaHV9BkcqRrsRhF_UTvstNmQd_z8xHiU6MuV2LqQbKK46uFIOf8LKvzadWxksAhrAaoyX5eziSEUGI9Y5wurkvu7D-sPNnI?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.58333<br>dd_lon: 123.15333]]></description>
+      <styleUrl>#icon-1739-FFEA00</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.58333</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.15333</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0o-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/nav0apias7bvbpgre5t2m1e1cs/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vb4hPvTXNvrDMry6ddfmzeKtlILgwwDCJIfYz6g_SsZHQErkNC4pbQyDS6eQG7Tn22wogbxkDns5vzAsUUQ6UKSr1qFSmjGeAcKlaHV9BkcqRrsRhF_UTvstNmQd_z8xHiU6MuV2LqQbKK46uFIOf8LKvzadWxksAhrAaoyX5eziSEUGI9Y5wurkvu7D-sPNnI?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.15333,9.58333,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK_79-12
+Rotenone
+Siaton</name>
+      <description><![CDATA[<img src="https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/stmlrahh72ootjsah1skviaha8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZR2xGC7Y-XuPj0krLdUCPZODwYerHbKrRa01A3SEJ8IXes1lzS0xzF1tpCUB7IyRCM3ZIG6FGv1J7kNYiuQyO_-r9PEUp8JrB2pQyJ4zpz3CiCTAU7m5zQ5-Mo1k3tvn5oxSsWzPHnT0lQRkZB4j8YJVb-zqdWV1HOYsExP5Tw9_3uVb5f8lfxbht_Wun48Ew?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.0501894<br>dd_lon: 123.0447128]]></description>
+      <styleUrl>#icon-1739-FFEA00</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.0501894</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.0447128</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/stmlrahh72ootjsah1skviaha8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZR2xGC7Y-XuPj0krLdUCPZODwYerHbKrRa01A3SEJ8IXes1lzS0xzF1tpCUB7IyRCM3ZIG6FGv1J7kNYiuQyO_-r9PEUp8JrB2pQyJ4zpz3CiCTAU7m5zQ5-Mo1k3tvn5oxSsWzPHnT0lQRkZB4j8YJVb-zqdWV1HOYsExP5Tw9_3uVb5f8lfxbht_Wun48Ew?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.0447128,9.0501894,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK-79-13_SU-19-01
+Duplicated: 6/12/19
+Rotenone
+PIC: SIQ</name>
+      <description><![CDATA[<img src="https://doc-0o-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/31134rv8ip94nplbcvhis71luo/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZPJ93IM06jQqVJSudBvpLy76MctXaxCuLHmCGR0Iezl2EdFa3wmUkgctkgp3WIN1WztRlnUJc0a02-0LASJeE0SoceNinVLv6fkeL3EU5D7dXewbYKq-Xmld3MOArh_ndbjdCA02AlSexGdjtY2X3uHvkpBPrrUWdcUp3cEgHLoTq0cYsSFc_rZyivO-yl9cw?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.225<br>dd_lon: 123.48]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.225</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.48</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0o-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/31134rv8ip94nplbcvhis71luo/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZPJ93IM06jQqVJSudBvpLy76MctXaxCuLHmCGR0Iezl2EdFa3wmUkgctkgp3WIN1WztRlnUJc0a02-0LASJeE0SoceNinVLv6fkeL3EU5D7dXewbYKq-Xmld3MOArh_ndbjdCA02AlSexGdjtY2X3uHvkpBPrrUWdcUp3cEgHLoTq0cYsSFc_rZyivO-yl9cw?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.48,9.225,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK_79-14</name>
+      <description><![CDATA[<img src="https://doc-0c-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/qikcs38i8bo7pon4rfnbi5ads8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZFg-2vc0MXeGI98GYU1flT8F4ITggvPgWRgaoWj0KP9hrBa37qRB3O-axtP6DFyJNxL8CowqRM_DuAcGAhW0X4BhE4t2GIwD3wxAW-XVuF0lLOYduwFMH9S719unv_6nkojq1F71KM3QZtDMJ0C7oZ_4tlfR6K3GjZfXXbAh6FdvnQYREWGJhYbsf8yLNoi8I?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.2195221<br>dd_lon: 123.4843492]]></description>
+      <styleUrl>#icon-1739-FFEA00</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.2195221</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.4843492</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0c-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/qikcs38i8bo7pon4rfnbi5ads8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZFg-2vc0MXeGI98GYU1flT8F4ITggvPgWRgaoWj0KP9hrBa37qRB3O-axtP6DFyJNxL8CowqRM_DuAcGAhW0X4BhE4t2GIwD3wxAW-XVuF0lLOYduwFMH9S719unv_6nkojq1F71KM3QZtDMJ0C7oZ_4tlfR6K3GjZfXXbAh6FdvnQYREWGJhYbsf8yLNoi8I?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.4843492,9.2195221,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK-79-15_SU-22-22
+Duplicated: 6/30/22
+Rotenone
+PIC: SIQ</name>
+      <description><![CDATA[<img src="https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/iq7ofejo7u5p3t1epnpn0l09fg/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaGlSIYN0KcKiTc185Dop5ctASnInQZUkESTlUnw9cxmeIYWfwiCMsISZ9_u3rZenvJg4HpqmPbRMnoIk72R3kdtbnhj7BNpzW-HEGg8uH4WFs5SlwDU5gcEdOcRNa9lp2Sm7LTtIKavWkv04fihQrewZwYfPFZVa0gJ8aihvYdledjCJiuTjGWiBiQPn7KHsA?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.225413<br>dd_lon: 123.468962]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.225413</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.468962</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/iq7ofejo7u5p3t1epnpn0l09fg/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaGlSIYN0KcKiTc185Dop5ctASnInQZUkESTlUnw9cxmeIYWfwiCMsISZ9_u3rZenvJg4HpqmPbRMnoIk72R3kdtbnhj7BNpzW-HEGg8uH4WFs5SlwDU5gcEdOcRNa9lp2Sm7LTtIKavWkv04fihQrewZwYfPFZVa0gJ8aihvYdledjCJiuTjGWiBiQPn7KHsA?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.468962,9.225413,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK-79-16_SU-22-23
+Duplicated: 7/1/22
+Rotenone
+PIC: LAR</name>
+      <description><![CDATA[<img src="https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/d7ekqa4o3hd01mic4trs75t7lk/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZ-2l-ZtzILHivSV-p03Iku6ERNX7OqGpGWO14JK547LJ94uo6tKakjmkL0hUosmblmfmUwo6cQzPzGw9jI8DlxNkBEYfyBiup6-dRO9VXnpO6_wGVbL8WOxmgdnWqK1Bc2_CfGVwAJeNQx6TX12CVP6xJw1t_GKohNOJYZ599OKOrcMV1L_P6O1Hzg4onCluU?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.2473462<br>dd_lon: 123.5753604]]></description>
+      <styleUrl>#icon-1739-558B2F</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.2473462</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.5753604</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/d7ekqa4o3hd01mic4trs75t7lk/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZ-2l-ZtzILHivSV-p03Iku6ERNX7OqGpGWO14JK547LJ94uo6tKakjmkL0hUosmblmfmUwo6cQzPzGw9jI8DlxNkBEYfyBiup6-dRO9VXnpO6_wGVbL8WOxmgdnWqK1Bc2_CfGVwAJeNQx6TX12CVP6xJw1t_GKohNOJYZ599OKOrcMV1L_P6O1Hzg4onCluU?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.5753604,9.2473462,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK_79-17
+Rotenone
+Check distance from Banban-Luyang MPA</name>
+      <description><![CDATA[<img src="https://doc-0s-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/4dsns560e6d0q7q9eh65k858i8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYhuuCMSwgi-T6ThR2rZDmIC9XGo7m7-46FDb03mzkYohTyXf_huEyuw3ybiGjeWTgX3WzeymGnn3q-8BKvQjFhG9c2OokX411DdBRuyzZkM-kXdachblv05gIFt5GIxPBSoizxBpTWwYxR4aAMyiXOAmW41zD2jEDOOXxd0ZWD4MucN-kut8UUDCASJf6PaVQ?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.23<br>dd_lon: 123.558]]></description>
+      <styleUrl>#icon-1739-FFEA00</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.23</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.558</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0s-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/4dsns560e6d0q7q9eh65k858i8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYhuuCMSwgi-T6ThR2rZDmIC9XGo7m7-46FDb03mzkYohTyXf_huEyuw3ybiGjeWTgX3WzeymGnn3q-8BKvQjFhG9c2OokX411DdBRuyzZkM-kXdachblv05gIFt5GIxPBSoizxBpTWwYxR4aAMyiXOAmW41zD2jEDOOXxd0ZWD4MucN-kut8UUDCASJf6PaVQ?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.558,9.23,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK_79-18
+Rotenone
+Tanon Strait
+</name>
+      <description><![CDATA[<img src="https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/ht19pc1qo1gl9qvcqqo9j6dkh8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaw-PuUVdL8QzGDLyOHVifVrQsW-E6yTNYZiVVsKbpnj8TE6pyjibfk7fKEydEad_jtNj4So8zSqzjktF_i1OYMxYx0JeqOnlgC-rKnbtZsi2XPsCcY3NVRa33kq0Ajv6gbTmsQ-nn0sQMYU0ZU-lA5I5ewVS1p9gVvIBiWGUPhB5zcabbQ8xCSYIJ2eAD0yew?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.3679085<br>dd_lon: 123.2740666]]></description>
+      <styleUrl>#icon-1739-0288D1</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.3679085</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.2740666</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/ht19pc1qo1gl9qvcqqo9j6dkh8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaw-PuUVdL8QzGDLyOHVifVrQsW-E6yTNYZiVVsKbpnj8TE6pyjibfk7fKEydEad_jtNj4So8zSqzjktF_i1OYMxYx0JeqOnlgC-rKnbtZsi2XPsCcY3NVRa33kq0Ajv6gbTmsQ-nn0sQMYU0ZU-lA5I5ewVS1p9gVvIBiWGUPhB5zcabbQ8xCSYIJ2eAD0yew?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.2740666,9.3679085,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>LK-79-19
+Rotenone
+PIC: SIA</name>
+      <description><![CDATA[<img src="https://doc-0o-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/a0hs9rpapb065ed19m33psk83k/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbEgsTPST7D6skO6YUcgZnNSMtE-mYdc9d2ve8qoAZwaKLTUaJadU5JM4idvl9XbwfqgW5KpmsbdZUo2jazoDL1omks1AFfYrZiRWqIymUQ3Ec-GJBLEJ-_AZ1dkChlCRSH4NraY64vdmaccGG_XF3TwMqXTTj6Fe80aqpcMWABi4PO34Z9bwpWzfnTeq95p0w?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.0513733<br>dd_lon: 122.9889482]]></description>
+      <styleUrl>#icon-1739-0288D1</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.0513733</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>122.9889482</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0o-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/a0hs9rpapb065ed19m33psk83k/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbEgsTPST7D6skO6YUcgZnNSMtE-mYdc9d2ve8qoAZwaKLTUaJadU5JM4idvl9XbwfqgW5KpmsbdZUo2jazoDL1omks1AFfYrZiRWqIymUQ3Ec-GJBLEJ-_AZ1dkChlCRSH4NraY64vdmaccGG_XF3TwMqXTTj6Fe80aqpcMWABi4PO34Z9bwpWzfnTeq95p0w?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          122.9889482,9.0513733,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[LK_79-20
+Rotenone & Hawaiian slings]]></name>
+      <description><![CDATA[<img src="https://doc-0s-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/qbc5j203ehhadptd4mnqi4895g/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vag3S_IPgKFny09yIaWQzpVoua74589I7789W4KRFPrIgiVLahB-hlERyFIQncO4L2dZmg6EOGo2ROBAMqDN_afVmS5z6asd-CzecBkUR4lh_vOTsYXfMdxBtp2hla3zlXzZu1EaC4lG398H8tt6-USuIyOKjdhVmmLxNiqpe3Vs6u38M_ib65eECWLdJjGG9U?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.075<br>dd_lon: 123.27333]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.075</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.27333</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0s-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/qbc5j203ehhadptd4mnqi4895g/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vag3S_IPgKFny09yIaWQzpVoua74589I7789W4KRFPrIgiVLahB-hlERyFIQncO4L2dZmg6EOGo2ROBAMqDN_afVmS5z6asd-CzecBkUR4lh_vOTsYXfMdxBtp2hla3zlXzZu1EaC4lG398H8tt6-USuIyOKjdhVmmLxNiqpe3Vs6u38M_ib65eECWLdJjGG9U?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.27333,9.075,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[SP_78-01
+Rotenone & spear
+Tanon Strait
+]]></name>
+      <description><![CDATA[<img src="https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/8sgtm8ac30cffvs7llisj763m4/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vY1TTS3p0J3Vgvk1SYIxYS5EgGNCOY6l5ittYs0oqkWANUdQ5MzrmhlnHj8uzRDr43eJY7DKynUdcANKBlFrTcjjqVYDFGKWt4yX4QpuQY-C8HFFJa0rYybUVj7uRC-5LGE6x03lBLZ09CXIqT5MYH5G-j718fMLVg9obFgcZUsaoMZJomAhV2FyKMW7xXw9FQ?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.42083<br>dd_lon: 123.29583]]></description>
+      <styleUrl>#icon-1739-0288D1</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.42083</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.29583</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/8sgtm8ac30cffvs7llisj763m4/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vY1TTS3p0J3Vgvk1SYIxYS5EgGNCOY6l5ittYs0oqkWANUdQ5MzrmhlnHj8uzRDr43eJY7DKynUdcANKBlFrTcjjqVYDFGKWt4yX4QpuQY-C8HFFJa0rYybUVj7uRC-5LGE6x03lBLZ09CXIqT5MYH5G-j718fMLVg9obFgcZUsaoMZJomAhV2FyKMW7xXw9FQ?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.29583,9.42083,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[SP_78-02
+Rotenone & dipnet
+Tanon Strait]]></name>
+      <description><![CDATA[<img src="https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/h597noekltpgs7gcqk4d2grpfs/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYf6LqEPGgPex7LMHskr_TRnnhMcd9znPctgfpYeOVL6c3X1CWnc1LtqeChigmzWVDZO3ZUT_AoCb_MqLGhPcN5SevbFSqxRMOreyopU7usEwfIFPWL3Pey8zlzwiqMCHWiv2qzpPndLgYglExaOxyLlNvLDHgWdvsugkV5H9jPaFEYtW-QUlm-k8gS_lXGEL8?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.41278<br>dd_lon: 123.325]]></description>
+      <styleUrl>#icon-1739-0288D1</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.41278</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.325</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/h597noekltpgs7gcqk4d2grpfs/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYf6LqEPGgPex7LMHskr_TRnnhMcd9znPctgfpYeOVL6c3X1CWnc1LtqeChigmzWVDZO3ZUT_AoCb_MqLGhPcN5SevbFSqxRMOreyopU7usEwfIFPWL3Pey8zlzwiqMCHWiv2qzpPndLgYglExaOxyLlNvLDHgWdvsugkV5H9jPaFEYtW-QUlm-k8gS_lXGEL8?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.325,9.41278,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-03_SU-22-24
+Duplicated: 7/2/22
+Rotenone
+PIC: SAJ
+Check distance to Paliton MPA
+</name>
+      <description><![CDATA[<img src="https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/shrdaem1k8ag9el63l9thdpmgs/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZxIBU6V9h4w7cv3r0FE3SgHfarrxSMjcnDD1rRGjAv41TqyLrSTBMUYLc6l9Kzk-4M8ow2x6fhrQyfGqOvwbT8_UvB_gVyksd8o81SGbzgLltayk549zl9NIWRuwViqXKAx00gKxeRFhNvEszPa4GKtT-y5GOALAVdgEY2IgXdu5-1dBoREjZO5VDQLfMa2gg?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.175466<br>dd_lon: 123.4640113]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.175466</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.4640113</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/shrdaem1k8ag9el63l9thdpmgs/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZxIBU6V9h4w7cv3r0FE3SgHfarrxSMjcnDD1rRGjAv41TqyLrSTBMUYLc6l9Kzk-4M8ow2x6fhrQyfGqOvwbT8_UvB_gVyksd8o81SGbzgLltayk549zl9NIWRuwViqXKAx00gKxeRFhNvEszPa4GKtT-y5GOALAVdgEY2IgXdu5-1dBoREjZO5VDQLfMa2gg?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.4640113,9.175466,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP-78-04_SU-19-04
+Duplicated: 6/13/22
+Rotenone
+PIC: SAJ</name>
+      <description><![CDATA[<img src="https://doc-00-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/9plg14iqa5d91nt4k4t15om5fs/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbT3IaREBQwoI5PAsPoz-WLvYOMA-PR4LyYrg7HOeEL4dbMOCFxakQ_0Bagag9K3GgQ1ccl_ni_73qOjYKacUtUH7xDlGNTq4Zf6Uh-NqwMe25RUboh2AnhgkzkxD0V4AGSX9HSXzdu3zswIQexvf9kAjhfaPjLzb67PwY333LSdsnjCFaX8z5Pe8zfiWfoA-c?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.14167<br>dd_lon: 123.48944]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.14167</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.48944</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-00-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/9plg14iqa5d91nt4k4t15om5fs/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbT3IaREBQwoI5PAsPoz-WLvYOMA-PR4LyYrg7HOeEL4dbMOCFxakQ_0Bagag9K3GgQ1ccl_ni_73qOjYKacUtUH7xDlGNTq4Zf6Uh-NqwMe25RUboh2AnhgkzkxD0V4AGSX9HSXzdu3zswIQexvf9kAjhfaPjLzb67PwY333LSdsnjCFaX8z5Pe8zfiWfoA-c?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.48944,9.14167,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP-78-05_SU-22-21
+Duplicated: 6/29/22
+Rotenone
+PIC: SAJ
+Large swell dispersed rotenone a lot. 
+Low catch
+</name>
+      <description><![CDATA[<img src="https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/b3q2aqhbsa1mm5787qt4cspaoc/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYUCb_LK-mkvUH6h9KZcJ-pcaO5dKgumGGgOBzXNr-RnOQ-mH8nuxd9dk_TRt0rtE1nZBhar4Arq8rYsIjrjc-tcnuzHNkT4P81xu0STk1E4JnJO_Cpv8G0_NXd8I2M6Wwhn0nSyE1GxyqLpoC2f3TV0C3oJK-iHcjpmTSrAZ1sXHoLqyEdvKMW8WRtN9e13Bg?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.1867019<br>dd_lon: 123.4479369]]></description>
+      <styleUrl>#icon-1739-558B2F</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.1867019</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.4479369</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/b3q2aqhbsa1mm5787qt4cspaoc/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYUCb_LK-mkvUH6h9KZcJ-pcaO5dKgumGGgOBzXNr-RnOQ-mH8nuxd9dk_TRt0rtE1nZBhar4Arq8rYsIjrjc-tcnuzHNkT4P81xu0STk1E4JnJO_Cpv8G0_NXd8I2M6Wwhn0nSyE1GxyqLpoC2f3TV0C3oJK-iHcjpmTSrAZ1sXHoLqyEdvKMW8WRtN9e13Bg?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.4479369,9.1867019,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[SP_78-06
+"?Fish Traps"]]></name>
+      <description><![CDATA[<img src="https://doc-00-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/qvhbm4h8ha612he595ustvf4g4/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZDm8u-upc1QDU59ucMMv4DLbHOuFuV5USzPHg6CqIq9tXbLAN7Qf1GXdVNoltJY8CCODCVVjgYDOA3vbLeYmcrKUXInsG66xWPRSOJN3_qSQZ4ooggZhvA911iwOFuOvpcnetNT9_dgYOpH0oX-v5MqWc8Zi-92yggT8orUr_KVdhElXCoQo1C9qzMrHCF_jA?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.146449<br>dd_lon: 123.47278]]></description>
+      <styleUrl>#icon-1739-000000</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.146449</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.47278</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-00-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/qvhbm4h8ha612he595ustvf4g4/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZDm8u-upc1QDU59ucMMv4DLbHOuFuV5USzPHg6CqIq9tXbLAN7Qf1GXdVNoltJY8CCODCVVjgYDOA3vbLeYmcrKUXInsG66xWPRSOJN3_qSQZ4ooggZhvA911iwOFuOvpcnetNT9_dgYOpH0oX-v5MqWc8Zi-92yggT8orUr_KVdhElXCoQo1C9qzMrHCF_jA?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.47278,9.146449,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP-78-07_SU-19-02
+Duplicated: 6/12/19
+Rotenone
+PIC: SAJ</name>
+      <description><![CDATA[<img src="https://doc-0s-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/t6on7gtg546o17kgfgia3dboog/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYxjGeHcCuBWBhZfX8Ij3bKAQoRJ0_5iu4TSxKp88a2zUdJAOiezdxxwjb0KYMA7p11kKBuPf1VocRmGl0Q5Rci4z3ERK3Ri8kh5YT79c-aaXI5ZY6qtyKyMfxjftUokd39wO9lZwAU9g4Y8hdYNJeLSnbBdooy9GcF2OTWnoz8JoK_wIN2DFS4gM2enaVYJTs?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.14111<br>dd_lon: 123.49444]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.14111</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.49444</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0s-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/t6on7gtg546o17kgfgia3dboog/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYxjGeHcCuBWBhZfX8Ij3bKAQoRJ0_5iu4TSxKp88a2zUdJAOiezdxxwjb0KYMA7p11kKBuPf1VocRmGl0Q5Rci4z3ERK3Ri8kh5YT79c-aaXI5ZY6qtyKyMfxjftUokd39wO9lZwAU9g4Y8hdYNJeLSnbBdooy9GcF2OTWnoz8JoK_wIN2DFS4gM2enaVYJTs?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.49444,9.14111,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-08
+Rotenone
+Siaton
+Location edited by:
+AAB on 4/12/21
+</name>
+      <description><![CDATA[<img src="https://doc-04-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/r902jculo5b33qgdbo60c4aoig/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbY6vbVuJGVSqSC_ek0mPA9T5yVoPJLUPbsn-mgaeOGdbTUWgWvJphOdMkjljIFOqi14q1h_vuNiXq-CW34P5UFuOIlRYrGKfka0UyKpW4wX3HT8PVJMASKPAknQCTQN2WrHz3-9hcHYSoSEaEKAW4oDByTEBTUf20I3pyHT_kbWK_muwnOEcXlkV_MlqIDEyY?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.053619<br>dd_lon: 123.1163919]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.053619</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.1163919</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-04-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/r902jculo5b33qgdbo60c4aoig/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbY6vbVuJGVSqSC_ek0mPA9T5yVoPJLUPbsn-mgaeOGdbTUWgWvJphOdMkjljIFOqi14q1h_vuNiXq-CW34P5UFuOIlRYrGKfka0UyKpW4wX3HT8PVJMASKPAknQCTQN2WrHz3-9hcHYSoSEaEKAW4oDByTEBTUf20I3pyHT_kbWK_muwnOEcXlkV_MlqIDEyY?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.1163919,9.053619,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP-78-09_SU-22-07
+Duplicated: 5/23/22
+Rotenone
+PIC: SIA
+Location edited by: 
+AAB 4/12/21
+</name>
+      <description><![CDATA[<img src="https://doc-0c-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/jebiejmvar6gvuli97i9bjicb8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYWXRs25o0WK2zbXnfoapkNxz7ZwQ4qbtNXvVOxQtHEYHaFkofngJWoNAiyTDsqc1obW_jNpY7qgEHPR18DGR8RuOyiYcCnmqgLrMjm-Jz6ZMgOC3IHZ1T7fWAM-4wr4ihaDHijVnNY8gkZVS50TV3HdFW1TC5doPymDr_hHW3vgaaES8fHC4y9387dRqaXzjk?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.0449798<br>dd_lon: 123.1271438]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.0449798</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.1271438</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0c-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/jebiejmvar6gvuli97i9bjicb8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYWXRs25o0WK2zbXnfoapkNxz7ZwQ4qbtNXvVOxQtHEYHaFkofngJWoNAiyTDsqc1obW_jNpY7qgEHPR18DGR8RuOyiYcCnmqgLrMjm-Jz6ZMgOC3IHZ1T7fWAM-4wr4ihaDHijVnNY8gkZVS50TV3HdFW1TC5doPymDr_hHW3vgaaES8fHC4y9387dRqaXzjk?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.1271438,9.0449798,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP-78-10_SU-22-19 
+Duplicated: 6/21/22
+Rotenone
+PIC: SIA
+Location edited by:
+AAB 4/12/21
+JCW 4/13/21
+</name>
+      <description><![CDATA[<img src="https://doc-04-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/ba81sucibn7kkpcsm5vmve7gi8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYPFmIr47pqKCHNDmDG6pPnCtTaWLYtSjQ01esDodDdG07hHl3xGcbXx2dSJEgK6jYSg6sippmOn5G_Mi51iGuOaWqlELg-uGAnuyz4Z1Trm9bqrnb1BOryfH8C_2lmPxQQBONLi69WN7rl5mCiMY9uzmq7yOc0qIAtko_-Oh2ruBa4ELGqjk3joSn4Wc9FXm8?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.0454687<br>dd_lon: 123.1224568]]></description>
+      <styleUrl>#icon-1739-0F9D58</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.0454687</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.1224568</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-04-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/ba81sucibn7kkpcsm5vmve7gi8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYPFmIr47pqKCHNDmDG6pPnCtTaWLYtSjQ01esDodDdG07hHl3xGcbXx2dSJEgK6jYSg6sippmOn5G_Mi51iGuOaWqlELg-uGAnuyz4Z1Trm9bqrnb1BOryfH8C_2lmPxQQBONLi69WN7rl5mCiMY9uzmq7yOc0qIAtko_-Oh2ruBa4ELGqjk3joSn4Wc9FXm8?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.1224568,9.0454687,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP-78-11_SU-22-20
+Duplicated: 6/22/22
+Rotenone
+PIC: SIA
+Location edited by:
+AAB 4/12/21
+JCW 4/13/21
+</name>
+      <description><![CDATA[<img src="https://doc-0s-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/escutfi4m0ols8761ua00pfr08/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaLQ-dJk9JYAnAmjPvwNaPuQRzwfPb5l5UVuoo__CIcq_a1XZTT9UTU8_6DRh95ip9a_-r4NQ03X9I9qK2kkZV07ADvnlBltMnyy7JaLEblbgsZw01ruI0PI6m0Q1IC9KyVNEOCInHKLfYdVWlGgxeL_LGzzlglco0VeduZRCqT0Bd_MRduCoB5JhaI7Sh3C0I?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.0454714<br>dd_lon: 123.1224568]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.0454714</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.1224568</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0s-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/escutfi4m0ols8761ua00pfr08/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaLQ-dJk9JYAnAmjPvwNaPuQRzwfPb5l5UVuoo__CIcq_a1XZTT9UTU8_6DRh95ip9a_-r4NQ03X9I9qK2kkZV07ADvnlBltMnyy7JaLEblbgsZw01ruI0PI6m0Q1IC9KyVNEOCInHKLfYdVWlGgxeL_LGzzlglco0VeduZRCqT0Bd_MRduCoB5JhaI7Sh3C0I?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.1224568,9.0454714,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP-78-12
+Rotenone
+PIC: SIA</name>
+      <description><![CDATA[<img src="https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/4nbgpricma203rsuj2t9rl9am0/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vasRzjPHpXzxerTBSZKLxtllPI8jsqZyIVBxPR78MbPEwJB_vk-yLWmeSEA7msu1GYHAvSyrfspWQRbClP90iaE6y73-bH6hRJcKcGQgTywcDlmGbMvAF0-A06aIYO_Ll4LL96b3-_CqBft6WIWYK84iSuSfzubmxoah96Ith4q2vAJ1CfR9IakP-R5udrpTuA?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.0517061<br>dd_lon: 122.9897978]]></description>
+      <styleUrl>#icon-1739-0288D1</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.0517061</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>122.9897978</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/4nbgpricma203rsuj2t9rl9am0/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vasRzjPHpXzxerTBSZKLxtllPI8jsqZyIVBxPR78MbPEwJB_vk-yLWmeSEA7msu1GYHAvSyrfspWQRbClP90iaE6y73-bH6hRJcKcGQgTywcDlmGbMvAF0-A06aIYO_Ll4LL96b3-_CqBft6WIWYK84iSuSfzubmxoah96Ith4q2vAJ1CfR9IakP-R5udrpTuA?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          122.9897978,9.0517061,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[SP_78-13
+Rotenone & Dip nets
+Siaton]]></name>
+      <description><![CDATA[<img src="https://doc-0o-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/vtqeslteir27k1maoht9hs1og8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaT7NngN_VpLq70aSbiaeQyHPNfIOP_bZTxxsXSunNS5sTR1ACNmoW3LL37WDP8QOol0m8eyomWw2oJTFp1zfA2tMIxKQzGnPN693DWy38fvBteWzPZWcHoGnmqn1qMs2QEqaojnufYKlrXVjqvAFTtBAVPnJU5admYZNVO-FRH5FT9oTS67dTx0cIJv2LCgXY?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.0495957<br>dd_lon: 123.0446955]]></description>
+      <styleUrl>#icon-1739-FFEA00</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.0495957</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.0446955</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0o-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/vtqeslteir27k1maoht9hs1og8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaT7NngN_VpLq70aSbiaeQyHPNfIOP_bZTxxsXSunNS5sTR1ACNmoW3LL37WDP8QOol0m8eyomWw2oJTFp1zfA2tMIxKQzGnPN693DWy38fvBteWzPZWcHoGnmqn1qMs2QEqaojnufYKlrXVjqvAFTtBAVPnJU5admYZNVO-FRH5FT9oTS67dTx0cIJv2LCgXY?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.0446955,9.0495957,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-14</name>
+      <description><![CDATA[<img src="https://doc-0s-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/0dms6hi9u38ktd1cpofkihj4r0/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbnCa0soO9PUmCjLcyGgwFtp96-VJuuKnsFfvxrydbeIa02wldDHk4phwEWG7off15iUYWQG_rPOtuU1sFTLobyxcE3he7Ty-croNs0t85CSejuitJVtwPwBEGFDumMYAWA6IeXW3n7njVGRgpxlJg-Yrnfh9pApBuHwsyuuJ5pYGFcHiXb7JnaD4jIsE0zTIY?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.32778<br>dd_lon: 123.31389]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.32778</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.31389</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0s-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/0dms6hi9u38ktd1cpofkihj4r0/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbnCa0soO9PUmCjLcyGgwFtp96-VJuuKnsFfvxrydbeIa02wldDHk4phwEWG7off15iUYWQG_rPOtuU1sFTLobyxcE3he7Ty-croNs0t85CSejuitJVtwPwBEGFDumMYAWA6IeXW3n7njVGRgpxlJg-Yrnfh9pApBuHwsyuuJ5pYGFcHiXb7JnaD4jIsE0zTIY?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.31389,9.32778,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-15
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/96e4kun46fm0evcfk76rrd3c80/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZ0Mj9MpNFym2UzAEvKgg_Uo582krXoMVHYSRh4mNTBeulROLObqSlXmYJpOn5RLIbrHJG6g7PLMmo166iGBrNHVtPfM8b99a-vfRBuOKNwlIv5NttG6QCQ2PDy2irlOfFyplVD3EpfDCFxInoDmmjHmweD9QhPNtFXihzGFM6QQR-7j2DuwiLX_ftZlBSJe54?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.57167<br>dd_lon: 123.15]]></description>
+      <styleUrl>#icon-1739-FFEA00</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.57167</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.15</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/96e4kun46fm0evcfk76rrd3c80/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZ0Mj9MpNFym2UzAEvKgg_Uo582krXoMVHYSRh4mNTBeulROLObqSlXmYJpOn5RLIbrHJG6g7PLMmo166iGBrNHVtPfM8b99a-vfRBuOKNwlIv5NttG6QCQ2PDy2irlOfFyplVD3EpfDCFxInoDmmjHmweD9QhPNtFXihzGFM6QQR-7j2DuwiLX_ftZlBSJe54?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.15,9.57167,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-16
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/o4mi3j9r6ad1ervkidmbe14i4c/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vb6QAM3ELTTwqqDSo-bZisjDOt2zTjICxCS-Rd3UlSSnF_TyboTG1uWZ9mhFQXbE2Gz0La22eytRbOg25Tb4oRvcREB3FS5WdLn359Ve1fq0UVW_vKlebMaydsZLLmupiA4KtrnLHsrTMnJOFlEDEDfDYUTa5HOOQ3OUvY1TwmiEwOC-QBUa7uK62LFPOJ5Mtw?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.6164485<br>dd_lon: 123.1724052]]></description>
+      <styleUrl>#icon-1739-0288D1</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.6164485</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.1724052</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/o4mi3j9r6ad1ervkidmbe14i4c/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vb6QAM3ELTTwqqDSo-bZisjDOt2zTjICxCS-Rd3UlSSnF_TyboTG1uWZ9mhFQXbE2Gz0La22eytRbOg25Tb4oRvcREB3FS5WdLn359Ve1fq0UVW_vKlebMaydsZLLmupiA4KtrnLHsrTMnJOFlEDEDfDYUTa5HOOQ3OUvY1TwmiEwOC-QBUa7uK62LFPOJ5Mtw?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.1724052,9.6164485,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP-78-17_SU-22-18
+Duplicated: 6/11/22
+Rotenone
+PIC</name>
+      <description><![CDATA[<img src="https://doc-04-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/cfk8u7e1u2oj556aqr7419oaho/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbLu-TaDjRcnTWzEnFIMHXoePIo5M-59dQLOnAOq2Lmw_zBnezGp0n3bM-t06aaI1w03lygJPoHj2M-Nz9DXJnRJeom-K1UbRVCbCrlat1_els0HZOLsCVYu9VuF7wfcbZpK_-2Lot7XOCUD-LfeaRJZekJBjADtIkf3Sb3eHIer6Lu2c9l25R5P8_QPvEJBkA?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 10.85333<br>dd_lon: 121.00389]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>10.85333</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>121.00389</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-04-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/cfk8u7e1u2oj556aqr7419oaho/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbLu-TaDjRcnTWzEnFIMHXoePIo5M-59dQLOnAOq2Lmw_zBnezGp0n3bM-t06aaI1w03lygJPoHj2M-Nz9DXJnRJeom-K1UbRVCbCrlat1_els0HZOLsCVYu9VuF7wfcbZpK_-2Lot7XOCUD-LfeaRJZekJBjADtIkf3Sb3eHIer6Lu2c9l25R5P8_QPvEJBkA?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          121.00389,10.85333,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP-78-18_SU-22-09
+Duplicated: 6/2/22
+Rotenone
+PIC</name>
+      <description><![CDATA[<img src="https://doc-0s-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/3vn2pai9fbh8nhr5jsatn3ggjs/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYCo6LIBpAO5pbMs6sCof4G_7BF4s2OqfQPW-LsyGKJk5ufhpGpOHYLCcb_Hspqih6O4kzsmiMpmxnie_r5CJLdNjXIlyn89DcZgp8Gps_vKWLfX8o5EJdHD35ljAWh9MJOIQ4_jpV4xgucnPt4-dmLs8uFbZ358KKAcxaMZX3_Jpw8GISvz1dU8HpYYXAGntw?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 10.91806<br>dd_lon: 121.03417]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>10.91806</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>121.03417</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0s-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/3vn2pai9fbh8nhr5jsatn3ggjs/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYCo6LIBpAO5pbMs6sCof4G_7BF4s2OqfQPW-LsyGKJk5ufhpGpOHYLCcb_Hspqih6O4kzsmiMpmxnie_r5CJLdNjXIlyn89DcZgp8Gps_vKWLfX8o5EJdHD35ljAWh9MJOIQ4_jpV4xgucnPt4-dmLs8uFbZ358KKAcxaMZX3_Jpw8GISvz1dU8HpYYXAGntw?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          121.03417,10.91806,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP-78-19_SU-22-10
+Duplicated: 6/3/22
+Rotenone
+PIC
+</name>
+      <description><![CDATA[<img src="https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/ot0ni75a1gfdr0i5to0vtgsjtk/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1va9mrwGy829I1MPUAQS3s6fngF-Ia1lQPeS634uEm0qYcRysPgFHE74Dd7mC18V6IbOT5N43mKpd5-YQu4sH_f2bAGz574gZopGwC77RcF-QNATkvu_TE91kQ2V9nT7T0lHaup_XHNFkr7-_t8-JJc6bkWRuEZYDA4HYLdiJcPvX7KSz0QEcr8umcXG6HoPZrs?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 10.9071922<br>dd_lon: 121.0605512]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>10.9071922</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>121.0605512</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/ot0ni75a1gfdr0i5to0vtgsjtk/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1va9mrwGy829I1MPUAQS3s6fngF-Ia1lQPeS634uEm0qYcRysPgFHE74Dd7mC18V6IbOT5N43mKpd5-YQu4sH_f2bAGz574gZopGwC77RcF-QNATkvu_TE91kQ2V9nT7T0lHaup_XHNFkr7-_t8-JJc6bkWRuEZYDA4HYLdiJcPvX7KSz0QEcr8umcXG6HoPZrs?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          121.0605512,10.9071922,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP-78-20_SU-22-14
+Duplicated: 6/7/22
+Rotenone
+PIC
+</name>
+      <description><![CDATA[<img src="https://doc-04-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/j91amqu0kjvn85hvqscceiuuqk/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbaw8nYPUyIfZCOVDRbUktvr1MA7_aBM_6dM8gUdFRRyo6gkyflkN3SWuy37w6VzuVFSvvyOrju61JqNwQyDyJXGIcnp5SaHlEVCYL6LBsLhpyiZ2Qy8iEEdvlIJVK7oqCXRiQO5mKWyyUACZ40cagGT31EIGeTJW9CcJ9pGy-HU5tpBwjukofGcTXg8ktYAgI?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 10.8734723<br>dd_lon: 120.9348857]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>10.8734723</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>120.9348857</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-04-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/j91amqu0kjvn85hvqscceiuuqk/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbaw8nYPUyIfZCOVDRbUktvr1MA7_aBM_6dM8gUdFRRyo6gkyflkN3SWuy37w6VzuVFSvvyOrju61JqNwQyDyJXGIcnp5SaHlEVCYL6LBsLhpyiZ2Qy8iEEdvlIJVK7oqCXRiQO5mKWyyUACZ40cagGT31EIGeTJW9CcJ9pGy-HU5tpBwjukofGcTXg8ktYAgI?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          120.9348857,10.8734723,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP-78-21_SU-22-13
+Duplicated: 6/6/22
+Rotenone
+PIC</name>
+      <description><![CDATA[<img src="https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/q3vn6csp6an3aol3bps5iuata8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZ4jVsQEzZIkvxr9and0isGWf5HhQfUhNb9X6JCQ8ukVh9dRGn8QbJK-p8eJXWw_33l8rE3sDSU7fM1n4GZEsIVDYNGBrE-usgUKyn6IYIOhJ-xLJ3qRzNNoieX8zgqulyHDv7Nl0hL5H4HAdUBbDLPeDK2JmsLbdtTp2P0BYBzcFtH4XAOfEslnl7pBhKsX-Y?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 10.876552<br>dd_lon: 120.939812]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>10.876552</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>120.939812</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/q3vn6csp6an3aol3bps5iuata8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZ4jVsQEzZIkvxr9and0isGWf5HhQfUhNb9X6JCQ8ukVh9dRGn8QbJK-p8eJXWw_33l8rE3sDSU7fM1n4GZEsIVDYNGBrE-usgUKyn6IYIOhJ-xLJ3qRzNNoieX8zgqulyHDv7Nl0hL5H4HAdUBbDLPeDK2JmsLbdtTp2P0BYBzcFtH4XAOfEslnl7pBhKsX-Y?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          120.939812,10.876552,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP-78-22_SU-22-17
+Duplicated: 6/10/22
+Rotenone
+PIC
+</name>
+      <description><![CDATA[<img src="https://doc-04-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/ues4p0gus7dlgi6khecgjimh98/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbfnsNDxsrQtZj112qZQfj4ESCsrY_I2CEyJNeesLUAwYo35A299f0LdjSajdUZxGxbyFK4lG5QcO4ybXdLiXbJEMrS3vgixy12FjTlZM7okOQ7PuFmQmaGi3qkEnw5vdAVSVNJxuwclCC17e31_2q01xVtQ4QAmGqvCA1NWIjWn2bIi_ZZ11Nru9noUIBaQRo?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 10.815<br>dd_lon: 121.00833]]></description>
+      <styleUrl>#icon-1739-558B2F</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>10.815</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>121.00833</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-04-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/ues4p0gus7dlgi6khecgjimh98/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbfnsNDxsrQtZj112qZQfj4ESCsrY_I2CEyJNeesLUAwYo35A299f0LdjSajdUZxGxbyFK4lG5QcO4ybXdLiXbJEMrS3vgixy12FjTlZM7okOQ7PuFmQmaGi3qkEnw5vdAVSVNJxuwclCC17e31_2q01xVtQ4QAmGqvCA1NWIjWn2bIi_ZZ11Nru9noUIBaQRo?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          121.00833,10.815,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[SP_78-23
+"Pushing dip net thru shallow tide pools with eelgrass"]]></name>
+      <description><![CDATA[<img src="https://doc-0k-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/g10qd169h3mtvhet8a855aki54/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1va7cKnZM7snB-Rabu7VJr6_b-WofHphfnM54fyXhrS38WO_l1UmTl72lDbDOvix9Kr6Sv5THaRp_WfKAiO7ZjoEfv39ffCWYW0bDbvmfdB-sF8pZwa-y5M5ws9OlrXpFNnh4SQssdcwz2cz_7Eu0QHz9Fw6juMz0aEhQdgPdfo43FGQqY9kJ9umMjnfSYiXe1M?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 10.86<br>dd_lon: 121.00556]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>10.86</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>121.00556</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0k-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/g10qd169h3mtvhet8a855aki54/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1va7cKnZM7snB-Rabu7VJr6_b-WofHphfnM54fyXhrS38WO_l1UmTl72lDbDOvix9Kr6Sv5THaRp_WfKAiO7ZjoEfv39ffCWYW0bDbvmfdB-sF8pZwa-y5M5ws9OlrXpFNnh4SQssdcwz2cz_7Eu0QHz9Fw6juMz0aEhQdgPdfo43FGQqY9kJ9umMjnfSYiXe1M?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          121.00556,10.86,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP-78-24_SU-22-11
+Duplicated: 6/4/22
+Rotenone
+PIC
+</name>
+      <description><![CDATA[<img src="https://doc-0s-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/7bi1k09oangsm8lpq54v1ravsg/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYEnEOqIDpwbELCmhUjVMmA81KhMEnABaYNnPwr7etLQwNEQw87J1VMxIKYn_YuCHCD018nZDwIxzIfLOCYtnRXltZDIfagOrcnHES6CglawiEDwEtsrSU_89MFLRt677Tm1YTcAHBzqtDkjMe-4HtayFTJ0X1plwn0QH0xzdqxT4bmnHhtPydFPO4GQ6wM88c?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 10.97167<br>dd_lon: 121.20778]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>10.97167</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>121.20778</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0s-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/7bi1k09oangsm8lpq54v1ravsg/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYEnEOqIDpwbELCmhUjVMmA81KhMEnABaYNnPwr7etLQwNEQw87J1VMxIKYn_YuCHCD018nZDwIxzIfLOCYtnRXltZDIfagOrcnHES6CglawiEDwEtsrSU_89MFLRt677Tm1YTcAHBzqtDkjMe-4HtayFTJ0X1plwn0QH0xzdqxT4bmnHhtPydFPO4GQ6wM88c?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          121.20778,10.97167,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP-78-25_SU-22-16
+Duplicated: 6/9/22
+Rotenone
+PIC
+</name>
+      <description><![CDATA[<img src="https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/fd4jseuksu3fjagjjussuvvk18/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbZPBEQSnaMhCHlyAF4Zj46IWI7tD8xMA2-SDOevro_0wj7nenxnHU7nk2jA-28E2UgSrlrz5sga6WrCokV9m-9evoqXX3nye3jRWW0ZOxgRKR0pAjkWMHQQsIAD8hy8R8DLSd8Wm-fb4_0ZnQd6uHo7fege_RBgt3_Iyd31E6CupjY9D6jlJ4ctmXAJbFIJv4?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 10.96333<br>dd_lon: 121.22556]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>10.96333</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>121.22556</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/fd4jseuksu3fjagjjussuvvk18/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbZPBEQSnaMhCHlyAF4Zj46IWI7tD8xMA2-SDOevro_0wj7nenxnHU7nk2jA-28E2UgSrlrz5sga6WrCokV9m-9evoqXX3nye3jRWW0ZOxgRKR0pAjkWMHQQsIAD8hy8R8DLSd8Wm-fb4_0ZnQd6uHo7fege_RBgt3_Iyd31E6CupjY9D6jlJ4ctmXAJbFIJv4?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          121.22556,10.96333,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP-78-26_SU-22-15
+Duplicated: 6/8/22
+Rotenone
+PIC
+</name>
+      <description><![CDATA[<img src="https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/ft4iho5cde4569nqmce7nt6jl8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZ59txFXzlwssghzNcYs86QU5IqaNdOAbxKIuPHzI8qi-5grB3CS28WE8p3TtZwjEXU1By3x0w1ZGDmXJQVUsT79doM6SbhrvvE63MyqJFADOAxos1OCsQxrExqT3xyJJIPiSBYUOBMwnMfmDwyg620vCfXqTBu2r_BOadxyURxKjvQtzzm6MGkZ2fq1QivsmQ?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 10.8807218<br>dd_lon: 121.2050596]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>10.8807218</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>121.2050596</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/ft4iho5cde4569nqmce7nt6jl8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZ59txFXzlwssghzNcYs86QU5IqaNdOAbxKIuPHzI8qi-5grB3CS28WE8p3TtZwjEXU1By3x0w1ZGDmXJQVUsT79doM6SbhrvvE63MyqJFADOAxos1OCsQxrExqT3xyJJIPiSBYUOBMwnMfmDwyg620vCfXqTBu2r_BOadxyURxKjvQtzzm6MGkZ2fq1QivsmQ?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          121.2050596,10.8807218,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP-78-27_SU-22-12
+Duplicated: 6/5/22
+Rotenone
+PIC</name>
+      <description><![CDATA[<img src="https://doc-00-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/clrf3mfjst0teb7l8ti1jucp0c/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaTTMmhpgVRrlp6AwQU-UaMUn0J6ehR-olE629l0iYvK8sA3z0CRYKxjWqm0COuAZG-xwHbLmIJDF-cmBIlFFgTmf3fI7DYVVvbKYvWU_UE5XHScLouNPf37MaHoLK4y3ONRcNg7qum5Kn9kktjzA03oTqNdrGffE1tZ2FLuEr3NWQrxeIO2tMkUbShZiwLoIU?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 10.88583<br>dd_lon: 121.19278]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>10.88583</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>121.19278</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-00-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/clrf3mfjst0teb7l8ti1jucp0c/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaTTMmhpgVRrlp6AwQU-UaMUn0J6ehR-olE629l0iYvK8sA3z0CRYKxjWqm0COuAZG-xwHbLmIJDF-cmBIlFFgTmf3fI7DYVVvbKYvWU_UE5XHScLouNPf37MaHoLK4y3ONRcNg7qum5Kn9kktjzA03oTqNdrGffE1tZ2FLuEr3NWQrxeIO2tMkUbShZiwLoIU?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          121.19278,10.88583,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-28
+</name>
+      <description><![CDATA[<img src="https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/2anr7ba0ee79ti7gnanvd2juko/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYkWgl7sLH436buc4F02OcXPZU5zVxOlASfANA0GXXbje17zitEFluZc9_IAsfFfN4WsInUw10rKI_W6mAZYIxYbcF_uOtI45AvmXcuWTDyno83GIvYs726SnOW8z3Bn5pV02bn6HrsxXNRZZWHHBROyelxpzi9b-E0PVEHWxkhZe3nnVmq_qH8gXE1QC9dL6E?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 10.89444<br>dd_lon: 121.19778]]></description>
+      <styleUrl>#icon-1739-E65100</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>10.89444</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>121.19778</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/2anr7ba0ee79ti7gnanvd2juko/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYkWgl7sLH436buc4F02OcXPZU5zVxOlASfANA0GXXbje17zitEFluZc9_IAsfFfN4WsInUw10rKI_W6mAZYIxYbcF_uOtI45AvmXcuWTDyno83GIvYs726SnOW8z3Bn5pV02bn6HrsxXNRZZWHHBROyelxpzi9b-E0PVEHWxkhZe3nnVmq_qH8gXE1QC9dL6E?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          121.19778,10.89444,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-29
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/87depkmbpbm6ma8sjtsmuhk65s/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaZ2-EgLQOlABusnrDIUXUTqf7DtFxnA5uS7AxszCaNJuDf-_2AduFYNIFCDKBwBDO0-MmumazEEf_v0Bo1wZF7u_tzPfWsJRkzpEvO1WItx8VuVz0cH8vegqgtf5MG8uqFITB5ahX6C3lvf2v0V4xEvxsDjEeF_ooXjRWoZdpnEz-FFDm0OpgsHVxe4uGpA5Y?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 10.28583<br>dd_lon: 124.00167]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>10.28583</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>124.00167</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/87depkmbpbm6ma8sjtsmuhk65s/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaZ2-EgLQOlABusnrDIUXUTqf7DtFxnA5uS7AxszCaNJuDf-_2AduFYNIFCDKBwBDO0-MmumazEEf_v0Bo1wZF7u_tzPfWsJRkzpEvO1WItx8VuVz0cH8vegqgtf5MG8uqFITB5ahX6C3lvf2v0V4xEvxsDjEeF_ooXjRWoZdpnEz-FFDm0OpgsHVxe4uGpA5Y?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          124.00167,10.28583,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-30
+Method not indicated
+Potentially too busy
+Check distance to Caohagan Marine Sanctuary</name>
+      <description><![CDATA[<img src="https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/iogkb8uvbkum958ba7vh9kem3c/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbIvBx2k0Wvz4Xq0uVTGbN8aKqRD33CLEsbh4tx8nPwsJoYNJhIcivC-cfxwwDA2Bcpqux_abXrMhjywasuT6PyXFbV3x0gXESRm0XBpcW3QMmeP1bB2Hn--nJVLU-k2Y2-lMQFVmUE_JEVockORcvuQoYNESmjIxI5FdyZfETYVCsXUYDCFR9DgYRbBQWcOh0?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 10.28583<br>dd_lon: 124.00167]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>10.28583</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>124.00167</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/iogkb8uvbkum958ba7vh9kem3c/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbIvBx2k0Wvz4Xq0uVTGbN8aKqRD33CLEsbh4tx8nPwsJoYNJhIcivC-cfxwwDA2Bcpqux_abXrMhjywasuT6PyXFbV3x0gXESRm0XBpcW3QMmeP1bB2Hn--nJVLU-k2Y2-lMQFVmUE_JEVockORcvuQoYNESmjIxI5FdyZfETYVCsXUYDCFR9DgYRbBQWcOh0?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          124.00167,10.28583,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-31
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/ultt1cehogej3tkrjf2lftqljs/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaQoaISyFu2-sDdZLqbSfmToWz9HWhQ_9DTbLeInGQR6L7aK-0eCBnUFmkuKOGbCmvyl45dTVEBEf8blEXlbJqMriSnRDatiXaT5fQXtNqpxnWPpCT-wffitzxj3tdwY745kV0_4EVgPNzr544U4gtCxB_K7Ti8sIE2n14LXYwkNV_lGVOIMbIMaidomvwPsfM?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.325<br>dd_lon: 123.31333]]></description>
+      <styleUrl>#icon-1739-FFEA00</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.325</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.31333</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/ultt1cehogej3tkrjf2lftqljs/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaQoaISyFu2-sDdZLqbSfmToWz9HWhQ_9DTbLeInGQR6L7aK-0eCBnUFmkuKOGbCmvyl45dTVEBEf8blEXlbJqMriSnRDatiXaT5fQXtNqpxnWPpCT-wffitzxj3tdwY745kV0_4EVgPNzr544U4gtCxB_K7Ti8sIE2n14LXYwkNV_lGVOIMbIMaidomvwPsfM?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.31333,9.325,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-32
+Rotenone
+Tanon Strait
+</name>
+      <description><![CDATA[<img src="https://doc-0c-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/et7k6gn19n3k67c3ij16l8o13s/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vY_KGcOhedPDE71vUee5qa6xTfl1ecAZBeDQ26kfd7QF12Hs34qlsXG8G7LhwwIgROl74p-JzrQKyHcQeuneIUDTuw5bDCuPPGf65fYgjj9A-eG_1PV65RDsWTcVdD65DwNVE66zjeNU_A6BDQwyyBI4rMSWQ1YYuzCJ0PDdi4ClUyqjn-PSe9OAayMU_oRosY?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.36722<br>dd_lon: 123.27444]]></description>
+      <styleUrl>#icon-1739-0288D1</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.36722</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.27444</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0c-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/et7k6gn19n3k67c3ij16l8o13s/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vY_KGcOhedPDE71vUee5qa6xTfl1ecAZBeDQ26kfd7QF12Hs34qlsXG8G7LhwwIgROl74p-JzrQKyHcQeuneIUDTuw5bDCuPPGf65fYgjj9A-eG_1PV65RDsWTcVdD65DwNVE66zjeNU_A6BDQwyyBI4rMSWQ1YYuzCJ0PDdi4ClUyqjn-PSe9OAayMU_oRosY?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.27444,9.36722,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-33
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/uhfravbn99ktmpj32do5pck17g/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYCYoUwUSLJXc-TkSILyh9sCuM5IYtb5iAFg0R0W3FJhPCwh02wUBwfju-WE2I2vCyvEKxH1OKbddrgU3VRW_KZyxMjW7GcQ7OBoQ6MjWyXFermb-_13oB3H_Z7F71X1mHdYdNWTPM-m-98QXpb2YeGuC8X9caCSblSBalm3iuGyOhPIpCI50BnKgCtaxCZkgY?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.07722<br>dd_lon: 123.27889]]></description>
+      <styleUrl>#icon-1739-0288D1</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.07722</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.27889</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/uhfravbn99ktmpj32do5pck17g/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYCYoUwUSLJXc-TkSILyh9sCuM5IYtb5iAFg0R0W3FJhPCwh02wUBwfju-WE2I2vCyvEKxH1OKbddrgU3VRW_KZyxMjW7GcQ7OBoQ6MjWyXFermb-_13oB3H_Z7F71X1mHdYdNWTPM-m-98QXpb2YeGuC8X9caCSblSBalm3iuGyOhPIpCI50BnKgCtaxCZkgY?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.27889,9.07722,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-34
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-0c-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/rad4ku4am660o6d0t4o8dmjbtc/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZMQ284w2lZyoD2RWeud-9eFishQCq04Ouz49d__y8NbSlgJAFf7IhGJbacNO0tTPVmxSc_sdkQNnAHnUeFwVOdGI0iL5bDLJopY26KXJiOVFssf6WtneXaHxiKI4u8gPBPRwhXbcMbQIoFB3ZAzt27kJygSHoHGHzXuHS2q1OySiDBHNqZWG2E5rZGpTRG8aw?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.07361<br>dd_lon: 123.26806]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.07361</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.26806</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0c-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/rad4ku4am660o6d0t4o8dmjbtc/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZMQ284w2lZyoD2RWeud-9eFishQCq04Ouz49d__y8NbSlgJAFf7IhGJbacNO0tTPVmxSc_sdkQNnAHnUeFwVOdGI0iL5bDLJopY26KXJiOVFssf6WtneXaHxiKI4u8gPBPRwhXbcMbQIoFB3ZAzt27kJygSHoHGHzXuHS2q1OySiDBHNqZWG2E5rZGpTRG8aw?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.26806,9.07361,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-35
+No method indicated</name>
+      <description><![CDATA[<img src="https://doc-00-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/7icsdnh5mkh8rnooi9qor3n6to/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYNQ4kz6X0SM5mh_raiQP2iHl1wKUx2n8pVA09gmde9-p7vT9ZUU6nZbQ27irzlLfqaElxiTcqY4Ve48eviCNzQAWHzOkytil-sD-CL_dQzcyEHYSOp6PvMGzfHArZwd_DO_H-TKUf7vqJX4ZWzcJuuCXjjB6O4jRoQTtYxKFo6k4bjj6TsyU3gVM2OXGc8hXM?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.07083<br>dd_lon: 123.27222]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.07083</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.27222</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-00-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/7icsdnh5mkh8rnooi9qor3n6to/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYNQ4kz6X0SM5mh_raiQP2iHl1wKUx2n8pVA09gmde9-p7vT9ZUU6nZbQ27irzlLfqaElxiTcqY4Ve48eviCNzQAWHzOkytil-sD-CL_dQzcyEHYSOp6PvMGzfHArZwd_DO_H-TKUf7vqJX4ZWzcJuuCXjjB6O4jRoQTtYxKFo6k4bjj6TsyU3gVM2OXGc8hXM?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.27222,9.07083,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-36
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/7h0gl2ro385vc7et8gtrqiq804/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZjkStZNfSgMfpeo_7aOhp8YkrDItxXFicW-Voyp0jaJJ-J1IZG5wUfxUy3l2MUeNMd8vsZ2IvMs6muHhcNgh3zsy9Nrm9zBfzjsuML8E7OwR7Enrne1DrIlYWq-zp-WXBwe5k-Li9jixQ1-eONOB6oaQaCR5qEFCeoF4IAi5AqpmMTieGAPPC6_5Ig2vaT5_0?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.07722<br>dd_lon: 123.27889]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.07722</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.27889</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/7h0gl2ro385vc7et8gtrqiq804/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZjkStZNfSgMfpeo_7aOhp8YkrDItxXFicW-Voyp0jaJJ-J1IZG5wUfxUy3l2MUeNMd8vsZ2IvMs6muHhcNgh3zsy9Nrm9zBfzjsuML8E7OwR7Enrne1DrIlYWq-zp-WXBwe5k-Li9jixQ1-eONOB6oaQaCR5qEFCeoF4IAi5AqpmMTieGAPPC6_5Ig2vaT5_0?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.27889,9.07722,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-37
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-0c-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/5369bpgi0u3dfolp7q0qugt2s8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYqZaei9NIorkxoEFqzCzZOY0DzPzLoTejPRu1bI_VD2fdk8Vsk8kM2_rTYPMbf7pcGdbGq1dnDuJZUixObruiEIdHSEFI99tANgNzbCYYiTku7XiyuRoJBgHB6QslYu87wHcXXfD89vqpcS4B0dqdgCmbNongxvhLwjEm14aygnxY6o9Vka1ilYvT5KBAiepo?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.3828554<br>dd_lon: 123.2606603]]></description>
+      <styleUrl>#icon-1739-0288D1</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.3828554</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.2606603</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0c-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/5369bpgi0u3dfolp7q0qugt2s8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYqZaei9NIorkxoEFqzCzZOY0DzPzLoTejPRu1bI_VD2fdk8Vsk8kM2_rTYPMbf7pcGdbGq1dnDuJZUixObruiEIdHSEFI99tANgNzbCYYiTku7XiyuRoJBgHB6QslYu87wHcXXfD89vqpcS4B0dqdgCmbNongxvhLwjEm14aygnxY6o9Vka1ilYvT5KBAiepo?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.2606603,9.3828554,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-37A
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/5nfq4uf486t69sjlfbfa7u1tvo/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZkQjTW3WJQEC7bHlPSDvgUuevJujWTM_SqWWwVEYMWyY3Yedk_HwQDSKlRpLBGaapggeXCGW0k6kYstMgrnYKB4gyoDYI_1lh1_idqiKyc8OMrB2IKgNWuS3bvQVZoo3MlJ09illbbjf1aXCfJJyP5_JysP4Sj-Sibj8i-5Mj4NkIe7DB-BdFwIOk00_ri0eM?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.4161463<br>dd_lon: 123.2426077]]></description>
+      <styleUrl>#icon-1739-0288D1</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.4161463</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.2426077</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/5nfq4uf486t69sjlfbfa7u1tvo/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZkQjTW3WJQEC7bHlPSDvgUuevJujWTM_SqWWwVEYMWyY3Yedk_HwQDSKlRpLBGaapggeXCGW0k6kYstMgrnYKB4gyoDYI_1lh1_idqiKyc8OMrB2IKgNWuS3bvQVZoo3MlJ09illbbjf1aXCfJJyP5_JysP4Sj-Sibj8i-5Mj4NkIe7DB-BdFwIOk00_ri0eM?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.2426077,9.4161463,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-37B
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-0k-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/hbr8bqh9oh90bqpfrf2im80v64/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZYsOuWUMflHmAKJCzHhXp7q6HQJ-nXhKtBqYigoRyTqBOwZZCvjbteRtwkO-ynvwwopjVkt1DczRyaMwPwCupvhbhCtQ70uz_Yj63arayKKxIAl6_nRLutIhmAnhgww1YfYG9oUF-oWXNg48I2KzOL3lEn1cjLfTpfkBmH4XfnVAXKWCzobhRadrUJ-acQbnk?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.3329103<br>dd_lon: 123.3096234]]></description>
+      <styleUrl>#icon-1739-FFEA00</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.3329103</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.3096234</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0k-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/hbr8bqh9oh90bqpfrf2im80v64/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZYsOuWUMflHmAKJCzHhXp7q6HQJ-nXhKtBqYigoRyTqBOwZZCvjbteRtwkO-ynvwwopjVkt1DczRyaMwPwCupvhbhCtQ70uz_Yj63arayKKxIAl6_nRLutIhmAnhgww1YfYG9oUF-oWXNg48I2KzOL3lEn1cjLfTpfkBmH4XfnVAXKWCzobhRadrUJ-acQbnk?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.3096234,9.3329103,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-38
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/s92k49hsdkb3iagf86qfsqi2h8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbLwsaCm-cQFiYIYQgE2F7WiTSVdZTx2Wq7lgUl8wsIuJvqNrPAz-pS28C1rvXyOYlpF1Bn-CUdq5yRBDoEsSRlKPfkDVKrfS50wAnbzdGo7WtueoFT3lVlDqVHAgXI22pVFc-rw-cLJmVG5aqxwsrtepKCWqXhaX40rSyd2yLawAMpHHlRdCJKVO2vfv55AcE?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.52056<br>dd_lon: 123.66667]]></description>
+      <styleUrl>#icon-1739-FFEA00</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.52056</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.66667</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/s92k49hsdkb3iagf86qfsqi2h8/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbLwsaCm-cQFiYIYQgE2F7WiTSVdZTx2Wq7lgUl8wsIuJvqNrPAz-pS28C1rvXyOYlpF1Bn-CUdq5yRBDoEsSRlKPfkDVKrfS50wAnbzdGo7WtueoFT3lVlDqVHAgXI22pVFc-rw-cLJmVG5aqxwsrtepKCWqXhaX40rSyd2yLawAMpHHlRdCJKVO2vfv55AcE?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.66667,9.52056,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-39
+Rotenone
+1 mile from Balicasag, check distance from Balicasag fish sanctuary</name>
+      <description><![CDATA[<img src="https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/9rulabqv86hekpijvhqj5aa2v0/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZbD4wOf42LRGusOvjdnslHTKnjwrEQblfReWjVRvMMOj7UfOm-p4wSFYV_99KZAhpYhPFp22qwuwQDSbfPosEDdC5Vq3y7QN-U0vcFWb3giYTPmM3iKeo95zC8AXLpHl4QbzT1_-_P82Z2MSLAJFNvgJblPVho7L91ceBsT1-ZVBxpneAnKYdPuwYSPgGH-MI?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.52056<br>dd_lon: 123.66667]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.52056</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.66667</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/9rulabqv86hekpijvhqj5aa2v0/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZbD4wOf42LRGusOvjdnslHTKnjwrEQblfReWjVRvMMOj7UfOm-p4wSFYV_99KZAhpYhPFp22qwuwQDSbfPosEDdC5Vq3y7QN-U0vcFWb3giYTPmM3iKeo95zC8AXLpHl4QbzT1_-_P82Z2MSLAJFNvgJblPVho7L91ceBsT1-ZVBxpneAnKYdPuwYSPgGH-MI?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.66667,9.52056,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[SP_78-40
+"Spear"
+Next to sanctuary]]></name>
+      <description><![CDATA[<img src="https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/fkl80afttckoh6e1i1ahdv82ok/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYZFkgjMaZFoqpNvXzTAsrGjNYMcbhsFY649_kHIS3MYTBmaGXREW6ajtoXuKCh28xiiEhvdrZTpWEPXm5pHEV30cNGfyEin0GFZIDas8rCwWQUYnnbeCHKumwDx-sD_u-5Xcc2msPdKsTuU4rMgypmgohhSijCtFPOMVex5mnKhABFIfAItRmU4QKx5Wx1drs?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.49583<br>dd_lon: 123.91611]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.49583</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.91611</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-08-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/fkl80afttckoh6e1i1ahdv82ok/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYZFkgjMaZFoqpNvXzTAsrGjNYMcbhsFY649_kHIS3MYTBmaGXREW6ajtoXuKCh28xiiEhvdrZTpWEPXm5pHEV30cNGfyEin0GFZIDas8rCwWQUYnnbeCHKumwDx-sD_u-5Xcc2msPdKsTuU4rMgypmgohhSijCtFPOMVex5mnKhABFIfAItRmU4QKx5Wx1drs?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.91611,9.49583,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-41
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-0c-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/vfc9jut8cc47rthlsjld51mnvg/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYuJV4jUpthBGUz3zQCjeX0PyMv37w2uYgYw2sNhkh7yDex-YJkLacRLEarApd1dBfMQTplCmvZNvAfsvy46OrsT9HLHGT92VVWSnqX8TQFBc78tPMaoj2XfxS-1rOryIbtW7xAyQiPhDqlXV055jq-ZurzJxIuDTOtofpprUjv3GyOI_wMIjgT_z_c8iyKGn0?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.48889<br>dd_lon: 123.91667]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.48889</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.91667</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0c-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/vfc9jut8cc47rthlsjld51mnvg/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYuJV4jUpthBGUz3zQCjeX0PyMv37w2uYgYw2sNhkh7yDex-YJkLacRLEarApd1dBfMQTplCmvZNvAfsvy46OrsT9HLHGT92VVWSnqX8TQFBc78tPMaoj2XfxS-1rOryIbtW7xAyQiPhDqlXV055jq-ZurzJxIuDTOtofpprUjv3GyOI_wMIjgT_z_c8iyKGn0?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.91667,9.48889,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[SP_78-42
+Rotenone
+Check distance to Pamilacan fish sanctuary & beach]]></name>
+      <description><![CDATA[<img src="https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/bbd1ec41g5ahsrk5kbplgh3sbk/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaVjwCc4xfUmKsa6LlXUQ_6-PoR0mjZvkIQYxZ8JAk4VgRsC_01mIAeKbdWewhN4WH2YZ-CNYbY73B4CqBq0OHVdRladMgqLnQsH1kZss2OOBMiF81IC61oCFeJbbhzROZV2kIssru_1kzlvbJDpGaERToyFcSn01TZ7ktLBPo43-20KMvG96fbrVBR3GbuXkw?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.5<br>dd_lon: 123.92083]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.5</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.92083</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/bbd1ec41g5ahsrk5kbplgh3sbk/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaVjwCc4xfUmKsa6LlXUQ_6-PoR0mjZvkIQYxZ8JAk4VgRsC_01mIAeKbdWewhN4WH2YZ-CNYbY73B4CqBq0OHVdRladMgqLnQsH1kZss2OOBMiF81IC61oCFeJbbhzROZV2kIssru_1kzlvbJDpGaERToyFcSn01TZ7ktLBPo43-20KMvG96fbrVBR3GbuXkw?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.92083,9.5,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-43
+Rotenone
+Check distance to Pamilacan fish sanctuary</name>
+      <description><![CDATA[<img src="https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/dk15p24eth5jntphlectu55a88/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1va_whBplNhGydNBR3Rexoe08k4VHu1BJ66oLYlCln_PMZsgfymVsaeiO7p3-JQ5PBdLHX6CAjLyd_NMrUc6mwUhiKqdTRQD-YCmn6KVScblz5b56BJgppUrw7KHq8c3qWnncXoJIsBQgpe0uWzLnN-AxyutydJaxaGAX7oiTo6QARptoUYAvSGIcn783XhmpFY?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.48889<br>dd_lon: 123.91667]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.48889</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.91667</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/dk15p24eth5jntphlectu55a88/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1va_whBplNhGydNBR3Rexoe08k4VHu1BJ66oLYlCln_PMZsgfymVsaeiO7p3-JQ5PBdLHX6CAjLyd_NMrUc6mwUhiKqdTRQD-YCmn6KVScblz5b56BJgppUrw7KHq8c3qWnncXoJIsBQgpe0uWzLnN-AxyutydJaxaGAX7oiTo6QARptoUYAvSGIcn783XhmpFY?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.91667,9.48889,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-45
+Rotenone</name>
+      <description><![CDATA[<img src="https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/b4nt70dltpuddl171j7i23mupg/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbflzdlZTovA_4eVCTgT8IdqSmZaRSXW4DhHX298_LXOY8Wp_5GP_N5LXLwSVorXw_ITCBYMYgdrsug51FOW69Oko5Wm2L1VSLweqfzlT7JhKrlXau3EwAOxbp_hTZnzSvF7TPu7o_0kwypt1eC_0b0eMI3fAKeQTcWJgx3A4rkflDoxgV919JlTq0fJMQzHGM?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.6165337<br>dd_lon: 123.1726705]]></description>
+      <styleUrl>#icon-1739-0288D1</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.6165337</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.1726705</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-14-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/b4nt70dltpuddl171j7i23mupg/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vbflzdlZTovA_4eVCTgT8IdqSmZaRSXW4DhHX298_LXOY8Wp_5GP_N5LXLwSVorXw_ITCBYMYgdrsug51FOW69Oko5Wm2L1VSLweqfzlT7JhKrlXau3EwAOxbp_hTZnzSvF7TPu7o_0kwypt1eC_0b0eMI3fAKeQTcWJgx3A4rkflDoxgV919JlTq0fJMQzHGM?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.1726705,9.6165337,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP_78-46
+Rotenone
+Tanon Strait
+</name>
+      <description><![CDATA[<img src="https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/4ra69ac3u1ldu4vut7c7lq53nk/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaPVPRw89DLooOXTtWTegFB6ewG5egLAq5yKZBZZ1rHcTvCyMYl2BAXLzsYIMGGW4Ej6FqlhYGZcb1B8feoxIs6KQ67XNuF--KL-m8unQa-ACRGKVv9I7LunF7BPhSgDbfUODTrn8a0SQtd6YEWLTH0u0fvJCvf_G8t1WjFZ3v0d7iCDksNDL0CRrwahbjJ5K4?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.3824955<br>dd_lon: 123.2606818]]></description>
+      <styleUrl>#icon-1739-0288D1</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.3824955</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.2606818</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0g-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/4ra69ac3u1ldu4vut7c7lq53nk/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vaPVPRw89DLooOXTtWTegFB6ewG5egLAq5yKZBZZ1rHcTvCyMYl2BAXLzsYIMGGW4Ej6FqlhYGZcb1B8feoxIs6KQ67XNuF--KL-m8unQa-ACRGKVv9I7LunF7BPhSgDbfUODTrn8a0SQtd6YEWLTH0u0fvJCvf_G8t1WjFZ3v0d7iCDksNDL0CRrwahbjJ5K4?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.2606818,9.3824955,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[SP_78-47
+"Spear guns, both small grains & larger"]]></name>
+      <description><![CDATA[<img src="https://doc-0o-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/v0bc832hf8m6k1d6eaonfkip78/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZPiDmSekOGRWHx7qolLuSt4dos_z1G_9g4L5tg8_Zm1oPvfJz3WJHxc07hDZsT2LzOnsJgBn8TS_B-D69adifB1VmWnV2ha6Q9vBOB4_etXQprsAH59Akbn6AMDFRGvgEyOfozupB0JO-r0JTcPEJ16w2qLI7nBN6DvnjrGxQ7q8riaO1JVsGE8R-YzZWGhLw?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.06667<br>dd_lon: 123.275]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.06667</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.275</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0o-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/v0bc832hf8m6k1d6eaonfkip78/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZPiDmSekOGRWHx7qolLuSt4dos_z1G_9g4L5tg8_Zm1oPvfJz3WJHxc07hDZsT2LzOnsJgBn8TS_B-D69adifB1VmWnV2ha6Q9vBOB4_etXQprsAH59Akbn6AMDFRGvgEyOfozupB0JO-r0JTcPEJ16w2qLI7nBN6DvnjrGxQ7q8riaO1JVsGE8R-YzZWGhLw?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.275,9.06667,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[SP_78-48
+"Spear guns, both small grains & larger"]]></name>
+      <description><![CDATA[<img src="https://doc-04-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/rr1rb9g2ctvnisol0gf4ukioag/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZhm89QH8DsNm7VLChhOK1vdEMhu7xeCCuSpEs9MbKh2vRFRLoyJW7W4zcVci-WMheMI9T5JQyazAsvzgsI3lO4p3PxegowG75t7HRsNYgbF4hOJ_W_Lib5qOZSbV-3trDs-14f1-jcKPsXRdYzHCurXxX4fJeOl8tJcGboU6TcFEqqcI6s1MgB0N0L1JqvILc?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.08333<br>dd_lon: 123.275]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.08333</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.275</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-04-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/rr1rb9g2ctvnisol0gf4ukioag/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZhm89QH8DsNm7VLChhOK1vdEMhu7xeCCuSpEs9MbKh2vRFRLoyJW7W4zcVci-WMheMI9T5JQyazAsvzgsI3lO4p3PxegowG75t7HRsNYgbF4hOJ_W_Lib5qOZSbV-3trDs-14f1-jcKPsXRdYzHCurXxX4fJeOl8tJcGboU6TcFEqqcI6s1MgB0N0L1JqvILc?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.275,9.08333,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[SP_78-49
+"Spear guns, both small grains & larger"]]></name>
+      <description><![CDATA[<img src="https://doc-0k-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/rj9h1d4i80gbojjdlis73tsp6g/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZMy18ZZiPN1iulPC97Y0Gd6ax3j0yaBNDwxTaz2nSbmi-kW0TllOaKtMkWZudHrDstR7gmcf00a7gMlxg67OSMG00KoY_GT4kOAuaHx0oTBXrHo1Tuq874vK6m9qrbF8Roiilsy1BO2tOO3dBexRWC71tu2sbTAIp40jvQ_ogDJhY5RMdztXocSrTvsaJMPW4?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.08556<br>dd_lon: 123.275]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.08556</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.275</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0k-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/rj9h1d4i80gbojjdlis73tsp6g/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZMy18ZZiPN1iulPC97Y0Gd6ax3j0yaBNDwxTaz2nSbmi-kW0TllOaKtMkWZudHrDstR7gmcf00a7gMlxg67OSMG00KoY_GT4kOAuaHx0oTBXrHo1Tuq874vK6m9qrbF8Roiilsy1BO2tOO3dBexRWC71tu2sbTAIp40jvQ_ogDJhY5RMdztXocSrTvsaJMPW4?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.275,9.08556,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name><![CDATA[SP_78-50
+"Spear guns, both small grains & larger"]]></name>
+      <description><![CDATA[<img src="https://doc-0k-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/9cmkgtissnk2vkbk1sbfclrifk/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYVd2ECOTmcNsVQ1IzY1CUCPnA3WFFbsbwvYU0b-7UXGXIcTNJuFhYnMnfF2ldRrzSB3jNHZuPc1rKR9VCfk8IpZX2VDWgTm9nLD5Cee3LfRt1cYM58HC1IPd64QuMepZ0J26I9LYoGng8WRRI3bfZOZXcPKhLa0DSLTr9z8mkin9gfKsuWhPkejNs7o2iMv9U?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.09<br>dd_lon: 123.27444]]></description>
+      <styleUrl>#icon-1739-A52714</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.09</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.27444</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-0k-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/9cmkgtissnk2vkbk1sbfclrifk/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vYVd2ECOTmcNsVQ1IzY1CUCPnA3WFFbsbwvYU0b-7UXGXIcTNJuFhYnMnfF2ldRrzSB3jNHZuPc1rKR9VCfk8IpZX2VDWgTm9nLD5Cee3LfRt1cYM58HC1IPd64QuMepZ0J26I9LYoGng8WRRI3bfZOZXcPKhLa0DSLTr9z8mkin9gfKsuWhPkejNs7o2iMv9U?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.27444,9.09,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Point 80</name>
+      <description><![CDATA[dd_lat: 10.875<br>dd_lon: 120.93333]]></description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>10.875</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>120.93333</value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          120.93333,10.875,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SU-22-17_SP-78-17
+Duplicate of SP-78-17
+6/11/22</name>
+      <description><![CDATA[dd_lat: 10.8342368<br>dd_lon: 120.9975178]]></description>
+      <styleUrl>#icon-1899-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>10.8342368</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>120.9975178</value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          120.9975178,10.8342368,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP 78 10,11 Original Coor</name>
+      <description><![CDATA[dd_lat: 9.04583<br>dd_lon: 123.12694]]></description>
+      <styleUrl>#icon-1899-0288D1</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.04583</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.12694</value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.12694,9.04583,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SU 22 21</name>
+      <description><![CDATA[dd_lat: 9.1867037<br>dd_lon: 123.4479352]]></description>
+      <styleUrl>#icon-1899-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.1867037</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.4479352</value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.4479352,9.1867037,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SU-22-22</name>
+      <description><![CDATA[dd_lat: 9.2254097<br>dd_lon: 123.4689628]]></description>
+      <styleUrl>#icon-1899-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.2254097</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.4689628</value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.4689628,9.2254097,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SU 22 23</name>
+      <description><![CDATA[dd_lat: 9.2473507<br>dd_lon: 123.57536]]></description>
+      <styleUrl>#icon-1899-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.2473507</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.57536</value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.57536,9.2473507,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SU-22-24_SP-78-03
+7/2/22</name>
+      <description><![CDATA[dd_lat: 9.1809617<br>dd_lon: 123.4574399]]></description>
+      <styleUrl>#icon-1899-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.1809617</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.4574399</value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.4574399,9.1809617,0
+        </coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>SP-78-44_SU-22-05
+Duplicated: 5/16/22
+Rotenone
+PIC: SIA</name>
+      <description><![CDATA[<img src="https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/g9kgbg098uu23sja5b3e3bsv9s/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZkXSQ-BSSHDu3pRnAgLL5iTUEnpPirOp2evUbtqGsuvGQZSnwnhEsrec1yj5Rnv_IX9ozZmBjsBVFhgO7cimyZERepFlmX2PngKt8ve5z06zfgD6fE7t-4B2ePGO4T9QgAeb7zPM2P_vS0TxBnPbZdW6uRoy8s4DWZo3-0JlgQFh45RV4knlzIXxQktmgL-EA?session=1&fife" height="200" width="auto" /><br><br>dd_lat: 9.0695836<br>dd_lon: 123.1468738]]></description>
+      <styleUrl>#icon-1739-097138</styleUrl>
+      <ExtendedData>
+        <Data name="dd_lat">
+          <value>9.0695836</value>
+        </Data>
+        <Data name="dd_lon">
+          <value>123.1468738</value>
+        </Data>
+        <Data name="gx_media_links">
+          <value><![CDATA[https://doc-10-34-mymaps.googleusercontent.com/untrusted/hostedimage/edj6fnpi4q7dgcl6f8rafss6ms/g9kgbg098uu23sja5b3e3bsv9s/1660010849250/rgw3MvfUbuMZzzB1dyr4HMAAtOfJTMAk/01971407035653447387/5AFzc1vZkXSQ-BSSHDu3pRnAgLL5iTUEnpPirOp2evUbtqGsuvGQZSnwnhEsrec1yj5Rnv_IX9ozZmBjsBVFhgO7cimyZERepFlmX2PngKt8ve5z06zfgD6fE7t-4B2ePGO4T9QgAeb7zPM2P_vS0TxBnPbZdW6uRoy8s4DWZo3-0JlgQFh45RV4knlzIXxQktmgL-EA?session=1&fife]]></value>
+        </Data>
+      </ExtendedData>
+      <Point>
+        <coordinates>
+          123.1468738,9.0695836,0
+        </coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>

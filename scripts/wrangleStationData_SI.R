@@ -57,10 +57,13 @@ data_si <-
                             levels = c("<2m",
                                        "2-15m",
                                        ">15m")),
-         date_collected = str_remove(date_collected,
+         date_collected = stringr::str_remove(date_collected,
                                      " \\(.*$"),
-         date_collected = str_remove(date_collected,
+         date_collected = stringr::str_remove(date_collected,
                                      " to.*$"),
+         date_collected = stringr::str_replace_all(date_collected,
+                                          "\\-",
+                                          " "),
          date_collected = dmy(date_collected)) %>%
   # select(catalog_number_usnm,
   #        date_collected,
@@ -111,7 +114,7 @@ data_si_station <-
                          na = c("NA",
                                 "na")) %>%
                 clean_names() %>%
-                select(-date_collected)) %>%
+                dplyr::select(-date_collected) ) %>%
     mutate(dist_shore_m_min = case_when(str_detect(dist_shore,
                                                    "\\'") ~ as.numeric(str_remove(dist_shore,
                                                                                   "[ \\'].*$")) * 0.3048,
@@ -158,31 +161,42 @@ data_si_station <-
                                            !is.na(collection_method_type) ~ "no",
                                            TRUE ~ NA_character_)) %>%
   
-  filter(chemical_euthanasia == "yes")
+  filter(chemical_euthanasia == "yes") %>%
+  dplyr::select(-odu_station_code)
 
 
 #### READ IN GIS DATA ####
 data_gis <-
   read_excel(gisDataFile) %>%
   clean_names() %>%
-  dplyr::rename(station_code = odu_station_code) %>%
-  select(station_code:smithsonian_station_code,
+  # dplyr::rename(station_code = odu_station_code) %>%
+  mutate(station_code = str_replace(odu_station_code,
+                                    "-0",
+                                    "-"),
+         station_code = str_replace(station_code,
+                                    "JL_..",
+                                    "JL")) %>%
+  dplyr::select(station_code,
+         odu_station_code:smithsonian_station_code,
          starts_with("adjusted_"),
          -starts_with("x"))
+  
 
 #### JOIN DATA ####
 data_si_station_gis <-
   data_si_station %>%
   left_join(data_gis,
-            by = "station_code") %>%
+            by = "station_code") %>% 
   left_join(read_excel(CAS_verified_names) %>%
               dplyr::select(-family),
             by = c("identification" = "original_id")) %>%
   mutate(verified_identification = case_when(is.na(verified_identification) ~ identification,
                                 TRUE ~ verified_identification),
          province_state = case_when(is.na(province_state) ~ province,
-                                TRUE ~ province_state)) %>%
-  rename(notes = notes.x,
+                                TRUE ~ province_state),
+         # this adds zero padded station codeS
+         station_code = odu_station_code) %>%
+  dplyr::rename(notes = notes.x,
          notes_cas_verification = notes.y,
          island = island_name,
          locality = precise_locality) %>%

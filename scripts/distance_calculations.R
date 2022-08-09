@@ -2,16 +2,20 @@
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 #install.packages("geosphere")
+library(ggbiplot)
 library(geosphere)
 library(tidyverse)
 library(janitor)
 library(readxl)
 library(readr)
 
+
+#### USER DEFINED VARIABLES ####
 InFilePath1 = "../data/MPA_coordinates_no_deg.xlsx"
-InFilePath2 = "../data/data_cas_si_su.csv"
+source("./wrangle_cas_si_su_data.R")
 
 
+#### WRANGLE MPA DATA ####
 data_mpa <- 
   read_excel(InFilePath1,
              na = c("na",
@@ -24,8 +28,10 @@ data_mpa <-
   drop_na(lat,
           long)
 
-data_study_site <- 
-  read_csv(InFilePath2) %>%
+#### WRANGLE STUDY SITE DATA ####
+
+data_study_site <-
+  data_cas_si_su %>%
   clean_names() %>%
   drop_na(adjusted_latitude,
           adjusted_longitude) %>%
@@ -34,41 +40,252 @@ data_study_site <-
            .keep_all=TRUE) %>%
   mutate(study_station_code = str_c(study,
                                     station_code,
-                                    sep = "-"))
+                                    sep = "-"),
+         year_survey = year(date_collected)) %>%
+  select(-specimen_count:-lowest_tax_cat)
 
-list1 <- data.frame(data_mpa) %>%
+
+#### WRANGLE DISTANCES BETWEEN ALL STATIONS AND MPAS ####
+
+list_mpa_latlong <- data.frame(data_mpa) %>%
   select(lat,
          long) 
 
-list2 <- data.frame(data_study_site) %>%
+list_station_latlong <- data.frame(data_study_site) %>%
   select(adjusted_latitude,
          adjusted_longitude) 
 
 # create distance matrix
 data_mpa_study_stationcode_distances <- 
-  distm(list1[,c('long',
-                      'lat')], 
-         list2[,c('adjusted_longitude',
-                  'adjusted_latitude')], 
+  distm(list_mpa_latlong[,c('long',
+                            'lat')], 
+         list_station_latlong[,c('adjusted_longitude',
+                                 'adjusted_latitude')], 
          fun=distVincentyEllipsoid) %>%
-  as.data.frame(mat) %>%
+  as.data.frame() %>%
+  # convert m to km
+  mutate(across(.fns = ~ . / 1000)) %>%
   rename_with(.cols = starts_with("V"),
               .fn = ~ data_study_site$study_station_code) %>%
-  bind_cols(data_mpa)
+  bind_cols(data_mpa) %>%
+  rename(mpa_name = name,
+         mpa_lat = lat,
+         mpa_long = long,
+         mpa_location = location,
+         mpa_habitat_full = habitat_full,
+         mpa_year_established = year_established,
+         mpa_area_ha = area_ha,
+         mpa_province = province,
+         mpa_year = year,
+         mpa_year_established_earliest = year_established_earliest)
+
+#### Visualize MPA vs Stations ####
+data_mpa_study_stationcode_distances %>%
+  pivot_longer(cols = matches("^[sc][aiu][_s]"),
+               names_to = "study_station_code",
+               values_to = "station_mpa_distance_km") %>%
+  left_join(data_study_site,
+            by = "study_station_code") %>%
+  group_by(study_station_code) %>%
+  #in the next line, the 3 signifies 3 years since mpa established
+  filter(year_survey >= mpa_year_established_earliest + 3) %>%
+  ggplot(aes(x = station_mpa_distance_km,
+             color = study)) +
+  geom_histogram() +
+  theme_classic() +
+  facet_wrap(. ~ study,
+             scales = "free_y")
+
+data_mpa_study_stationcode_distances %>%
+  pivot_longer(cols = matches("^[sc][aiu][_s]"),
+               names_to = "study_station_code",
+               values_to = "station_mpa_distance_km") %>%
+  left_join(data_study_site,
+            by = "study_station_code") %>%
+  group_by(study_station_code) %>%
+  #in the next line, the 3 signifies 3 years since mpa established
+  filter(year_survey >= mpa_year_established_earliest + 3) %>%
+  ggplot(aes(x = mpa_area_ha,
+             color = study)) +
+  geom_histogram() +
+  theme_classic() +
+  facet_wrap(. ~ study,
+             scales = "free_y")
+
+data_mpa_study_stationcode_distances %>%
+  pivot_longer(cols = matches("^[sc][aiu][_s]"),
+               names_to = "study_station_code",
+               values_to = "station_mpa_distance_km") %>%
+  left_join(data_study_site,
+            by = "study_station_code") %>%
+  group_by(study_station_code) %>%
+  #in the next line, the 3 signifies 3 years since mpa established
+  filter(year_survey >= mpa_year_established_earliest + 3) %>%
+  ggplot(aes(x = station_mpa_distance_km,
+             y = mpa_area_ha,
+             color = study)) +
+  geom_point() +
+  theme_classic()
+
+data_mpa_study_stationcode_distances %>%
+  pivot_longer(cols = matches("^[sc][aiu][_s]"),
+               names_to = "study_station_code",
+               values_to = "station_mpa_distance_km") %>%
+  left_join(data_study_site,
+            by = "study_station_code") %>%
+  group_by(study_station_code) %>%
+  #in the next line, the 3 signifies 3 years since mpa established
+  filter(year_survey >= mpa_year_established_earliest + 3) %>%
+  mutate(mpa_area_ha_per_kmfromstation = mpa_area_ha/station_mpa_distance_km) %>%
+  ggplot(aes(x = station_code,
+             y = mpa_area_ha_per_kmfromstation,
+             color = study)) +
+  geom_boxplot() +
+  scale_y_continuous(trans='log10') +
+  theme_classic() +
+  facet_grid(.~study,
+             scales = "free_x")
+
+data_mpa_study_stationcode_distances %>%
+  pivot_longer(cols = matches("^[sc][aiu][_s]"),
+               names_to = "study_station_code",
+               values_to = "station_mpa_distance_km") %>%
+  left_join(data_study_site,
+            by = "study_station_code") %>%
+  group_by(study_station_code) %>%
+  #in the next line, the 3 signifies 3 years since mpa established
+  filter(year_survey >= mpa_year_established_earliest + 3) %>%
+  mutate(mpa_haXyrs_per_kmfromstation = (year_survey - mpa_year_established_earliest) * mpa_area_ha/station_mpa_distance_km) %>%
+  ggplot(aes(x = station_code,
+             y = mpa_haXyrs_per_kmfromstation,
+             color = study)) +
+  geom_boxplot() +
+  scale_y_continuous(trans='log10') +
+  theme_classic() +
+  facet_grid(.~study,
+             scales = "free_x")
+
+data_mpa_study_stationcode_distances %>%
+  pivot_longer(cols = matches("^[sc][aiu][_s]"),
+               names_to = "study_station_code",
+               values_to = "station_mpa_distance_km") %>%
+  left_join(data_study_site,
+            by = "study_station_code") %>%
+  group_by(station_code,
+           study,
+           study_station_code) %>%
+  #in the next line, the 3 signifies 3 years since mpa established
+  filter(year_survey >= mpa_year_established_earliest + 3) %>%
+  mutate(mpa_haXyrs_per_kmfromstation = (year_survey - mpa_year_established_earliest) * mpa_area_ha/station_mpa_distance_km) %>%
+  summarize(mpa_haXyrs_per_kmfromstation = sum(mpa_haXyrs_per_kmfromstation,
+                                               na.rm=TRUE)) %>%
+  ggplot(aes(x = station_code,
+             y = mpa_haXyrs_per_kmfromstation,
+             color = study)) +
+  geom_col() +
+  theme_classic() +
+  facet_grid(.~study,
+             scales = "free_x")
+
+x_km = 30
+data_mpa_study_stationcode_distances %>%
+  pivot_longer(cols = matches("^[sc][aiu][_s]"),
+               names_to = "study_station_code",
+               values_to = "station_mpa_distance_km") %>%
+  left_join(data_study_site,
+            by = "study_station_code") %>%
+  group_by(station_code,
+           study,
+           study_station_code) %>%
+  #in the next line, the 3 signifies 3 years since mpa established
+  filter(year_survey >= mpa_year_established_earliest + 3) %>%
+  filter(station_mpa_distance_km < x_km)  %>%
+  mutate(mpa_haXyrs_per_kmfromstation = (year_survey - mpa_year_established_earliest) * mpa_area_ha/station_mpa_distance_km) %>%
+  summarize(sum_mpa_area_ha_within_x_km = sum(mpa_area_ha,
+                                               na.rm=TRUE)) %>%
+  ggplot(aes(x = station_code,
+             y = sum_mpa_area_ha_within_x_km,
+             color = study)) +
+  geom_col() +
+  theme_classic() +
+  facet_grid(.~study,
+             scales = "free_x")
+
+#### GET DISTANCE TO CLOSEST MPA ####
 
 data_closest_mpa <-
   data_mpa_study_stationcode_distances %>%
   pivot_longer(cols = matches("^[sc][aiu][_s]"),
                names_to = "study_station_code",
-               values_to = "distance_m") %>%
-  separate(study_station_code,
-           into = c("study"),
-           remove = FALSE) %>%
+               values_to = "station_mpa_distance_km") %>%
+  left_join(data_study_site,
+            by = "study_station_code") %>%
+  # separate(study_station_code,
+  #          into = c("study"),
+  #          remove = FALSE) %>%
   # isolating the closest mpa to each station_code
   group_by(study_station_code) %>%
-  filter(distance_m == min(distance_m)) %>%
-  # if mpa didn't exist, then se
+  #in the next line, the 3 signifies 3 years since mpa established
+  filter(year_survey >= mpa_year_established_earliest + 3) %>%
+  filter(station_mpa_distance_km == min(station_mpa_distance_km))  %>%
+  ungroup() %>%
+  mutate(closest_mpa_age_during_study_yrs = year_survey - mpa_year_established_earliest,
+         study = factor(study)) 
+  
+
+#### GET MPA AREA WITHIN X KM ####
 
 
 
+x_km = 30
+data_mpa_area_xkm <-
+  data_mpa_study_stationcode_distances %>%
+  pivot_longer(cols = matches("^[sc][aiu][_s]"),
+               names_to = "study_station_code",
+               values_to = "station_mpa_distance_km") %>%
+  left_join(data_study_site,
+            by = "study_station_code") %>%
+  group_by(study_station_code) %>%
+  #in the next line, the 3 signifies 3 years since mpa established
+  filter(year_survey >= mpa_year_established_earliest + 3) %>%
+  # retain mpa within x km of station
+  filter(station_mpa_distance_km < x_km)  %>%
+  # sum mpa area within x km
+  summarize(mpa_area_within_xkm_ha = sum(mpa_area_ha)) %>%
+  ungroup()
 
+#### VISUALIZE AREA of and DIST TO CLOSEST MPA ####
+data_closest_mpa %>%
+  ggplot(aes(x=station_mpa_distance_km,
+             y = mpa_area_ha,
+             shape = study,
+             color = mpa_name)) +
+  geom_point() +
+  theme_classic()
+
+#### PCA MPA INFLUENCE ####
+pca_mpa_influence <-
+  data_closest_mpa %>%
+    # filter(study != "si") %>%
+    select(station_mpa_distance_km,
+           mpa_area_ha,
+           closest_mpa_age_during_study_yrs) %>%
+    prcomp(center = TRUE,
+           scale. = TRUE)
+
+summary(pca_mpa_influence)
+
+ggbiplot(pca_mpa_influence,
+         ellipse=TRUE,
+         ellipse.prob = .5,
+         groups = data_closest_mpa %>%
+           pull(study)) +
+  theme_classic()
+
+
+pca_mpa_influence$x
+
+data_closest_mpa <-
+  data_closest_mpa %>%
+  bind_cols(pca_mpa_influence$x) %>%
+  rename(pc1_mpa_infl = PC1)

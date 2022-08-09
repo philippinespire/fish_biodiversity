@@ -7,6 +7,7 @@ library(readxl)
 library(janitor)
 library(purrr)
 library(magrittr)
+library(lubridate)
 
 # library(devtools)
 # install_github("decisionpatterns/tidyimpute")
@@ -74,12 +75,13 @@ data_cas_all <-
   data_cas %>%
   left_join(metadata_cas,
             by = "station_code") %>%
-  rename(bottom = bottom_type,
+  dplyr::rename(bottom = bottom_type,
          depth_m = depth_of_capture,
          adjusted_latitude = lat_deg_dec_1,
          adjusted_longitude = long_deg_dec_1,
          province_state = state,
          date_collected = verbatim_coll_date) %>%
+  mutate(date_collected = dmy(date_collected)) %>%
   dplyr::select(-coll_date_from,
                 -source,
                 -lat_verbatim_1,

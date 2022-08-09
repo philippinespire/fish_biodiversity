@@ -12,6 +12,7 @@ library(lubridate)
 
 #### USER DEFINED VARIABLES ####
 inFilePath = "../data/SU-SI_Duplicates(1).xlsx"
+inFilePath = "../data/SU-SI_Duplicates_20220808.xlsx"
 CAS_verified_names = "../data/All_confirmed_names.xlsx"
 
 #### Read in Data ####
@@ -21,14 +22,15 @@ data_su <-
   read_excel(inFilePath,
              na = "NA") %>%
   clean_names() %>%
-  mutate(samples_retained = case_when(!is.na(x53) ~ x53,
-                                      TRUE ~ samples_retained),
+  mutate(
+         # samples_retained = case_when(!is.na(x53) ~ x53,
+         #                              TRUE ~ samples_retained),
         specimen_count = case_when(str_detect(specimen_count,
                                               "http") ~ NA_character_,
                                        TRUE ~ specimen_count),
         specimen_count = as.numeric(specimen_count),
         date_collected = ymd(date_collected)) %>%
-  select(-x53) %>%
+  # select(-x53) %>%
   remove_empty(which = c("cols")) %>%
   # group_by(catalog_number) %>%
   # filter(n()>1) 
@@ -58,8 +60,11 @@ data_su <-
          adjusted_longitude = case_when(is.na(centroid_longitude) ~ as.numeric(conv_unit(dms_longitude,
                                                                               from = "deg_min_sec",
                                                                               to = "dec_deg")),
-                                        TRUE ~ centroid_longitude)) %>%
-  select(-i_dcheck_2nd,
+                                        TRUE ~ centroid_longitude),
+         station_code_7879 = str_replace(station_code_7879,
+                                         "-",
+                                         "_")) %>%
+  dplyr::select(-i_dcheck_2nd,
          -i_dcheck_3rd,
          -i_dcheck_1st,
          -collectors,
@@ -77,7 +82,7 @@ data_su <-
          -country,
          -expedition,
          -collection_method,
-         -station_code_7879,
+         # -station_code_7879,
          -lot_id)
 
         
