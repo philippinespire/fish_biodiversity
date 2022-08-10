@@ -74,9 +74,73 @@ data_fixed_vegan <-
                 #:-lowest_tax_cat
   )
 
+
+
+data %>%
+  pivot_longer(cols = c(contains("specimen_count"),
+               names_to = "verified_identification")) %>%
+  ggplot(aes(x=value,
+             fill = station_code)) +
+  geom_histogram() +
+  theme_classic() +
+  # theme(axis.text.x = element_text(angle = 0, 
+  #                                  hjust=0.5)) +
+  facet_grid(location ~ metric,
+             scales = "free_x")
+
+# data %>%
+#   pivot_longer(cols = c(contains("_mm"),
+#                         contains("_g")),
+#                names_to = "metric") %>%
+#   ggplot(aes(x=value,
+#              fill = factor(stage_clean))) +
+#   geom_histogram() +
+#   theme_classic() +
+#   # theme(axis.text.x = element_text(angle = 0, 
+#   #                                  hjust=0.5)) +
+#   facet_grid(location ~ metric,
+#              scales = "free_x")
+
+# I'm noticing that the left skewed distribution of `weight_of_gonads_g` is quite different from the other metrics
+# it may have to be handled differently
+
+# visualize statistical distributions (see fitdistrplus: An R Package for Fitting Distributions, 2020)
+#  vis_dists() is a function that I made above in the FUNCTIONS section.  It accepts the tibble and column name to visualize.
+#  vis_dists() creates three figures
+# vis_dists(data,
+#           "total_length_mm")
+# vis_dists(data,
+#           "standard_length_mm")
+# vis_dists(data,
+#           "weight_g")
+# # results in error making third plot because some values are zero and some of the distibutions are incompatible with zeros in data
+# vis_dists(data,
+#           "weight_of_gonads_g")
+# # results in error making third plot because some values are zero and some of the distibutions are incompatible with zeros in data
+# vis_dists(data,
+#           "female_male")
+
+
+
+#### Make Visualization of Hypothesis Test ####
+data %>%
+  ggplot(aes(y=specimen_count,
+             x = station_code,
+             color = study)) +
+  geom_point(size = 5) +
+  geom_smooth(formula = "y ~ x", 
+              method = "glm", 
+              method.args = list(family="quasibinomial"), 
+              se = T) +
+  theme_classic() +
+  facet_grid(location ~ .)
+
+distribution_family = "poisson"
+alpha_sig = 0.05
+
 model <<- 
-  glm(formula = data_vegan ~ total_length_mm + location, 
-      family = distribution_family,
+  glm(formula = data_fixed_vegan ~ station_code + specimen_count, 
+      family = poisson,
       data = data)
 
 #### USER DEFINED VARIABLES ####
