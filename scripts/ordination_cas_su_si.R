@@ -24,6 +24,39 @@ source("wrangle_cas_si_su_data.R")
 data <- data_cas_si_su
 
 #### VEGANIZATION ####
+prep_vegan_fixed <- function(data_fixed=data_cas_si_su %>%
+                               drop_na(adjusted_latitude)){
+  data %>%
+    # filter by lowest_tax_cat (remove family)
+    rename(taxon = verified_identification) %>%
+    filter(specimen_count > 0) %>%
+    group_by(taxon,
+             station_code, #add everything but specimen_count
+             study,
+             field_number,
+             # lowest_tax_cat
+    ) %>%
+    summarize(sum_specimen_count = sum(specimen_count, 
+                                       na.rm = TRUE)) %>%
+    ungroup() %>%
+    # convert tibble from long to wide format
+    pivot_wider(names_from = taxon,
+                values_from = sum_specimen_count,
+                values_fill = 0) %>%
+    clean_names() %>%
+    # sort by op_code
+    arrange(study,
+            station_code) %>%
+    drop_na(station_code)
+}
+
+data_fixed_vegan <-
+  prep_vegan_fixed() %>%
+  dplyr::select(-station_code:-field_number
+                #:-lowest_tax_cat
+  )
+
+
 #Vegan all data
 prep_vegan <- function(data=data_cas_si_su){
   data %>%
@@ -143,7 +176,7 @@ data_suvegan <-
   prep_vegan() %>%
   dplyr::select(-station_code:-field_number)
 
-#### PART 2 ####
+#### PART 2: .env ####
 #all data
 data_cas_si_su_vegan.env <-
   prep_vegan() %>%
