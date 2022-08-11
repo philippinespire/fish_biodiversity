@@ -40,7 +40,8 @@ source("wrangle_cas_si_su_data.R")
 source("ordination_cas_su_si.R")
 source("EstimateR.R")
 
-data_fixed <- data_cas_si_su %>%
+data_fixed <- 
+  data_cas_si_su %>%
   drop_na(adjusted_latitude)
 
 prep_vegan_fixed <- function(data_fixed=data_cas_si_su %>%
@@ -124,90 +125,368 @@ data %>%
 
 
 #### Make Visualization of Hypothesis Test ####
-data %>%
-  ggplot(aes(y=specimen_count,
-             x = station_code,
+est_S %>%
+  ggplot(aes(x = pc1_mpa_infl, 
+             y = s_chao1,
              color = study)) +
-  geom_point(size = 5) +
-  geom_smooth(formula = "y ~ x", 
-              method = "glm", 
-              method.args = list(family="quasibinomial"), 
-              se = T) +
-  theme_classic() +
-  facet_grid(location ~ .)
+  geom_point() +
+  geom_errorbar(aes(ymin = s_chao1 - se_chao1,
+                    ymax = s_chao1 + se_chao1)) +
+  geom_smooth(se = FALSE,
+              method = "lm") +
+  theme_classic()
+
+
+#### FIT FIXED EFFECT MODEL S vs pc1_mpa_infl ####
 
 distribution_family = "poisson"
 alpha_sig = 0.05
 
 model <<- 
-  glm(formula = s_chao1 ~ pc1_mpa_infl*study, 
-      family = "poisson",
+  glm(formula = s_chao1 ~ pc1_mpa_infl * study, 
+      family = distribution_family,
       data = est_S)
 
 summary(model)
 
-
-#### USER DEFINED VARIABLES ####
-
-# you can make a default theme for your publication's figures.  This makes things easier for you. 
-# feel free to customize as necessary
-theme_myfigs <- 
-  theme_classic() +
-  theme(panel.background = element_rect(fill = 'white', 
-                                        color = 'white'),
-        panel.grid = element_blank(),
-        panel.grid.major.y = element_line(color="grey95", 
-                                          size=0.25),
-        panel.border = element_blank(),
-        axis.text.y = element_text(size = 9, 
-                                   color = 'black'),
-        axis.text.x = element_text(size = 9, 
-                                   color = 'black'),
-        # axis.title.x = element_blank(),
-        axis.title.y = element_text(size = 10, 
-                                    color = 'black'),
-        plot.title = element_text(size = 10, 
-                                  color = 'black'),
-        plot.subtitle = element_text(size = 9, 
-                                     color = 'black'),
-        plot.caption = element_text(size = 9, 
-                                    color = 'black', 
-                                    hjust = 0),
-        legend.text = element_text(size = 9, 
-                                   color = 'black'),
-        legend.title = element_text(size = 9, 
-                                    color = 'black'),
-        legend.background = element_blank(),
-        legend.position="right"
-  )
+exp(coef(model))
 
 
-#error - NaN's not allowed if 'na.rm' is FALSE
-p<-estaccumR(data_fixed_vegan, permutations = 100)
-p.plot<-plot(p, display = c("chao","ace"))
-p.plot
+#### Conduct A priori contrast tests for differences among sites ####
 
-data_estaccumR_plot <-
-  p$chao %>%
-  # t() %>%
-  as_tibble() %>%
-  dplyr::mutate(N = row_number()) %>%
-  pivot_longer(cols = starts_with("V"),
-               names_to = "permutation") %>%
-  group_by(N) %>%
-  dplyr::summarize(chao_mean = mean(value),
-                   chao_ci_lower = quantile(value,
-                                            probs = 0.025),
-                   chao_ci_upper = quantile(value,
-                                            probs = 0.975))
+# now we move on to finish the hypothesis testing.  Are there differences between the sites?
+# estimated marginal means 
 
-data_estaccumR_plot
 
-data_estaccumR_plot %>%
-  ggplot(aes(x=N,
-             y=chao_mean)) +
-  geom_ribbon(aes(ymin=chao_ci_lower,
-                  ymax=chao_ci_upper),
-              fill = "grey") +
-  geom_line() +
-  theme_classic()
+
+emmeans_model <<-
+  emmeans(model,
+          ~ pc1_mpa_infl*study,
+          alpha = alpha_sig)
+
+# emmeans back transformed to the original units of response var
+summary(emmeans_model,      
+        type="response")
+
+# contrasts between sites
+contrast(regrid(emmeans_model), # emmeans back transformed to the original units of response var
+         method = 'pairwise', 
+         simple = 'each', 
+         combine = FALSE, 
+         adjust = "bh")
+
+
+#### Group Sites Based on Model Results ####
+
+groupings_model <<-
+  multcomp::cld(emmeans_model, 
+                alpha = alpha_sig,
+                Letters = letters,
+                type="response",
+                adjust = "bh") %>%
+  as.data.frame %>%
+  mutate(group = str_remove_all(.group," "),
+         group = str_replace_all(group,
+                                 "(.)(.)",
+                                 "\\1,\\2")) %>%
+  rename(response = 3)
+
+groupings_model             # these values are back transformed, groupings based on transformed
+
+
+# i noticed that the emmeans from groupings don't match those from emmeans so this is the table to use for making the figure
+# the emmeans means and conf intervals match those produced by afex_plot, so I think those are what we want
+groupings_model_fixed <<-
+  summary(emmeans_model,      # emmeans back transformed to the original units of response var
+          type="response") %>%
+  tibble() %>%
+  left_join(groupings_model %>%
+              dplyr::select(-response:-asymp.UCL),
+            # by = c(str_replace(fixed_vars,
+            #                    "[\\+\\*]",
+            #                    '" , "'))) %>%
+            by = c("pc1_mpa_infl",
+                   "study")) %>%
+  rename(response = 3)
+
+groupings_model_fixed       # cld messes up back transformation, this takes values from emmeans and groupings from cld
+
+#### Visualize Estimated Marginal Means Output With Group Categories ####
+
+p <- 
+  groupings_model_fixed %>%
+  ggplot(aes(x=study,
+             y=response,
+             fill = study)) +
+  geom_col(position = "dodge",
+           color = "black") +
+  # scale_fill_manual(values = c("lightgrey",
+  #                              "white"),
+  #                   labels = c('Pre-Screen', 
+  #                              'Post-Screen')) +
+  # geom_point(data = data,
+  #            aes(x = location,
+  #                y = !!response_var,
+  #                color = location
+  #            ),
+  #            position = position_dodge(width = 0.9),
+  #            # color = "grey70",
+#            # shape = 1,
+#            size = 1)
+geom_errorbar(aes(ymin=asymp.LCL,
+                  ymax=asymp.UCL),
+              width = 0.2,
+              color = "grey50",
+              # size = 1,
+              position = position_dodge(width=0.9)) +
+  guides(color = "none",
+         shape = "none") +   #remove color legend
+  geom_text(aes(label=group),
+            position = position_dodge(width=0.9),
+            vjust = -0.5,
+            hjust = -0.15,
+            size = 8 / (14/5)) +  # https://stackoverflow.com/questions/25061822/ggplot-geom-text-font-size-control
+  theme_myfigs +
+  # ylim(ymin, 
+  #      ymax) +
+  labs(x = "",
+       y = "Estimated Species Richness (Chao1)") +
+  theme(legend.position=c(0.1,0.9),  
+        legend.title=element_blank())
+
+p
+
+
+#### Visualize Fixed Effect Model Fit (Response Var vs Continuous X Var by Group) ####
+
+# this generates a tibble with the model predictions that can be plotted
+# however, it does not do a good job of showing us where the model is extrapolating 
+emmeans_ggpredict <- 
+  ggemmeans(model,
+            terms = c("pc1_mpa_infl [all]",
+                      "study")) 
+# compatible with ggplot
+# shows models, but extrapolates beyond observations
+plot(emmeans_ggpredict) +
+  #this is our custom plot theme defined in USER DEFINED VARIABLES
+  theme_myfigs
+
+
+# the next several blocks of code will only show us predictions within the ranges of observation by location
+
+# this way uses ggpredict, which has some nice features
+#make a tibble that has the max and min continuous xvar for each categorical xvar
+min_max_xvar <-  
+  est_S %>%
+  rename(x = pc1_mpa_infl,
+         group = study) %>%
+  group_by(group) %>%
+  filter(x == max(x) |
+           x == min(x)) %>%
+  dplyr::select(group,
+                x) %>%
+  arrange(group,
+          x) %>%
+  distinct() %>%
+  mutate(min_max = case_when(row_number() %% 2 == 0 ~ "max_x",
+                             TRUE ~ "min_x")) %>%
+  pivot_wider(names_from = min_max,
+              values_from = x)
+
+# then use that tibble to filter the object made by ggpredict and plot
+emmeans_ggpredict %>%
+  left_join(min_max_xvar) %>% 
+  filter(x >= min_x,
+         x <= max_x) %>% 
+  plot() +
+  #add in our observed values of female_male
+  geom_jitter(data = est_S,
+              aes(x = pc1_mpa_infl,
+                  y = s_chao1,
+                  color = study),
+              size = 3,
+              inherit.aes = FALSE,
+              width = 0,
+              height = 0.02) +
+  theme_myfigs
+
+
+
+
+
+#### FIT FIXED EFFECT MODEL S vs DISTANCE TO NEAREST MPA####
+
+distribution_family = "poisson"
+alpha_sig = 0.05
+
+model <<- 
+  glm(formula = s_chao1 ~ station_mpa_distance_km * study, 
+      family = distribution_family,
+      data = est_S)
+
+summary(model)
+
+exp(coef(model))
+
+
+#### Conduct A priori contrast tests for differences among sites ####
+
+# now we move on to finish the hypothesis testing.  Are there differences between the sites?
+# estimated marginal means 
+
+
+
+emmeans_model <<-
+  emmeans(model,
+          ~ station_mpa_distance_km*study,
+          alpha = alpha_sig,
+          cov.reduce = range)
+
+# emmeans back transformed to the original units of response var
+summary(emmeans_model,      
+        type="response")
+
+# contrasts between sites
+contrast(regrid(emmeans_model), # emmeans back transformed to the original units of response var
+         method = 'pairwise', 
+         simple = 'each', 
+         combine = FALSE, 
+         adjust = "bh")
+
+
+#### Group Sites Based on Model Results ####
+
+groupings_model <<-
+  multcomp::cld(emmeans_model, 
+                alpha = alpha_sig,
+                Letters = letters,
+                type="response",
+                adjust = "bh") %>%
+  as.data.frame %>%
+  mutate(group = str_remove_all(.group," "),
+         group = str_replace_all(group,
+                                 "(.)(.)",
+                                 "\\1,\\2")) %>%
+  rename(response = 3)
+
+groupings_model             # these values are back transformed, groupings based on transformed
+
+
+# i noticed that the emmeans from groupings don't match those from emmeans so this is the table to use for making the figure
+# the emmeans means and conf intervals match those produced by afex_plot, so I think those are what we want
+groupings_model_fixed <<-
+  summary(emmeans_model,      # emmeans back transformed to the original units of response var
+          type="response") %>%
+  tibble() %>%
+  left_join(groupings_model %>%
+              dplyr::select(-response:-asymp.UCL),
+            # by = c(str_replace(fixed_vars,
+            #                    "[\\+\\*]",
+            #                    '" , "'))) %>%
+            by = c("station_mpa_distance_km",
+                   "study")) %>%
+  rename(response = 3) %>%
+  filter(station_mpa_distance_km < 100)
+
+groupings_model_fixed       # cld messes up back transformation, this takes values from emmeans and groupings from cld
+
+#### Visualize Estimated Marginal Means Output With Group Categories ####
+
+p <- 
+  groupings_model_fixed %>%
+  ggplot(aes(x=study,
+             y=response,
+             fill = study)) +
+  geom_col(position = "dodge",
+           color = "black") +
+  # scale_fill_manual(values = c("lightgrey",
+  #                              "white"),
+  #                   labels = c('Pre-Screen', 
+  #                              'Post-Screen')) +
+  # geom_point(data = data,
+  #            aes(x = location,
+  #                y = !!response_var,
+  #                color = location
+  #            ),
+  #            position = position_dodge(width = 0.9),
+  #            # color = "grey70",
+#            # shape = 1,
+#            size = 1)
+geom_errorbar(aes(ymin=asymp.LCL,
+                  ymax=asymp.UCL),
+              width = 0.2,
+              color = "grey50",
+              # size = 1,
+              position = position_dodge(width=0.9)) +
+  guides(color = "none",
+         shape = "none") +   #remove color legend
+  # geom_text(aes(label=group),
+  #           position = position_dodge(width=0.9),
+  #           vjust = -0.5,
+  #           hjust = -0.15,
+  #           size = 8 / (14/5)) +  # https://stackoverflow.com/questions/25061822/ggplot-geom-text-font-size-control
+  theme_myfigs +
+  # ylim(ymin, 
+  #      ymax) +
+  labs(x = "",
+       y = "Estimated Species Richness (Chao1)") +
+  theme(legend.position=c(0.1,0.9),  
+        legend.title=element_blank())
+
+p
+
+
+#### Visualize Fixed Effect Model Fit (Response Var vs Continuous X Var by Group) ####
+
+# this generates a tibble with the model predictions that can be plotted
+# however, it does not do a good job of showing us where the model is extrapolating 
+emmeans_ggpredict <- 
+  ggemmeans(model,
+            terms = c("station_mpa_distance_km [all]",
+                      "study")) 
+# compatible with ggplot
+# shows models, but extrapolates beyond observations
+plot(emmeans_ggpredict) +
+  #this is our custom plot theme defined in USER DEFINED VARIABLES
+  theme_myfigs
+
+
+# the next several blocks of code will only show us predictions within the ranges of observation by location
+
+# this way uses ggpredict, which has some nice features
+#make a tibble that has the max and min continuous xvar for each categorical xvar
+min_max_xvar <-  
+  est_S %>%
+  rename(x = station_mpa_distance_km,
+         group = study) %>%
+  group_by(group) %>%
+  filter(x == max(x) |
+           x == min(x)) %>%
+  dplyr::select(group,
+                x) %>%
+  arrange(group,
+          x) %>%
+  distinct() %>%
+  mutate(min_max = case_when(row_number() %% 2 == 0 ~ "max_x",
+                             TRUE ~ "min_x")) %>%
+  pivot_wider(names_from = min_max,
+              values_from = x)
+
+# then use that tibble to filter the object made by ggpredict and plot
+emmeans_ggpredict %>%
+  left_join(min_max_xvar) %>% 
+  filter(x >= min_x,
+         x <= max_x) %>% 
+  plot() +
+  #add in our observed values of female_male
+  geom_jitter(data = est_S,
+              aes(x = station_mpa_distance_km,
+                  y = s_chao1,
+                  color = study),
+              size = 3,
+              inherit.aes = FALSE,
+              width = 0,
+              height = 0.02) +
+  theme_myfigs
+
+

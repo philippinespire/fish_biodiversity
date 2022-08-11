@@ -264,16 +264,41 @@ data_closest_mpa %>%
   theme_classic()
 
 #### PCA MPA INFLUENCE ####
+# pca_mpa_influence <-
+#   data_closest_mpa %>%
+#     # filter(study != "si") %>%
+#     select(station_mpa_distance_km,
+#            mpa_area_ha,
+#            closest_mpa_age_during_study_yrs) %>%
+#     prcomp(center = TRUE,
+#            scale. = TRUE)
+# 
+# summary(pca_mpa_influence)
+# 
+# ggbiplot(pca_mpa_influence,
+#          ellipse=TRUE,
+#          ellipse.prob = .5,
+#          groups = data_closest_mpa %>%
+#            pull(study)) +
+#   theme_classic()
+# 
+# 
+# pca_mpa_influence$x
+# 
+# data_closest_mpa <-
+#   data_closest_mpa %>%
+#   bind_cols(pca_mpa_influence$x) %>%
+#   rename(pc1_mpa_infl = PC1)
+
+
 pca_mpa_influence <-
   data_closest_mpa %>%
-    # filter(study != "si") %>%
-    select(station_mpa_distance_km,
-           mpa_area_ha,
-           closest_mpa_age_during_study_yrs) %>%
-    prcomp(center = TRUE,
-           scale. = TRUE)
-
-summary(pca_mpa_influence)
+  # filter(study != "si") %>%
+  # mutate(inv_station_mpa_distance_km = 1/station_mpa_distance_km) %>%
+select(mpa_area_ha,
+       closest_mpa_age_during_study_yrs) %>%
+  prcomp(center = TRUE,
+         scale. = TRUE)
 
 ggbiplot(pca_mpa_influence,
          ellipse=TRUE,
@@ -282,8 +307,6 @@ ggbiplot(pca_mpa_influence,
            pull(study)) +
   theme_classic()
 
-
-pca_mpa_influence$x
 
 data_closest_mpa <-
   data_closest_mpa %>%

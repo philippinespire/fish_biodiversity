@@ -154,14 +154,16 @@ attach(data_vegan.env)
 #### EstimateR ####
 
 # specpool(x, pool, smallsample = TRUE)
-est_S <- estimateR(data_fixed_vegan) %>%
+est_S <- 
+  estimateR(data_fixed_vegan) %>%
   t() %>%
   as_tibble() %>%
   clean_names() %>%
   select(-s_ace,
          -se_ace) %>%
   bind_cols(data_fixed_vegan.env) %>%
-  left_join(data_closest_mpa)
+  left_join(data_closest_mpa) %>%
+  filter(!is.na(adjusted_latitude))
 
 #### PLOTS ####
 
@@ -221,8 +223,8 @@ est_S %>%
               method = "lm") +
   theme_classic()
 
-estimateR(data_fixed_vegan)
-write_tsv(est_S, "estimateR_fixedvegan.tsv")
+
+# write_tsv(est_S, "estimateR_fixedvegan.tsv")
 
 # specpool2vect(X, index = c("jack1","jack2", "chao", "boot","Species"))
 # poolaccum(data_vegan, permutations = 100, minsize = 20)
@@ -230,26 +232,73 @@ write_tsv(est_S, "estimateR_fixedvegan.tsv")
 #### ESTACCUM R ####
 
 estaccumR_data_all <-
-  estaccumR(data_fixed_vegan, permutations = 10000, parallel = getOption("mc.cores"))
+  estaccumR(data_fixed_vegan, 
+            permutations = 10, 
+            parallel = 8)
 
 plot(estaccumR_data_all)
   
 
 estaccumR_si <- 
-  estaccumR(data_sivegan, permutations = 10000, parallel = getOption("mc.cores"))
+  estaccumR(data_sivegan, 
+            permutations = 999, 
+            parallel = 8)
 
 plot(estaccumR_si)
 
 estaccumR_cas <- # error
-  estaccumR(data_fixed_casvegan, permutations = 50, parallel = getOption("mc.cores"))
+  estaccumR(data_fixed_casvegan, 
+            permutations = 999, 
+            parallel = 8)
 
 plot(estaccumR_cas)
 
 estaccumR_su <- 
-  estaccumR(data_suvegan, permutations = 50, parallel = getOption("mc.cores"))
+  estaccumR(data_suvegan, 
+            permutations = 999, 
+            parallel = 8)
 
 plot(estaccumR_su)
 
+
+#### PLOT estaccumR results by study ####
+
+estaccumR_plot <- 
+  function(data_chao,
+           category_id){
+    
+    data_chao %>%
+      as_tibble() %>%
+      dplyr::mutate(N = row_number()) %>%
+      pivot_longer(cols = starts_with("V"),
+                   names_to = "permutation") %>%
+      group_by(N) %>%
+      dplyr::summarize(chao_mean = mean(value),
+                       chao_ci_lower = quantile(value,
+                                                probs = 0.025),
+                       chao_ci_upper = quantile(value,
+                                                probs = 0.975)) %>%
+      ungroup() %>%
+      mutate(category_id = category_id)
+  }
+
+bind_rows(estaccumR_plot(estaccumR_si$chao,
+                         "si_1978-79"),
+          estaccumR_plot(estaccumR_cas$chao,
+                         "cas_2016"),
+          estaccumR_plot(estaccumR_su$chao,
+                         "su_2019-22")) %>%
+  ggplot(aes(x=N,
+             y=chao_mean,
+             color = category_id,
+             fill = category_id)) +
+  geom_ribbon(aes(ymin=chao_ci_lower,
+                  ymax=chao_ci_upper),
+              alpha = 0.5) +
+  geom_line() +
+  theme_classic() +
+  labs(y = "Estimated Species Richness (Chao)",
+       x = "Number of Samples")
 
 # ## S3 method for class 'poolaccum'
 # summary(object, display, alpha = 0.05, ...)

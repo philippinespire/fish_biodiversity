@@ -26,21 +26,23 @@ data <- data_cas_si_su
 data_fixed <- data_cas_si_su %>%
               drop_na(adjusted_latitude)
 
-#### VEGANIZATION ####
-prep_vegan_fixed <- function(data_fixed=data_cas_si_su){
-  data_fixed %>%
+#### functions ####
+prep_vegan_fixed <- 
+  function(data=data_cas_si_su){
+  data %>%
     # filter by lowest_tax_cat (remove family)
-    dplyr::rename(taxon = verified_identification) %>%
-    filter(specimen_count > 0) %>%
-    dplyr::group_by(taxon,
+    rename(taxon = verified_identification) %>%
+    filter(specimen_count > 0,
+           !is.na(adjusted_latitude)) %>% 
+    group_by(taxon,
              station_code, #add everything but specimen_count
              study,
              field_number,
              # lowest_tax_cat
     ) %>%
-    dplyr::summarize(sum_specimen_count = sum(specimen_count, 
+    summarize(sum_specimen_count = sum(specimen_count, 
                                        na.rm = TRUE)) %>%
-    dplyr::ungroup() %>%
+    ungroup() %>% 
     # convert tibble from long to wide format
     pivot_wider(names_from = taxon,
                 values_from = sum_specimen_count,
@@ -51,12 +53,6 @@ prep_vegan_fixed <- function(data_fixed=data_cas_si_su){
             station_code) %>%
     drop_na(station_code)
 }
-
-data_fixed_vegan <-
-  prep_vegan_fixed() %>%
-  dplyr::select(-station_code:-field_number
-                #:-lowest_tax_cat
-  )
 
 
 #Vegan all data
@@ -84,6 +80,15 @@ prep_vegan <- function(data=data_cas_si_su){
           station_code) %>%
     drop_na(station_code)
   }
+
+
+#### VEGANIZATION ####
+data_fixed_vegan <-
+  data_cas_si_su %>%
+  prep_vegan_fixed() %>%
+  dplyr::select(-station_code:-field_number
+                #:-lowest_tax_cat
+  )
 
 data_cas_si_su_vegan <-
   prep_vegan() %>%
@@ -121,11 +126,18 @@ data_casvegan <-
   dplyr::select(-station_code:-field_number)
 
 data_fixed_casvegan <-
-  data_fixed %>%
-  prep_vegan_fixed() %>%
+  data_cas_si_su %>%
   dplyr::filter(study == "cas_2016") %>%
+  prep_vegan_fixed() %>%
   dplyr::select(-station_code:-field_number)
 
+data_fixed_casvegan.env <-
+  data_cas_si_su %>%
+  dplyr::filter(study == "cas_2016") %>%
+  prep_vegan_fixed() %>%
+  dplyr::select(station_code:field_number)
+
+attach(data_fixed_casvegan.env)
 #vegan SI data
 # prep_vegan_si <- function(data=data_cas_si_su){
 #   data %>%
