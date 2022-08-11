@@ -1,7 +1,7 @@
 #### INITIALIZATION ####
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-library(tidyverse)
+
 library(janitor)
 library(readxl)
 # install.packages("maps")
@@ -18,27 +18,29 @@ library(vegan)
 library(remotes)
 # remotes::install_github("gavinsimpson/ggvegan")
 library(ggvegan)
+library(tidyverse)
 source("wrangle_cas_si_su_data.R")
 
 
 data <- data_cas_si_su
+data_fixed <- data_cas_si_su %>%
+              drop_na(adjusted_latitude)
 
 #### VEGANIZATION ####
-prep_vegan_fixed <- function(data_fixed=data_cas_si_su %>%
-                               drop_na(adjusted_latitude)){
-  data %>%
+prep_vegan_fixed <- function(data_fixed=data_cas_si_su){
+  data_fixed %>%
     # filter by lowest_tax_cat (remove family)
-    rename(taxon = verified_identification) %>%
+    dplyr::rename(taxon = verified_identification) %>%
     filter(specimen_count > 0) %>%
-    group_by(taxon,
+    dplyr::group_by(taxon,
              station_code, #add everything but specimen_count
              study,
              field_number,
              # lowest_tax_cat
     ) %>%
-    summarize(sum_specimen_count = sum(specimen_count, 
+    dplyr::summarize(sum_specimen_count = sum(specimen_count, 
                                        na.rm = TRUE)) %>%
-    ungroup() %>%
+    dplyr::ungroup() %>%
     # convert tibble from long to wide format
     pivot_wider(names_from = taxon,
                 values_from = sum_specimen_count,
@@ -118,6 +120,12 @@ data_casvegan <-
   prep_vegan() %>%
   dplyr::select(-station_code:-field_number)
 
+data_fixed_casvegan <-
+  data_fixed %>%
+  prep_vegan_fixed() %>%
+  dplyr::filter(study == "cas_2016") %>%
+  dplyr::select(-station_code:-field_number)
+
 #vegan SI data
 # prep_vegan_si <- function(data=data_cas_si_su){
 #   data %>%
@@ -182,6 +190,10 @@ data_cas_si_su_vegan.env <-
   prep_vegan() %>%
   dplyr::select(station_code:field_number)
 
+data_fixed_vegan.env <-
+  prep_vegan_fixed() %>%
+  dplyr::select(station_code:field_number)
+
 #cas 2016 data
 data_cas_vegan.env <-
   data_cas_si_su %>%
@@ -209,6 +221,8 @@ attach(data_cas_si_su_vegan.env)
 data_vegan <- data_cas_si_su_vegan 
 data_vegan.env <- data_cas_si_su_vegan.env
 attach(data_vegan.env)
+
+attach(data_fixed_vegan.env)
 
 #CAS 2016
 attach(data_cas_vegan.env)

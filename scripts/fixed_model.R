@@ -1,7 +1,6 @@
 #### INITIALIZATION ####
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-library(tidyverse)
 library(magrittr)
 library(janitor)
 # install.packages("fitdistrplus")
@@ -35,9 +34,11 @@ library(performance)
 library(optimx)
 library(effects)
 library(prediction)
+library(tidyverse)
 
 source("wrangle_cas_si_su_data.R")
 source("ordination_cas_su_si.R")
+source("EstimateR.R")
 
 data_fixed <- data_cas_si_su %>%
   drop_na(adjusted_latitude)
@@ -139,9 +140,12 @@ distribution_family = "poisson"
 alpha_sig = 0.05
 
 model <<- 
-  glm(formula = data_fixed_vegan ~ station_code + specimen_count, 
-      family = poisson,
-      data = data)
+  glm(formula = s_chao1 ~ pc1_mpa_infl*study, 
+      family = "poisson",
+      data = est_S)
+
+summary(model)
+
 
 #### USER DEFINED VARIABLES ####
 

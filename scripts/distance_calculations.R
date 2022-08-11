@@ -4,10 +4,10 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 #install.packages("geosphere")
 library(ggbiplot)
 library(geosphere)
-library(tidyverse)
 library(janitor)
 library(readxl)
 library(readr)
+library(tidyverse)
 
 
 #### USER DEFINED VARIABLES ####

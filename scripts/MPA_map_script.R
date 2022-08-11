@@ -18,7 +18,8 @@ theme_set(
 
 #### USER DEFINED VARIABLES ####
 
-inFilePath = "../data/MPA_coordinates.xlsx"
+
+inFilePath = "../data/MPA_coordinates_no_deg.xlsx"
 #inFilePath2 = 
   # inFilePath2 = "./PHIRES_MetaData.xlsx"
   
@@ -54,9 +55,9 @@ data_mpa <-
 
 data_mpa %>%
   ggplot(aes(y=lat,
-             x=long,
-             color = "black")) +
-  geom_point(size = 5) +
+             x=long)) +
+  geom_point(size = 5,
+             color = "black") +
   theme_classic() 
 
 #### VISUALIZE ALL DATA ####
@@ -102,16 +103,19 @@ region_label_data <-
 map_data("world",
          region = "Philippines") %>%
   filter(long>122 & long<125,
-         lat>7.5 & lat<12) %>%
-  ggplot(aes(long,
-             lat,
+         lat>8 & lat<11.5) %>%
+  ggplot(aes(x = long,
+             y = lat,
              group=group)) +
   geom_polygon(fill="lightgray",
                color = "white") +
   geom_text(data = subregion_label_data,
-            aes(label = subregion),
+            aes(label = subregion,
+                x = long,
+                y = lat),
             size = 6,
-            hjust = 0.5) +
+            hjust = 0.5,
+            inherit.aes = FALSE) +
   # geom_text(data = region_label_data,
   # aes(x = long,
   #   y= lat,
@@ -119,12 +123,15 @@ map_data("world",
   #  size = 10,
   # hjust = 0.5,
   # inherit.aes = FALSE) +
-  geom_point(data = data_mpa, #tibble with mpa lat/long I need to create
+  geom_point(data = data_mpa,
              aes(x = long,
-                 y = lat,
-                 color = size,
-                 shape = year,
-                   inherit.aes = FALSE))
+                 y = lat),
+             #color = as.numeric(size),
+             #shape = year,
+             inherit.aes = FALSE) +
+  scale_x_discrete() +
+  scale_y_discrete()
+
              #very last tutorial map should be used
              
              

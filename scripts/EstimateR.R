@@ -20,14 +20,14 @@ data <- data_cas_si_su
 #Vegan all data
 prep_vegan <- function(data=data_cas_si_su){
   data %>%
-    rename(taxon = verified_identification) %>%
+    dplyr::rename(taxon = verified_identification) %>%
     filter(specimen_count > 0) %>%
     group_by(taxon,
              station_code,
              study,
              field_number,
              lowest_tax_cat) %>%
-    summarize(sum_specimen_count = sum(specimen_count)) %>%
+    dplyr::summarize(sum_specimen_count = sum(specimen_count)) %>%
     ungroup() %>%
     pivot_wider(names_from = taxon,
                 values_from = sum_specimen_count,
@@ -154,13 +154,13 @@ attach(data_vegan.env)
 #### EstimateR ####
 
 # specpool(x, pool, smallsample = TRUE)
-est_S <- estimateR(data_vegan) %>%
+est_S <- estimateR(data_fixed_vegan) %>%
   t() %>%
   as_tibble() %>%
   clean_names() %>%
   select(-s_ace,
          -se_ace) %>%
-  bind_cols(data_vegan.env) %>%
+  bind_cols(data_fixed_vegan.env) %>%
   left_join(data_closest_mpa)
 
 #### PLOTS ####
@@ -221,47 +221,35 @@ est_S %>%
               method = "lm") +
   theme_classic()
 
-estimateR(data_vegan.env)
+estimateR(data_fixed_vegan)
+write_tsv(est_S, "estimateR_fixedvegan.tsv")
 
 # specpool2vect(X, index = c("jack1","jack2", "chao", "boot","Species"))
 # poolaccum(data_vegan, permutations = 100, minsize = 20)
 
 #### ESTACCUM R ####
-estaccumR(data_vegan, permutations = 100, parallel = getOption("mc.cores"))
 
-#all estaccumR commands give an error
+estaccumR_data_all <-
+  estaccumR(data_fixed_vegan, permutations = 10000, parallel = getOption("mc.cores"))
 
-estaccumRall <- 
-  data_fixed_vegan %>%
-  drop_na() %>%
-  estaccumR(permutations = 100, parallel = getOption("mc.cores"))
-
-plot(estaccumRall)
-
-estaccumRcas <- 
-  data_casvegan %>%
-  drop_na() %>%
-  estaccumR(permutations = 100, parallel = getOption("mc.cores"))
+plot(estaccumR_data_all)
   
-plot(estaccumRcas)
 
-estaccumRsi <- 
-  data_sivegan %>%
-  drop_na() %>%
-  estaccumR(permutations = 100, parallel = getOption("mc.cores"))
+estaccumR_si <- 
+  estaccumR(data_sivegan, permutations = 10000, parallel = getOption("mc.cores"))
 
-plot(estaccumRsi)
+plot(estaccumR_si)
 
-estaccumRsu <- 
-  data_suvegan %>%
-  drop_na() %>%
-  estaccumR(permutations = 100, parallel = getOption("mc.cores"))
+estaccumR_cas <- # error
+  estaccumR(data_fixed_casvegan, permutations = 50, parallel = getOption("mc.cores"))
 
-plot(estaccumRsu)
- 
- 
-estaccumR(data_sivegan, permutations = 100, parallel = getOption("mc.cores"))
-estaccumR(data_suvegan, permutations = 100, parallel = getOption("mc.cores"))
+plot(estaccumR_cas)
+
+estaccumR_su <- 
+  estaccumR(data_suvegan, permutations = 50, parallel = getOption("mc.cores"))
+
+plot(estaccumR_su)
+
 
 # ## S3 method for class 'poolaccum'
 # summary(object, display, alpha = 0.05, ...)
