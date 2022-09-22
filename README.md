@@ -37,10 +37,12 @@ Google Drive → Philippines PIRE → [Rotenone_Database](https://drive.google.c
 
 ## Wrangle and Assemble Full Data Set
 
+These are instructions if you are reading in the data for the first time.  Once you have done all the following steps successfully, you can just run the whole `fish_biodiveristy/scripts/wangle_cas_si_su_data.R` script.
+
 1. Clone this repo to your computer
 2. Open RStudio
-    * make sure you are using R 4.2.1 and a 2022 version of R Studio
-4. Make sure you have all of the dependencies and they are up to date 2022 versions
+    * make sure you are using `R 4.2.1` and a 2022 version of R Studio
+3. Make sure you have all of the dependencies and they are up to date 2022 versions
     ```r
     library(tidyverse)
     library(readxl)
@@ -54,3 +56,11 @@ Google Drive → Philippines PIRE → [Rotenone_Database](https://drive.google.c
     #install_github("decisionpatterns/tidyimpute")
     library(tidyimpute)
     ```
+4. Open `fish_biodiversity/scripts/wrangle_cas_si_su_data.R` in R Studio
+   * `alt-o` to collapse sections
+   * run `INITIALIZE` and `USER DEFINED VARIABLES` sections
+      * make sure there were no errors
+   * Under `READ IN DATA` run each line one by one checking for errors
+      * You can expect to see "warnings", but if you see "error" then goto step 2
+   * Run each subsequent command in this script making sure there are no errors
+5. 
