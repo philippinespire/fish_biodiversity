@@ -38,7 +38,9 @@ Google Drive → Philippines PIRE → [Rotenone_Database](https://drive.google.c
 ## Wrangle and Assemble Full Data Set
 
 1. Clone this repo to your computer
-2. Make sure you have all of the dependencies
+2. Open RStudio
+    * make sure you are using R 4.2.1 and a 2022 version of R Studio
+4. Make sure you have all of the dependencies and they are up to date 2022 versions
     ```r
     library(tidyverse)
     library(readxl)
