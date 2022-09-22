@@ -331,6 +331,8 @@ ordispider(ord, study, col=1:3, label = TRUE)
 ord <- metaMDS(data_vegan) #find and record rogue station codes in ord plot
 ord
 summary(ord)
+
+attach(data_vegan.env)
 #fanciest plot
 plot(ord, disp="sites", type="n")
 ordihull(ord, study, col=1:3, lwd=3)
@@ -351,6 +353,8 @@ ordiellipse(ord, study, col=1:3, kind = "ehull", lwd=3)
 plot(ord.fit, col=1:3)
 
 ordisurf(ord, study, add=TRUE)
+
+detach(data_vegan.env)
 
 #cas 2016 data------------------
 ord <- metaMDS(data_casvegan)
