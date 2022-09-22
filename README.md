@@ -19,7 +19,7 @@ Rpackage to do what [EstimateS](https://www.robertkcolwell.org/pages/estimates) 
 
 ## Useful Links
 
-This is where all the data is.  We probably need to spend some time searching and transferring data from google to this repo
+This is where all the data is that John Whalen has organized.  Dirs with data that we analyze from these places should be transferred to this repo and not modified.
 
 Google Drive → Philippines PIRE → [Rotenone_Database](https://drive.google.com/drive/folders/1n1yQ6lLybuoX6wJJQ5qRgplAQ09lOYHq?usp=sharing)
 
