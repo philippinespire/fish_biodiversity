@@ -2,9 +2,6 @@
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-# install.packages("tidyverse")
-# install.packages("readxl")
-
 library(tidyverse)
 library(readxl)
 library(janitor)

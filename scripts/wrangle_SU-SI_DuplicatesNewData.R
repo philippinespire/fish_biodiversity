@@ -11,7 +11,7 @@ library(measurements)
 library(lubridate)
 
 #### USER DEFINED VARIABLES ####
-inFilePath = "../data/SU-SI_Duplicates(1).xlsx"
+#inFilePath = "../data/SU-SI_Duplicates(1).xlsx"
 inFilePath = "../data/SU-SI_Duplicates_20220808.xlsx"
 CAS_verified_names = "../data/All_confirmed_names.xlsx"
 
