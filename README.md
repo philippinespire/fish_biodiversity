@@ -33,3 +33,22 @@ Google Drive → Philippines PIRE → [Rotenone_Database](https://drive.google.c
 
 [EstimateS](https://www.robertkcolwell.org/pages/estimates)
 
+---
+
+## Wrangle and Assemble Full Data Set
+
+1. Clone this repo to your computer
+2. Make sure you have all of the dependencies
+    ```r
+    library(tidyverse)
+    library(readxl)
+    library(janitor)
+    library(purrr)
+    library(magrittr)
+    library(measurements)
+    library(lubridate)
+    library(readr)
+    library(devtools)
+    #install_github("decisionpatterns/tidyimpute")
+    library(tidyimpute)
+    ```
