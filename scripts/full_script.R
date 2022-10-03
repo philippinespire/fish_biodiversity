@@ -1,0 +1,20 @@
+#### INITIALIZATION ####
+
+# install.packages("maps")
+# install.packages("viridis")
+# install.packages("geosphere")
+library(ggbiplot)
+library(geosphere)
+library(readxl)
+library(janitor)
+library(purrr)
+library(magrittr)
+library(lubridate)
+library(readr)
+library(maps)
+library(viridis)
+library(vegan)
+library(ggvegan)
+library(remotes)
+library(tidyverse)
+
