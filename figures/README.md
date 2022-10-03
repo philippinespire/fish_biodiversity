@@ -1,14 +1,21 @@
 # Figures README #
-#### Not all figures displayed ####
+#### ---Not all figures displayed--- ####
 
 ![](figure_mpa_coordinates.png)
+.
+.
 Map of MPA locations used in the analyses
 File: figure_mpa_coordinates.png
-
+.
+.
 
 ![](figure_sample_sites.png)
+.
+.
 Map of sample sites used in the analyses
 File: figure_sample_sites.png
+.
+.
 
 
 ![](Rplot_species-accumulation-curve.png)
