@@ -10,6 +10,7 @@ the purpose of this repo is to centralize all data pertaining to Philippines PIR
 * `SU`: 2019-present PIRE Expeditions
 * `CAS`: 2016 Cal Academy of Sciences Expedition
 * `data`: 20teens data from Kent Carpenter
+* `figures`: Plots made from analyses
 
 ## Notes
 
