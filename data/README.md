@@ -4,13 +4,18 @@
 
 ### Files with station info ###
 
-CAS verified names: `All_confirmed_names.xlsx`
+Station/metadata/counts info for all eras: `data_cas_si_su.csv`
+
+'78-'79 station metadata and capture methods: `station_info.xlsx`
+
+Contemporary duplicate station and species counts info: `SU-SI_Duplicates_20220808.xlsx`
+
+
+### Files with MPA and species names info ###
 
 MPA coordinates list: `MPA_coordinates_no_deg.xlsx`
 
-Station metadata and capture method: `station_info.xlsx`
+CAS verified names: `All_confirmed_names.xlsx`
 
-Station info and species data: `SU-SI_Duplicates_20220808.xlsx` and `RotenoneRovingCombined.xlsx`
-
-Station info (all eras; Compiled and consice): `data_cas_si_su.csv`
+Distance matrix (to find closest distances): `distance_matrix.csv`
 
