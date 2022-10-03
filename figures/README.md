@@ -1,4 +1,4 @@
-## Figures README ##
+# Figures README #
 #### Not all figures displayed ####
 
 ![](figure_mpa_coordinates.png)
