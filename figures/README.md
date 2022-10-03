@@ -1,5 +1,5 @@
-#### Figures README ####
-## Not all figures displayed ##
+## Figures README ##
+#### Not all figures displayed ####
 
 ![](figure_mpa_coordinates.png)
 Map of MPA locations used in the analyses
