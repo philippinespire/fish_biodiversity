@@ -24,7 +24,19 @@ Scripts to create the map for mpa and site locations respectively
 
 In progress script that runs everything at once
 
-### ordination_cas_su_si.R
+### `ordination_cas_su_si.R`
 
 * All vegan variables for each era are made here
 * Ordination, DCA, NMDS and ANOVA plots
+
+### `data_si_pca.R` and `data_su_pca.R`
+
+PCA Plots using si and su collections
+
+### `EstimateR.R`
+
+est_S plots, estaccumR plots
+
+### `fixed_model.R`
+
+Sources from wrangle_cas_si_su_data, ordination_cas_su_si.R, and Estimate.R
