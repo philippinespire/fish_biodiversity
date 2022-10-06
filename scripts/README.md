@@ -39,4 +39,6 @@ est_S plots, estaccumR plots
 
 ### `fixed_model.R`
 
+Makes est_S model
+
 Sources from wrangle_cas_si_su_data, ordination_cas_su_si.R, and Estimate.R
