@@ -42,3 +42,10 @@ est_S plots, estaccumR plots
 Makes est_S model
 
 Sources from wrangle_cas_si_su_data, ordination_cas_su_si.R, and Estimate.R
+
+### `permanova.R`
+
+Permanova and adonis2
+
+### `Rarefaction.R`
+adonis 2 for each era
