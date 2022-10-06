@@ -29,13 +29,18 @@ Distance matrix (to find closest distances): `distance_matrix.csv`
 
 ### Species counts for 78-79 at specific depths ###
 `SI_78-79_0-2m.tsv`
+
 `SI_78-79_2-15m.tsv`
+
 `SI_78-79_15-50m.tsv`
+
 `SI_78-79_all.tsv`
 
 ### EstimateS results for above files ###
 `SI_78-79_0-2m_depth_diversity.tsv`
+
 `SI_78-79_2-15m_depth_diversity.tsv`
+
 `SI_78-79_15-50m_depth_diversity.tsv`
 
 
