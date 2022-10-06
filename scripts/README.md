@@ -16,6 +16,10 @@ Smithsonian db was queried, we read in the results of three queries, remove dupl
 
 We removed all rows with no field_number because we determined that 30 were likely otter trawls i the Stingray V, and the other NA record was from Ayungon while the site collected on the same day was farther south near Bais.
 
+## `wrangle_cas_si_su_data.R`
+
+Data from all era's binded and columns irrelevant dropped 
+
 ### `MPA_map_script.R` and `Site_Map_Script.R`
 
 Scripts to create the map for mpa and site locations respectively
