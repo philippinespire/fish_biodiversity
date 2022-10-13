@@ -15,7 +15,9 @@ Station/metadata/counts info for all eras: `data_cas_si_su.csv`
 
 '78-'79 station metadata and capture methods: `station_info.xlsx` and  `station_info.csv`
 
-Contemporary duplicate station and species counts info: `SU-SI_Duplicates_20220808.xlsx`
+Contemporary duplicate station and species counts info (most recent): `SU-SI_Duplicates_20220808.xlsx`
+
+Fixed vegan EstimateR tsv file: `estimateR_fixedvegan.tsv`
 
 ---
 
@@ -25,6 +27,9 @@ MPA coordinates list: `MPA_coordinates_no_deg.xlsx`
 
 CAS verified names: `All_confirmed_names.xlsx`
 * Made with `cas2016_taxa_verified.xlsx` , `hist_species_ids.xlsx`and `Contemporary_confirmed_names.xlsx`
+
+CAS verified name in progress (no longer relevant)
+`cas2016_taxa_to_verify.tsv`
 
 Distance matrix (to find closest distances): `distance_matrix.csv`
 
@@ -48,3 +53,6 @@ Distance matrix (to find closest distances): `distance_matrix.csv`
 `SI_78-79_15-50m_depth_diversity.tsv`
 
 
+### EstimateS Practice files (no longer relevant)
+`PracticeEstimateSResult.txt`
+`PracticeEstimateSResultSpecies.txt`
