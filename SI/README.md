@@ -11,6 +11,7 @@
 * Coordinates
 	* `./` files have lat and long vals
 	* `./dd_coordinates_all_stations.xlsx`: had lat and long adjusted calcs
+	* `./SI/Coordinates/Coordinate_Conversions.xlsx`: Original lat and long converted to deg dec format
 	* `./Rotenone_Stations.xlsx`: are these the only rotenone stations?
 	* `./SI_GPSConverter.py`: script to convert lat longs?
 * CrypticIDs
