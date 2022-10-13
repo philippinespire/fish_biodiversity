@@ -13,6 +13,7 @@ scripts to process and analyze the fish biodiversity data cellected by the SI, S
 *   `scripts/wrangle_SU-SI_DuplicatesNewData.R`
 *   `scripts/wrangle_cas_data.R`
 
+
 ### `wrangleStationData_SI.R`
 Wrangle fish biodiversity data from 1978-9 Smithsonian Expedition
 
@@ -20,12 +21,15 @@ Smithsonian db was queried, we read in the results of three queries, remove dupl
 
 Uses files `/data/station_info.xlsx` , `SI/Coordinates/Coordinate_Conversions.xlsx` and `/SI/Collections_Data`
 
+
 ### `wrangle_SU-SI_DuplicatesNewData.R`
 Wrangle fish biodiversity data from 2022
 
 Uses files `/data/SU-SI_Duplicates_20220808.xlsx` and `/data/All_confirmed_names.xlsx`
 
+
 ### `wrangle_cas_data.R`
+Wrangle fish biodiversity data from 2016
 
 Uses files `/CAS/CAS fish count by site PH 2016.xlsx` , `/CAS/CAS-Fishes-VIP2016-localities.xlsx` and `/data/All_confirmed_names.xlsx`
 
