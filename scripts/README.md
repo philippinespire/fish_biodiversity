@@ -4,25 +4,41 @@ scripts to process and analyze the fish biodiversity data cellected by the SI, S
 
 ---
 
-## `RotenoneRovingCombined.R`
 
-Reads in data from 20teens shared by Kent Carpenter, but we don't have station data, only fish counts.
+## `wrangle_cas_si_su_data.R`
 
-## `wrangleStationData_SI.R`
+### Data from all era's binded and columns irrelevant dropped
+#### Sourced from:
+*   `scripts/wrangleStationData_SI.R`
+*   `scripts/wrangle_SU-SI_DuplicatesNewData.R`
+*   `scripts/wrangle_cas_data.R`
 
+### `wrangleStationData_SI.R`
 Wrangle fish biodiversity data from 1978-9 Smithsonian Expedition
 
 Smithsonian db was queried, we read in the results of three queries, remove duplicated rows, remove columns with no data
 
+Uses files `/data/station_info.xlsx` , `SI/Coordinates/Coordinate_Conversions.xlsx` and `/SI/Collections_Data`
+
+### `wrangle_SU-SI_DuplicatesNewData.R`
+Wrangle fish biodiversity data from 2022
+
+Uses files `/data/SU-SI_Duplicates_20220808.xlsx` and `/data/All_confirmed_names.xlsx`
+
+### `wrangle_cas_data.R`
+
+Uses files `/CAS/CAS fish count by site PH 2016.xlsx` , `/CAS/CAS-Fishes-VIP2016-localities.xlsx` and `/data/All_confirmed_names.xlsx`
+
+
+---
+
+## `RotenoneRovingCombined.R`
+
+Reads in data from 20teens shared by Kent Carpenter, but we don't have station data, only fish counts.
+
+
+
 We removed all rows with no field_number because we determined that 30 were likely otter trawls i the Stingray V, and the other NA record was from Ayungon while the site collected on the same day was farther south near Bais.
-
-## `wrangle_cas_si_su_data.R`
-
-Data from all era's binded and columns irrelevant dropped 
-* Sourced from:
-*   `scripts/wrangleStationData_SI.R`
-*   `scripts/wrangle_SU-SI_DuplicatesNewData.R`
-*   `scripts/wrangle_cas_data.R`
 
 ### `MPA_map_script.R` and `Site_Map_Script.R`
 
