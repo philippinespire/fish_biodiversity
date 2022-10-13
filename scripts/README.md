@@ -8,10 +8,17 @@ scripts to process and analyze the fish biodiversity data cellected by the SI, S
 ## `wrangle_cas_si_su_data.R`
 
 ### Data from all era's binded and columns irrelevant dropped
-#### Sourced from:
+Sourced from:
 *   `scripts/wrangleStationData_SI.R`
 *   `scripts/wrangle_SU-SI_DuplicatesNewData.R`
 *   `scripts/wrangle_cas_data.R`
+.
+.
+.
+.
+.
+.
+.
 
 
 
@@ -20,24 +27,33 @@ Wrangle fish biodiversity data from 1978-9 Smithsonian Expedition
 
 Smithsonian db was queried, we read in the results of three queries, remove duplicated rows, remove columns with no data
 
-Uses files `/data/station_info.xlsx` , `SI/Coordinates/Coordinate_Conversions.xlsx` and `/SI/Collections_Data`
+Sourced from:
+* `/data/station_info.xlsx` 
+* `SI/Coordinates/Coordinate_Conversions.xlsx` 
+* `/SI/Collections_Data`
 
 
 
 ### `wrangle_SU-SI_DuplicatesNewData.R`
 Wrangle fish biodiversity data from 2022
 
-Uses files `/data/SU-SI_Duplicates_20220808.xlsx` and `/data/All_confirmed_names.xlsx`
+Sourced from:
+* `/data/SU-SI_Duplicates_20220808.xlsx` 
+* `/data/All_confirmed_names.xlsx`
 
 
 
 ### `wrangle_cas_data.R`
 Wrangle fish biodiversity data from 2016
 
-Uses files `/CAS/CAS fish count by site PH 2016.xlsx` , `/CAS/CAS-Fishes-VIP2016-localities.xlsx` and `/data/All_confirmed_names.xlsx`
+Sourced from:
+* `/CAS/CAS fish count by site PH 2016.xlsx` 
+* `/CAS/CAS-Fishes-VIP2016-localities.xlsx` 
+* `/data/All_confirmed_names.xlsx`
 
 
 ---
+
 
 ## `RotenoneRovingCombined.R`
 
