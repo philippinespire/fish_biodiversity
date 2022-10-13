@@ -11,6 +11,9 @@ the purpose of this repo is to centralize all data pertaining to Philippines PIR
 * `CAS`: 2016 Cal Academy of Sciences Expedition
 * `data`: 20teens data from Kent Carpenter
 * `figures`: Plots made from analyses
+* `literature`: Background information on community similarity and how to statistically analyze it
+* `rr_proposal`: Contains proposal graphic mockup explaining PCA
+* `scripts`: R codes that wrangle data, and create all graphics and analyses
 
 ## Notes
 
