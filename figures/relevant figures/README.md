@@ -22,6 +22,7 @@ File: `figure_sample_sites.png`
 ![](Rplot_species-accumulation-curve.png)
 
 Accumulation curves separated by era
+* Shows predicted true value of species richness for each era
 
 File: `Rplot_species-accumulation-curve.png`
 
@@ -30,7 +31,7 @@ File: `Rplot_species-accumulation-curve.png`
 ![](Rplot_s_vs_dist-to-mpa.png)
 
 Species Richness vs Distance to MPA
-
+* Shows the relationship of species richness to distance from MPA.
 File: `Rplot_s_vs_dist-to-mpa.png`
 
 ---
