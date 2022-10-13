@@ -3,6 +3,8 @@
 ## Contains: ##
 
 ### NMDS, DCA and ordination plots ###
+![](figure_cas_DCAplot.png)
+
 * `figure_cas_DCAplot.png`
 * `figure_cas_DCAplot_labeled.png`
 * `figure_cas_NMDSplot.png`
@@ -21,11 +23,15 @@
 * `figure_su_NMDSplot_labeled.png`
 
 ### PCA ###
+![](figure_data_si_pca.png)
+
 * `figure_data_si_pca.png`
 * `figure_pca_mpa_influence.png`
 * `Rplot_PCA_MPAareaAndSize.png`
 
 ### Species richness vs predictor variables ###
+![](figure_estS_pc3xstudy.png)
+
 * `figure_estS_pc2xchao.png`
 * `figure_estS_pc1xschao.png`
 * `figure_estS_mpadistanceXstudy.png`
@@ -33,12 +39,16 @@
 * `figure_estS_pc3xstudy.png`
 
 ### Depth category visualizations ###
+![](0-2m_S.png)
+
 * `0-2m_S.png`
 * `2-15m_S.png`
 * `15-50m_S.png`
 * `figure_depth_cat_bars.png`
 
 ### Other visualizations ###
+![](figure_study_mpa_sizes.png)
+
 * `figure_area_per_km_to_mpa.png`
 * `figure_dist_and_size_mpa.png`
 * `figure_dist_from_mpa.png`
