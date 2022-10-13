@@ -1,5 +1,4 @@
-## Figures ##
----
+# Figures #
 
 ### Contains: ###
 
