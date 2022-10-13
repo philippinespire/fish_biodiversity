@@ -1,6 +1,6 @@
 # Figures #
 
-### Contains: ###
+## Contains: ##
 
 #### Relevant figures: ####
 * Figures made that convey final results of analyses and are ideal to put into final presentations
