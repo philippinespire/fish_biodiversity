@@ -19,6 +19,10 @@ We removed all rows with no field_number because we determined that 30 were like
 ## `wrangle_cas_si_su_data.R`
 
 Data from all era's binded and columns irrelevant dropped 
+* Sourced from:
+*   `scripts/wrangleStationData_SI.R`
+*   `scripts/wrangle_SU-SI_DuplicatesNewData.R`
+*   `scripts/wrangle_cas_data.R`
 
 ### `MPA_map_script.R` and `Site_Map_Script.R`
 
