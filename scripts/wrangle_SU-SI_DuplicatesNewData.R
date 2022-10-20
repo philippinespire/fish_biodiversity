@@ -14,6 +14,7 @@ library(lubridate)
 #inFilePath = "../data/SU-SI_Duplicates(1).xlsx"
 inFilePath = "../data/SU-SI_Duplicates_20220808.xlsx"
 CAS_verified_names = "../data/All_confirmed_names.xlsx"
+#stationDataFilePath = "su_station_database"
 
 #### Read in Data ####
 

@@ -29,9 +29,10 @@ data_su <-
                        .keep_all = TRUE) %>%
               dplyr::rename(station_code_7879 = station_code) %>%
               dplyr::select(station_code_7879,
-                     starts_with("adjusted")) %>%
-              dplyr::rename(latitude_7879 = adjusted_latitude,
-                     longitude_7879 = adjusted_longitude)) %>%
+                     latitude,
+                     longitude) %>%
+              dplyr::rename(latitude_7879 = latitude,
+                     longitude_7879 = longitude)) %>%
   mutate(adjusted_latitude = case_when(is.na(adjusted_latitude) ~ latitude_7879,
                                        TRUE ~ adjusted_latitude),
          adjusted_longitude = case_when(is.na(adjusted_longitude) ~ longitude_7879,
