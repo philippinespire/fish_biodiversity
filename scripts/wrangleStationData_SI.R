@@ -178,8 +178,10 @@ data_gis <-
                                     "JL")) %>%
   dplyr::select(station_code,
          odu_station_code:smithsonian_station_code,
-         starts_with("adjusted_"),
-         -starts_with("x"))
+         starts_with("dd_"),
+         -starts_with("x")) %>%
+  rename(latitude = dd_latitude,
+         longitude = dd_longitude)
   
 
 #### JOIN DATA ####
