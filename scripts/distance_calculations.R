@@ -14,6 +14,35 @@ library(tidyverse)
 InFilePath1 = "../data/MPA_coordinates_no_deg.xlsx"
 source("./wrangle_cas_si_su_data.R")
 
+theme_myfigs <- 
+  theme_classic() +
+  theme(panel.background = element_rect(fill = 'white', 
+                                        color = 'white'),
+        panel.grid = element_blank(),
+        panel.grid.major.y = element_line(color="grey95", 
+                                          size=0.25),
+        panel.border = element_blank(),
+        axis.text.y = element_text(size = 9, 
+                                   color = 'black'),
+        axis.text.x = element_text(size = 9, 
+                                   color = 'black'),
+        # axis.title.x = element_blank(),
+        axis.title.y = element_text(size = 10, 
+                                    color = 'black'),
+        plot.title = element_text(size = 10, 
+                                  color = 'black'),
+        plot.subtitle = element_text(size = 9, 
+                                     color = 'black'),
+        plot.caption = element_text(size = 9, 
+                                    color = 'black', 
+                                    hjust = 0),
+        legend.text = element_text(size = 9, 
+                                   color = 'black'),
+        legend.title = element_text(size = 9, 
+                                    color = 'black'),
+        legend.background = element_blank(),
+        legend.position="right"
+  )
 
 #### WRANGLE MPA DATA ####
 data_mpa <- 
@@ -305,7 +334,8 @@ ggbiplot(pca_mpa_influence,
          ellipse.prob = .5,
          groups = data_closest_mpa %>%
            pull(study)) +
-  theme_classic()
+  theme_classic() +
+  theme_myfigs
 
 
 data_closest_mpa <-
