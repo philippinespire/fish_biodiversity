@@ -218,6 +218,4 @@ arcgis@data %>%
       x=Shape__Are) +
   geom_point()
 
-bubble(trees['HEIGHT'], col=rgb(0.5,0.5,1,0.5))
-bubble(arcgis['ID'], col=rgb(0.5,0.5,1,0.5))
 
