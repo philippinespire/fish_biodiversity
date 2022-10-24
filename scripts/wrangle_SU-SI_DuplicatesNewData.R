@@ -52,7 +52,7 @@ data_su <-
          collectors = collector_s,
          ecol_habitat = ecological_habitat,
          dist_shore = distance_from_shore,
-         depth_m = depth_water,
+         # depth_m = depth_water,
          locality = precise_locality) %>%
   mutate(adjusted_latitude = case_when(is.na(centroid_latitude) ~ as.numeric(conv_unit(dms_latitude,
                                                                             from = "deg_min_sec",
@@ -64,7 +64,12 @@ data_su <-
                                         TRUE ~ centroid_longitude),
          station_code_7879 = str_replace(station_code_7879,
                                          "-",
-                                         "_")) %>%
+                                         "_"),
+         depth_m = str_remove(depth_water,
+                              " *ft *"),
+         depth_m = str_remove(depth_m,
+                              "^[0-9]+\\-"),
+         depth_m = as.numeric(depth_m) * 12 * 2.54 / 100) %>%
   dplyr::select(-i_dcheck_2nd,
                -i_dcheck_3rd,
                -i_dcheck_1st,
@@ -84,6 +89,7 @@ data_su <-
                -expedition,
                -collection_method,
                # -station_code_7879,
+               -depth_water,
                -lot_id)
 
         

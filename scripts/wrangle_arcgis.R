@@ -21,7 +21,7 @@ library(maptools)
 #inFilePath = "../data/SU-SI_Duplicates(1).xlsx"
 # inZipFilePath = "../data/PhL_Province_Pop.zip"
 inFileScript = "wrangle_cas_si_su_data.R"
-inDirPath = "../data/PhL_Province_Pop/"
+inDirPath = "../data/esri_arcgis/PhL_Province_Pop/"
 
 #### READ IN DATA ####
 # get survey data
@@ -82,16 +82,11 @@ arcgis_utm <-
               CRS(sprintf(utm_proj, 
                           utm_zone)))
 
-# set up data structures to contain output of a for loop to find nearest polygon defined in arcgis data to your survey station sites
-n <- length(station_pts_utm)
-nearest_polygon <- character(n)
-dist_nearest_polygon <- numeric(n)
-
 
 #### FIND NEAREST POLYGON ####
 ## For each point, find name of nearest polygon (in this case, Philippine provinces)
 # arrange results of for loop into a dataframe and pull in additional arcgis data
-data_nearest_province_pop <-
+data_distance_to_province <-
   # this makes a table of distances from each waypoint to each province
   sapply(1:nrow(station_pts),
          function(x){rgeos::gDistance(station_pts_utm[x,], 
@@ -111,7 +106,10 @@ data_nearest_province_pop <-
   # stack the data so that all distances are in 1 col
   pivot_longer(cols = !starts_with("st"),
                names_to = "ID",
-               values_to = "distance_m") %>%
+               values_to = "distance_m")
+
+data_human_pop <-
+  data_distance_to_province %>%
   # keep rows containing closest province for each waypoint
   group_by(study,
            station_code) %>%
@@ -131,10 +129,16 @@ data_nearest_province_pop <-
   clean_names() %>%
   mutate(totpop_cy = as.numeric(totpop_cy),
          population = as.numeric(population),
-         utm_zone = utm_zone) %>%
+         utm_zone = utm_zone,
+         pop_dens_province = totpop_cy/area ) %>%
   dplyr::select(-aggregatio,
                 -has_data) 
 
+#### ADD HUMAN POP DATA TO SURVEY DATA ####
+data_cas_si_su <-
+  data_cas_si_su %>%
+  left_join(data_human_pop)
+  
 #### CONVERT ARCGIS DATA TO TIBBLE ####
 # convert arcgis data to tibble for plotting
 # additionally pull in data from arcgis_utm@data dataframe,
@@ -149,6 +153,7 @@ arcgis_tibble <-
   mutate(TOTPOP_CY = as.numeric(TOTPOP_CY),
          population = as.numeric(population)) %>%
   dplyr::select(-aggregatio)
+
 
 
 #### REMOVE UNNEDED TIBBLES ####

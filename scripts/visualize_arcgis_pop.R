@@ -16,7 +16,8 @@ source("wrangle_arcgis.R")
 # visualize survey sites on heatmap of human pop in each province
 
 make_map <- function(map_shape_data = arcgis_tibble,
-                     waypoint_data = data_nearest_province_pop,
+                     waypoint_data = data_human_pop,
+                     pop_char = quo(TOTPOP_CY),
                      min_long = 120.5,
                      max_long = 124.3,
                      min_lat = 8.5,
@@ -27,7 +28,7 @@ make_map <- function(map_shape_data = arcgis_tibble,
     aes(x = long, 
         y = lat, 
         group = group,
-        fill = population) +
+        fill = !!pop_char) +
     geom_polygon(color='black') +
     scale_fill_gradient(low = "white",
                         high = "black") +
@@ -35,7 +36,7 @@ make_map <- function(map_shape_data = arcgis_tibble,
     geom_point(data = waypoint_data,
                aes(x=long,
                    y=lat,
-                   color = nearest_polygon,
+                   color = iso_sub,
                    # size = dist_nearest_polygon,
                    shape = study),
                inherit.aes = FALSE,
@@ -54,6 +55,7 @@ make_map <- function(map_shape_data = arcgis_tibble,
 
 #default map
 make_map()
+make_map(pop_char = quo(log10(TOTPOP_CY/AREA)))
 
 #north sulu sea visayas
 make_map(min_long = 120.8,

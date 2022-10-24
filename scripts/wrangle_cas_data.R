@@ -67,7 +67,12 @@ metadata_cas <-
   mutate(station_code = str_replace(field_number,
                                     "\\-",
                                     "_"),
-         station_code = str_to_lower(station_code))
+         station_code = str_to_lower(station_code),
+         depth_m = str_remove(depth_of_capture,
+                              " *ft\\.* *"),
+         depth_m = str_remove(depth_m,
+                              "^[0-9]+ *\\- *"),
+         depth_m = as.numeric(depth_m) * 12 * 2.54 / 100) 
 
 #### JOIN DATA ####
 
@@ -76,11 +81,11 @@ data_cas_all <-
   left_join(metadata_cas,
             by = "station_code") %>%
   dplyr::rename(bottom = bottom_type,
-         depth_m = depth_of_capture,
-         adjusted_latitude = lat_deg_dec_1,
-         adjusted_longitude = long_deg_dec_1,
-         province_state = state,
-         date_collected = verbatim_coll_date) %>%
+                # depth_m = depth_of_capture,
+                adjusted_latitude = lat_deg_dec_1,
+                adjusted_longitude = long_deg_dec_1,
+                province_state = state,
+                date_collected = verbatim_coll_date) %>%
   mutate(date_collected = dmy(date_collected)) %>%
   dplyr::select(-coll_date_from,
                 -source,
@@ -91,7 +96,8 @@ data_cas_all <-
                 -salinity,
                 -gear,
                 -coll_time:-last_edited_by,
-                -notes)
+                -notes,
+                -depth_of_capture)
   
 
 rm(data_cas,

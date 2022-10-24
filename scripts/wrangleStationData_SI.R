@@ -39,12 +39,13 @@ data_si <-
   distinct(catalog_number_usnm, # if we don't do this, get 2 more records
            .keep_all = TRUE) %>%
   dplyr::rename(prep_loc_count = preparation_details_preparation_location_count,
-         field_number = field_number_s,
-         collectors = collector_s) %>%
+                field_number = field_number_s,
+                collectors = collector_s) %>%
   mutate(station_code = str_replace(field_number,
-                                        " ",
-                                        "_"),
+                                    " ",
+                                    "_"),
          collection_method = str_to_lower(collection_method),
+         #technically don't need these depth min and max bc they are read in later from metadata
          depth_m_min = as.numeric(str_remove(depth_m,
                                              " .*$")),
          depth_m_max = as.numeric(str_remove(depth_m,
@@ -114,7 +115,7 @@ data_si_station <-
                          na = c("NA",
                                 "na")) %>%
                 clean_names() %>%
-                dplyr::select(-date_collected) ) %>%
+                dplyr::select(-date_collected)) %>% 
     mutate(dist_shore_m_min = case_when(str_detect(dist_shore,
                                                    "\\'") ~ as.numeric(str_remove(dist_shore,
                                                                                   "[ \\'].*$")) * 0.3048,
@@ -187,15 +188,21 @@ data_gis <-
 #### JOIN DATA ####
 data_si_station_gis <-
   data_si_station %>%
+  # we decided that max depth is generally where rotenone was deployed
+  mutate(depth_m = depth_m_max) %>%
   left_join(data_gis,
             by = "station_code") %>% 
   left_join(read_excel(CAS_verified_names) %>%
               dplyr::select(-family),
             by = c("identification" = "original_id")) %>%
-  mutate(verified_identification = case_when(is.na(verified_identification) ~ identification,
-                                TRUE ~ verified_identification),
-         province_state = case_when(is.na(province_state) ~ province,
-                                TRUE ~ province_state),
+  mutate(verified_identification = case_when(is.na(verified_identification) ~ 
+                                               identification,
+                                             TRUE ~ 
+                                               verified_identification),
+         province_state = case_when(is.na(province_state) ~ 
+                                      province,
+                                    TRUE ~ 
+                                      province_state),
          # this adds zero padded station codeS
          station_code = odu_station_code) %>%
   dplyr::rename(notes = notes.x,
@@ -203,40 +210,40 @@ data_si_station_gis <-
          island = island_name,
          locality = precise_locality) %>%
   dplyr::select(-kind_of_object,
-         -special_collections,
-         -type_status,
-         -type_citations,
-         -subfamily,
-         -other_identifications,
-         -centroid_latitude,
-         -centroid_longitude,
-         -collectors,
-         -vessel,
-         -prep_loc_count,
-         -measurements,
-         -accession_number,
-         -gen_bank_numbers,
-         -ezid,
-         -other_numbers_type_value,
-         -record_last_modified,
-         -catalog_number_usnm,
-         -name_hierarchy,
-         -ocean,
-         -sea_gulf,
-         -archipelago,
-         -country,
-         -district_county,
-         -cruise:-collection_method,
-         -depth_m_min,
-         -depth_m_max,
-         -depth_cat,
-         -odu_station_code,
-         -collection_method_manual,
-         -method_capture:-chemical_euthanasia,
-         -smithsonian_station_code,
-         -island_grouping,
-         -province,
-         -province_code)
+                 -special_collections,
+                 -type_status,
+                 -type_citations,
+                 -subfamily,
+                 -other_identifications,
+                 -centroid_latitude,
+                 -centroid_longitude,
+                 -collectors,
+                 -vessel,
+                 -prep_loc_count,
+                 -measurements,
+                 -accession_number,
+                 -gen_bank_numbers,
+                 -ezid,
+                 -other_numbers_type_value,
+                 -record_last_modified,
+                 -catalog_number_usnm,
+                 -name_hierarchy,
+                 -ocean,
+                 -sea_gulf,
+                 -archipelago,
+                 -country,
+                 -district_county,
+                 -cruise:-collection_method,
+                 -depth_m_min,
+                 -depth_m_max,
+                 -depth_cat,
+                 -odu_station_code,
+                 -collection_method_manual,
+                 -method_capture:-chemical_euthanasia,
+                 -smithsonian_station_code,
+                 -island_grouping,
+                 -province,
+                 -province_code)
  
 rm(data_si,
    data_si_station,
