@@ -1,4 +1,7 @@
 #### Initialize ####
+# find distances between locations and geopoltical units
+# associate human population size with locations
+# https://stackoverflow.com/questions/26308426/how-do-i-find-the-polygon-nearest-to-a-point-in-r
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
@@ -23,34 +26,31 @@ inFilePath = "../data/PhL_Province_Pop.zip"
 
 #### READ IN DATA ####
 
-# this is all xyz coords with no pop info... 
-# need to find other data source
-unzip(inFilePath)
-
+# unzip your arcgis map, and then read it in like this
 arcgis <- readOGR(dsn = inDirPath)
 
 #### FIND NeAREST PolyGon #### 
-mydf <- structure(list(longitude = c(128.6979, 153.0046, 104.3261, 124.9019, 
-                                     126.7328, 153.2439, 142.8673, 152.689), latitude = c(-7.4197, 
-                                                                                          -4.7089, -6.7541, 4.7817, 2.1643, -5.65, 23.3882, -5.571)), .Names = c("longitude", 
-                                                                                                                                                                 "latitude"), class = "data.frame", row.names = c(NA, -8L))
 
-
-### Get long and lat from your data.frame. Make sure that the order is in lon/lat.
-
+# Extract your survey locations from your data (data_cas_si_su). Make sure that the order is in lon/lat.
+# 1 row per location per time (in this case defined by the `study` column)
 station_pts <-
   data_cas_si_su %>%
   dplyr::select(study,
+                station_code,
                 adjusted_longitude,
                 adjusted_latitude) %>%
   distinct() %>%
-  dplyr::select(-study) %>%
+  dplyr::select(-study,
+                -station_code) %>%
   drop_na() %>%
   as.data.frame()
 
+# This saves characteristics of the stations to their own tibble so they can be joined to the data later, in this case, just the study is saved
+# must be the same number of rows as station_pts
 station_data <-
   data_cas_si_su %>%
   dplyr::select(study,
+                station_code,
                 adjusted_longitude,
                 adjusted_latitude) %>%
   distinct() %>%
@@ -59,25 +59,33 @@ station_data <-
                 -adjusted_latitude) %>%
   as.data.frame()
 
-longlatStr <- "+proj=longlat"
+# read in your station gis points that are in decimal degrees
+# the statement inside of CRS is a description of the projection used to define the lat and long of the stations.  see PROJ.4 and CRS-class {rgdal}
 station_pts_longlat <- 
   SpatialPoints(station_pts,
-                CRS(longlatStr))
+                CRS("+proj=longlat"))
 
-utmStr <- "+proj=utm +zone=%d +datum=NAD83 +units=m +no_defs +ellps=GRS80"
+# convert the station location data into UTM. Need the UTM Zone and the PROJ.4 projection describing UTM
+utm_zone <- 51
+utm_proj <- "+proj=utm +zone=%d +datum=NAD83 +units=m +no_defs +ellps=GRS80"
+
 station_pts_utm <- 
   spTransform(station_pts_longlat,
-              CRS(sprintf(utmStr, 51)))
+              CRS(sprintf(utm_proj, 
+                          utm_zone)))
 
+# convert the arc gis data into UTM. Need the UTM Zone and the PROJ.4 projection describing UTM
 arcgis_utm <- 
   spTransform(arcgis,
-              CRS(sprintf(utmStr, 51)))
+              CRS(sprintf(utm_proj, 
+                          utm_zone)))
 
+# set up a for loop to find nearest polygon defined in arcgis data to your survey station sites
 n <- length(station_pts_utm)
 nearest_polygon <- character(n)
 dist_nearest_polygon <- numeric(n)
 
-## For each point, find name of nearest polygon (in this case, Belgian cantons)
+## For each point, find name of nearest polygon (in this case, Philippine provinces)
 for (i in seq_along(nearest_polygon)) {
   gDists <- gDistance(station_pts_utm[i,], 
                       arcgis_utm, 
@@ -86,13 +94,27 @@ for (i in seq_along(nearest_polygon)) {
   dist_nearest_polygon[i] <- min(gDists)
 }
 
-nearest_province <- 
-  data.frame(nearest_polygon, 
-             dist_nearest_polygon)
+# arrange results of for loop into a dataframe
+data_nearest_province <- 
+  station_data %>%
+  bind_cols(tibble(nearest_polygon),
+            tibble(dist_nearest_polygon),
+            as_tibble(station_pts_utm@coords) %>%
+              rename(latitude_utm = adjusted_latitude,
+                     longitude_utm = adjusted_longitude),
+            as_tibble(station_pts_longlat@coords) %>%
+              rename(long = adjusted_longitude,
+                     lat = adjusted_latitude)) 
 
-arcgis_utm_tibble <- 
-  fortify(arcgis_utm, 
-          region='ISO_SUB') %>%
+as_tibble(station_pts_longlat@coords) %>%
+  rename(long = adjusted_longitude,
+         lat = adjusted_latitude)
+# convert arcgis_utm data to tibble for plotting
+# additionally pull in data from arcgis_utm@data dataframe,
+arcgis_tibble <- 
+  spTransform(arcgis,
+              CRS("+proj=longlat")) %>%
+  fortify(region='ISO_SUB') %>%
   mutate(ISO_SUB = str_remove(group,
                               '\\.[0-9]*')) %>%
   left_join(arcgis@data,
@@ -101,82 +123,69 @@ arcgis_utm_tibble <-
          population = as.numeric(population)) %>%
   dplyr::select(-aggregatio)
 
+# visualize survey sites on heatmap of human pop in each province
 
-arcgis_utm_tibble %>%
-  ggplot() + 
-  aes(x = long, 
-      y = lat, 
-      group = group,
-      fill = population) +
-  geom_polygon(color='black') +
-  scale_fill_gradient(low = "white",
-                      high = "black") +
-  geom_point(data = as_tibble(station_pts_utm@coords) %>%
-               bind_cols(nearest_province,
-                         station_data),
-             aes(x=adjusted_longitude,
-                 y=adjusted_latitude,
-                 color = nearest_polygon,
-                 shape = study),
-             inherit.aes = FALSE,
-             size = 5) +
-  coord_quickmap()
-
-
-plot(station_pts_utm, pch=16, col="red")
-text(station_pts_utm, 1:44, pos=3)
-plot(arcgis_utm, add=TRUE)
-text(arcgis_utm, p$ISO_SUB, cex=0.7)
-
-plot(arcgis_utm, pch=16)
-text(station_pts_utm, 1:44, pos=3)
-plot(arcgis_utm, add=TRUE)
-text(arcgis_utm, p$ISO_SUB, cex=0.7)
-
-
-##  First project data into a planar coordinate system (here UTM zone 32)
-p <- shapefile(system.file("external/lux.shp", package="raster"))
-p2 <- as(1.5*extent(p), "SpatialPolygons")
-proj4string(p2) <- proj4string(p)
-pts <- spsample(p2-p, n=10, type="random")
-plot(pts, pch=16, cex=.5,col="red")
-plot(p, col=colorRampPalette(blues9)(12), add=TRUE)
-
-utmStr <- "+proj=utm +zone=%d +datum=NAD83 +units=m +no_defs +ellps=GRS80"
-crs <- CRS(sprintf(utmStr, 32))
-pUTM <- spTransform(p, crs)
-ptsUTM <- spTransform(pts, crs)
-
-## Set up containers for results
-n <- length(ptsUTM)
-nearestCanton <- character(n)
-distToNearestCanton <- numeric(n)
-
-## For each point, find name of nearest polygon (in this case, Belgian cantons)
-for (i in seq_along(nearestCanton)) {
-  gDists <- gDistance(ptsUTM[i,], pUTM, byid=TRUE)
-  nearestCanton[i] <- pUTM$NAME_2[which.min(gDists)]
-  distToNearestCanton[i] <- min(gDists)
+make_map <- function(map_shape_data = arcgis_tibble,
+                     waypoint_data = data_nearest_province,
+                     min_long = 120.5,
+                     max_long = 124.3,
+                     min_lat = 8.5,
+                     max_lat = 14){
+  map_out <-
+    map_shape_data %>%
+      ggplot() + 
+      aes(x = long, 
+          y = lat, 
+          group = group,
+          fill = population) +
+      geom_polygon(color='black') +
+      scale_fill_gradient(low = "white",
+                          high = "black") +
+      # here is where we pull in the station by station data
+      geom_point(data = waypoint_data,
+                 aes(x=long,
+                     y=lat,
+                     color = nearest_polygon,
+                     # size = dist_nearest_polygon,
+                     shape = study),
+                 inherit.aes = FALSE,
+                 size = 4,
+                 stroke = 2) +
+      scale_shape_manual(values = c(0,1,2)) +
+      coord_quickmap(xlim = c(min_long,
+                              max_long),
+                     ylim = c(min_lat,
+                              max_lat))
+  
+  return(map_out)
 }
 
-## Check that it worked
-data.frame(nearestCanton, distToNearestCanton)
-#       nearestCanton distToNearestCanton
-# 1             Wiltz           15342.222
-# 2        Echternach            7470.728
-# 3            Remich           20520.800
-# 4          Clervaux            6658.167
-# 5        Echternach           22177.771
-# 6          Clervaux           26388.388
-# 7           Redange            8135.764
-# 8            Remich            2199.394
-# 9  Esch-sur-Alzette           11776.534
-# 10           Remich           14998.204
+#default map
+make_map()
 
-plot(pts, pch=16, col="red")
-text(pts, 1:10, pos=3)
-plot(p, add=TRUE)
-text(p, p$NAME_2, cex=0.7)
+#visayas
+make_map(min_long = 122.8,
+         max_long = 124,
+         min_lat = 8.8,
+         max_lat = 10)
+
+# north sulu sea
+make_map(min_long = 120.8,
+         max_long = 121.4,
+         min_lat = 10.8,
+         max_lat = 11)
+
+# northern most cluster
+make_map(min_long = 120.8,
+         max_long = 120.95,
+         min_lat = 13.625,
+         max_lat = 13.825)
+
+# whole map
+make_map(min_long = NA,
+         max_long = NA,
+         min_lat = NA,
+         max_lat = NA)
 
 
 

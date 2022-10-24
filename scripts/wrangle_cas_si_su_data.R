@@ -45,7 +45,9 @@ data_cas_si_su <-
   bind_rows(data_cas_all %>%
               mutate(study = "cas_2016"), 
             data_si_station_gis %>%
-              mutate(study = "si_1978"), 
+              mutate(study = "si_1978") %>%
+              rename(adjusted_latitude = latitude,
+                     adjusted_longitude = longitude), 
             data_su %>%
               mutate(study = "su_2022")) %>%
   dplyr::select(-family,
