@@ -94,7 +94,7 @@ for (i in seq_along(nearest_polygon)) {
   dist_nearest_polygon[i] <- min(gDists)
 }
 
-# arrange results of for loop into a dataframe
+# arrange results of for loop into a dataframe and pull in additional arcgis data
 data_nearest_province <- 
   station_data %>%
   bind_cols(tibble(nearest_polygon),
@@ -104,7 +104,15 @@ data_nearest_province <-
                      longitude_utm = adjusted_longitude),
             as_tibble(station_pts_longlat@coords) %>%
               rename(long = adjusted_longitude,
-                     lat = adjusted_latitude)) 
+                     lat = adjusted_latitude)) %>%
+  left_join(arcgis@data,
+            by = c("nearest_polygon" = "ISO_SUB")) %>%
+  clean_names() %>%
+  mutate(totpop_cy = as.numeric(totpop_cy),
+         population = as.numeric(population),
+         utm_zone = utm_zone) %>%
+  dplyr::select(-aggregatio,
+                -has_data) 
 
 as_tibble(station_pts_longlat@coords) %>%
   rename(long = adjusted_longitude,
@@ -162,6 +170,12 @@ make_map <- function(map_shape_data = arcgis_tibble,
 
 #default map
 make_map()
+
+#north sulu sea visayas
+make_map(min_long = 120.8,
+         max_long = 124,
+         min_lat = 8.8,
+         max_lat = 11)
 
 #visayas
 make_map(min_long = 122.8,
