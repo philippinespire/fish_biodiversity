@@ -21,11 +21,11 @@ library(maptools)
 #inFilePath = "../data/SU-SI_Duplicates(1).xlsx"
 # inZipFilePath = "../data/PhL_Province_Pop.zip"
 inFileScript = "wrangle_cas_si_su_data.R"
-inDirPath = "../data/esri_arcgis/PhL_Province_Pop/"
+inDirPath = "../data/gis/PhL_Province_Pop/"
 
 #### READ IN DATA ####
 # get survey data
-source(inFileScript)
+# source(inFileScript)
 
 # manually unzip your arcgis map, and then read it in like this
 arcgis <- readOGR(dsn = inDirPath)

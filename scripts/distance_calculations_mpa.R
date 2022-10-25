@@ -1,7 +1,7 @@
 #### INITIALIZATION ####
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-source("./wrangle_cas_si_su_data.R")
+# source("./wrangle_cas_si_su_data.R")
 
 #install.packages("geosphere")
 library(geosphere)
@@ -98,8 +98,10 @@ data_mpa_study_stationcode_distances <-
                                  'latitude')], 
          fun=distVincentyEllipsoid) %>%
   as.data.frame() %>%
-  # convert m to km
-  mutate(across(.fns = ~ . / 1000)) %>%
+  tibble() %>%
+  # convert m to km, something wrong here, FIX ME
+  mutate(across(tidyselect::everything(.),
+                ~ . / 1000)) %>%
   rename_with(.cols = starts_with("V"),
               .fn = ~ data_study_site$study_station_code) %>%
   bind_cols(data_mpa %>%
@@ -271,7 +273,7 @@ data_mpa_closest <-
 
 #### GET MPA AREA WITHIN X KM ####
 
-x_km = 100
+x_km = 30000
 data_mpa_area_xkm <-
   data_mpa_study_stationcode_distances %>%
   pivot_longer(cols = matches("^[sc][aiu][_s]"),
@@ -346,7 +348,7 @@ ggbiplot(pca_mpa_influence,
 data_mpa_closest <-
   data_mpa_closest %>%
   bind_cols(pca_mpa_influence$x) %>%
-  rename(pc1_mpa_infl = PC1)
+  dplyr::rename(pc1_mpa_infl = PC1)
 
 
 rm(data_mpa,
