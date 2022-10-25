@@ -300,26 +300,26 @@ data_mpa_closest %>%
   theme_classic()
 
 #### PCA MPA INFLUENCE ####
-# pca_mpa_influence <-
-#   data_mpa_closest %>%
-#     # filter(study != "si") %>%
-#     select(station_mpa_distance_km,
-#            mpa_area_ha,
-#            closest_mpa_age_during_study_yrs) %>%
-#     prcomp(center = TRUE,
-#            scale. = TRUE)
-# 
-# summary(pca_mpa_influence)
-# 
-# ggbiplot(pca_mpa_influence,
-#          ellipse=TRUE,
-#          ellipse.prob = .5,
-#          groups = data_mpa_closest %>%
-#            pull(study)) +
-#   theme_classic()
-# 
-# 
-# pca_mpa_influence$x
+pca_mpa_influence <-
+  data_mpa_closest %>%
+    # filter(study != "si") %>%
+    dplyr::select(station_mpa_distance_km,
+                  mpa_area_ha,
+                  closest_mpa_age_during_study_yrs) %>%
+    prcomp(center = TRUE,
+           scale. = TRUE)
+
+summary(pca_mpa_influence)
+
+ggbiplot(pca_mpa_influence,
+         ellipse=TRUE,
+         ellipse.prob = .5,
+         groups = data_mpa_closest %>%
+           pull(study)) +
+  theme_classic()
+
+
+pca_mpa_influence$x
 # 
 # data_mpa_closest <-
 #   data_mpa_closest %>%
@@ -329,21 +329,31 @@ data_mpa_closest %>%
 
 pca_mpa_influence <-
   data_mpa_closest %>%
+  dplyr::rename(mpa_age = closest_mpa_age_during_study_yrs) %>%
   # filter(study != "si") %>%
   # mutate(inv_station_mpa_distance_km = 1/station_mpa_distance_km) %>%
   dplyr::select(mpa_area_ha,
-                closest_mpa_age_during_study_yrs) %>%
+                mpa_age) %>%
   prcomp(center = TRUE,
          scale. = TRUE)
 
+options(repr.plot.width = 5, repr.plot.height =2)
 ggbiplot(pca_mpa_influence,
          ellipse=TRUE,
          ellipse.prob = .5,
          groups = data_mpa_closest %>%
            pull(study)) +
   theme_classic() +
-  theme_myfigs
+  theme_myfigs +
+  theme(aspect.ratio=3/4)
 
+as_tibble(pca_mpa_influence$x) %>%
+  ggplot() +
+  aes(x=PC1,
+      y=PC2,
+      color = data_mpa_closest %>%
+        pull(study)) +
+  geom_point()
 
 data_mpa_closest <-
   data_mpa_closest %>%
