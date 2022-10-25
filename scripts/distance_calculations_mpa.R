@@ -1,9 +1,13 @@
 #### INITIALIZATION ####
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
+source("./wrangle_cas_si_su_data.R")
+
 #install.packages("geosphere")
-library(ggbiplot)
 library(geosphere)
+
+library(ggbiplot)
+
 library(janitor)
 library(readxl)
 library(readr)
@@ -12,7 +16,7 @@ library(tidyverse)
 
 #### USER DEFINED VARIABLES ####
 InFilePath1 = "../data/MPA_coordinates_no_deg.xlsx"
-source("./wrangle_cas_si_su_data.R")
+
 
 theme_myfigs <- 
   theme_classic() +
@@ -76,20 +80,21 @@ data_study_site <-
 
 #### WRANGLE DISTANCES BETWEEN ALL STATIONS AND MPAS ####
 
-list_mpa_latlong <- data.frame(data_mpa) %>%
-  select(lat,
-         long) 
+list_mpa_latlong <- 
+  data.frame(data_mpa) %>%
+  dplyr::select(lat,
+                long) 
 
 list_station_latlong <- data.frame(data_study_site) %>%
-  select(adjusted_latitude,
-         adjusted_longitude) 
+  dplyr::select(latitude,
+                longitude) 
 
 # create distance matrix
 data_mpa_study_stationcode_distances <- 
   distm(list_mpa_latlong[,c('long',
                             'lat')], 
-         list_station_latlong[,c('adjusted_longitude',
-                                 'adjusted_latitude')], 
+         list_station_latlong[,c('longitude',
+                                 'latitude')], 
          fun=distVincentyEllipsoid) %>%
   as.data.frame() %>%
   # convert m to km
@@ -324,8 +329,8 @@ pca_mpa_influence <-
   data_closest_mpa %>%
   # filter(study != "si") %>%
   # mutate(inv_station_mpa_distance_km = 1/station_mpa_distance_km) %>%
-select(mpa_area_ha,
-       closest_mpa_age_during_study_yrs) %>%
+  dplyr::select(mpa_area_ha,
+                closest_mpa_age_during_study_yrs) %>%
   prcomp(center = TRUE,
          scale. = TRUE)
 
@@ -342,3 +347,12 @@ data_closest_mpa <-
   data_closest_mpa %>%
   bind_cols(pca_mpa_influence$x) %>%
   rename(pc1_mpa_infl = PC1)
+
+
+rm(data_closest_mpa,
+   data_mpa,
+   data_mpa_area_xkm,
+   data_mpa_study_stationcode_distances,
+   list_mpa_latlong,
+   list_station_latlong,
+   pca_mpa_influence)

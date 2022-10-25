@@ -58,16 +58,10 @@ data_cas_si_su <-
   # summarize(specimen_count = sum(specimen_count))
 
 rm(data_si_station_gis,
-   data_su,
+   data_su_all,
    data_cas_all)
 
-rm(data_closest_mpa,
-   data_mpa,
-   data_mpa_area_xkm,
-   data_mpa_study_stationcode_distances,
-   list_mpa_latlong,
-   list_station_latlong,
-   pca_mpa_influence)
+
 
 #write_excel_csv(data_cas_si_su, "data_cas_si_su.csv")
   
