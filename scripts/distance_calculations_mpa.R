@@ -55,8 +55,8 @@ data_mpa <-
                     "NA")) %>%
   clean_names() %>%
   mutate(year_established_earliest = str_remove(year_established,
-                                                "[ (].*$"),
-         year_established_earliest = as.numeric(year_established_earliest)) %>%
+                                                "[ (].*$")) %>%
+  mutate(year_established_earliest = as.numeric(year_established_earliest)) %>%
   dplyr::select(-x10) %>%
   drop_na(lat,
           long)
@@ -85,7 +85,8 @@ list_mpa_latlong <-
   dplyr::select(lat,
                 long) 
 
-list_station_latlong <- data.frame(data_study_site) %>%
+list_station_latlong <- 
+  data.frame(data_study_site) %>%
   dplyr::select(latitude,
                 longitude) 
 
@@ -101,17 +102,18 @@ data_mpa_study_stationcode_distances <-
   mutate(across(.fns = ~ . / 1000)) %>%
   rename_with(.cols = starts_with("V"),
               .fn = ~ data_study_site$study_station_code) %>%
-  bind_cols(data_mpa) %>%
-  rename(mpa_name = name,
-         mpa_lat = lat,
-         mpa_long = long,
-         mpa_location = location,
-         mpa_habitat_full = habitat_full,
-         mpa_year_established = year_established,
-         mpa_area_ha = area_ha,
-         mpa_province = province,
-         mpa_year = year,
-         mpa_year_established_earliest = year_established_earliest)
+  bind_cols(data_mpa %>%
+              dplyr::rename(mpa_name = name,
+                            mpa_lat = lat,
+                            mpa_long = long,
+                            mpa_location = location,
+                            mpa_habitat_full = habitat_full,
+                            mpa_year_established = year_established,
+                            mpa_area_ha = area_ha,
+                            mpa_province = province,
+                            mpa_year = year,
+                            mpa_year_established_earliest = year_established_earliest))
+  
 
 #### Visualize MPA vs Stations ####
 data_mpa_study_stationcode_distances %>%
@@ -211,7 +213,7 @@ data_mpa_study_stationcode_distances %>%
   #in the next line, the 3 signifies 3 years since mpa established
   filter(year_survey >= mpa_year_established_earliest + 3) %>%
   mutate(mpa_haXyrs_per_kmfromstation = (year_survey - mpa_year_established_earliest) * mpa_area_ha/station_mpa_distance_km) %>%
-  summarize(mpa_haXyrs_per_kmfromstation = sum(mpa_haXyrs_per_kmfromstation,
+  dplyr::summarize(mpa_haXyrs_per_kmfromstation = sum(mpa_haXyrs_per_kmfromstation,
                                                na.rm=TRUE)) %>%
   ggplot(aes(x = station_code,
              y = mpa_haXyrs_per_kmfromstation,
@@ -221,7 +223,7 @@ data_mpa_study_stationcode_distances %>%
   facet_grid(.~study,
              scales = "free_x")
 
-x_km = 30
+x_km = 3000
 data_mpa_study_stationcode_distances %>%
   pivot_longer(cols = matches("^[sc][aiu][_s]"),
                names_to = "study_station_code",
@@ -235,7 +237,7 @@ data_mpa_study_stationcode_distances %>%
   filter(year_survey >= mpa_year_established_earliest + 3) %>%
   filter(station_mpa_distance_km < x_km)  %>%
   mutate(mpa_haXyrs_per_kmfromstation = (year_survey - mpa_year_established_earliest) * mpa_area_ha/station_mpa_distance_km) %>%
-  summarize(sum_mpa_area_ha_within_x_km = sum(mpa_area_ha,
+  dplyr::summarize(sum_mpa_area_ha_within_x_km = sum(mpa_area_ha,
                                                na.rm=TRUE)) %>%
   ggplot(aes(x = station_code,
              y = sum_mpa_area_ha_within_x_km,
@@ -247,7 +249,7 @@ data_mpa_study_stationcode_distances %>%
 
 #### GET DISTANCE TO CLOSEST MPA ####
 
-data_closest_mpa <-
+data_mpa_closest <-
   data_mpa_study_stationcode_distances %>%
   pivot_longer(cols = matches("^[sc][aiu][_s]"),
                names_to = "study_station_code",
@@ -269,9 +271,7 @@ data_closest_mpa <-
 
 #### GET MPA AREA WITHIN X KM ####
 
-
-
-x_km = 30
+x_km = 100
 data_mpa_area_xkm <-
   data_mpa_study_stationcode_distances %>%
   pivot_longer(cols = matches("^[sc][aiu][_s]"),
@@ -281,15 +281,15 @@ data_mpa_area_xkm <-
             by = "study_station_code") %>%
   group_by(study_station_code) %>%
   #in the next line, the 3 signifies 3 years since mpa established
-  filter(year_survey >= mpa_year_established_earliest + 3) %>%
+  dplyr::filter(year_survey >= mpa_year_established_earliest + 3) %>%
   # retain mpa within x km of station
-  filter(station_mpa_distance_km < x_km)  %>%
+  dplyr::filter(station_mpa_distance_km < x_km)  %>%
   # sum mpa area within x km
-  summarize(mpa_area_within_xkm_ha = sum(mpa_area_ha)) %>%
+  dplyr::summarize(mpa_area_within_xkm_ha = sum(mpa_area_ha)) %>%
   ungroup()
 
 #### VISUALIZE AREA of and DIST TO CLOSEST MPA ####
-data_closest_mpa %>%
+data_mpa_closest %>%
   ggplot(aes(x=station_mpa_distance_km,
              y = mpa_area_ha,
              shape = study,
@@ -299,7 +299,7 @@ data_closest_mpa %>%
 
 #### PCA MPA INFLUENCE ####
 # pca_mpa_influence <-
-#   data_closest_mpa %>%
+#   data_mpa_closest %>%
 #     # filter(study != "si") %>%
 #     select(station_mpa_distance_km,
 #            mpa_area_ha,
@@ -312,21 +312,21 @@ data_closest_mpa %>%
 # ggbiplot(pca_mpa_influence,
 #          ellipse=TRUE,
 #          ellipse.prob = .5,
-#          groups = data_closest_mpa %>%
+#          groups = data_mpa_closest %>%
 #            pull(study)) +
 #   theme_classic()
 # 
 # 
 # pca_mpa_influence$x
 # 
-# data_closest_mpa <-
-#   data_closest_mpa %>%
+# data_mpa_closest <-
+#   data_mpa_closest %>%
 #   bind_cols(pca_mpa_influence$x) %>%
 #   rename(pc1_mpa_infl = PC1)
 
 
 pca_mpa_influence <-
-  data_closest_mpa %>%
+  data_mpa_closest %>%
   # filter(study != "si") %>%
   # mutate(inv_station_mpa_distance_km = 1/station_mpa_distance_km) %>%
   dplyr::select(mpa_area_ha,
@@ -337,22 +337,21 @@ pca_mpa_influence <-
 ggbiplot(pca_mpa_influence,
          ellipse=TRUE,
          ellipse.prob = .5,
-         groups = data_closest_mpa %>%
+         groups = data_mpa_closest %>%
            pull(study)) +
   theme_classic() +
   theme_myfigs
 
 
-data_closest_mpa <-
-  data_closest_mpa %>%
+data_mpa_closest <-
+  data_mpa_closest %>%
   bind_cols(pca_mpa_influence$x) %>%
   rename(pc1_mpa_infl = PC1)
 
 
-rm(data_closest_mpa,
-   data_mpa,
-   data_mpa_area_xkm,
+rm(data_mpa,
    data_mpa_study_stationcode_distances,
    list_mpa_latlong,
    list_station_latlong,
-   pca_mpa_influence)
+   pca_mpa_influence,
+   theme_myfigs)

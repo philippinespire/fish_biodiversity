@@ -20,230 +20,84 @@ library(remotes)
 library(ggvegan)
 library(tidyverse)
 source("wrangle_cas_si_su_data.R")
+source("veganize_data.R")
 
+# data <- data_cas_si_su
+# data_fixed <- data_cas_si_su %>%
+#               drop_na(latitude)
 
-data <- data_cas_si_su
-data_fixed <- data_cas_si_su %>%
-              drop_na(adjusted_latitude)
-
-#### functions ####
-prep_vegan_fixed <- 
-  function(data=data_cas_si_su){
-  data %>%
-    # filter by lowest_tax_cat (remove family)
-    rename(taxon = verified_identification) %>%
-    filter(specimen_count > 0,
-           !is.na(adjusted_latitude)) %>% 
-    group_by(taxon,
-             station_code, #add everything but specimen_count
-             study,
-             field_number,
-             # lowest_tax_cat
-    ) %>%
-    summarize(sum_specimen_count = sum(specimen_count, 
-                                       na.rm = TRUE)) %>%
-    ungroup() %>% 
-    # convert tibble from long to wide format
-    pivot_wider(names_from = taxon,
-                values_from = sum_specimen_count,
-                values_fill = 0) %>%
-    clean_names() %>%
-    # sort by op_code
-    arrange(study,
-            station_code) %>%
-    drop_na(station_code)
-}
-
-
-#Vegan all data
-prep_vegan <- function(data=data_cas_si_su){
-  data %>%
-  # filter by lowest_tax_cat (remove family)
-  rename(taxon = verified_identification) %>%
-  filter(specimen_count > 0) %>%
-  group_by(taxon,
-           station_code, #add everything but specimen_count
-           study,
-           field_number,
-           # lowest_tax_cat
-           ) %>%
-  summarize(sum_specimen_count = sum(specimen_count, 
-                                     na.rm = TRUE)) %>%
-  ungroup() %>%
-  # convert tibble from long to wide format
-  pivot_wider(names_from = taxon,
-              values_from = sum_specimen_count,
-              values_fill = 0) %>%
-  clean_names() %>%
-  # sort by op_code
-  arrange(study,
-          station_code) %>%
-    drop_na(station_code)
-  }
 
 
 #### VEGANIZATION ####
-data_fixed_vegan <-
+data_vegan <-
   data_cas_si_su %>%
-  prep_vegan_fixed() %>%
-  dplyr::select(-station_code:-field_number
-                #:-lowest_tax_cat
-  )
+  prep_vegan() %>%
+  dplyr::select(-station_code:-depth_m)
 
 data_cas_si_su_vegan <-
   prep_vegan() %>%
-  dplyr::select(-station_code:-field_number
-                #:-lowest_tax_cat
-                )
+  dplyr::select(-station_code:-depth_m)
 
-#Vegan cas_2016 data
-# prep_vegan_cas <- function(data=data_cas_si_su){
-#   data %>%
-#     rename(taxon = verified_identification) %>%
-#     dplyr::filter(specimen_count > 0) %>%
-#     group_by(taxon,
-#              station_code, #add everything but specimen_count
-#              study,
-#              field_number,
-#              lowest_tax_cat) %>%
-#     summarize(sum_specimen_count = sum(specimen_count)) %>%
-#     ungroup() %>%
-#     # convert tibble from long to wide format
-#     pivot_wider(names_from = taxon,
-#                 values_from = sum_specimen_count,
-#                 values_fill = 0) %>%
-#     clean_names() %>%
-#     # sort by station_code
-#     arrange(study,
-#             station_code) %>%
-#     drop_na(station_code)
-# }    
-
-data_casvegan <-
+data_cas_vegan <-
   data_cas_si_su %>%
   dplyr::filter(study == "cas_2016") %>%
   prep_vegan() %>%
-  dplyr::select(-station_code:-field_number)
+  dplyr::select(-station_code:-depth_m)
 
-data_fixed_casvegan <-
+data_cas_vegan.env <-
   data_cas_si_su %>%
   dplyr::filter(study == "cas_2016") %>%
-  prep_vegan_fixed() %>%
-  dplyr::select(-station_code:-field_number)
+  prep_vegan() %>%
+  dplyr::select(station_code:depth_m)
 
-data_fixed_casvegan.env <-
-  data_cas_si_su %>%
-  dplyr::filter(study == "cas_2016") %>%
-  prep_vegan_fixed() %>%
-  dplyr::select(station_code:field_number)
-
-attach(data_fixed_casvegan.env)
 #vegan SI data
-# prep_vegan_si <- function(data=data_cas_si_su){
-#   data %>%
-#     rename(taxon = verified_identification) %>%
-#     dplyr::filter(specimen_count > 0) %>%
-#     group_by(taxon,
-#              station_code, #add everything but specimen_count
-#              study,
-#              field_number,
-#              lowest_tax_cat) %>%
-#     summarize(sum_specimen_count = sum(specimen_count)) %>%
-#     ungroup() %>%
-#     # convert tibble from long to wide format
-#     pivot_wider(names_from = taxon,
-#                 values_from = sum_specimen_count,
-#                 values_fill = 0) %>%
-#     clean_names() %>%
-#     # sort by station_code
-#     arrange(study,
-#             station_code) %>%
-#     drop_na(station_code)
-# }    
-
-data_sivegan <-
+data_si_vegan <-
   data_cas_si_su %>%
   dplyr::filter(study == "si_1978") %>%
   prep_vegan() %>%
-  dplyr::select(-station_code:-field_number)
+  dplyr::select(-station_code:-depth_m)
 
 #vegan su_2022 data
-# prep_vegan_su <- function(data=data_cas_si_su){
-#   data %>%
-#     rename(taxon = verified_identification) %>%
-#     dplyr::filter(specimen_count > 0) %>%
-#     group_by(taxon,
-#              station_code, #add everything but specimen_count
-#              study,
-#              field_number,
-#              lowest_tax_cat) %>%
-#     summarize(sum_specimen_count = sum(specimen_count)) %>%
-#     ungroup() %>%
-#     # convert tibble from long to wide format
-#     pivot_wider(names_from = taxon,
-#                 values_from = sum_specimen_count,
-#                 values_fill = 0) %>%
-#     clean_names() %>%
-#     # sort by station_code
-#     arrange(study,
-#             station_code) %>%
-#     drop_na(station_code)
-# }    
 
-data_suvegan <- 
+data_su_vegan <- 
   data_cas_si_su %>%
   dplyr::filter(study == "su_2022") %>%
   prep_vegan() %>%
-  dplyr::select(-station_code:-field_number)
+  dplyr::select(-station_code:-depth_m)
 
 #### PART 2: .env ####
 #all data
 data_cas_si_su_vegan.env <-
   prep_vegan() %>%
-  dplyr::select(station_code:field_number)
-
-data_fixed_vegan.env <-
-  prep_vegan_fixed() %>%
-  dplyr::select(station_code:field_number)
+  dplyr::select(station_code:depth_m)
 
 #cas 2016 data
 data_cas_vegan.env <-
   data_cas_si_su %>%
   dplyr::filter(study == "cas_2016") %>%
   prep_vegan() %>%
-  dplyr::select(station_code:field_number)
+  dplyr::select(station_code:depth_m)
 
 #si data
 data_si_vegan.env <-
   data_cas_si_su %>%
   dplyr::filter(study == "si_1978") %>%
   prep_vegan() %>%
-  dplyr::select(station_code:field_number)
+  dplyr::select(station_code:depth_m)
 
 #su data
 data_su_vegan.env <-
   data_cas_si_su %>%
   dplyr::filter(study == "su_2022") %>%
   prep_vegan() %>%
-  dplyr::select(station_code:field_number)
+  dplyr::select(station_code:depth_m)
 
 #### ATTACH ####
 #all data
-attach(data_cas_si_su_vegan.env)
 data_vegan <- data_cas_si_su_vegan 
 data_vegan.env <- data_cas_si_su_vegan.env
 attach(data_vegan.env)
 
-attach(data_fixed_vegan.env)
-
-#CAS 2016
-attach(data_cas_vegan.env)
-
-#si
-attach(data_si_vegan.env)
-
-#su
-attach(data_su_vegan.env)
 
 #### DCA PLOT ####
 #all data------------------

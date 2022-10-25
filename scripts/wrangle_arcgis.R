@@ -38,8 +38,8 @@ station_pts <-
   data_cas_si_su %>%
   dplyr::select(study,
                 station_code,
-                adjusted_longitude,
-                adjusted_latitude) %>%
+                longitude,
+                latitude) %>%
   distinct() %>%
   dplyr::select(-study,
                 -station_code) %>%
@@ -52,12 +52,12 @@ station_data <-
   data_cas_si_su %>%
   dplyr::select(study,
                 station_code,
-                adjusted_longitude,
-                adjusted_latitude) %>%
+                longitude,
+                latitude) %>%
   distinct() %>%
   drop_na() %>%
-  dplyr::select(-adjusted_longitude,
-                -adjusted_latitude) %>%
+  dplyr::select(-longitude,
+                -latitude) %>%
   as.data.frame()
 
 # convert your station gis points to a SpatialPoints data structure
@@ -120,11 +120,11 @@ data_human_pop <-
             by = "ID") %>%
   # get lat and long used
   bind_cols(as_tibble(station_pts_utm@coords) %>%
-              rename(latitude_utm = adjusted_latitude,
-                     longitude_utm = adjusted_longitude),
+              dplyr::rename(latitude_utm = latitude,
+                            longitude_utm = longitude),
             as_tibble(station_pts_longlat@coords) %>%
-              rename(long = adjusted_longitude,
-                     lat = adjusted_latitude)) %>%
+              dplyr::rename(long = longitude,
+                            lat = latitude)) %>%
   # housekeeping
   clean_names() %>%
   mutate(totpop_cy = as.numeric(totpop_cy),
@@ -135,7 +135,7 @@ data_human_pop <-
                 -has_data) 
 
 #### ADD HUMAN POP DATA TO SURVEY DATA ####
-data_cas_si_su <-
+data_cas_si_su_pop <-
   data_cas_si_su %>%
   left_join(data_human_pop)
   

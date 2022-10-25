@@ -12,11 +12,13 @@ library(maptools)
 
 #### USER DEFINED VARIABLES ####
 source("wrangle_arcgis.R")
+source("distance_calculations.R")
 
 # visualize survey sites on heatmap of human pop in each province
 
 make_map <- function(map_shape_data = arcgis_tibble,
                      waypoint_data = data_human_pop,
+                     mpa_data = data_mpa,
                      pop_char = quo(TOTPOP_CY),
                      min_long = 120.5,
                      max_long = 124.3,
@@ -43,6 +45,19 @@ make_map <- function(map_shape_data = arcgis_tibble,
                size = 4,
                stroke = 2) +
     scale_shape_manual(values = c(0,1,2)) +
+    # show closest mpa
+    geom_point(data = mpa_data,
+               aes(x=long,
+                   y=lat,
+                   # shape = study
+                   ),
+               color = "red",
+               shape = 8,
+               inherit.aes = FALSE,
+               size = 4,
+               stroke = 2) +
+    # scale_shape_manual(values = c(3,4,8)) +
+
     labs(x="Longitude",
          y="Latitude") +
     coord_quickmap(xlim = c(min_long,

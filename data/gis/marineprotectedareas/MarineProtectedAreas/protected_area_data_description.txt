@@ -1,0 +1,58 @@
+ReefBase Dataset: PROTECTED AREA
+
+DATASET DESCRIPTION:
+Information originates from the Protected Areas Database compiled by UNEP-WCMC. 
+For application in ReefBase, we have only included those protected areas that
+are located in a "ReefBase country" (countries with coral reefs) and are located between 35 N and 35 S.
+
+
+ATTRIBUTE DATA:
+Records in the PROTECTED AREA dataset include the following attribute data:
+
+Field name		Description
+
+ID			- ReefBase GIS ID
+Region			- Regional name
+Subregion		- Sub regional name
+Country			- Country name
+Site_code		- ReefBase Site Code
+IUCNCAT_CODE		- IUCN code
+Lat			- Latitude of observation
+Lon			- Longitude of observation
+Year_establish          - Year MPA was established
+Type			- Type of protected area
+Code			- Code of protected area
+Name			- Name of protected area
+marine_existing		- Marine included in protected area?
+			  0 - No
+			  1 - Yes
+Littoral_existing	- Littoral Habitat included in protected area?
+			  0 - No
+			  1 - Yes
+Coral_existing		- Coral Reef included in protected area?
+			  0 - No
+			  1 - Yes
+Reef_area_size		- Coral reef size in protected area
+Seagrass_existing	- Seagrass included in protected area?
+			  0 - No
+			  1 - Yes
+Mangrove_existing	- Mangrove included in protected area?
+			  0 - No
+			  1 - Yes
+Country_code		- ReefBase country code
+
+
+COPYRIGHT AND USE OF DATA
+Please refer to the specific terms and conditions for use of this ReefBase dataset, as outlined in the
+"ReefBase Data License".
+
+
+CONTACT:
+For further questions, comments, or remarks about the ReefBase Protected Areas dataset,
+please contact us:
+
+ReefBase Project
+The WorldFish Center
+PO Box 500 GPO
+10670 Penang, Malaysia
+reefbase@cgiar.org

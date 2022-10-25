@@ -15,6 +15,7 @@ library(readr)
 wrangle_si_data_path = "./wrangleStationData_SI.R"
 wrangle_su_si_data_path = "./wrangle_SU-SI_DuplicatesNewData.R"
 wrangle_cas_data_path = "./wrangle_cas_data.R"
+calculate_mpa_distances = "./distance_calculations_mpa.R"
 
 #### READ IN DATA ####
 source(wrangle_si_data_path)
@@ -40,7 +41,7 @@ source(wrangle_cas_data_path)
 #   dplyr::select(-contains("7879"))
   
 
-#### BIND DATA ####
+#### BIND DATA AMONG STUDIES ####
 data_cas_si_su <-
   bind_rows(data_cas_all %>%
               mutate(study = "cas_2016"), 
@@ -61,7 +62,22 @@ rm(data_si_station_gis,
    data_su_all,
    data_cas_all)
 
+#### ADD MPA DISTANCE DATA ####
+source(calculate_mpa_distances)
 
+data_cas_si_su_mpa <-
+  data_cas_si_su %>%
+  left_join(data_closest_mpa) %>%
+  dplyr::select(station_code:station_code_7879,
+                mpa_name,
+                mpa_year_established_earliest,
+                mpa_area_ha,
+                station_mpa_distance_km,
+                closest_mpa_age_during_study_yrs)
 
 #write_excel_csv(data_cas_si_su, "data_cas_si_su.csv")
   
+#### ADD HUMAN POP DATA TO SURVEY DATA ####
+data_cas_si_su_mpa_pop <-
+  data_cas_si_su_mpa %>%
+  left_join(data_human_pop)

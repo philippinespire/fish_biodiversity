@@ -11,22 +11,23 @@ library(vegan)
 library(remotes)
 library(ggvegan)
 source("wrangle_cas_si_su_data.R")
-source("distance_calculations.R")
+source("distance_calculations_mpa.R")
 source("ordination_cas_su_si.R")
 
-data <- data_cas_si_su
 
 #### VEGANIZATION ####
 #Vegan all data
-prep_vegan <- function(data=data_cas_si_su){
+prep_vegan <- 
+  function(data=data_cas_si_su){
   data %>%
     dplyr::rename(taxon = verified_identification) %>%
     filter(specimen_count > 0) %>%
     group_by(taxon,
              station_code,
              study,
-             field_number,
-             lowest_tax_cat) %>%
+             # field_number,
+             # lowest_tax_cat
+             ) %>%
     dplyr::summarize(sum_specimen_count = sum(specimen_count)) %>%
     ungroup() %>%
     pivot_wider(names_from = taxon,
@@ -40,115 +41,17 @@ prep_vegan <- function(data=data_cas_si_su){
 
 data_cas_si_su_vegan <-
   prep_vegan() %>%
-  dplyr::select(-station_code:-lowest_tax_cat)
+  dplyr::select(-station_code:-study)
 
 data_cas_si_su_vegan.env <-
   prep_vegan() %>%
-  dplyr::select(station_code:lowest_tax_cat)
+  dplyr::select(station_code:study)
 
 
-attach(data_cas_si_su_vegan.env)
+
 data_vegan <- data_cas_si_su_vegan 
 data_vegan.env <- data_cas_si_su_vegan.env
 attach(data_vegan.env)
-
-#vegan cas data
-# prep_vegan_cas <- function(data=data_cas_si_su){
-#   data %>%
-#     dplyr::filter(study == "cas_2016") %>%
-#     rename(taxon = verified_identification) %>%
-#     dplyr::filter(specimen_count > 0) %>%
-#     group_by(taxon,
-#              station_code, 
-#              study,
-#              field_number,
-#              lowest_tax_cat) %>%
-#     summarize(sum_specimen_count = sum(specimen_count)) %>%
-#     ungroup() %>%
-#     pivot_wider(names_from = taxon,
-#                 values_from = sum_specimen_count,
-#                 values_fill = 0) %>%
-#     clean_names() %>%
-#     arrange(study,
-#             station_code) %>%
-#     drop_na(station_code)
-# }    
-# 
-# data_casvegan <-
-#   prep_vegan_cas() %>%
-#   dplyr::select(-station_code:-lowest_tax_cat)
-# 
-# data_cas_vegan.env <-
-#   prep_vegan_cas() %>%
-#   dplyr::select(station_code:lowest_tax_cat)
-# 
-# attach(data_cas_vegan.env)
-# 
-# #vegan si data
-# prep_vegan_si <- function(data=data_cas_si_su){
-#   data %>%
-#     dplyr::filter(study == "si_1978") %>%
-#     rename(taxon = verified_identification) %>%
-#     dplyr::filter(specimen_count > 0) %>%
-#     group_by(taxon,
-#              station_code, 
-#              study,
-#              field_number,
-#              lowest_tax_cat) %>%
-#     summarize(sum_specimen_count = sum(specimen_count)) %>%
-#     ungroup() %>%
-#     pivot_wider(names_from = taxon,
-#                 values_from = sum_specimen_count,
-#                 values_fill = 0) %>%
-#     clean_names() %>%
-#     # sort by station_code
-#     arrange(study,
-#             station_code) %>%
-#     drop_na(station_code)
-# }    
-# 
-# data_sivegan <-
-#   prep_vegan_si() %>%
-#   dplyr::select(-station_code:-lowest_tax_cat)
-# 
-# data_si_vegan.env <-
-#   prep_vegan_si() %>%
-#   dplyr::select(station_code:lowest_tax_cat)
-# 
-# attach(data_si_vegan.env)
-# 
-# #vegan su data
-# prep_vegan_su <- function(data=data_cas_si_su){
-#   data %>%
-#     dplyr::filter(study == "su_2022") %>%
-#     rename(taxon = verified_identification) %>%
-#     dplyr::filter(specimen_count > 0) %>%
-#     group_by(taxon,
-#              station_code, 
-#              study,
-#              field_number,
-#              lowest_tax_cat) %>%
-#     summarize(sum_specimen_count = sum(specimen_count)) %>%
-#     ungroup() %>%
-#     pivot_wider(names_from = taxon,
-#                 values_from = sum_specimen_count,
-#                 values_fill = 0) %>%
-#     clean_names() %>%
-#     
-#     arrange(study,
-#             station_code) %>%
-#     drop_na(station_code)
-# }    
-# 
-# data_suvegan <-
-#   prep_vegan_su() %>%
-#   dplyr::select(-station_code:-lowest_tax_cat)
-# 
-# data_su_vegan.env <-
-#   prep_vegan_su() %>%
-#   dplyr::select(station_code:lowest_tax_cat)
-# 
-# attach(data_su_vegan.env)
 
 
 #### EstimateR ####
