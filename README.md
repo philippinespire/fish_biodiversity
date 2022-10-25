@@ -72,4 +72,5 @@ These are instructions if you are reading in the data for the first time.  Once 
       * the column should be named the same in all three data sets
       * modify the `select()` command that removes the column of interest
 6. Open `fish_biodiversity/scripts/distance_calculations_mpa.R` in R Studio
-   * 
+
+7. Open `fish_biodiversity/scripts/wrangle_arcgis.R` in R Studio
