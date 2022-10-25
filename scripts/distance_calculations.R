@@ -53,7 +53,7 @@ data_mpa <-
   mutate(year_established_earliest = str_remove(year_established,
                                                 "[ (].*$"),
          year_established_earliest = as.numeric(year_established_earliest)) %>%
-  select(-x10) %>%
+  dplyr::select(-x10) %>%
   drop_na(lat,
           long)
 
@@ -62,8 +62,8 @@ data_mpa <-
 data_study_site <-
   data_cas_si_su %>%
   clean_names() %>%
-  drop_na(adjusted_latitude,
-          adjusted_longitude) %>%
+  drop_na(latitude,
+          longitude) %>%
   distinct(study,
            station_code,
            .keep_all=TRUE) %>%
@@ -71,7 +71,7 @@ data_study_site <-
                                     station_code,
                                     sep = "-"),
          year_survey = year(date_collected)) %>%
-  select(-specimen_count:-lowest_tax_cat)
+  dplyr::select(-specimen_count:-lowest_tax_cat)
 
 
 #### WRANGLE DISTANCES BETWEEN ALL STATIONS AND MPAS ####

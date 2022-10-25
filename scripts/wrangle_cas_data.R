@@ -40,7 +40,7 @@ data_cas <-
   drop_na(specimen_count) %>%
   left_join(readxl::read_excel(CAS_verified_names) %>%
               dplyr::select(-family),
-                    by = c("genus_species" = "original_id")) %>%
+            by = c("genus_species" = "original_id")) %>%
   dplyr::rename(identification = genus_species) %>%
   mutate(verified_identification = case_when(is.na(verified_identification) ~ identification,
                                 TRUE ~ verified_identification))
@@ -82,11 +82,14 @@ data_cas_all <-
             by = "station_code") %>%
   dplyr::rename(bottom = bottom_type,
                 # depth_m = depth_of_capture,
-                adjusted_latitude = lat_deg_dec_1,
-                adjusted_longitude = long_deg_dec_1,
+                latitude = lat_deg_dec_1,
+                longitude = long_deg_dec_1,
                 province_state = state,
                 date_collected = verbatim_coll_date) %>%
-  mutate(date_collected = dmy(date_collected)) %>%
+  mutate(date_collected = dmy(date_collected),
+         gear = str_to_lower(gear)) %>%
+  filter(str_detect(gear,
+                    "rotenone")) %>%
   dplyr::select(-coll_date_from,
                 -source,
                 -lat_verbatim_1,
@@ -97,7 +100,10 @@ data_cas_all <-
                 -gear,
                 -coll_time:-last_edited_by,
                 -notes,
-                -depth_of_capture)
+                -depth_of_capture,
+                -field_number,
+                -island,
+                -island_group)
   
 
 rm(data_cas,

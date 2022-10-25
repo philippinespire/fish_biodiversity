@@ -14,7 +14,9 @@ library(lubridate)
 #inFilePath = "../data/SU-SI_Duplicates(1).xlsx"
 inFilePath = "../data/SU-SI_Duplicates_20220808.xlsx"
 CAS_verified_names = "../data/All_confirmed_names.xlsx"
-#stationDataFilePath = "su_station_database"
+stationMetaDataFilePath = "../SU/su_station_database_20221024.xlsx"
+stationMetaDataSheet = "All_Stations"
+numberStations = 24
 
 #### Read in Data ####
 
@@ -54,17 +56,18 @@ data_su <-
          dist_shore = distance_from_shore,
          # depth_m = depth_water,
          locality = precise_locality) %>%
-  mutate(adjusted_latitude = case_when(is.na(centroid_latitude) ~ as.numeric(conv_unit(dms_latitude,
-                                                                            from = "deg_min_sec",
-                                                                            to = "dec_deg")),
-                                       TRUE ~ centroid_latitude),
-         adjusted_longitude = case_when(is.na(centroid_longitude) ~ as.numeric(conv_unit(dms_longitude,
-                                                                              from = "deg_min_sec",
-                                                                              to = "dec_deg")),
-                                        TRUE ~ centroid_longitude),
-         station_code_7879 = str_replace(station_code_7879,
+  mutate(station_code_7879 = str_replace(station_code_7879,
                                          "-",
                                          "_"),
+         # don't need, getting from metadata
+         # adjusted_latitude = case_when(is.na(centroid_latitude) ~ as.numeric(conv_unit(dms_latitude,
+         #                                                                               from = "deg_min_sec",
+         #                                                                               to = "dec_deg")),
+         #                               TRUE ~ centroid_latitude),
+         # adjusted_longitude = case_when(is.na(centroid_longitude) ~ as.numeric(conv_unit(dms_longitude,
+         #                                                                                 from = "deg_min_sec",
+         #                                                                                 to = "dec_deg")),
+         #                                TRUE ~ centroid_longitude),
          depth_m = str_remove(depth_water,
                               " *ft *"),
          depth_m = str_remove(depth_m,
@@ -90,10 +93,10 @@ data_su <-
                -collection_method,
                # -station_code_7879,
                -depth_water,
-               -lot_id)
-
-        
-  
+               -lot_id,
+               -province_state,
+               -municipality,
+               -barangay)
 
 # all_spec_ids <- 
 #   unique(c(data_su$identification, data_si$identification))
@@ -107,3 +110,56 @@ data_su <-
 # all_spec_ids <- tibble(all_spec_ids) %>%
 #   filter(all_spec_ids != "NA") %>%
 #   write_tsv(file = "all_spec_ids.tsv")
+
+
+#### READ IN METADATA ####
+data_su_metadata <-
+  read_excel(stationMetaDataFilePath,
+             sheet = stationMetaDataSheet,
+             n_max = numberStations) %>%
+  clean_names() %>%
+  # remove cols with no data
+  dplyr::select(!(where(~ all(is.na(.))))) %>%
+  #match formatting from other studies
+  mutate(usnm_field_number_s = str_replace(usnm_field_number_s,
+                                           "(..)\\-",
+                                           "\\1_"),
+         #set depth to max
+         depth_m = depth_to_m,
+         date_collected = ymd(date)) %>%
+  rename(province_state = province,
+         station_code_7879 = usnm_field_number_s,
+         station_code = odu_field_number_s,
+         latitude = lat_su,
+         longitude = lon_su) %>%
+  dplyr::select(-time,
+                -date,
+                -water_temperature,
+                -rotenone,
+                -method_capture,
+                -depth_from_m,
+                -depth_to_m,
+                -lat_si_orig,
+                -lon_si_orig,
+                -count,
+                -duplicate_70s,
+                -match_id,
+                -proxy,
+                -notes)
+
+#### COMBINE SURVEY DATA AND STATION METADATA ####
+
+data_su_all <-
+  data_su %>%
+  left_join(data_su_metadata,
+            by = c("station_code")) %>%
+  rename(date_collected = date_collected.y,
+         locality = locality.y,
+         station_code_7879 = station_code_7879.y,
+         depth_m = depth_m.y) %>%
+  dplyr::select(-contains(".x"),
+                -notes_cas_verification,
+                -notes)
+
+rm(data_su,
+   data_su_metadata)

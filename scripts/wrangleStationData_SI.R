@@ -243,7 +243,12 @@ data_si_station_gis <-
                  -smithsonian_station_code,
                  -island_grouping,
                  -province,
-                 -province_code)
+                 -province_code,
+                -field_number,
+                -island,
+                -notes_cas_verification,
+                -notes,
+                -vegetation)
  
 rm(data_si,
    data_si_station,
