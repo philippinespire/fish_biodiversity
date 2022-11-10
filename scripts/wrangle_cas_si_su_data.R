@@ -2,6 +2,8 @@
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
+install.packages("taxize")
+
 library(tidyverse)
 library(readxl)
 library(janitor)
@@ -9,6 +11,7 @@ library(purrr)
 library(magrittr)
 library(lubridate)
 library(readr)
+library(taxize)
 
 #### USER DEFINED VARIABLES ####
 
@@ -81,3 +84,7 @@ data_cas_si_su_mpa <-
 data_cas_si_su_mpa_pop <-
   data_cas_si_su_mpa %>%
   left_join(data_human_pop)
+
+#### GET FAMILY NAMES ####
+get_ids(c("Acanthurus mata", "Cheilinus oxycephalus"), db="ncbi")
+# vector to retrieve all names did not work, 2 names found only
