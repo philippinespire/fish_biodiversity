@@ -2,6 +2,12 @@
 
 ## Contains: ###
 
+### Benthic Map and Bathymetry ###
+
+`Dumaguete-20221201154633.zip`
+
+GeoJson Benthic map and Bathymetry composite depth for the coast of dumaguete and further
+
 
 ### Population Data ###
 
