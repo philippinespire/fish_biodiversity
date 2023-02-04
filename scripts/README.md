@@ -19,11 +19,12 @@ Sourced from:
 
 
 #### `wrangleStationData_SI.R`
+
 Wrangle fish biodiversity data from 1978-9 Smithsonian Expedition
 
 Smithsonian db was queried, we read in the results of three queries, remove duplicated rows, remove columns with no data
 
-Sourced from:
+Data from:
 * `/data/station_info.xlsx` 
 * `SI/Coordinates/Coordinate_Conversions.xlsx` 
 * `/SI/Collections_Data`
@@ -32,21 +33,30 @@ Sourced from:
 
 
 #### `wrangle_SU-SI_DuplicatesNewData.R`
+
 Wrangle fish biodiversity data from 2022
 
-Sourced from:
+Data from:
 * `/data/SU-SI_Duplicates_20220808.xlsx` 
 * `/data/All_confirmed_names.xlsx`
 
 
 
 #### `wrangle_cas_data.R`
+
 Wrangle fish biodiversity data from 2016
 
-Sourced from:
+Data from:
 * `/CAS/CAS fish count by site PH 2016.xlsx` 
 * `/CAS/CAS-Fishes-VIP2016-localities.xlsx` 
 * `/data/All_confirmed_names.xlsx`
+
+#### `distance_calculations_mpa.R`
+
+Wrangle the geographic distances from MPA
+
+Data from:
+* `/data/MPA_coordinates_no_deg.xlsx`
 
 
 ---
