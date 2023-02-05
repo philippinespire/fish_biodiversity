@@ -276,7 +276,7 @@ data_mpa_closest <-
 
 #### GET MPA AREA WITHIN X KM ####
 
-x_km = 30
+x_km = 80
 data_mpa_within_xkm <-
   data_mpa_study_stationcode_distances %>%
   pivot_longer(cols = matches("^[sc][aiu][_s]"),
