@@ -63,6 +63,15 @@ Data from:
 
 ---
 
+## `visualize_arcgis_pop.R`
+### Visualize arcgis population data by province
+
+Sourced from: 
+* `wrangle_arcgis.R`
+* `distance_calculations_mpa.R`
+
+
+---
 
 ## `EstimateR.R`
 ### Est_S and estaccumR analyses and plots
