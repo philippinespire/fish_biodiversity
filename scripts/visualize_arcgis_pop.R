@@ -12,61 +12,62 @@ library(maptools)
 
 #### USER DEFINED VARIABLES ####
 source("wrangle_arcgis.R")
-source("distance_calculations.R")
+source("distance_calculations_mpa.R")
 
 # visualize survey sites on heatmap of human pop in each province
 
-make_map <- function(map_shape_data = arcgis_tibble,
-                     waypoint_data = data_human_pop,
-                     # mpa_data = data_mpa,
-                     pop_char = quo(TOTPOP_CY),
-                     min_long = 120.5,
-                     max_long = 124.3,
-                     min_lat = 8.5,
-                     max_lat = 14){
-  map_out <-
-    map_shape_data %>%
-    ggplot() + 
-    aes(x = long, 
-        y = lat, 
-        group = group,
-        fill = !!pop_char) +
-    geom_polygon(color='black') +
-    scale_fill_gradient(low = "white",
-                        high = "black") +
-    # here is where we pull in the station by station data
-    geom_point(data = waypoint_data,
-               aes(x=long,
-                   y=lat,
-                   color = study,
-                   # size = dist_nearest_polygon,
-                   shape = study),
-               inherit.aes = FALSE,
-               size = 2,
-               stroke = 2) +
-    scale_shape_manual(values = c(0,1,2)) +
-    # show closest mpa
-    # geom_point(data = mpa_data,
-    #            aes(x=long,
-    #                y=lat,
-    #                # shape = study
-    #                ),
-    #            color = "red",
-    #            shape = 8,
-    #            inherit.aes = FALSE,
-    #            size = 4,
-    #            stroke = 2) +
+make_map <- 
+  function(map_shape_data = arcgis_tibble,
+           waypoint_data = data_human_pop,
+           # mpa_data = data_mpa,
+           pop_char = quo(TOTPOP_CY),
+           min_long = 120.5,
+           max_long = 124.3,
+           min_lat = 8.5,
+           max_lat = 14){
+    map_out <-
+      map_shape_data %>%
+      ggplot() + 
+      aes(x = long, 
+          y = lat, 
+          group = group,
+          fill = !!pop_char) +
+      geom_polygon(color='black') +
+      scale_fill_gradient(low = "white",
+                          high = "black") +
+      # here is where we pull in the station by station data
+      geom_point(data = waypoint_data,
+                 aes(x=long,
+                     y=lat,
+                     color = study,
+                     # size = dist_nearest_polygon,
+                     shape = study),
+                 inherit.aes = FALSE,
+                 size = 2,
+                 stroke = 2) +
+      scale_shape_manual(values = c(0,1,2)) +
+      # show closest mpa
+      # geom_point(data = mpa_data,
+      #            aes(x=long,
+      #                y=lat,
+      #                # shape = study
+      #                ),
+      #            color = "red",
+      #            shape = 8,
+      #            inherit.aes = FALSE,
+      #            size = 4,
+      #            stroke = 2) +
     # scale_shape_manual(values = c(3,4,8)) +
-
+    
     labs(x="Longitude",
          y="Latitude") +
-    coord_quickmap(xlim = c(min_long,
-                            max_long),
-                   ylim = c(min_lat,
-                            max_lat))
-  
-  return(map_out)
-}
+      coord_quickmap(xlim = c(min_long,
+                              max_long),
+                     ylim = c(min_lat,
+                              max_lat))
+    
+    return(map_out)
+  }
 
 #default map
 make_map()

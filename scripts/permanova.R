@@ -80,7 +80,7 @@ attach(data_vegan.env)
 
 #### TEST ####
 adonis2(data_vegan ~ depth_m*site,
-        data = data_vegan.env,
+        data = est_S,
         by = NULL)
 
 adonis2(data_vegan ~ depth_m*site,

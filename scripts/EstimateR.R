@@ -19,25 +19,25 @@ source("ordination_cas_su_si.R")
 #Vegan all data
 prep_vegan <- 
   function(data=data_cas_si_su){
-  data %>%
-    dplyr::rename(taxon = verified_identification) %>%
-    filter(specimen_count > 0) %>%
-    group_by(taxon,
-             station_code,
-             study,
-             # field_number,
-             # lowest_tax_cat
-             ) %>%
-    dplyr::summarize(sum_specimen_count = sum(specimen_count)) %>%
-    ungroup() %>%
-    pivot_wider(names_from = taxon,
-                values_from = sum_specimen_count,
-                values_fill = 0) %>%
-    clean_names() %>%
-    arrange(study,
-            station_code) %>%
-    drop_na(station_code)
-}
+    data %>%
+      dplyr::rename(taxon = verified_identification) %>%
+      filter(specimen_count > 0) %>%
+      group_by(taxon,
+               station_code,
+               study,
+               # field_number,
+               # lowest_tax_cat
+      ) %>%
+      dplyr::summarize(sum_specimen_count = sum(specimen_count)) %>%
+      ungroup() %>%
+      pivot_wider(names_from = taxon,
+                  values_from = sum_specimen_count,
+                  values_fill = 0) %>%
+      clean_names() %>%
+      arrange(study,
+              station_code) %>%
+      drop_na(station_code)
+  }
 
 data_cas_si_su_vegan <-
   prep_vegan() %>%
@@ -58,17 +58,112 @@ attach(data_vegan.env)
 
 # specpool(x, pool, smallsample = TRUE)
 est_S <- 
-  estimateR(data_fixed_vegan) %>%
+  estimateR(data_vegan) %>%
   t() %>%
   as_tibble() %>%
   clean_names() %>%
-  select(-s_ace,
-         -se_ace) %>%
-  bind_cols(data_fixed_vegan.env) %>%
-  left_join(data_closest_mpa) %>%
-  filter(!is.na(adjusted_latitude))
+  dplyr::select(-s_ace,
+                -se_ace) %>%
+  bind_cols(data_vegan.env) %>%
+  left_join(data_mpa_stations_pc) %>%
+  filter(!is.na(latitude)) %>%
+  mutate(depth_cat = case_when(depth_m < 3 ~ "<3m",
+                               # depth_m >= 3 & depth_m <= 20 ~ "3-20m",
+                               depth_m >= 3 ~ ">3m")) %>%
+  mutate(depth_cat = factor(depth_cat,
+                            levels = c("<3m",
+                                       # "3-20m",
+                                       ">3m"))) %>%
+  filter(!is.na(depth_m)) %>%
+  left_join(data_human_pop) %>%
+  mutate(pop_dens_province_cat = case_when(pop_dens_province < 250 ~ "<250",
+                                           pop_dens_province >=250 & pop_dens_province <= 500 ~ "250-500",
+                                           pop_dens_province > 500 ~ ">500")) %>%
+  mutate(pop_dens_province_cat = factor(pop_dens_province_cat,
+                                        levels = c("<250",
+                                                   "250-500",
+                                                   ">500"))) %>%
+  mutate(study = factor(study,
+                        levels = c("si_1978",
+                                   "cas_2016",
+                                   "su_2022")))
 
-#### PLOTS ####
+est_S %>%
+  ggplot(aes(x=depth_m)) +
+  geom_histogram()
+
+est_S %>%
+  ggplot(aes(x=pop_dens_province)) +
+  geom_histogram()
+
+
+#### PLOTS pop, depth, dist from shore ####
+
+est_S %>%
+  ggplot(aes(x = pop_dens_province, 
+             y = s_chao1,
+             color = study)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = s_chao1 - se_chao1,
+                    ymax = s_chao1 + se_chao1)) +
+  geom_smooth(method = "lm") +
+  theme_classic()
+
+est_S %>%
+  ggplot(aes(x = population, 
+             y = s_chao1,
+             color = study)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = s_chao1 - se_chao1,
+                    ymax = s_chao1 + se_chao1)) +
+  geom_smooth(method = "lm") +
+  theme_classic()
+
+est_S %>%
+  ggplot(aes(x = distance_m, 
+             y = s_chao1,
+             color = study)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = s_chao1 - se_chao1,
+                    ymax = s_chao1 + se_chao1)) +
+  geom_smooth(method = "lm") +
+  theme_classic()
+
+est_S %>%
+  ggplot(aes(x = depth_m, 
+             y = s_chao1,
+             color = study)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = s_chao1 - se_chao1,
+                    ymax = s_chao1 + se_chao1)) +
+  geom_smooth() +
+  theme_classic()
+
+#### box plots by depth and pop dens ####
+est_S %>%
+  ggplot(aes(y = s_chao1,
+             fill = study)) +
+  geom_boxplot() +
+  theme_classic() +
+  facet_grid(depth_cat ~ pop_dens_province_cat )
+
+est_S %>%
+  ggplot(aes(y = s_chao1,
+             x = pop_dens_province_cat,
+             fill = study)) +
+  geom_boxplot() +
+  theme_classic() +
+  facet_grid(. ~ study )
+
+est_S %>%
+  ggplot(aes(y = s_chao1,
+             x = depth_cat,
+             fill = study)) +
+  geom_boxplot() +
+  theme_classic() +
+  facet_grid(. ~ study )
+
+#### PLOTS PC1 ####
 
 est_S %>%
   ggplot(aes(x = pc1_mpa_infl, 
@@ -82,7 +177,34 @@ est_S %>%
   theme_classic()
 
 est_S %>%
-  ggplot(aes(x = mpa_area_ha, 
+  ggplot(aes(x = pc1_mpa_infl, 
+             y = s_chao1,
+             color = study)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = s_chao1 - se_chao1,
+                    ymax = s_chao1 + se_chao1)) +
+  geom_smooth(se = FALSE,
+              method = "lm") +
+  theme_classic() +
+  facet_wrap(depth_cat ~ .)
+
+est_S %>%
+  ggplot(aes(x = pc1_mpa_infl, 
+             y = s_chao1,
+             color = study)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = s_chao1 - se_chao1,
+                    ymax = s_chao1 + se_chao1)) +
+  geom_smooth(se = FALSE,
+              method = "lm") +
+  theme_classic() +
+  facet_wrap(pop_dens_province_cat ~ .)
+
+
+#### PLOTS PC2 ####
+
+est_S %>%
+  ggplot(aes(x = pc2_mpa_infl, 
              y = s_chao1,
              color = study)) +
   geom_point() +
@@ -91,10 +213,48 @@ est_S %>%
   geom_smooth(se = FALSE,
               method = "lm") +
   theme_classic()
-  
+
 
 est_S %>%
-  ggplot(aes(x = station_mpa_distance_km, 
+  ggplot(aes(x = pc2_mpa_infl, 
+             y = s_chao1,
+             color = study)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = s_chao1 - se_chao1,
+                    ymax = s_chao1 + se_chao1)) +
+  geom_smooth(se = FALSE,
+              method = "lm") +
+  theme_classic() +
+  facet_wrap(depth_cat ~ .)
+
+est_S %>%
+  ggplot(aes(x = pc2_mpa_infl, 
+             y = s_chao1,
+             color = study)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = s_chao1 - se_chao1,
+                    ymax = s_chao1 + se_chao1)) +
+  geom_smooth(se = FALSE,
+              method = "lm") +
+  theme_classic() +
+  facet_wrap(pop_dens_province_cat ~ .)
+
+
+#### PLOTS Other ####
+est_S %>%
+  ggplot(aes(x = mpa_area_within_xkm_ha, 
+             y = s_chao1,
+             color = study)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = s_chao1 - se_chao1,
+                    ymax = s_chao1 + se_chao1)) +
+  geom_smooth(se = FALSE,
+              method = "lm") +
+  theme_classic()
+
+
+est_S %>%
+  ggplot(aes(x = mpa_meandist_within_xkm, 
              y = s_chao1,
              color = study)) +
   geom_point() +
@@ -105,7 +265,7 @@ est_S %>%
   theme_classic()
 
 est_S %>%
-  ggplot(aes(x = PC2, 
+  ggplot(aes(x = mpa_meanage_within_xkm, 
              y = s_chao1,
              color = study)) +
   geom_point() +
@@ -116,7 +276,7 @@ est_S %>%
   theme_classic()
 
 est_S %>%
-  ggplot(aes(x = PC3, 
+  ggplot(aes(x = mpa_num_within_xkm, 
              y = s_chao1,
              color = study)) +
   geom_point() +
@@ -135,29 +295,29 @@ est_S %>%
 #### ESTACCUM R ####
 
 estaccumR_data_all <-
-  estaccumR(data_fixed_vegan, 
+  estaccumR(data_vegan, 
             permutations = 10, 
             parallel = 8)
 
 plot(estaccumR_data_all)
-  
+
 
 estaccumR_si <- 
-  estaccumR(data_sivegan, 
+  estaccumR(data_si_vegan, 
             permutations = 999, 
             parallel = 8)
 
 plot(estaccumR_si)
 
 estaccumR_cas <- # error
-  estaccumR(data_fixed_casvegan, 
+  estaccumR(data_cas_vegan, 
             permutations = 999, 
             parallel = 8)
 
 plot(estaccumR_cas)
 
 estaccumR_su <- 
-  estaccumR(data_suvegan, 
+  estaccumR(data_su_vegan, 
             permutations = 999, 
             parallel = 8)
 

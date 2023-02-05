@@ -2,7 +2,7 @@
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-install.packages("taxize")
+# install.packages("taxize")
 
 library(tidyverse)
 library(readxl)
@@ -19,6 +19,7 @@ wrangle_si_data_path = "./wrangleStationData_SI.R"
 wrangle_su_si_data_path = "./wrangle_SU-SI_DuplicatesNewData.R"
 wrangle_cas_data_path = "./wrangle_cas_data.R"
 calculate_mpa_distances = "./distance_calculations_mpa.R"
+wrangle_arcgis_path = "./wrangle_arcgis.R"
 
 #### READ IN DATA ####
 source(wrangle_si_data_path)
@@ -70,17 +71,20 @@ source(calculate_mpa_distances)
 
 data_cas_si_su_mpa <-
   data_cas_si_su %>%
-  left_join(data_closest_mpa) %>%
+  left_join(data_mpa_stations_pc) %>%
   dplyr::select(station_code:station_code_7879,
                 mpa_name,
                 mpa_year_established_earliest,
-                mpa_area_ha,
-                station_mpa_distance_km,
-                closest_mpa_age_during_study_yrs)
+                area_closest_mpa_ha,
+                distance_closest_mpa_km,
+                age_closest_mpa_y,
+                mpa_area_within_xkm_ha:pc3_mpa_infl) 
 
 #write_excel_csv(data_cas_si_su, "data_cas_si_su.csv")
   
 #### ADD HUMAN POP DATA TO SURVEY DATA ####
+source(wrangle_arcgis_path)
+
 data_cas_si_su_mpa_pop <-
   data_cas_si_su_mpa %>%
   left_join(data_human_pop)

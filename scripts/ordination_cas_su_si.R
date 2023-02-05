@@ -29,33 +29,40 @@ source("veganize_data.R")
 
 
 #### VEGANIZATION ####
-data_vegan <-
+data_cas_si_su_vegan <-
   data_cas_si_su %>%
   prep_vegan() %>%
-  dplyr::select(-station_code:-depth_m)
+  dplyr::select(-station_code:-study)
 
-data_cas_si_su_vegan <-
+data_cas_si_su_vegan.env <-
+  data_cas_si_su %>%
   prep_vegan() %>%
-  dplyr::select(-station_code:-depth_m)
+  dplyr::select(station_code:study)
 
 data_cas_vegan <-
   data_cas_si_su %>%
   dplyr::filter(study == "cas_2016") %>%
   prep_vegan() %>%
-  dplyr::select(-station_code:-depth_m)
+  dplyr::select(-station_code:-study)
 
 data_cas_vegan.env <-
   data_cas_si_su %>%
   dplyr::filter(study == "cas_2016") %>%
   prep_vegan() %>%
-  dplyr::select(station_code:depth_m)
+  dplyr::select(station_code:study)
 
 #vegan SI data
 data_si_vegan <-
   data_cas_si_su %>%
   dplyr::filter(study == "si_1978") %>%
   prep_vegan() %>%
-  dplyr::select(-station_code:-depth_m)
+  dplyr::select(-station_code:-study)
+
+data_si_vegan.env <-
+  data_cas_si_su %>%
+  dplyr::filter(study == "si_1978") %>%
+  prep_vegan() %>%
+  dplyr::select(station_code:study)
 
 #vegan su_2022 data
 
@@ -63,34 +70,15 @@ data_su_vegan <-
   data_cas_si_su %>%
   dplyr::filter(study == "su_2022") %>%
   prep_vegan() %>%
-  dplyr::select(-station_code:-depth_m)
+  dplyr::select(-station_code:-study)
 
-#### PART 2: .env ####
-#all data
-data_cas_si_su_vegan.env <-
-  prep_vegan() %>%
-  dplyr::select(station_code:depth_m)
-
-#cas 2016 data
-data_cas_vegan.env <-
-  data_cas_si_su %>%
-  dplyr::filter(study == "cas_2016") %>%
-  prep_vegan() %>%
-  dplyr::select(station_code:depth_m)
-
-#si data
-data_si_vegan.env <-
-  data_cas_si_su %>%
-  dplyr::filter(study == "si_1978") %>%
-  prep_vegan() %>%
-  dplyr::select(station_code:depth_m)
-
-#su data
 data_su_vegan.env <-
   data_cas_si_su %>%
   dplyr::filter(study == "su_2022") %>%
   prep_vegan() %>%
-  dplyr::select(station_code:depth_m)
+  dplyr::select(station_code:study)
+
+
 
 #### ATTACH ####
 #all data
