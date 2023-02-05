@@ -13,6 +13,7 @@ Sourced from:
 *   `scripts/wrangle_SU-SI_DuplicatesNewData.R`
 *   `scripts/wrangle_cas_data.R`
 *   `scripts/distance_calculations_mpa.R` (pca's made in this script)
+*   `scripts/wrangle_arcgis.R`
 
 
 ### Source Information
@@ -29,6 +30,7 @@ Data from:
 * `SI/Coordinates/Coordinate_Conversions.xlsx` 
 * `/SI/Collections_Data`
 * `/data/All_confirmed_names.xlsx`
+* `/data/gis/PhL_Province_Pop/`
 
 
 
