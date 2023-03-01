@@ -4,12 +4,33 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # source("./wrangle_cas_si_su_data.R")
 
 #install.packages("geosphere")
-library(geosphere)
-library(ggbiplot)
-library(janitor)
-library(readxl)
-library(readr)
-library(tidyverse)
+# library(geosphere)
+# library(ggbiplot)
+# library(janitor)
+# library(readxl)
+# library(readr)
+# library(tidyverse)
+
+#### PACKAGES ####
+packages_used <- 
+  c("geosphere",
+    "ggbiplot",
+    "janitor",
+    "readxl",
+    "readr",
+    "tidyverse")
+
+packages_to_install <- 
+  packages_used[!packages_used %in% installed.packages()[,1]]
+
+if (length(packages_to_install) > 0) {
+  install.packages(packages_to_install, 
+                   Ncpus = Sys.getenv("NUMBER_OF_PROCESSORS") - 1)
+}
+
+lapply(packages_used, 
+       require, 
+       character.only = TRUE)
 
 
 #### USER DEFINED VARIABLES ####

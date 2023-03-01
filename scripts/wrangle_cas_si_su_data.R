@@ -4,14 +4,37 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 # install.packages("taxize")
 
-library(tidyverse)
-library(readxl)
-library(janitor)
-library(purrr)
-library(magrittr)
-library(lubridate)
-library(readr)
-library(taxize)
+# library(tidyverse)
+# library(readxl)
+# library(janitor)
+# library(purrr)
+# library(magrittr)
+# library(lubridate)
+# library(readr)
+# library(taxize)
+
+#### PACKAGES ####
+packages_used <- 
+  c("tidyverse",
+    "readxl",
+    "janitor",
+    "purrr",
+    "magrittr",
+    "lubridate",
+    "readr",
+    "taxize")
+
+packages_to_install <- 
+  packages_used[!packages_used %in% installed.packages()[,1]]
+
+if (length(packages_to_install) > 0) {
+  install.packages(packages_to_install, 
+                   Ncpus = Sys.getenv("NUMBER_OF_PROCESSORS") - 1)
+}
+
+lapply(packages_used, 
+       require, 
+       character.only = TRUE)
 
 #### USER DEFINED VARIABLES ####
 

@@ -5,17 +5,40 @@
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-library(tidyverse)
-library(janitor)
-library(magrittr)
-# library(measurements)
-library(lubridate)
-library(rgdal)
-library(raster)
-# library(sf)
-library(rgeos)
-library(maptools)
-# library(tmap)
+# library(tidyverse)
+# library(janitor)
+# library(magrittr)
+# # library(measurements)
+# library(lubridate)
+# library(rgdal)
+# library(raster)
+# # library(sf)
+# library(rgeos)
+# library(maptools)
+# # library(tmap)
+
+#### PACKAGES ####
+packages_used <- 
+  c("tidyverse",
+    "janitor",
+    "magrittr",
+    "lubridate",
+    "rgdal",
+    "raster",
+    "rgeos",
+    "maptools")
+
+packages_to_install <- 
+  packages_used[!packages_used %in% installed.packages()[,1]]
+
+if (length(packages_to_install) > 0) {
+  install.packages(packages_to_install, 
+                   Ncpus = Sys.getenv("NUMBER_OF_PROCESSORS") - 1)
+}
+
+lapply(packages_used, 
+       require, 
+       character.only = TRUE)
 
 #### USER DEFINED VARIABLES ####
 #inFilePath = "../data/SU-SI_Duplicates(1).xlsx"

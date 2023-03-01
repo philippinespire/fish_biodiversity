@@ -2,17 +2,40 @@
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-library(tidyverse)
-library(readxl)
-library(janitor)
-library(purrr)
-library(magrittr)
-library(lubridate)
+# library(tidyverse)
+# library(readxl)
+# library(janitor)
+# library(purrr)
+# library(magrittr)
+# library(lubridate)
+# 
+# # library(devtools)
+# # install_github("decisionpatterns/tidyimpute")
+# library(tidyimpute)
 
-# library(devtools)
-# install_github("decisionpatterns/tidyimpute")
+#### PACKAGES ####
+packages_used <- 
+  c("tidyverse",
+    "readxl",
+    "janitor",
+    "purrr",
+    "magrittr",
+    "lubridate",
+    "tidyimpute")
 
-library(tidyimpute)
+packages_to_install <- 
+  packages_used[!packages_used %in% installed.packages()[,1]]
+
+if (length(packages_to_install) > 0) {
+  install.packages(packages_to_install, 
+                   Ncpus = Sys.getenv("NUMBER_OF_PROCESSORS") - 1)
+}
+
+lapply(packages_used, 
+       require, 
+       character.only = TRUE)
+
+
 
 #### USER DEFINED VARIABLES ####
 inFilePath = "../CAS/CAS fish count by site PH 2016.xlsx"
