@@ -98,28 +98,30 @@ remDr <- selenium_driver[["client"]]
 
 remDr$open()
 
+
+
 # you should now have two chrome windows open
 
 #### Get 1 page of the Table ####
 
-# # Navigate to the target URL
-# remDr$navigate("http://www.database.mpasupportnetwork.com")
-# 
-# # Get the page source
-# page_source <- remDr$getPageSource()[[1]]
-# 
-# # extract the table data
-# table_data <- 
-#   xml2::read_html(page_source) %>%
-#   rvest::html_nodes("#table_handler table") %>%
-#   rvest::html_table() %>%
-#   pluck(1) %>%
-#   clean_names() %>%
-#   select(-starts_with("x")) %>%
-#   dplyr::slice(-1) %>%
-#   dplyr::mutate(across(c(core_area_ha,buffer_area_ha), as.numeric))
+# Navigate to the target URL
+remDr$navigate("http://www.database.mpasupportnetwork.com")
 
-#### Functions to Change the Page Number ####
+# Get the page source
+page_source <- remDr$getPageSource()[[1]]
+
+# extract the table data
+table_data <-
+  xml2::read_html(page_source) %>%
+  rvest::html_nodes("#table_handler table") %>%
+  rvest::html_table() %>%
+  pluck(1) %>%
+  clean_names() %>%
+  select(-starts_with("x")) %>%
+  dplyr::slice(-1) %>%
+  dplyr::mutate(across(c(core_area_ha,buffer_area_ha), as.numeric))
+
+#### Functions to Manipulate the Table ####
 
 # Click the next page button
 next_page <-
@@ -134,6 +136,40 @@ next_page <-
       break
     }
   }
+
+# # Click the details-control button
+# 
+# button_xpath = "//tr[15]/td[contains(@class, 'details-control')]"
+# remDr$findElement(using = "xpath",
+#                   button_xpath)$clickElement()
+
+# Click the details-control button for each row
+
+click_details_buttons <-
+  function(){
+    # Get the table element
+    table_elem <- remDr$findElement(using = "id", 
+                                    "example")
+    
+    # Find all rows of the table
+    rows <- table_elem$findElements(using = "css selector", 
+                                    "tbody tr")
+    
+    # Click the "details-control" button in each row
+    for (i in sort(seq_along(rows),
+                   decreasing = TRUE)) {
+      button_xpath = str_c("//tr[",
+                           i,
+                           "]/td[contains(@class, 'details-control')]")
+      remDr$findElement(using = "xpath", 
+                        button_xpath)$clickElement()
+      Sys.sleep(2)
+    }
+    
+  }
+
+
+
 
 #### Function to Grab Data Table Page ####
 
@@ -150,6 +186,45 @@ get_table_page_data <-
       dplyr::slice(-1) %>%
       dplyr::mutate(across(c(core_area_ha,buffer_area_ha), 
                            as.numeric))
+  }
+
+get_expanded_table_page_data <-
+  function(){
+    # click the buttons to show the location, legislation, and network data
+    click_details_buttons()
+    Sys.sleep(5)
+    
+    page_source <- remDr$getPageSource()[[1]]
+    
+    xml2::read_html(page_source) %>%
+      rvest::html_nodes("#table_handler table") %>%
+      rvest::html_table() %>%
+      pluck(1) %>%
+      clean_names() %>% 
+      rename(category = x,
+             value = complete_name) %>%
+      select(category,
+             value) %>% 
+      dplyr::slice(-1) %>% 
+      dplyr::filter(! str_detect(category,
+                                 "^Location:.")) %>%
+      dplyr::mutate(category = case_when(category == "" ~ "complete_name",
+                                         TRUE ~ category),
+                    category = str_to_lower(category),
+                    category = str_remove_all(category,
+                                              ":")) %>% 
+      dplyr::mutate(across(everything(),
+                           ~na_if(., "na")),
+                    across(everything(),
+                           ~na_if(., "n/a")),
+                    across(everything(),
+                           ~na_if(., ""))) %>% 
+      group_by(category) %>%
+      mutate(row = row_number()) %>%
+      pivot_wider(names_from = category,
+                  values_from = value) %>%
+      select(-row) 
+      
   }
 
 #### Get the whole table ####
@@ -184,6 +259,46 @@ for (i in 2:total_pages) {
 # write_tsv(table_data,
 #           "../data/philippine_mpa_database-marine_protected_areas_list.tsv")
 
+
+#### Get the whole table with expanded rows ####
+
+# Navigate to the target URL
+remDr$navigate("http://www.database.mpasupportnetwork.com")
+
+# Allow the page to load and the JavaScript to execute
+Sys.sleep(10)
+
+# Get the total number of pages
+page_num_xpath = "//div[@class='dataTables_paginate paging_simple_numbers']//span//a[last()]"
+total_pages <- 
+  remDr$findElement(using = "xpath", 
+                    page_num_xpath)$getElementText()[[1]] %>%
+  as.numeric()
+
+
+
+# prime the pump with the first page of data
+table_data <- 
+  get_table_page_data() %>%
+  left_join(get_expanded_table_page_data()) %>%
+  select(complete_name,
+         location:network,
+         everything())
+  
+next_page()
+
+# get the rest of the data
+for (i in 2:total_pages) {
+  table_data <-
+    bind_rows(table_data,
+              get_table_page_data() %>%
+                left_join(get_expanded_table_page_data()) %>%
+                select(complete_name,
+                       location:network,
+                       everything()))
+  
+  next_page()
+}
 #### Shut Down Selenium Server ####
 
 
