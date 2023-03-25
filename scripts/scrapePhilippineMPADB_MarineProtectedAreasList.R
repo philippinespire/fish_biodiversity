@@ -131,7 +131,7 @@ next_page <-
                         next_page_button_xpath)
     if (next_page_button$getElementAttribute("class") != "paginate_button next disabled") {
       next_page_button$clickElement()
-      Sys.sleep(5)
+      Sys.sleep(2)
     } else {
       break
     }
@@ -163,11 +163,50 @@ click_details_buttons <-
                            "]/td[contains(@class, 'details-control')]")
       remDr$findElement(using = "xpath", 
                         button_xpath)$clickElement()
-      Sys.sleep(2)
     }
-    
+    # Sys.sleep(5)
   }
 
+click_details_buttons_2 <-
+  function(num_collapsed_rows){
+
+    # Click the "details-control" button in each row
+    for (i in sort(1:num_collapsed_rows,
+                   decreasing = TRUE)) {
+      button_xpath = str_c("//tr[",
+                           i,
+                           "]/td[contains(@class, 'details-control')]")
+      remDr$findElement(using = "xpath", 
+                        button_xpath)$clickElement()
+    }
+    # Sys.sleep(1)
+  }
+
+is_row_expanded <- 
+  function(i) {
+    button_expanded_xpath = str_c("//tr[",
+                         i,
+                         "][contains(@class, 'shown')]")
+  button_expanded <- 
+    remDr$findElements(using = "xpath", 
+                       button_expanded_xpath)
+  
+  # If the child row is found, the row is expanded, otherwise it's not
+  return(length(button_expanded) == 1)
+}
+
+are_all_rows_expanded <-
+  function(){
+    
+    # make sure buttons are clicked
+    for (i in seq_along(rows)) {
+      if(is_row_expanded(i) == TRUE){
+        row_num = i - 1
+        break
+      }
+    }
+    return(row_num)
+  }
 
 
 
@@ -192,7 +231,18 @@ get_expanded_table_page_data <-
   function(){
     # click the buttons to show the location, legislation, and network data
     click_details_buttons()
-    Sys.sleep(5)
+    Sys.sleep(2)
+    
+    # make sure buttons are pressed
+    num_rows_not_expanded <- are_all_rows_expanded()
+    while(num_rows_not_expanded > 0){
+      print("clicking straggler buttons")
+      click_details_buttons_2(num_rows_not_expanded)
+      num_rows_not_expanded <- are_all_rows_expanded()
+    }
+    # if(num_rows_not_expanded > 0){
+    #   click_details_buttons_2(num_rows_not_expanded)
+    # }
     
     page_source <- remDr$getPageSource()[[1]]
     
@@ -299,6 +349,14 @@ for (i in 2:total_pages) {
   
   next_page()
 }
+
+#### WRITE TABLE DATA ####
+# # be careful, you  might overwrite data if the db changed
+write_tsv(table_data,
+          "../data/philippine_mpa_database-marine_protected_areas_list-expanded.tsv")
+
+
+
 #### Shut Down Selenium Server ####
 
 
