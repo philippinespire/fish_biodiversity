@@ -35,7 +35,7 @@ lapply(packages_used,
 
 #### USER DEFINED VARIABLES ####
 InFilePath1 = "../data/MPA_coordinates_no_deg.xlsx"
-
+#MPA_coordinates_no_deg.xlsx does not contain all scraped MPAs from Philippine MPA Database. Use source to combine them.
 
 theme_myfigs <- 
   theme_classic() +
