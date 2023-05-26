@@ -15,6 +15,7 @@ Sourced from:
 *   `scripts/distance_calculations_mpa.R` (pca's made in this script)
 *   `scripts/wrangle_arcgis.R`
 
+`data_cas_si_su_mpa_pop` is the most information with species diversity, mpa, and population data
 
 ### Source Information
 
