@@ -67,7 +67,7 @@ These are instructions if you are reading in the data for the first time.  Once 
    * Under `READ IN DATA` run each line one by one checking for errors
       * You can expect to see "warnings", but if you see "error" then goto step 2
    * Run each subsequent command in this script making sure there are no errors
-5. The result should be a single tibble named `data_cas_si_su`
+5. The result should be a single tibble named `data_cas_si_su_mpa_pop`
    * We remove most of the columns of data from the data sets.  If we want to retain an additional column from the original data for each study
       * the column should be named the same in all three data sets
       * modify the `select()` command that removes the column of interest
