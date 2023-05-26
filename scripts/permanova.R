@@ -1,11 +1,30 @@
 #### INTIALIZE ####
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-library(tidyverse)
-library(janitor)
-library(purrr)
-library(magrittr)
-library(readxl)
+packages_used <- 
+  c("tidyverse",
+    "janitor",
+    "purrr",
+    "magrittr",
+    "readxl")
+
+packages_to_install <- 
+  packages_used[!packages_used %in% installed.packages()[,1]]
+
+if (length(packages_to_install) > 0) {
+  install.packages(packages_to_install, 
+                   Ncpus = Sys.getenv("NUMBER_OF_PROCESSORS") - 1)
+}
+
+lapply(packages_used, 
+       require, 
+       character.only = TRUE)
+
+theme_set(
+  theme_void()
+)
+
+
 
 #### READ IN FILES ####
 permanova_metadata <-

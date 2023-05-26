@@ -1,23 +1,42 @@
 #### INITIALIZATION ####
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-library(tidyverse)
-library(janitor)
-library(readxl)
+#### INSTALL PACKAGES ####
+packages_used <- 
+  c("tidyverse",
+    "janitor",
+    "readxl",
+    "magrittr",
+    "vegan",
+    "remotes",
+    "ggvegan")
+
+packages_to_install <- 
+  packages_used[!packages_used %in% installed.packages()[,1]]
+
+if (length(packages_to_install) > 0) {
+  install.packages(packages_to_install, 
+                   Ncpus = Sys.getenv("NUMBER_OF_PROCESSORS") - 1)
+}
+
+lapply(packages_used, 
+       require, 
+       character.only = TRUE)
+
 theme_set(
   theme_void()
 )
-library(vegan)
-library(remotes)
-library(ggvegan)
+
+####  SOURCING DATA ####
+
 source("wrangle_cas_si_su_data.R")
 source("distance_calculations_mpa.R")
-source("ordination_cas_su_si.R")
-
+# source("ordination_cas_su_si.R")
+source("veganize_data.R")
 
 #### VEGANIZATION ####
-#Vegan all data
-prep_vegan <- 
+# Vegan all data
+prep_vegan <-
   function(data=data_cas_si_su){
     data %>%
       dplyr::rename(taxon = verified_identification) %>%
@@ -40,19 +59,16 @@ prep_vegan <-
   }
 
 data_cas_si_su_vegan <-
-  prep_vegan() %>%
+  prep_vegan(data_cas_si_su) %>%
   dplyr::select(-station_code:-study)
 
 data_cas_si_su_vegan.env <-
-  prep_vegan() %>%
+  prep_vegan(data_cas_si_su) %>%
   dplyr::select(station_code:study)
-
-
 
 data_vegan <- data_cas_si_su_vegan 
 data_vegan.env <- data_cas_si_su_vegan.env
 attach(data_vegan.env)
-
 
 #### EstimateR ####
 
@@ -292,34 +308,75 @@ est_S %>%
 # specpool2vect(X, index = c("jack1","jack2", "chao", "boot","Species"))
 # poolaccum(data_vegan, permutations = 100, minsize = 20)
 
+detach(data_vegan.env)
+
 #### ESTACCUM R ####
+
+#vegan CAS data
+data_cas_vegan <-
+  data_cas_si_su %>%
+  dplyr::filter(study == "cas_2016") %>%
+  prep_vegan() %>%
+  dplyr::select(-station_code:-study)
+
+data_cas_vegan.env <-
+  data_cas_si_su %>%
+  dplyr::filter(study == "cas_2016") %>%
+  prep_vegan() %>%
+  dplyr::select(station_code:study)
+
+#vegan SI data
+data_si_vegan <-
+  data_cas_si_su %>%
+  dplyr::filter(study == "si_1978") %>%
+  prep_vegan() %>%
+  dplyr::select(-station_code:-study)
+
+data_si_vegan.env <-
+  data_cas_si_su %>%
+  dplyr::filter(study == "si_1978") %>%
+  prep_vegan() %>%
+  dplyr::select(station_code:study)
+
+#vegan su_2022 data
+data_su_vegan <- 
+  data_cas_si_su %>%
+  dplyr::filter(study == "su_2022") %>%
+  prep_vegan() %>%
+  dplyr::select(-station_code:-study)
+
+data_su_vegan.env <-
+  data_cas_si_su %>%
+  dplyr::filter(study == "su_2022") %>%
+  prep_vegan() %>%
+  dplyr::select(station_code:study)
 
 estaccumR_data_all <-
   estaccumR(data_vegan, 
-            permutations = 10, 
-            parallel = 8)
+            permutations = 999, 
+            parallel = 14)
 
 plot(estaccumR_data_all)
 
-
+# error with data_si_vegan
 estaccumR_si <- 
   estaccumR(data_si_vegan, 
             permutations = 999, 
-            parallel = 8)
+            parallel = 14)
 
 plot(estaccumR_si)
 
-estaccumR_cas <- # error
+estaccumR_cas <-
   estaccumR(data_cas_vegan, 
             permutations = 999, 
-            parallel = 8)
+            parallel = 14)
 
 plot(estaccumR_cas)
 
 estaccumR_su <- 
   estaccumR(data_su_vegan, 
             permutations = 999, 
-            parallel = 8)
+            parallel = 14)
 
 plot(estaccumR_su)
 
