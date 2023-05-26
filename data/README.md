@@ -39,8 +39,8 @@ CAS verified name in progress (no longer relevant)
 
 Distance matrix (to find closest distances): `distance_matrix.csv`
 
-Name Key to fix incorrect names taken from scraped sources
-`MPA_name_replace_key.xlsx'
+Name Key to fix incorrect names taken from scraped sources:
+`MPA_name_replace_key.xlsx`
 
 ---
 
