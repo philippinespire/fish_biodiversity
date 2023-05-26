@@ -2,17 +2,6 @@
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-# install.packages("taxize")
-
-# library(tidyverse)
-# library(readxl)
-# library(janitor)
-# library(purrr)
-# library(magrittr)
-# library(lubridate)
-# library(readr)
-# library(taxize)
-
 #### PACKAGES ####
 packages_used <- 
   c("tidyverse",
