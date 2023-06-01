@@ -9,8 +9,10 @@ packages_used <-
     "janitor",
     "purrr",
     "magrittr",
+    "measurements",
     "lubridate",
     "readr",
+    "devtools",
     #"tidyimpute",
     "taxize")
 
@@ -32,6 +34,7 @@ wrangle_si_data_path = "./wrangleStationData_SI.R"
 wrangle_su_si_data_path = "./wrangle_SU-SI_DuplicatesNewData.R"
 wrangle_cas_data_path = "./wrangle_cas_data.R"
 calculate_mpa_distances = "./distance_calculations_mpa.R"
+visualize_pca_path = "./visualize_pca_mpa_influence.R"
 wrangle_arcgis_path = "./wrangle_arcgis.R"
 
 #### READ IN DATA ####
@@ -81,6 +84,7 @@ rm(data_si_station_gis,
 
 #### ADD MPA DISTANCE DATA ####
 source(calculate_mpa_distances)
+source(visualize_pca_path)
 
 data_cas_si_su_mpa <-
   data_cas_si_su %>%
@@ -95,12 +99,16 @@ data_cas_si_su_mpa <-
 
 #write_excel_csv(data_cas_si_su, "data_cas_si_su.csv")
   
-#### ADD HUMAN POP DATA TO SURVEY DATA ####
+#### ADD ARCGIS HUMAN POP DATA TO SURVEY DATA ####
 source(wrangle_arcgis_path)
 
 data_cas_si_su_mpa_pop <-
   data_cas_si_su_mpa %>%
   left_join(data_human_pop)
+
+#### ADD WORLDPOP HUMAN POP DATA TO SURVEY DATA ####
+#### ALLEN CORAL ATLAS ####
+
 
 #### GET FAMILY NAMES ####
 get_ids(c("Acanthurus mata", "Cheilinus oxycephalus"), db="ncbi")

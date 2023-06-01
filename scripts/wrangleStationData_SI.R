@@ -17,11 +17,11 @@ querydataDir = "../SI/Collections_Data"
 querydataPattern = "*.csv"
 gisDataFile = "../SI/Coordinates/Coordinate_Conversions.xlsx"
 siteMetaDataFile = "../data/station_info.xlsx"
-dataDir = "../data"
-
-dataDir = str_replace(dataDir,
-                      "\\/$",
-                      "")
+# dataDir = "../data"
+# 
+# dataDir = str_replace(dataDir,
+#                       "\\/$",
+#                       "")
 
 CAS_verified_names = "../data/All_confirmed_names.xlsx"
 
@@ -181,7 +181,7 @@ data_gis <-
          odu_station_code:smithsonian_station_code,
          starts_with("dd_"),
          -starts_with("x")) %>%
-  rename(latitude = dd_latitude,
+  dplyr::rename(latitude = dd_latitude,
          longitude = dd_longitude)
   
 
