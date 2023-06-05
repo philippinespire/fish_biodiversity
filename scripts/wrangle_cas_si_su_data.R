@@ -13,6 +13,7 @@ packages_used <-
     "lubridate",
     "readr",
     "devtools",
+    "maptools",
     #"tidyimpute",
     "taxize")
 
@@ -54,7 +55,7 @@ source(wrangle_cas_data_path)
 #                      longitude) %>%
 #               dplyr::rename(latitude_7879 = latitude,
 #                             longitude_7879 = longitude)) %>%
-#   mutate(adjusted_latitude = case_when(is.na(latitude) ~ latitude_7879,
+#   dplyr::mutate(adjusted_latitude = case_when(is.na(latitude) ~ latitude_7879,
 #                                        TRUE ~ latitude),
 #          adjusted_longitude = case_when(is.na(longitude) ~ longitude_7879,
 #                                        TRUE ~ longitude)) %>%
@@ -64,11 +65,11 @@ source(wrangle_cas_data_path)
 #### BIND DATA AMONG STUDIES ####
 data_cas_si_su <-
   bind_rows(data_cas_all %>%
-              mutate(study = "cas_2016"), 
+              dplyr::mutate(study = "cas_2016"), 
             data_si_station_gis %>%
-              mutate(study = "si_1978"), 
+              dplyr::mutate(study = "si_1978"), 
             data_su_all %>%
-              mutate(study = "su_2022")) %>%
+              dplyr::mutate(study = "su_2022")) %>%
   dplyr::select(-family,
                 -identification,
                 -order,

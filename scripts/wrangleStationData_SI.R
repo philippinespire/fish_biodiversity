@@ -41,7 +41,7 @@ data_si <-
   dplyr::rename(prep_loc_count = preparation_details_preparation_location_count,
                 field_number = field_number_s,
                 collectors = collector_s) %>%
-  mutate(station_code = str_replace(field_number,
+  dplyr::mutate(station_code = str_replace(field_number,
                                     " ",
                                     "_"),
          collection_method = str_to_lower(collection_method),
@@ -116,7 +116,7 @@ data_si_station <-
                                 "na")) %>%
                 clean_names() %>%
                 dplyr::select(-date_collected)) %>% 
-    mutate(dist_shore_m_min = case_when(str_detect(dist_shore,
+  dplyr::mutate(dist_shore_m_min = case_when(str_detect(dist_shore,
                                                    "\\'") ~ as.numeric(str_remove(dist_shore,
                                                                                   "[ \\'].*$")) * 0.3048,
                                         str_detect(dist_shore,
@@ -171,7 +171,7 @@ data_gis <-
   read_excel(gisDataFile) %>%
   clean_names() %>%
   # dplyr::rename(station_code = odu_station_code) %>%
-  mutate(station_code = str_replace(odu_station_code,
+  dplyr::mutate(station_code = str_replace(odu_station_code,
                                     "-0",
                                     "-"),
          station_code = str_replace(station_code,
@@ -189,13 +189,13 @@ data_gis <-
 data_si_station_gis <-
   data_si_station %>%
   # we decided that max depth is generally where rotenone was deployed
-  mutate(depth_m = depth_m_max) %>%
+  dplyr::mutate(depth_m = depth_m_max) %>%
   left_join(data_gis,
             by = "station_code") %>% 
   left_join(read_excel(CAS_verified_names) %>%
               dplyr::select(-family),
             by = c("identification" = "original_id")) %>%
-  mutate(verified_identification = case_when(is.na(verified_identification) ~ 
+  dplyr::mutate(verified_identification = case_when(is.na(verified_identification) ~ 
                                                identification,
                                              TRUE ~ 
                                                verified_identification),

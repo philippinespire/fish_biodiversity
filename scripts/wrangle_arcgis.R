@@ -150,7 +150,7 @@ data_human_pop <-
                             lat = latitude)) %>%
   # housekeeping
   clean_names() %>%
-  mutate(totpop_cy = as.numeric(totpop_cy),
+  dplyr::mutate(totpop_cy = as.numeric(totpop_cy),
          population = as.numeric(population),
          utm_zone = utm_zone,
          pop_dens_province = totpop_cy/area ) %>%
@@ -169,11 +169,11 @@ arcgis_tibble <-
   spTransform(arcgis,
               CRS("+proj=longlat")) %>%
   fortify(region='ISO_SUB') %>%
-  mutate(ISO_SUB = str_remove(group,
+  dplyr::mutate(ISO_SUB = str_remove(group,
                               '\\.[0-9]*')) %>%
   left_join(arcgis@data,
             by = "ISO_SUB") %>%
-  mutate(TOTPOP_CY = as.numeric(TOTPOP_CY),
+  dplyr::mutate(TOTPOP_CY = as.numeric(TOTPOP_CY),
          population = as.numeric(population)) %>%
   dplyr::select(-aggregatio)
 

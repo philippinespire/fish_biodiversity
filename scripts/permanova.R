@@ -62,7 +62,7 @@ permanova_data_all <-
 permanova_data_vegan.env <-
   permanova_data_all %>%
   # make unique taxa
-  mutate(taxon = str_c(family,
+  dplyr::mutate(taxon = str_c(family,
                        genus,
                        species,
                        sep = "_")) %>%
@@ -86,7 +86,7 @@ permanova_data_vegan.env <-
   arrange(op_code) %>%
   # remove the op_code column for vegan
   dplyr::select(op_code:bait_type) %>%
-  mutate(site_code = str_remove(op_code,
+  dplyr::mutate(site_code = str_remove(op_code,
                                 "_.*$"),
          site_code = factor(site_code),
          habitat = factor(habitat),

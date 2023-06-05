@@ -65,7 +65,7 @@ data_cas <-
               dplyr::select(-family),
             by = c("genus_species" = "original_id")) %>%
   dplyr::rename(identification = genus_species) %>%
-  mutate(verified_identification = case_when(is.na(verified_identification) ~ identification,
+  dplyr::mutate(verified_identification = case_when(is.na(verified_identification) ~ identification,
                                 TRUE ~ verified_identification))
   # dplyr::rename(notes = notes.x,
   #               notes_cas_verification = notes.y)
@@ -87,7 +87,7 @@ metadata_cas <-
   read_excel(inFilePath2) %>%
   clean_names() %>%
   drop_cols_all_na() %>%
-  mutate(station_code = str_replace(field_number,
+  dplyr::mutate(station_code = str_replace(field_number,
                                     "\\-",
                                     "_"),
          station_code = str_to_lower(station_code),
@@ -109,7 +109,7 @@ data_cas_all <-
                 longitude = long_deg_dec_1,
                 province_state = state,
                 date_collected = verbatim_coll_date) %>%
-  mutate(date_collected = dmy(date_collected),
+  dplyr::mutate(date_collected = dmy(date_collected),
          gear = str_to_lower(gear)) %>%
   filter(str_detect(gear,
                     "rotenone")) %>%

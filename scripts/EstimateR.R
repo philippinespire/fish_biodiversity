@@ -83,23 +83,23 @@ est_S <-
   bind_cols(data_vegan.env) %>%
   left_join(data_mpa_stations_pc) %>%
   filter(!is.na(latitude)) %>%
-  mutate(depth_cat = case_when(depth_m < 3 ~ "<3m",
+  dplyr::mutate(depth_cat = case_when(depth_m < 3 ~ "<3m",
                                # depth_m >= 3 & depth_m <= 20 ~ "3-20m",
                                depth_m >= 3 ~ ">3m")) %>%
-  mutate(depth_cat = factor(depth_cat,
+  dplyr::mutate(depth_cat = factor(depth_cat,
                             levels = c("<3m",
                                        # "3-20m",
                                        ">3m"))) %>%
   filter(!is.na(depth_m)) %>%
   left_join(data_human_pop) %>%
-  mutate(pop_dens_province_cat = case_when(pop_dens_province < 250 ~ "<250",
+  dplyr::mutate(pop_dens_province_cat = case_when(pop_dens_province < 250 ~ "<250",
                                            pop_dens_province >=250 & pop_dens_province <= 500 ~ "250-500",
                                            pop_dens_province > 500 ~ ">500")) %>%
-  mutate(pop_dens_province_cat = factor(pop_dens_province_cat,
+  dplyr::mutate(pop_dens_province_cat = factor(pop_dens_province_cat,
                                         levels = c("<250",
                                                    "250-500",
                                                    ">500"))) %>%
-  mutate(study = factor(study,
+  dplyr::mutate(study = factor(study,
                         levels = c("si_1978",
                                    "cas_2016",
                                    "su_2022")))
@@ -399,7 +399,7 @@ estaccumR_plot <-
                        chao_ci_upper = quantile(value,
                                                 probs = 0.975)) %>%
       ungroup() %>%
-      mutate(category_id = category_id)
+      dplyr::mutate(category_id = category_id)
   }
 
 bind_rows(estaccumR_plot(estaccumR_si$chao,

@@ -270,7 +270,7 @@ get_expanded_table_page_data <-
                     across(everything(),
                            ~na_if(., ""))) %>% 
       group_by(category) %>%
-      mutate(row = row_number()) %>%
+      dplyr::mutate(row = row_number()) %>%
       pivot_wider(names_from = category,
                   values_from = value) %>%
       select(-row) 

@@ -49,7 +49,7 @@ data_su <-
   clean_names() %>%
   filter(!is.na("identification"),
          !is.na("specimen_count")) %>%
-  mutate(
+  dplyr::mutate(
     # samples_retained = case_when(!is.na(x53) ~ x53,
     #                              TRUE ~ samples_retained),
     # specimen_count = case_when(str_detect(specimen_count,
@@ -71,7 +71,7 @@ data_su <-
   # fix the names to verified names
   left_join(read_excel(CAS_verified_names),
             by = c("identification" = "original_id")) %>%
-  mutate(verified_identification = case_when(is.na(verified_identification) ~ identification,
+  dplyr::mutate(verified_identification = case_when(is.na(verified_identification) ~ identification,
                                              TRUE ~ verified_identification)) %>%
   dplyr::rename(notes = notes.x,
                 notes_cas_verification = notes.y,
@@ -80,7 +80,7 @@ data_su <-
                 dist_shore = distance_from_shore,
                 # depth_m = depth_water,
                 locality = precise_locality) %>%
-  mutate(station_code_7879 = str_replace(station_code_7879,
+  dplyr::mutate(station_code_7879 = str_replace(station_code_7879,
                                          "-",
                                          "_"),
          # don't need, getting from metadata
@@ -145,7 +145,7 @@ data_su_metadata <-
   # remove cols with no data
   dplyr::select(!(where(~ all(is.na(.))))) %>%
   #match formatting from other studies
-  mutate(usnm_field_number_s = str_replace(usnm_field_number_s,
+  dplyr::mutate(usnm_field_number_s = str_replace(usnm_field_number_s,
                                            "(..)\\-",
                                            "\\1_"),
          #set depth to max
