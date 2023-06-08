@@ -107,10 +107,3 @@ data_cas_si_su_mpa_pop <-
   data_cas_si_su_mpa %>%
   left_join(data_human_pop)
 
-#### ADD WORLDPOP HUMAN POP DATA TO SURVEY DATA ####
-#### ALLEN CORAL ATLAS ####
-
-
-#### GET FAMILY NAMES ####
-get_ids(c("Acanthurus mata", "Cheilinus oxycephalus"), db="ncbi")
-# vector to retrieve all names did not work, 2 names found only
