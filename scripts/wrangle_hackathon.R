@@ -17,6 +17,7 @@ packages_used <-
     #"tidyimpute",
     "taxize")
 
+
 packages_to_install <- 
   packages_used[!packages_used %in% installed.packages()[,1]]
 
@@ -51,7 +52,7 @@ data_cas_si_su <-
               dplyr::mutate(study = "si_1978"), 
             data_su_all %>%
               dplyr::mutate(study = "su_2022")) %>%
-  dplyr::select(-family,
+  dplyr::select(#-family,
                 -identification,
                 -order,
                 -ecol_habitat:-catalog_number)
@@ -65,12 +66,13 @@ rm(data_si_station_gis,
    data_cas_all)
 
 
+
 #### Hackathon ######
 
-# data_hackathon <- data_cas_si_su %>%
-#   filter(study %in% c("cas_2016", "su_2022")) %>%
-#   dplyr::select(station_code, date_collected, latitude, longitude, depth_m, verified_identification, specimen_count)
-# 
+data_hackathon <- data_cas_si_su %>%
+  filter(study %in% c("cas_2016", "su_2022")) %>%
+  dplyr::select(station_code, date_collected, latitude, longitude, depth_m, verified_identification, specimen_count)
+
 # prep_vegan <-
 #   function(data=hackathon){
 #     data %>%
@@ -89,6 +91,7 @@ rm(data_si_station_gis,
 #   }
 
 ####
+
 prep_vegan <- function(data = hackathon) {
   data %>%
     filter(specimen_count > 0) %>%
@@ -114,5 +117,58 @@ transformed_data <- prep_vegan(data_hackathon)
 print(transformed_data)
 
 # write file as a .csv
+# output_file_path <- "../data/transformed_data.csv"
+# write.csv(transformed_data, file = output_file_path, row.names = FALSE)
+
+
+#### BIND DATA AMONG STUDIES BY FAMILY ####
+
+data_hackathon_fam <- data_cas_si_su %>%
+  filter(study %in% c("cas_2016", "su_2022")) %>%
+  dplyr::select(station_code, date_collected, latitude, longitude, depth_m, family, verified_identification, specimen_count)
+
+# data_cas_si_su_fam <-
+#   bind_rows(data_cas_all %>%
+#               dplyr::mutate(study = "cas_2016"), 
+#             data_si_station_gis %>%
+#               dplyr::mutate(study = "si_1978"), 
+#             data_su_all %>%
+#               dplyr::mutate(study = "su_2022")) %>%
+#   dplyr::select(-identification,
+#                 -order,
+#                 -ecol_habitat:-catalog_number)
+# drop_na() %>%
+# group_by(station_code,
+#          verified_identification:study) %>%
+# summarize(specimen_count = sum(specimen_count))
+
+rm(data_si_station_gis,
+   data_su_all,
+   data_cas_all)
+
+prep_vegan_fam <- function(data = data_hackathon_fam) {
+  data %>%
+    filter(specimen_count > 0) %>%
+    group_by(station_code, date_collected, latitude, longitude, depth_m, family) %>%
+    summarize(sum_specimen_count = sum(specimen_count)) %>%
+    ungroup() %>%
+    pivot_wider(
+      names_from = family,
+      values_from = sum_specimen_count,
+      values_fill = 0
+    ) %>%
+    arrange(station_code) %>%
+    drop_na(station_code, depth_m)
+}
+
+
+# Call the prep_vegan function to transform data_hackathon
+transformed_data_fam <- prep_vegan_fam(data_hackathon_fam)
+
+# View the transformed data
+print(transformed_data_fam)
+
+# write file as a .csv
 output_file_path <- "../data/transformed_data.csv"
 write.csv(transformed_data, file = output_file_path, row.names = FALSE)
+
