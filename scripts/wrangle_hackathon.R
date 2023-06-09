@@ -38,11 +38,13 @@ wrangle_cas_data_path = "./wrangle_cas_data.R"
 calculate_mpa_distances = "./distance_calculations_mpa.R"
 visualize_pca_path = "./visualize_pca_mpa_influence.R"
 wrangle_arcgis_path = "./wrangle_arcgis.R"
+estimateR_path = "./EstimateR.R"
 
 #### READ IN DATA ####
 source(wrangle_si_data_path)
 source(wrangle_su_si_data_path)
 source(wrangle_cas_data_path)
+source(estimateR_path)
 
 #### BIND DATA AMONG STUDIES ####
 data_cas_si_su <-
@@ -165,10 +167,21 @@ prep_vegan_fam <- function(data = data_hackathon_fam) {
 # Call the prep_vegan function to transform data_hackathon
 transformed_data_fam <- prep_vegan_fam(data_hackathon_fam)
 
+# remove column of NA that hadn't received a family
+transformed_data_fam <- transformed_data_fam %>%
+  select(-'NA')
+
+# add s_chao1 column from est_S to dataframe
+merged_data <- left_join(transformed_data_fam, est_S[, c("station_code", "s_chao1")], by = "station_code")
+merged_data <- merged_data %>%
+  dplyr::select(station_code, date_collected, latitude, longitude, depth_m, s_chao1, everything())
+
 # View the transformed data
 print(transformed_data_fam)
 
 # write file as a .csv
-output_file_path <- "../data/transformed_data.csv"
-write.csv(transformed_data, file = output_file_path, row.names = FALSE)
+output_file_path <- "../data/transformed_data_fam.csv"
+write.csv(transformed_data_fam, file = output_file_path, row.names = FALSE)
 
+output_file_path <- "../data/transformed_data_fam_chao.csv"
+write.csv(merged_data, file = output_file_path, row.names = FALSE)
