@@ -172,9 +172,9 @@ transformed_data_fam <- transformed_data_fam %>%
   select(-'NA')
 
 # add s_chao1 column from est_S to dataframe
-merged_data <- left_join(transformed_data_fam, est_S[, c("station_code", "s_chao1")], by = "station_code")
+merged_data <- left_join(transformed_data_fam, est_S[, c("station_code", "s_obs", "s_chao1")], by = "station_code")
 merged_data <- merged_data %>%
-  dplyr::select(station_code, date_collected, latitude, longitude, depth_m, s_chao1, everything())
+  dplyr::select(station_code, date_collected, latitude, longitude, depth_m, s_obs, s_chao1, everything())
 
 # View the transformed data
 print(transformed_data_fam)

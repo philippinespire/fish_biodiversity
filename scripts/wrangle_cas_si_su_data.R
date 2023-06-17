@@ -14,7 +14,7 @@ packages_used <-
     "readr",
     "devtools",
     "maptools",
-    #"tidyimpute",
+    "tidyimpute",
     "taxize")
 
 packages_to_install <- 
@@ -79,9 +79,9 @@ data_cas_si_su <-
   #          verified_identification:study) %>%
   # summarize(specimen_count = sum(specimen_count))
 
-rm(data_si_station_gis,
-   data_su_all,
-   data_cas_all)
+rm(data_cas_all,
+   data_si_station_gis,
+   data_su_all)
 
 #### ADD MPA DISTANCE DATA ####
 source(calculate_mpa_distances)
