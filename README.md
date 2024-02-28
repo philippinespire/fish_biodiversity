@@ -1,6 +1,6 @@
 # fish_biodiversity
 
-the purpose of this repo is to centralize all data pertaining to Philippines PIRE fish biodiversity surveys.
+the purpose of this repo is to centralize all data pertaining to Philippines PIRE fish biodiversity surveys. Initial surveys were conducted in 1978 and 1979. Duplicate surveys were conducted in 2019 and 2022. 
 
 ---
 
