@@ -9,7 +9,8 @@ packages_used <-
     "magrittr",
     "vegan",
     "remotes",
-    "ggvegan")
+    "ggvegan",
+    "ggplot2")
 
 packages_to_install <- 
   packages_used[!packages_used %in% installed.packages()[,1]]
@@ -84,37 +85,52 @@ est_S <-
   left_join(data_mpa_stations_pc) %>%
   filter(!is.na(latitude)) %>%
   dplyr::mutate(depth_cat = case_when(depth_m < 3 ~ "<3m",
-                               # depth_m >= 3 & depth_m <= 20 ~ "3-20m",
-                               depth_m >= 3 ~ ">3m")) %>%
+                                      # depth_m >= 3 & depth_m <= 20 ~ "3-20m",
+                                      depth_m >= 3 ~ ">3m")) %>%
   dplyr::mutate(depth_cat = factor(depth_cat,
-                            levels = c("<3m",
-                                       # "3-20m",
-                                       ">3m"))) %>%
+                                   levels = c("<3m",
+                                              # "3-20m",
+                                              ">3m"))) %>%
   filter(!is.na(depth_m)) %>%
   left_join(data_human_pop) %>%
   dplyr::mutate(pop_dens_province_cat = case_when(pop_dens_province < 250 ~ "<250",
-                                           pop_dens_province >=250 & pop_dens_province <= 500 ~ "250-500",
-                                           pop_dens_province > 500 ~ ">500")) %>%
+                                                  pop_dens_province >=250 & pop_dens_province <= 500 ~ "250-500",
+                                                  pop_dens_province > 500 ~ ">500")) %>%
   dplyr::mutate(pop_dens_province_cat = factor(pop_dens_province_cat,
-                                        levels = c("<250",
-                                                   "250-500",
-                                                   ">500"))) %>%
+                                               levels = c("<250",
+                                                          "250-500",
+                                                          ">500"))) %>%
   dplyr::mutate(study = factor(study,
-                        levels = c("si_1978",
-                                   "cas_2016",
-                                   "su_2022")))
+                               levels = c("si_1978",
+                                          "cas_2016",
+                                          "su_2022")))
 
+# histogram of station depths
 est_S %>%
-  ggplot(aes(x=depth_m)) +
-  geom_histogram()
+  ggplot(aes(x = depth_m)) +
+  geom_histogram(binwidth = 3, color = "black", fill = "steelblue") +  # optional styling
+  labs(
+    x = "Depth (m)",                    # x-axis label
+    y = "Number of Stations",           # y-axis label
+    title = "Histogram of Station Depths"  # optional title
+  ) +
+  theme_minimal()
 
+# histogram of human population density of nearest province
 est_S %>%
-  ggplot(aes(x=pop_dens_province)) +
-  geom_histogram()
+  ggplot(aes(x = pop_dens_province)) +
+  geom_histogram(binwidth = 50, color = "black", fill = "steelblue") +  # optional styling
+  labs(
+    x = "Population Density of Nearest Province (people/km2)",         # x-axis label
+    y = "Number of Stations",           # y-axis label
+    title = "Histogram of Population Density of Nearest Station"  # optional title
+  ) +
+  theme_minimal()
 
 
 #### PLOTS pop, depth, dist from shore ####
 
+# Estimated species richness vs human population density 
 est_S %>%
   ggplot(aes(x = pop_dens_province, 
              y = s_chao1,
@@ -122,9 +138,14 @@ est_S %>%
   geom_point() +
   geom_errorbar(aes(ymin = s_chao1 - se_chao1,
                     ymax = s_chao1 + se_chao1)) +
+  labs(
+    x = "Human Population Density of Nearest Province (people/km2)", # x-axis label
+    y = "Estimated Species Richness"           # y-axis label
+  ) +
   geom_smooth(method = "lm") +
   theme_classic()
 
+# Total Human Population of nearest province and estimated species richness
 est_S %>%
   ggplot(aes(x = population, 
              y = s_chao1,
@@ -132,9 +153,14 @@ est_S %>%
   geom_point() +
   geom_errorbar(aes(ymin = s_chao1 - se_chao1,
                     ymax = s_chao1 + se_chao1)) +
+  labs(
+    x = "Total Population of Nearest Province", # x-axis label
+    y = "Estimated Species Richness"           # y-axis label
+  ) +
   geom_smooth(method = "lm") +
   theme_classic()
 
+# what is distance_m?
 est_S %>%
   ggplot(aes(x = distance_m, 
              y = s_chao1,
@@ -145,6 +171,7 @@ est_S %>%
   geom_smooth(method = "lm") +
   theme_classic()
 
+# Depth vs Estimated Species Richness
 est_S %>%
   ggplot(aes(x = depth_m, 
              y = s_chao1,
@@ -152,35 +179,62 @@ est_S %>%
   geom_point() +
   geom_errorbar(aes(ymin = s_chao1 - se_chao1,
                     ymax = s_chao1 + se_chao1)) +
+  labs(
+    x = "Depth (m)", # x-axis label
+    y = "Estimated Species Richness"           # y-axis label
+  ) +
   geom_smooth() +
   theme_classic()
 
 #### box plots by depth and pop dens ####
+# box plot of estimated species richness by study for each depth, human pop density combo
 est_S %>%
   ggplot(aes(y = s_chao1,
              fill = study)) +
   geom_boxplot() +
+  labs(
+    y = "Estimated Species Richness"           # y-axis label
+  ) +
   theme_classic() +
-  facet_grid(depth_cat ~ pop_dens_province_cat )
+  facet_grid(depth_cat ~ pop_dens_province_cat ) +
+  theme(
+  axis.text.x = element_blank(),
+  axis.ticks.x = element_blank())
 
+# boxplot of estimated species richness by study for each human pop density combo
 est_S %>%
   ggplot(aes(y = s_chao1,
              x = pop_dens_province_cat,
              fill = study)) +
   geom_boxplot() +
   theme_classic() +
-  facet_grid(. ~ study )
+  facet_grid(. ~ study ) +
+  labs(
+    x = "Human Population Density of Nearest Province (people/km²)", # x-axis label
+    y = "Estimated Species Richness"           # y-axis label
+  ) +
+  theme(
+    strip.text.x = element_blank()  # removes facet strip labels on top
+  )
 
+# boxplot of estimated species richness by study for each depth group
 est_S %>%
   ggplot(aes(y = s_chao1,
              x = depth_cat,
              fill = study)) +
   geom_boxplot() +
   theme_classic() +
-  facet_grid(. ~ study )
+  facet_grid(. ~ study ) +
+  labs(
+    x = "Depth (m)", # x-axis label
+    y = "Estimated Species Richness"           # y-axis label
+  ) +
+  theme(
+    strip.text.x = element_blank()  # removes facet strip labels on top
+  )
 
 #### PLOTS PC1 ####
-
+# estimated species richness vs pc1 mpa influence
 est_S %>%
   ggplot(aes(x = pc1_mpa_infl, 
              y = s_chao1,
@@ -190,8 +244,13 @@ est_S %>%
                     ymax = s_chao1 + se_chao1)) +
   geom_smooth(se = FALSE,
               method = "lm") +
+  labs(
+    x = "PC1 MPA Influence", # x-axis label
+    y = "Estimated Species Richness"           # y-axis label
+  ) +
   theme_classic()
 
+# estimated species richness vs pc1 mpa influence by depth (>/< 3m)
 est_S %>%
   ggplot(aes(x = pc1_mpa_infl, 
              y = s_chao1,
@@ -204,6 +263,7 @@ est_S %>%
   theme_classic() +
   facet_wrap(depth_cat ~ .)
 
+# estimated species richness vs pc1 mpa influence by human population density
 est_S %>%
   ggplot(aes(x = pc1_mpa_infl, 
              y = s_chao1,
@@ -218,7 +278,7 @@ est_S %>%
 
 
 #### PLOTS PC2 ####
-
+# estimated species richness vs pc2 mpa influence
 est_S %>%
   ggplot(aes(x = pc2_mpa_infl, 
              y = s_chao1,
@@ -230,7 +290,7 @@ est_S %>%
               method = "lm") +
   theme_classic()
 
-
+# estimated species richness vs pc2 mpa influence by depth (>/< 3m)
 est_S %>%
   ggplot(aes(x = pc2_mpa_infl, 
              y = s_chao1,
@@ -243,6 +303,7 @@ est_S %>%
   theme_classic() +
   facet_wrap(depth_cat ~ .)
 
+# estimated species richness vs pc2 mpa influence by human population density
 est_S %>%
   ggplot(aes(x = pc2_mpa_infl, 
              y = s_chao1,
@@ -257,6 +318,7 @@ est_S %>%
 
 
 #### PLOTS Other ####
+# estimated species richness by mpa area within x km (default 80)
 est_S %>%
   ggplot(aes(x = mpa_area_within_xkm_ha, 
              y = s_chao1,
@@ -268,7 +330,7 @@ est_S %>%
               method = "lm") +
   theme_classic()
 
-
+# estimated species richness vs mpa mean distance within x km (default 80)
 est_S %>%
   ggplot(aes(x = mpa_meandist_within_xkm, 
              y = s_chao1,
@@ -280,6 +342,7 @@ est_S %>%
               method = "lm") +
   theme_classic()
 
+# estimated species richness vs mpa mean age within x km (default 80)
 est_S %>%
   ggplot(aes(x = mpa_meanage_within_xkm, 
              y = s_chao1,
@@ -291,6 +354,7 @@ est_S %>%
               method = "lm") +
   theme_classic()
 
+# estimated species richness vs numver of mpas within x km (default 80)
 est_S %>%
   ggplot(aes(x = mpa_num_within_xkm, 
              y = s_chao1,
