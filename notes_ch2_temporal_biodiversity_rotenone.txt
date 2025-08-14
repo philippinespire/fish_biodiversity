@@ -1,0 +1,80 @@
+Chapter 2: Temporal Biodiversity Rotenone
+
+-----
+# SCRIPT
+wrangleStationData_SI.R
+
+station_info.xlsx
+Columns: 
+collection_method
+
+Smithsonian Collections_Expedition_SP-78_SP-79.csv
+290700. Change 22 to 44. Notes. 
+
+
+
+
+To Do:
+
+Check DNA Barcodes
+
+Moringua:
+SU-22-04_052 2	Moringua raitaborua 
+Siaton
+SU-22-05_021 5	Moringua sp. to M. raitaborua 
+Siaton
+SU-22-06_026 4	Moringua sp. to M. raitaborua 
+Siaton
+SU-22-08_059 1	Moringua sp. 
+Siaton
+SU-22-16_080 1	Moringua sp. 
+Magsaysay
+SU-22-24_053 1	Moringua raitaborua 
+San Juan
+
+
+Change SU-22-05_021 (M1/M2) from Moringua sp. to Moringua raitaborua b/c COI barcode grouped together with SU-22-24_53
+Change SU-22-06_26 from M. sp. to M. raitaborua b/c groups together with the COI barcoded specimens in the morphology PCA transformed space. 
+Can't change SU-22-08_059 Moringua sp. to M. raitaborua. Not included in study. Don't want to underestimate diversity. Cryptic so pictures likely won't help that much. 
+
+Kaupichthys:
+SU-19-03_086 5 Kaupichthys brachychirus San Juan
+SU-19-03_087 3 Kaupichthys diodontus San Juan
+SU-22-04_046 1 Kaupichthys sp. Siaton
+SU-22-04_047 9 Kaupichthys brachychirus Siaton
+SU-22-06_037 10Kaupichthys sp. Siaton
+SU-22-07_066 8 Kaupichthys sp. Siaton
+SU-22-08_060 2 Kaupichthys sp. Siaton
+SU-22-16_089 9 Kaupichthys brachychirus Magsaysay
+SU-22-19_033 8 Kaupichthys brachychirus Siaton
+SU-22-20_034 1 Kaupichthys diodontus Siaton
+SU-22-23_043 1 Kaupichthys diodontus Larena
+SU-22-23_044 1 Kaupichthys brachychirus Larena
+SU-22-24_054 7 Kaupichthys brachychirus San Juan
+
+
+
+
+script:
+wrangle_cas_si_su_data.R
+
+sources:
+wrangle_si_data_path = "./wrangleStationData_SI.R"
+wrangle_su_si_data_path = "./wrangle_SU-SI_DuplicatesNewData.R"
+wrangle_cas_data_path = "./wrangle_cas_data.R"
+calculate_mpa_distances = "./distance_calculations_mpa.R"
+visualize_pca_path = "./visualize_pca_mpa_influence.R"
+wrangle_arcgis_path = "./wrangle_arcgis.R"
+
+
+
+#### FIX MISSING LAT LONG 2022 WITH 1970S COORDS ####
+data_su_all$latitude
+data_su_all$longitude
+data_su_all$dist_shore
+data_su_all$family
+
+
+
+
+-----
