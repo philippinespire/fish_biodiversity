@@ -1,3 +1,7 @@
+#### NOTES ####
+# Adjust the dataframe data_study_site in section WRANGLE STUDY SITE DATA to include the dataframes of interest and the corresponding surveys.
+# there are currently two dataframe input options: data_cas_si_su and data_si_su
+
 #### INITIALIZATION ####
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
@@ -89,8 +93,24 @@ data_mpa <-
 
 #### WRANGLE STUDY SITE DATA ####
 
+# ## CAS_SI_SU ###
+# data_study_site <-
+#   data_cas_si_su %>%
+#   clean_names() %>%
+#   drop_na(latitude,
+#           longitude) %>%
+#   distinct(study,
+#            station_code,
+#            .keep_all=TRUE) %>%
+#   dplyr::mutate(study_station_code = str_c(study,
+#                                            station_code,
+#                                            sep = "-"),
+#                 year_survey = year(date_collected)) %>%
+#   dplyr::select(-specimen_count:-lowest_tax_cat)
+
+### SI_SU ###
 data_study_site <-
-  data_cas_si_su %>%
+  data_si_su %>%
   clean_names() %>%
   drop_na(latitude,
           longitude) %>%
@@ -101,7 +121,30 @@ data_study_site <-
                                            station_code,
                                            sep = "-"),
                 year_survey = year(date_collected)) %>%
-  dplyr::select(-specimen_count:-lowest_tax_cat)
+  dplyr::select(-station_code, everything(), station_code) %>%
+  dplyr::select(-specimen_count:-lowest_tax_cat,
+                -genus)
+
+municipality_key <- tribble(
+  ~municipality,             ~municipality_code, ~province,
+  "Siquijor",                "SIQ",              "Siquijor",
+  "San_Juan",                "JUA",              "Siquijor",
+  "Siaton",                  "SIA",              "Negros_Oriental",
+  "Siaton/Zamboanguita",     "SIA",              "Negros_Oriental",
+  "Magsaysay",               "MAG",              "Palawan",
+  "Cuyo",                    "CUY",              "Palawan",
+  "Larena",                  "LAR",              "Siquijor"
+)
+
+data_study_site <- data_study_site %>%
+  left_join(municipality_key, by = "municipality") %>%
+  mutate(
+    municipality_code = coalesce(municipality_code.x, municipality_code.y),
+    province = coalesce(province.x, province.y)
+  ) %>%
+  dplyr::select(-municipality_code.x, -municipality_code.y,
+         -province.x, -province.y)
+
 
 
 #### WRANGLE DISTANCES BETWEEN ALL STATIONS AND MPAS ####
