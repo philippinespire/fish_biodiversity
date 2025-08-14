@@ -11,6 +11,14 @@
 # Example code in package build process
 *-Ex.R
 
+# Population map files
+*.sec.tif
+*.shp.shp
+phl_pd_2020_1km_ASCII_XYZ.csv
+
+# Large directory
+/Dumaguete-20221201154633.zip
+
 # Output files from R CMD build
 /*.tar.gz
 
@@ -40,4 +48,5 @@ vignettes/*.pdf
 
 # Large Files to Ignore
 Rotenone_ID_Guide_Gobiidae.pptx
+mpa_directory_in_the_visayas.pdf
 
