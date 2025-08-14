@@ -15,6 +15,11 @@
 *.sec.tif
 *.shp.shp
 phl_pd_2020_1km_ASCII_XYZ.csv
+PH_Adm3_MuniCities.shp.shx
+philippine_mpa_database-marine_protected_areas_list.tsv
+philippine_mpa_database-marine_protected_areas_list-expanded.tsv
+phl_pd_2020_1km_ASCII_XYZ.csv
+PH_Adm3_MuniCities.shp.dbf
 
 # Large directory
 /Dumaguete-20221201154633.zip
