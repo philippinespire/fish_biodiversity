@@ -73,7 +73,7 @@ ggbiplot(pca_mpa_influence,
          groups = data_mpa_closest %>%
            pull(study)) +
   theme_classic() +
-  theme_myfigs +
+  # theme_myfigs +
   theme(aspect.ratio=3/4)
 
 # as_tibble(pca_mpa_influence$x) %>%
@@ -111,7 +111,7 @@ ggbiplot(pca_mpa_influence,
          groups = data_mpa_stations %>%
            pull(study)) +
   theme_classic() +
-  theme_myfigs +
+  # theme_myfigs +
   theme(aspect.ratio=3/4)
 
 data_mpa_stations_pc <-
@@ -145,7 +145,7 @@ ggbiplot(pca_mpa_influence,
          groups = data_mpa_stations %>%
            pull(study)) +
   theme_classic() +
-  theme_myfigs +
+  # theme_myfigs +
   theme(aspect.ratio=3/4)
 
 # as_tibble(pca_mpa_influence$x) %>%
