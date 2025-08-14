@@ -1,6 +1,8 @@
 #### INTIALIZE ####
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
+#### PACKAGES ####
+
 packages_used <- 
   c("tidyverse",
     "janitor",
@@ -25,14 +27,13 @@ theme_set(
 )
 
 
-
 #### READ IN FILES ####
+
 permanova_metadata <-
-  read_excel("station_info.xlsx") %>%
+  read_excel("../data/station_info.xlsx") %>%
   select(ecol_habitat,
          bottom,
          field_number)
-# group_by(taxon,
 #          op_code) %>%
 # summarize(sum_max_n = sum(max_n)) %>%
 # ungroup() %>%
@@ -45,6 +46,8 @@ permanova_metadata <-
 # # remove the op_code column for vegan
 # dplyr::select(-op_code)
 
+
+# wrangleStationData_SI.R generates dataframe data_si_station_gis
 permanova_data <-
   data_si_station_gis %>%
   select(lowest_tax,
