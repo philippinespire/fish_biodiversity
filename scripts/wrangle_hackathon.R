@@ -35,16 +35,26 @@ lapply(packages_used,
 wrangle_si_data_path = "./wrangleStationData_SI.R"
 wrangle_su_si_data_path = "./wrangle_SU-SI_DuplicatesNewData.R"
 wrangle_cas_data_path = "./wrangle_cas_data.R"
+wrangle_arcgis_path = "./wrangle_arcgis.R"
 calculate_mpa_distances = "./distance_calculations_mpa.R"
 visualize_pca_path = "./visualize_pca_mpa_influence.R"
-wrangle_arcgis_path = "./wrangle_arcgis.R"
 estimateR_path = "./EstimateR.R"
+
+
+inFileScript = "./wrangle_cas_si_su_data.R"
+
+#### READ IN DATA ####
+# get survey data
+source(inFileScript)
+
 
 #### READ IN DATA ####
 source(wrangle_si_data_path)
 source(wrangle_su_si_data_path)
 source(wrangle_cas_data_path)
 source(estimateR_path)
+
+
 
 #### BIND DATA AMONG STUDIES ####
 data_cas_si_su <-

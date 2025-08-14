@@ -1,14 +1,12 @@
+#### NOTES ####
+# This script was made to wrangle the Silliman University survey from 2019 and 2022. 
+# This database is on Google Drive entitled SU-SI_Duplicates. 
+# There were 24 total stations. 22 stations sampled coral. 21 stations were effectively sampled. 
+
 #### Initialize ####
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-# library(tidyverse)
-# library(readxl)
-# library(janitor)
-# library(purrr)
-# library(magrittr)
-# library(measurements)
-# library(lubridate)
 
 #### PACKAGES ####
 packages_used <- 
@@ -33,22 +31,20 @@ lapply(packages_used,
        character.only = TRUE)
 
 #### USER DEFINED VARIABLES ####
-#inFilePath = "../data/SU-SI_Duplicates(1).xlsx"
-inFilePath = "../data/SU-SI_Duplicates_20220808.xlsx"
+inFilePath = "../data/SU-SI_Duplicates_20250522.xlsx"
 CAS_verified_names = "../data/All_confirmed_names.xlsx"
 stationMetaDataFilePath = "../SU/su_station_database_20221024.xlsx"
 stationMetaDataSheet = "All_Stations"
 numberStations = 24
 
-#### Read in Data ####
-
+#### READ IN SU DATA ####
 
 data_su <- 
   read_excel(inFilePath,
              na = "NA") %>%
   clean_names() %>%
-  filter(!is.na("identification"),
-         !is.na("specimen_count")) %>%
+  filter(!is.na(identification),
+         !is.na(specimen_count)) %>%
   dplyr::mutate(
     # samples_retained = case_when(!is.na(x53) ~ x53,
     #                              TRUE ~ samples_retained),
@@ -59,44 +55,57 @@ data_su <-
     date_collected = ymd(date_collected)) %>%
   # select(-x53) %>%
   remove_empty(which = c("cols")) %>%
+  mutate(identification = str_trim(str_squish(identification))) %>%
   # group_by(catalog_number) %>%
   # filter(n()>1) 
   # distinct(catalog_number, # if we don't do this, get 2 more records. CEB: not anymore
   #          .keep_all = TRUE) %>%
   dplyr::rename(station_code = odu_field_number_s,
-                station_code_7879 = usnm_field_number_s) %>% #identification in Smithsonian is updated compared to "other identification"
-  # look up Changed to Pleurosicya mossambica in SU-SI - problem
-  # Should run column G against E to ensure first words are contained in the other column
-  # Combine catalog num and field num in smithsonian?
-  # fix the names to verified names
-  left_join(read_excel(CAS_verified_names),
+                station_code_7879 = usnm_field_number_s) # %>% #identification in Smithsonian is updated compared to "other identification"
+# look up Changed to Pleurosicya mossambica in SU-SI - problem
+# Should run column G against E to ensure first words are contained in the other column
+# Combine catalog num and field num in smithsonian?
+# fix the names to verified names
+
+#### READ IN CAS_VERIFIED_NAMES ####
+CAS_verified <- read_excel(CAS_verified_names) %>%
+  janitor::clean_names() %>%
+  mutate(original_id = str_trim(str_squish(original_id))) %>%
+  # dplyr::select(-family) %>%
+  dplyr::rename(notes_cas_verification = notes)
+
+
+#### JOIN DATA_SU AND CAS_VERIFIED_NAMES
+
+data_su <- 
+  data_su %>%
+  left_join(CAS_verified,
             by = c("identification" = "original_id")) %>%
-  dplyr::mutate(verified_identification = case_when(is.na(verified_identification) ~ identification,
-                                             TRUE ~ verified_identification)) %>%
-  dplyr::rename(notes = notes.x,
-                notes_cas_verification = notes.y,
-                collectors = collector_s,
+  dplyr::mutate(verified_identification = case_when(
+    is.na(verified_identification) ~ identification,
+    TRUE ~ verified_identification)) %>%
+  dplyr::rename(collectors = collector_s,
                 ecol_habitat = ecological_habitat,
                 dist_shore = distance_from_shore,
                 # depth_m = depth_water,
                 locality = precise_locality) %>%
   dplyr::mutate(station_code_7879 = str_replace(station_code_7879,
-                                         "-",
-                                         "_"),
-         # don't need, getting from metadata
-         # adjusted_latitude = case_when(is.na(centroid_latitude) ~ as.numeric(conv_unit(dms_latitude,
-         #                                                                               from = "deg_min_sec",
-         #                                                                               to = "dec_deg")),
-         #                               TRUE ~ centroid_latitude),
-         # adjusted_longitude = case_when(is.na(centroid_longitude) ~ as.numeric(conv_unit(dms_longitude,
-         #                                                                                 from = "deg_min_sec",
-         #                                                                                 to = "dec_deg")),
-         #                                TRUE ~ centroid_longitude),
-         depth_m = str_remove(depth_water,
-                              " *ft *"),
-         depth_m = str_remove(depth_m,
-                              "^[0-9]+\\-"),
-         depth_m = as.numeric(depth_m) * 12 * 2.54 / 100) %>%
+                                                "-",
+                                                "_"),
+                # don't need, getting from metadata
+                # adjusted_latitude = case_when(is.na(centroid_latitude) ~ as.numeric(conv_unit(dms_latitude,
+                #                                                                               from = "deg_min_sec",
+                #                                                                               to = "dec_deg")),
+                #                               TRUE ~ centroid_latitude),
+                # adjusted_longitude = case_when(is.na(centroid_longitude) ~ as.numeric(conv_unit(dms_longitude,
+                #                                                                                 from = "deg_min_sec",
+                #                                                                                 to = "dec_deg")),
+                #                                TRUE ~ centroid_longitude),
+                depth_m = str_remove(depth_water,
+                                     " *ft *"),
+                depth_m = str_remove(depth_m,
+                                     "^[0-9]+\\-"),
+                depth_m = as.numeric(depth_m) * 12 * 2.54 / 100) %>%
   dplyr::select(-i_dcheck_2nd,
                 -i_dcheck_3rd,
                 -i_dcheck_1st,
@@ -116,11 +125,18 @@ data_su <-
                 -expedition,
                 -collection_method,
                 # -station_code_7879,
+                -ecol_habitat,
                 -depth_water,
                 -lot_id,
                 -province_state,
                 -municipality,
                 -barangay)
+
+# su_unique_station_codes <- sort(unique(data_su$station_code))
+# su_n_unique_station_codes <- n_distinct(data_su$station_code)
+# print(su_unique_station_codes)
+# print(su_n_unique_station_codes)
+# 24 unique su field numbers. 
 
 # all_spec_ids <- 
 #   unique(c(data_su$identification, data_si$identification))
@@ -136,6 +152,20 @@ data_su <-
 #   write_tsv(file = "all_spec_ids.tsv")
 
 
+#### CREATE GENUS COLUMN ####
+# create genus column from contents of the lowest_tax_cat column
+data_su <- data_su %>%
+  mutate(genus = case_when(
+    lowest_tax_cat == "genus"    ~ verified_identification,
+    lowest_tax_cat == "family"   ~ "family",
+    lowest_tax_cat == "subfamily"~ "subfamily",
+    lowest_tax_cat == "species"  ~ str_extract(verified_identification, "^[^\\s]+"),
+    TRUE                         ~ NA_character_
+  ))
+
+
+
+
 #### READ IN METADATA ####
 data_su_metadata <-
   read_excel(stationMetaDataFilePath,
@@ -146,11 +176,11 @@ data_su_metadata <-
   dplyr::select(!(where(~ all(is.na(.))))) %>%
   #match formatting from other studies
   dplyr::mutate(usnm_field_number_s = str_replace(usnm_field_number_s,
-                                           "(..)\\-",
-                                           "\\1_"),
-         #set depth to max
-         depth_m = depth_to_m,
-         date_collected = ymd(date)) %>%
+                                                  "(..)\\-",
+                                                  "\\1_"),
+                #set depth to max
+                depth_m = depth_to_m,
+                date_collected = ymd(date)) %>%
   dplyr::rename(province_state = province,
                 station_code_7879 = usnm_field_number_s,
                 station_code = odu_field_number_s,
@@ -185,5 +215,37 @@ data_su_all <-
                 -notes_cas_verification,
                 -notes)
 
-rm(data_su,
-   data_su_metadata)
+#### FILTER OUT STATIONS ####
+# that didn't sample coral habitat: 
+# Station SU-22-10 sampled lagoon. Station SU-22-17 sampled mangrove.
+# and that had sampling issues: 
+# Station SU-22-21 experienced too much current and waves
+data_su_all <- data_su_all %>%
+  filter(!station_code %in% c("SU-22-10", "SU-22-17", "SU-22-21"))
+
+# su_unique_station_codes <- sort(unique(data_su_all$station_code))
+# su_n_unique_station_codes <- n_distinct(data_su_all$station_code)
+# print(su_unique_station_codes)
+# print(su_n_unique_station_codes)
+# 21 stations sampled coral reefs and duplicated 1978/1979 stations. 
+
+#### FILTER BY DEPTH ####
+# SU-22-23 (SU-22-23_LK-79-16): 30 meters
+# SU-19-01 (SU-19-01_LK-79-13): 30 meters
+# the next deepest station is at 21 meters. 
+# this would reduce the number of stations from 21 to 19. 
+# data_su_all <- data_su_all %>%
+#   filter(!station_code %in% c("SU-19-01", "SU-22-23"))
+
+#### FILTER BY PROXY ####
+# SU Stations SU-22-16_SP-78-25, SU-22-18_SP-78-17, SU-22-24_SP-78-03
+# were proxies for their SI survey sites due to proximity to MPAs
+# this would reduce the number of stations from 21 to 18
+# data_su_all <- data_su_all %>%
+#   filter(!station_code %in% c("SU-22-16", "SU-22-18", "SU-22-24"))
+
+
+#### CLEAN UP ####
+
+# rm(data_su,
+#    data_su_metadata)

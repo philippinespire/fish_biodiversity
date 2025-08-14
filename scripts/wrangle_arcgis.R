@@ -41,9 +41,9 @@ lapply(packages_used,
        character.only = TRUE)
 
 #### USER DEFINED VARIABLES ####
-#inFilePath = "../data/SU-SI_Duplicates(1).xlsx"
+# inFilePath = "../data/SU-SI_Duplicates(1).xlsx"
 # inZipFilePath = "../data/PhL_Province_Pop.zip"
-inFileScript = "wrangle_cas_si_su_data.R"
+# inFileScript = "wrangle_cas_si_su_data.R"
 inDirPath = "../data/gis/PhL_Province_Pop/"
 
 #### READ IN DATA ####
@@ -52,6 +52,7 @@ inDirPath = "../data/gis/PhL_Province_Pop/"
 
 # manually unzip your arcgis map, and then read it in like this
 arcgis <- readOGR(dsn = inDirPath)
+source("wrangle_cas_si_su_data.R")
 
 #### SET UP DATA TO FIND NeAREST PolyGon #### 
 

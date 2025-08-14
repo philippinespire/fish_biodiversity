@@ -2,6 +2,7 @@
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
+
 #### PACKAGES ####
 packages_used <- 
   c("tidyverse",
@@ -34,7 +35,7 @@ lapply(packages_used,
 wrangle_si_data_path = "./wrangleStationData_SI.R"
 wrangle_su_si_data_path = "./wrangle_SU-SI_DuplicatesNewData.R"
 wrangle_cas_data_path = "./wrangle_cas_data.R"
-calculate_mpa_distances = "./distance_calculations_mpa.R"
+calculate_mpa_distances = "./distance_calculations_mpa_cas_si_su.R"
 visualize_pca_path = "./visualize_pca_mpa_influence.R"
 wrangle_arcgis_path = "./wrangle_arcgis.R"
 
@@ -90,7 +91,7 @@ source(visualize_pca_path)
 data_cas_si_su_mpa <-
   data_cas_si_su %>%
   left_join(data_mpa_stations_pc) %>%
-  dplyr::select(station_code:station_code_7879,
+  dplyr::select(station_code:study,
                 mpa_name,
                 mpa_year_established_earliest,
                 area_closest_mpa_ha,
