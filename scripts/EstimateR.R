@@ -139,7 +139,7 @@ est_S %>%
   geom_errorbar(aes(ymin = s_chao1 - se_chao1,
                     ymax = s_chao1 + se_chao1)) +
   labs(
-    x = "Human Population Density of Nearest Province (people/km2)", # x-axis label
+    x = "Human Population Density of Nearest Province (people/km²)", # x-axis label
     y = "Estimated Species Richness"           # y-axis label
   ) +
   geom_smooth(method = "lm") +
@@ -160,7 +160,7 @@ est_S %>%
   geom_smooth(method = "lm") +
   theme_classic()
 
-# what is distance_m?
+# Distance in meters (distance_m) from a station to the nearest provincial polygon.
 est_S %>%
   ggplot(aes(x = distance_m, 
              y = s_chao1,
@@ -169,6 +169,10 @@ est_S %>%
   geom_errorbar(aes(ymin = s_chao1 - se_chao1,
                     ymax = s_chao1 + se_chao1)) +
   geom_smooth(method = "lm") +
+  labs(
+    x = "Distance to Nearest Province (m)", # x-axis label
+    y = "Estimated Species Richness"           # y-axis label
+  ) +
   theme_classic()
 
 # Depth vs Estimated Species Richness
