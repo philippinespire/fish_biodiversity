@@ -2,6 +2,7 @@
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
+
 #### PACKAGES ####
 packages_used <- 
   c("tidyverse",
@@ -26,9 +27,10 @@ lapply(packages_used,
        require, 
        character.only = TRUE)
 
+
 #### USER DEFINED VARIABLES ####
 source("wrangle_arcgis.R")
-source("distance_calculations_mpa.R")
+source("distance_calculations_mpa_cas_si_su.R")
 
 # visualize survey sites on heatmap of human pop in each province
 
