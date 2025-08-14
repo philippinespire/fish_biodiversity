@@ -11,6 +11,9 @@
 # Example code in package build process
 *-Ex.R
 
+# Exclude large pptx files
+*.pptx
+
 # Population map files
 *.sec.tif
 *.shp.shp
