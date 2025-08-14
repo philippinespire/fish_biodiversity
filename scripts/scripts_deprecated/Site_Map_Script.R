@@ -1,36 +1,49 @@
 #### INITIALIZATION ####
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-gegetlibrary(tidyverse)
-library(tidyverse)
-library(janitor)
-library(readxl)
-install.packages("maps")
-install.packages("viridis")
-library(maps)
-library(viridis)
-require(maps)
-require(viridis)
+
+#### INSTALL PACKAGES ####
+packages_used <- 
+  c("tidyverse",
+    "janitor",
+    "readxl",
+    "maps",
+    "viridis"
+  )
+
+packages_to_install <- 
+  packages_used[!packages_used %in% installed.packages()[,1]]
+
+if (length(packages_to_install) > 0) {
+  install.packages(packages_to_install, 
+                   Ncpus = Sys.getenv("NUMBER_OF_PROCESSORS") - 1)
+}
+
+lapply(packages_used, 
+       require, 
+       character.only = TRUE)
+
 theme_set(
   theme_void()
 )
-# install.packages("sf")
 
 
 #### USER DEFINED VARIABLES ####
 
-inFilePath1 = "./station_info.csv"
+inFilePath1 = "../../data/station_info.csv"
 inFilePath2 = 
   # inFilePath2 = "./PHIRES_MetaData.xlsx"
   
   # outFilePath = "./data_combined.tsv"
-  
-  #### READ IN DATA & CURATE ####
+
+    
+#### READ IN DATA & CURATE ####
 
 data <-
   read_csv(inFilePath1,
            na="NA") %>%
   clean_names()
+
 
 #### COMBINE DATA ####
 
@@ -112,7 +125,7 @@ map_data("world",
   # hjust = 0.5,
   # inherit.aes = FALSE) +
   geom_point(data = data_gis,
-             aes(x = adjusted_longitude,
-                 y = adjusted_latitude,
+             aes(x = longitude,
+                 y = latitude,
                  color = province_code),
              inherit.aes = FALSE)
