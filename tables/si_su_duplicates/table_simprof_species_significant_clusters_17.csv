@@ -1,0 +1,43 @@
+nice_station_code,cluster_id,station_code,station_pair,nice_station_pair,study,sea,study_sea,province,municipality,date_collected,latitude,longitude,depth_m
+si_19_sulu,1,SP_78_18,SP_78_18_SU_22_09,19_sulu,si_1978,sulu,si_1978_sulu_sea,Palawan,Magsaysay,1978-05-22,10.91806,121.03417,4.6
+si_18_sulu,1,SP_78_26,SP_78_26_SU_22_15,18_sulu,si_1978,sulu,si_1978_sulu_sea,Palawan,Magsaysay,1978-05-26,10.88167,121.35389,3
+si_12_bohol,2,LK_79_15,LK_79_15_SU_22_22,12_bohol,si_1978,bohol,si_1978_bohol_sea,Siquijor,Siquijor,1979-05-15,9.225,123.47,1
+si_03_bohol,3,LK_79_02,LK_79_02_SU_22_04,03_bohol,si_1978,bohol,si_1978_bohol_sea,Negros_Oriental,Siaton,1979-04-24,9.051667,122.985,3
+si_01_bohol,3,LK_79_03,LK_79_03_SU_22_06,01_bohol,si_1978,bohol,si_1978_bohol_sea,Negros_Oriental,Siaton,1979-04-26,9.108333,122.923333,2
+si_04_bohol,4,LK_79_04,LK_79_04_SU_22_08,04_bohol,si_1978,bohol,si_1978_bohol_sea,Negros_Oriental,Siaton,1979-04-28,9.066667,123.18,3
+su_19_sulu,4,SU_22_09,SP_78_18_SU_22_09,19_sulu,su_2022,sulu,su_2022_sulu_sea,Palawan,Magsaysay,2022-06-02,10.91806,121.03417,4.6
+su_20_sulu,5,SU_22_11,SP_78_24_SU_22_11,20_sulu,su_2022,sulu,su_2022_sulu_sea,Palawan,Magsaysay,2022-06-04,10.97167,121.20778,13.64
+su_14_sulu,6,SU_22_18,SP_78_17_SU_22_18,14_sulu,su_2022,sulu,su_2022_sulu_sea,Palawan,Cuyo,2022-06-11,10.8342368,120.9975178,1.21
+su_18_sulu,6,SU_22_15,SP_78_26_SU_22_15,18_sulu,su_2022,sulu,su_2022_sulu_sea,Palawan,Magsaysay,2022-06-08,10.8807218,121.2050596,3.03
+su_17_sulu,6,SU_22_16,SP_78_25_SU_22_16,17_sulu,su_2022,sulu,su_2022_sulu_sea,Palawan,Magsaysay,2022-06-09,10.9555144,121.2305596,2.42
+si_14_sulu,7,SP_78_17,SP_78_17_SU_22_18,14_sulu,si_1978,sulu,si_1978_sulu_sea,Palawan,Cuyo,1978-05-21,10.85333,121.00389,1
+si_17_sulu,8,SP_78_25,SP_78_25_SU_22_16,17_sulu,si_1978,sulu,si_1978_sulu_sea,Palawan,Magsaysay,1978-05-25,10.96333,121.22556,2
+si_20_sulu,9,SP_78_24,SP_78_24_SU_22_11,20_sulu,si_1978,sulu,si_1978_sulu_sea,Palawan,Magsaysay,1978-05-25,10.97167,121.20778,13.7
+si_15_sulu,9,SP_78_20,SP_78_20_SU_22_14,15_sulu,si_1978,sulu,si_1978_sulu_sea,Palawan,Cuyo,1978-05-23,10.875,120.93333,13.7
+si_16_sulu,9,SP_78_21,SP_78_21_SU_22_13,16_sulu,si_1978,sulu,si_1978_sulu_sea,Palawan,Cuyo,1978-05-24,10.87833,120.94556,17.4
+si_13_bohol,10,LK_79_13,LK_79_13_SU_19_01,13_bohol,si_1978,bohol,si_1978_bohol_sea,Siquijor,Siquijor,1979-05-14,9.225,123.48,30.5
+si_08_bohol,11,LK_79_16,LK_79_16_SU_22_23,08_bohol,si_1978,bohol,si_1978_bohol_sea,Siquijor,Larena,1979-05-15,9.2533,123.57,30.5
+si_21_sulu,11,SP_78_27,SP_78_27_SU_22_12,21_sulu,si_1978,sulu,si_1978_sulu_sea,Palawan,Magsaysay,1978-05-26,10.88583,121.19278,21.3
+su_16_sulu,12,SU_22_13,SP_78_21_SU_22_13,16_sulu,su_2022,sulu,su_2022_sulu_sea,Palawan,Cuyo,2022-06-06,10.876552,120.939812,17.27
+su_15_sulu,12,SU_22_14,SP_78_20_SU_22_14,15_sulu,su_2022,sulu,su_2022_sulu_sea,Palawan,Cuyo,2022-06-07,10.8734723,120.9348857,13.64
+su_10_bohol,13,SU_19_03,SP_78_04_SU_19_03,10_bohol,su_2022,bohol,su_2022_bohol_sea,Siquijor,San Juan,2019-06-13,9.14167,123.48944,6
+su_04_bohol,13,SU_22_08,LK_79_04_SU_22_08,04_bohol,su_2022,bohol,su_2022_bohol_sea,Negros_Oriental,Siaton,2022-05-25,9.0673958,123.1496911,3
+su_13_bohol,14,SU_19_01,LK_79_13_SU_19_01,13_bohol,su_2022,bohol,su_2022_bohol_sea,Siquijor,Siquijor,2019-06-12,9.225,123.48,30
+su_11_bohol,14,SU_19_02,SP_78_07_SU_19_02,11_bohol,su_2022,bohol,su_2022_bohol_sea,Siquijor,San Juan,2019-06-12,9.14111,123.49444,10.7
+su_07_bohol,14,SU_22_19,SP_78_10_SU_22_19,07_bohol,su_2022,bohol,su_2022_bohol_sea,Negros_Oriental,Siaton,2022-06-21,9.0454687,123.1224568,18.3
+su_06_bohol,14,SU_22_20,SP_78_11_SU_22_20,06_bohol,su_2022,bohol,su_2022_bohol_sea,Negros_Oriental,Siaton,2022-06-22,9.0454714,123.1224568,12
+su_08_bohol,14,SU_22_23,LK_79_16_SU_22_23,08_bohol,su_2022,bohol,su_2022_bohol_sea,Siquijor,Larena,2022-07-01,9.2473507,123.57536,30
+su_05_bohol,14,SU_22_07,SP_78_09_SU_22_07,05_bohol,su_2022,bohol,su_2022_bohol_sea,Negros_Oriental,Siaton,2022-05-23,9.0449798,123.1271438,9.1
+su_21_sulu,14,SU_22_12,SP_78_27_SU_22_12,21_sulu,su_2022,sulu,su_2022_sulu_sea,Palawan,Magsaysay,2022-06-05,10.88583,121.19278,21.21
+su_03_bohol,15,SU_22_04,LK_79_02_SU_22_04,03_bohol,su_2022,bohol,su_2022_bohol_sea,Negros_Oriental,Siaton,2022-05-14,9.0511773,122.9896027,5
+si_07_bohol,16,SP_78_10,SP_78_10_SU_22_19,07_bohol,si_1978,bohol,si_1978_bohol_sea,Negros_Oriental,Siaton,1978-05-13,9.0458,123.1269,18.3
+si_11_bohol,16,SP_78_07,SP_78_07_SU_19_02,11_bohol,si_1978,bohol,si_1978_bohol_sea,Siquijor,San_Juan,1978-05-10,9.1411,123.4944,10.7
+si_06_bohol,16,SP_78_11,SP_78_11_SU_22_20,06_bohol,si_1978,bohol,si_1978_bohol_sea,Negros_Oriental,Siaton,1978-05-13,9.0458,123.1269,12.2
+si_10_bohol,16,SP_78_04,SP_78_04_SU_19_03,10_bohol,si_1978,bohol,si_1978_bohol_sea,Siquijor,San_Juan,1978-05-09,9.1417,123.4894,6.1
+si_05_bohol,16,SP_78_09,SP_78_09_SU_22_07,05_bohol,si_1978,bohol,si_1978_bohol_sea,Negros_Oriental,Siaton,1978-05-12,9.0408,123.1269,9.1
+su_01_bohol,17,SU_22_06,LK_79_03_SU_22_06,01_bohol,su_2022,bohol,su_2022_bohol_sea,Negros_Oriental,Siaton,2022-05-19,9.0902437,122.9336619,3.5
+su_02_bohol,17,SU_22_05,SP_78_44_SU_22_05,02_bohol,su_2022,bohol,su_2022_bohol_sea,Negros_Oriental,Siaton,2022-05-16,9.0695836,123.1468738,2.5
+su_09_bohol,17,SU_22_24,SP_78_03_SU_22_24,09_bohol,su_2022,bohol,su_2022_bohol_sea,Siquijor,San Juan,2022-07-02,9.1809617,123.4574399,2
+si_02_bohol,17,SP_78_44,SP_78_44_SU_22_05,02_bohol,si_1978,bohol,si_1978_bohol_sea,Negros_Oriental,Siaton,1978-06-14,9.066667,123.146667,2
+si_09_bohol,17,SP_78_03,SP_78_03_SU_22_24,09_bohol,si_1978,bohol,si_1978_bohol_sea,Siquijor,San_Juan,1978-05-09,9.175,123.4633,2
+su_12_bohol,17,SU_22_22,LK_79_15_SU_22_22,12_bohol,su_2022,bohol,su_2022_bohol_sea,Siquijor,Siquijor,2022-06-30,9.2254097,123.4689628,2

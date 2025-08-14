@@ -1,0 +1,10 @@
+study,sea,n_stations,n_family,n_genus,n_species,n_ind
+All,All,42,77,292,957,26254
+si_1978,All,21,59,237,677,15081
+su_2022,All,21,62,226,617,11173
+All,Bohol Sea,26,69,231,670,10903
+All,Sulu Sea,16,70,240,667,15351
+si_1978,Bohol Sea,13,52,186,460,7537
+si_1978,Sulu Sea,8,52,186,456,7544
+su_2022,Bohol Sea,13,56,174,396,3366
+su_2022,Sulu Sea,8,55,178,410,7807
