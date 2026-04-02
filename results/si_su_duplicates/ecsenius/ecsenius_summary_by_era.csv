@@ -1,0 +1,3 @@
+"era","total_stations","stations_with_ecsenius","total_individuals","mean_abundance","sd_abundance","mean_richness","sd_richness","total_species"
+"historical",21,13,125,5.95238095238095,8.73771246079997,1,1.09544511501033,8
+"modern",21,5,35,1.66666666666667,5.88500920418425,0.285714285714286,0.560611910581388,4

@@ -1,0 +1,73 @@
+Overall Wilcoxon test: richness ~ era
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  ecsenius_richness by era
+W = 310, p-value = 0.01142
+alternative hypothesis: true location shift is not equal to 0
+
+
+Overall Wilcoxon test: abundance ~ era
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  ecsenius_abundance by era
+W = 315.5, p-value = 0.008351
+alternative hypothesis: true location shift is not equal to 0
+
+
+Fisher's exact test: Ecsenius presence by era
+
+	Fisher's Exact Test for Count Data
+
+data:  presence_tab
+p-value = 0.02778
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+ 0.0401665 0.8632002
+sample estimates:
+odds ratio 
+ 0.2008495 
+
+
+Unpaired tests within sea
+    sea n_historical n_modern richness_p abundance_p  presence_p
+1 bohol           13       13 0.00104966 0.001232414 0.001647597
+2  sulu            8        8 0.50445840 0.449999876 1.000000000
+
+PERMANOVA: community composition ~ era
+Permutation test for adonis under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 999
+
+adonis2(formula = bray ~ era, data = ecs_comp, permutations = 999)
+         Df SumOfSqs      R2      F Pr(>F)
+era       1   0.5110 0.07522 1.3013   0.25
+Residual 16   6.2827 0.92478              
+Total    17   6.7937 1.00000              
+
+PERMANOVA: community composition ~ sea
+Permutation test for adonis under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 999
+
+adonis2(formula = bray ~ sea, data = ecs_comp, permutations = 999)
+         Df SumOfSqs     R2      F Pr(>F)   
+sea       1   1.1522 0.1696 3.2679  0.009 **
+Residual 16   5.6415 0.8304                 
+Total    17   6.7937 1.0000                 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Dispersion test by era
+
+Permutation test for homogeneity of multivariate dispersions
+Permutation: free
+Number of permutations: 999
+
+Response: Distances
+          Df   Sum Sq   Mean Sq      F N.Perm Pr(>F)
+Groups     1 0.000245 0.0002450 0.0523    999  0.793
+Residuals 16 0.074882 0.0046802                     

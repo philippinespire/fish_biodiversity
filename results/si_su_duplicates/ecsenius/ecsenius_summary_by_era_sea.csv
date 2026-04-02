@@ -1,0 +1,5 @@
+"era","sea","total_stations","stations_with_ecsenius","total_individuals","mean_abundance","sd_abundance","mean_richness","sd_richness","total_species"
+"historical","bohol",13,8,64,4.92307692307692,9.02276323585277,0.769230769230769,0.832050294337844,5
+"historical","sulu",8,5,61,7.625,8.56800526877256,1.375,1.40788595317336,6
+"modern","bohol",13,0,0,0,0,0,0,0
+"modern","sulu",8,5,35,4.375,9.24179172486127,0.75,0.707106781186548,4
