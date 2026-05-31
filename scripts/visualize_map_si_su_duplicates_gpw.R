@@ -224,7 +224,7 @@ pop_colors_7 <- c("#e3c7c6",  # Lighter beige-pink (was #ccaead)
                   "#B02F79",  # Brighter purple (was #7d1d53)
                   "#702C60",
                   "#451a40")
-  
+
 # pop_colors_7 <- c("#ccaead", "#ffdc58", "#eb804e", "#b32957", "#7d1d53", "#451a40", "#140e26") # too dark
 
 # Create a bin column that converts population density into categorized factor
@@ -308,7 +308,7 @@ num_bins = 7
 map_philippines_popdensity <- ggplot() +
   # Raster layer with new color scale
   geom_tile(data = pop_philippines_df, aes(x = lon, y = lat, 
-                               fill = get(paste0("pop_density_cat_",num_bins)))) +
+                                           fill = get(paste0("pop_density_cat_",num_bins)))) +
   
   scale_fill_manual(
     name = "Population Density\n(persons/km²)",  # Same title as City Population legend
@@ -316,7 +316,7 @@ map_philippines_popdensity <- ggplot() +
     labels = get(paste0("bin_labels_", num_bins)),  # Ensure labels match color categories
     guide = guide_legend(order = 2)  # Ensures it appears after City Population in the legend
   ) +
-
+  
   # Administrative boundaries
   geom_sf(data = philippines, fill = NA, color = "black", size = 0.3) +
   
@@ -342,7 +342,7 @@ map_philippines_popdensity <- ggplot() +
     size    = 3,
     stroke  = 0.4
   ) +
-
+  
   
   # Scale bar (positioned correctly for new plot size)
   annotation_scale(location = "br", 
@@ -384,7 +384,7 @@ map_philippines_popdensity <- ggplot() +
     axis.text.x = element_text(margin = margin(t = 3)),  # Adjust spacing for tick labels
     axis.text.y = element_text(margin = margin(r = 3))
   ) +
-
+  
   # Set axis breaks every 0.5 degrees
   scale_x_continuous(breaks = seq(116, 126, by = 2.0)) +
   scale_y_continuous(breaks = seq(4, 20, by = 2.0))
@@ -414,10 +414,316 @@ plot_height <- plot_width * aspect_ratio  # Maintain correct aspect ratio
 current_date <- gsub("-", "_", Sys.Date())
 
 # Save the plot with fixed dimensions
-ggsave(paste0("../figures/si_su_duplicates/map_philippines_popdensity_bin7_", current_date, ".png"), 
-       plot = map_philippines_popdensity, 
-       width = plot_width, 
-       height = plot_height, 
-       units = "in", 
-       dpi = 300)
+# ggsave(paste0("../figures/si_su_duplicates/map_philippines_popdensity_bin7_", current_date, ".png"), 
+#        plot = map_philippines_popdensity, 
+#        width = plot_width, 
+#        height = plot_height, 
+#        units = "in", 
+#        dpi = 300)
 
+
+
+
+######## ZOOMED TO SEAS ##########
+
+#### FUNCTION TO MAINTAIN GEOGRAPHIC ASPECT RATIO ####
+
+calc_map_height <- function(lon_min, lon_max, lat_min, lat_max, plot_width = 6.5){
+  
+  # geographic ranges
+  lat_range <- lat_max - lat_min
+  lon_range <- lon_max - lon_min
+  
+  # longitude correction by latitude
+  mean_latitude <- mean(c(lat_min, lat_max))
+  
+  # convert longitude degrees to km at this latitude
+  lon_to_km <- cos(mean_latitude * pi / 180) * 111
+  
+  # aspect ratio
+  aspect_ratio <- (lat_range * 111) / (lon_range * lon_to_km)
+  
+  # calculate height
+  plot_height <- plot_width * aspect_ratio
+  
+  return(plot_height)
+}
+
+#### CALCULATE MAP HEIGHTS ####
+
+# fixed width
+plot_width <- 4.0
+
+# Cuyo Archipelago
+cuyo_height <- calc_map_height(
+  lon_min = 120.70,
+  lon_max = 121.35,
+  lat_min = 10.60,
+  lat_max = 11.15,
+  plot_width = plot_width
+)
+
+# Negros Oriental + Siquijor
+negros_height <- calc_map_height(
+  lon_min = 122.85,
+  lon_max = 123.75,
+  lat_min = 9.00,
+  lat_max = 9.85,
+  plot_width = plot_width
+)
+
+
+# reusable mapping function
+make_rotenone_zoom_map <- function(lon_min, lon_max, lat_min, lat_max) {
+  
+  pop_zoom <- pop_df %>%
+    filter(
+      lon >= lon_min, lon <= lon_max,
+      lat >= lat_min, lat <= lat_max
+    )
+  
+  ggplot() +
+    geom_tile(
+      data = pop_zoom,
+      aes(x = lon, y = lat, fill = pop_density_cat_7)
+    ) +
+    scale_fill_manual(
+      values = pop_colors_7,
+      labels = bin_labels_7,
+      drop = FALSE
+    ) +
+    geom_sf(
+      data = philippines,
+      fill = NA,
+      color = "black",
+      linewidth = 0.25
+    ) +
+    geom_point(
+      data = data_su_metadata,
+      aes(x = longitude, y = latitude),
+      inherit.aes = FALSE,
+      shape = 21,
+      fill = "#0072CE",
+      color = "black",
+      size = 6,
+      stroke = 0.4
+    ) +
+    annotation_scale(
+      location = "br",
+      width_hint = 0.25,
+      height = unit(0.20, "cm"),
+      text_cex = 0.8
+    ) +
+    # Black outline around full map
+    geom_rect(
+      aes(
+        xmin = lon_min,
+        xmax = lon_max,
+        ymin = lat_min,
+        ymax = lat_max
+      ),
+      fill = NA,
+      color = "black",
+      linewidth = 0.4
+    ) +
+    coord_sf(
+      xlim = c(lon_min, lon_max),
+      ylim = c(lat_min, lat_max),
+      expand = FALSE
+    ) +
+    labs(x = NULL, y = NULL, fill = NULL) +
+    theme_classic(base_family = "Times New Roman", base_size = 12) +
+    theme(
+      panel.background = element_rect(fill = "aliceblue", color = NA),
+      panel.grid = element_blank(),
+      axis.text = element_blank(),
+      axis.ticks = element_blank(),
+      axis.title = element_blank(),
+      legend.position = "none"
+    )
+}
+
+
+#### CUYO ARCHIPELAGO ####
+
+map_cuyo <- make_rotenone_zoom_map(
+  lon_min = 120.70,
+  lon_max = 121.35,
+  lat_min = 10.60,
+  lat_max = 11.15
+)
+
+print(map_cuyo)
+
+
+#### SOUTHERN NEGROS ORIENTAL + SIQUIJOR ####
+
+map_negros_siquijor <- make_rotenone_zoom_map(
+  lon_min = 122.85,
+  lon_max = 123.75,
+  lat_min = 9.00,
+  lat_max = 9.85
+)
+
+print(map_negros_siquijor)
+
+
+################################################
+#### SAVE MAPS WITH MAINTAINED ASPECT RATIO ####
+################################################
+
+current_date <- gsub("-", "_", Sys.Date())
+
+ggsave(
+  paste0("../figures/si_su_duplicates/map_rotenone_cuyo_zoom_", current_date, ".png"),
+  plot = map_cuyo,
+  width = plot_width,
+  height = cuyo_height,
+  units = "in",
+  dpi = 300
+)
+
+ggsave(
+  paste0("../figures/si_su_duplicates/map_rotenone_negros_siquijor_zoom_", current_date, ".png"),
+  plot = map_negros_siquijor,
+  width = plot_width,
+  height = negros_height,
+  units = "in",
+  dpi = 300
+)
+
+
+### WITH COORDINATES ###
+
+make_rotenone_zoom_map <- function(lon_min, lon_max, lat_min, lat_max) {
+  
+  pop_zoom <- pop_df %>%
+    filter(
+      lon >= lon_min, lon <= lon_max,
+      lat >= lat_min, lat <= lat_max
+    )
+  
+  ggplot() +
+    geom_tile(
+      data = pop_zoom,
+      aes(x = lon, y = lat, fill = pop_density_cat_7)
+    ) +
+    scale_fill_manual(
+      values = pop_colors_7,
+      labels = bin_labels_7,
+      drop = FALSE
+    ) +
+    geom_sf(
+      data = philippines,
+      fill = NA,
+      color = "black",
+      linewidth = 0.25
+    ) +
+    geom_point(
+      data = data_su_metadata,
+      aes(x = longitude, y = latitude),
+      inherit.aes = FALSE,
+      shape = 21,
+      fill = "#0072CE",
+      color = "black",
+      size = 6,
+      stroke = 0.4
+    ) +
+    annotation_scale(
+      location = "br",
+      width_hint = 0.25,
+      height = unit(0.20, "cm"),
+      text_cex = 0.8
+    ) +
+    # Black outline around full map
+    geom_rect(
+      aes(
+        xmin = lon_min,
+        xmax = lon_max,
+        ymin = lat_min,
+        ymax = lat_max
+      ),
+      fill = NA,
+      color = "black",
+      linewidth = 0.4
+    ) +
+    coord_sf(
+      xlim = c(lon_min, lon_max),
+      ylim = c(lat_min, lat_max),
+      expand = FALSE
+    ) +
+    scale_x_continuous(
+      breaks = seq(
+        floor(lon_min * 10) / 10,
+        ceiling(lon_max * 10) / 10,
+        by = 0.2
+      )
+    ) +
+    scale_y_continuous(
+      breaks = seq(
+        floor(lat_min * 10) / 10,
+        ceiling(lat_max * 10) / 10,
+        by = 0.2
+      )
+    ) +
+    labs(x = NULL, y = NULL, fill = NULL) +
+    theme_classic(base_family = "Times New Roman", base_size = 12) +
+    theme(
+      panel.background = element_rect(fill = "aliceblue", color = NA),
+      panel.grid = element_blank(),
+      axis.text = element_text(
+        family = "Times New Roman",
+        size = 10,
+        color = "black"
+      ),
+      axis.ticks = element_line(color = "black"),
+      axis.ticks.length = unit(0.15, "cm"),
+      axis.title = element_blank(),
+      legend.position = "none"
+    )
+}
+
+#### CUYO ARCHIPELAGO ####
+
+map_cuyo <- make_rotenone_zoom_map(
+  lon_min = 120.70,
+  lon_max = 121.35,
+  lat_min = 10.60,
+  lat_max = 11.15
+)
+
+print(map_cuyo)
+
+
+#### SOUTHERN NEGROS ORIENTAL + SIQUIJOR ####
+
+map_negros_siquijor <- make_rotenone_zoom_map(
+  lon_min = 122.85,
+  lon_max = 123.75,
+  lat_min = 9.00,
+  lat_max = 9.85
+)
+
+print(map_negros_siquijor)
+
+#### SAVE MAPS WITH MAINTAINED ASPECT RATIO ####
+
+current_date <- gsub("-", "_", Sys.Date())
+
+ggsave(
+  paste0("../figures/si_su_duplicates/map_rotenone_cuyo_zoom_latlon_", current_date, ".png"),
+  plot = map_cuyo,
+  width = plot_width,
+  height = cuyo_height,
+  units = "in",
+  dpi = 300
+)
+
+ggsave(
+  paste0("../figures/si_su_duplicates/map_rotenone_negros_siquijor_zoom_latlon_", current_date, ".png"),
+  plot = map_negros_siquijor,
+  width = plot_width,
+  height = negros_height,
+  units = "in",
+  dpi = 300
+)
