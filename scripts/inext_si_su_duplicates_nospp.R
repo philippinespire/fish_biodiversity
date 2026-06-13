@@ -45,7 +45,7 @@ lapply(packages_used,
        require, 
        character.only = TRUE)
 
-install.packages("ggplot2")
+# install.packages("ggplot2")
 library(ggplot2)
 
 ####################
@@ -78,17 +78,8 @@ era_name_map <- c(
 # READ IN VEGANIZED DATA #
 
 # Community matrix (samples × species)
-data_vegan <- read_csv(
-  "../data/si_su_duplicates/data_vegan_si_su_duplicates_community_matrix.csv"
-) %>% 
-  column_to_rownames("station_code")
-
-# vegan wants a matrix or data.frame with rownames = samples, cols = species
-# you can leave it as a data.frame, or do:
-# comm_matrix <- as.matrix(comm_matrix)
-
 # No species complexes for those identified to only the genus or family level
-data_vegan_nospp <- read_csv(
+data_vegan <- read_csv(
   "../data/si_su_duplicates/data_vegan_si_su_duplicates_community_matrix_nospp.csv"
 ) %>%
   column_to_rownames("station_code")
@@ -100,9 +91,6 @@ data_vegan.env <- read_csv(
 
 # check that the rows are aligned by station_code
 identical(rownames(data_vegan), data_vegan.env$station_code)
-
-# check that the rows are aligned by station_code
-identical(rownames(data_vegan_nospp), data_vegan.env$station_code)
 
 
 ################
@@ -310,17 +298,17 @@ out_abu_all <- iNEXT::iNEXT(
 # Save tables.
 # readr::write_csv(
 #   summ_abu_all,
-#   file.path(out_dir_tab, "table_inext_abundance_summary_whole_dataset.csv")
+#   file.path(out_dir_tab, "table_inext_abundance_summary_whole_dataset_nospp.csv")
 # )
 # 
 # readr::write_csv(
 #   info_abu_all,
-#   file.path(out_dir_tab, "table_inext_abundance_DataInfo_whole_dataset.csv")
+#   file.path(out_dir_tab, "table_inext_abundance_DataInfo_whole_dataset_nospp.csv")
 # )
 # 
 # readr::write_csv(
 #   est_abu_all,
-#   file.path(out_dir_tab, "table_inext_abundance_estimateD_q012_coverage_whole_dataset_level095_conf095_nboot1000.csv")
+#   file.path(out_dir_tab, "table_inext_abundance_estimateD_q012_coverage_whole_dataset_level095_conf095_nboot1000_nospp.csv")
 # )
 
 
@@ -384,7 +372,7 @@ g_abu_all_q0 <- iNEXT::ggiNEXT(
   scale_x_continuous(
     # labels = scales::percent_format(accuracy = 1)
   ) +
-  scale_y_continuous(limits = c(0, 1200), breaks = seq(0, 1200, by = 300)) +
+  scale_y_continuous(limits = c(0, 1020), breaks = seq(0, 1000, by = 250)) +
   labs(
     x = "Sample Coverage",
     y = "Species Diversity"
@@ -396,6 +384,8 @@ g_abu_all_q0 <- iNEXT::ggiNEXT(
     axis.title = element_text(size = 12),
     axis.text = element_text(size = 12)
   )
+
+print(g_abu_all_q0)
 
 # Optional: thicken curve and reference point
 g_abu_all_q0$layers <- lapply(g_abu_all_q0$layers, function(lyr) {
@@ -413,7 +403,7 @@ g_abu_all_q0$layers <- lapply(g_abu_all_q0$layers, function(lyr) {
 print(g_abu_all_q0)
 
 # ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_all_q0_coverage_level095_conf095_nboot1000_knots1000_man.png"),
+#   file.path(out_dir_fig, "figure_inext_abundance_all_q0_coverage_level095_conf095_nboot1000_knots1000_nospp_man.png"),
 #   g_abu_all_q0,
 #   width = 6.5,
 #   height = 7.5,
@@ -470,6 +460,8 @@ g_abu_all_q012 <- iNEXT::ggiNEXT(
     strip.text = element_text(size = 12)
   )
 
+print(g_abu_all_q012)
+
 # Optional: thicken curves and reference points
 g_abu_all_q012$layers <- lapply(g_abu_all_q012$layers, function(lyr) {
   if (inherits(lyr$geom, "GeomLine")) {
@@ -487,9 +479,9 @@ print(g_abu_all_q012)
 
 
 # ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_all_q012_coverage_faceted.png"),
+#   file.path(out_dir_fig, "figure_inext_abundance_all_q012_coverage_faceted_nospp.png"),
 #   g_abu_all_q012,
-#   width =5.5,
+#   width =6.5,
 #   height = 7.5,
 #   dpi = 300
 # )
@@ -573,16 +565,16 @@ g_abu_all_q012 <- ggplot(
   ggh4x::facetted_pos_scales(
     y = list(
       q_label == "q = 0: Species Richness" ~ scale_y_continuous(
-        limits = c(0, 1200),
-        breaks = seq(0, 1200, 300)
+        limits = c(0, 1020),
+        breaks = seq(0, 1000, 250)
       ),
       q_label == "q = 1: Common Species" ~ scale_y_continuous(
-        limits = c(0, 250),
-        breaks = seq(0, 250, 50)
+        limits = c(0, 200),
+        breaks = seq(0, 200, 50)
       ),
       q_label == "q = 2: Dominant Species" ~ scale_y_continuous(
-        limits = c(0, 100),
-        breaks = seq(0, 100, 20)
+        limits = c(0, 70),
+        breaks = seq(0, 60, 20)
       )
     )
   ) +
@@ -618,13 +610,13 @@ g_abu_all_q012$layers <- lapply(g_abu_all_q012$layers, function(lyr) {
 
 print(g_abu_all_q012)
 
-# ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_all_q012_coverage_level095_conf095_nboot1000_knots1000_facet_man.png"),
-#   g_abu_all_q012,
-#   width = 6.5,
-#   height = 7.5,
-#   dpi = 300
-# )
+ggsave(
+  file.path(out_dir_fig, "figure_inext_abundance_all_q012_coverage_level095_conf095_nboot1000_knots1000_facet_nospp_man.png"),
+  g_abu_all_q012,
+  width = 6.5,
+  height = 7.5,
+  dpi = 300
+)
 
 
 #################################################
@@ -728,7 +720,7 @@ g_abu_all_q012$layers <- lapply(g_abu_all_q012$layers, function(lyr) {
 print(g_abu_all_q012)
 
 # ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_all_q012_coverage_level095_conf095_nboot1000_knots1000_facet_man.png"),
+#   file.path(out_dir_fig, "figure_inext_abundance_all_q012_coverage_level095_conf095_nboot1000_knots1000_facet_nospp_man.png"),
 #   g_abu_all_q012,
 #   width = 6.5,
 #   height = 7.5,
@@ -858,7 +850,7 @@ g_abu_all_q012_together$layers <- lapply(g_abu_all_q012_together$layers, functio
 print(g_abu_all_q012_together)
 
 # ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_all_q012_coverage_level095_conf095_nboot1000_knots1000_man.png"),
+#   file.path(out_dir_fig, "figure_inext_abundance_all_q012_coverage_level095_conf095_nboot1000_knots1000_nospp_man.png"),
 #   g_abu_all_q012_together,
 #   width = 6.5,
 #   height = 7.5,
@@ -924,15 +916,17 @@ print(est_abu_era)
 # Save tables.
 # readr::write_csv(
 #   summ_abu_era,
-#   file.path(out_dir_tab, "table_inext_abundance_summary_by_era.csv")
+#   file.path(out_dir_tab, "table_inext_abundance_summary_by_era_nospp.csv")
 # )
+# 
 # readr::write_csv(
 #   info_abu_era,
-#   file.path(out_dir_tab, "table_inext_abundance_DataInfo_by_era.csv")
+#   file.path(out_dir_tab, "table_inext_abundance_DataInfo_by_era_nospp.csv")
 # )
+# 
 # readr::write_csv(
 #   est_abu_era,
-#   file.path(out_dir_tab, "table_inext_abundance_estimateD_q012_coverage_by_era_level095_conf095_nboot1000.csv")
+#   file.path(out_dir_tab, "table_inext_abundance_estimateD_q012_coverage_by_era_level095_conf095_nboot1000_nospp.csv")
 # )
 
 
@@ -995,18 +989,18 @@ g_abu_era_q0 <- iNEXT::ggiNEXT(
     labels = era_name_map,
     name = "Era"
   ) +
-  # coord_cartesian(xlim = c(0, 1.01)) +
-  # scale_x_continuous(
-  #   labels = scales::percent_format(accuracy = 1)
-  # ) +
-  labs(
-    x = "Sample Coverage",
-    y = "Species Diversity"
+  coord_cartesian(xlim = c(0, 1.01)) +
+  scale_x_continuous(
+    labels = scales::percent_format(accuracy = 1)
   ) +
-  theme_classic(base_size = 12) +
+  labs(
+    x = "% Coverage",
+    y = "Species Richness"
+  ) +
+  theme_classic(base_size = 18) +
   theme(
     text = element_text(family = "Times New Roman"),
-    legend.position = "none",
+    legend.position = NULL,
     #legend.title = element_text(size = 12),
     #legend.text = element_text(size = 12),
     axis.title = element_text(size = 12),
@@ -1029,7 +1023,7 @@ g_abu_era_q0$layers <- lapply(g_abu_era_q0$layers, function(lyr) {
 print(g_abu_era_q0)
 
 # ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_q0_coverage_by_era_level095_conf095_nboot1000_knots1000_man.png"),
+#   file.path(out_dir_fig, "figure_inext_abundance_q0_coverage_by_era_level095_conf095_nboot1000_knots1000_nospp_man.png"),
 #   g_abu_era_q0,
 #   width = 6.5,
 #   height = 7.5,
@@ -1075,18 +1069,18 @@ g_abu_era_q012 <- iNEXT::ggiNEXT(
     labels = era_name_map,
     name = "Era"
   ) +
-  # coord_cartesian(xlim = c(0, 1.01)) +
-  # scale_x_continuous(
-  #   labels = scales::percent_format(accuracy = 1)
-  # ) +
-  labs(
-    x = "Sample Coverage",
-    y = "Species Diversity"
+  coord_cartesian(xlim = c(0, 1.01)) +
+  scale_x_continuous(
+    labels = scales::percent_format(accuracy = 1)
   ) +
-  theme_classic(base_size = 12) +
+  labs(
+    x = "% Coverage",
+    y = "Hill Diversity"
+  ) +
+  theme_classic(base_size = 18) +
   theme(
     text = element_text(family = "Times New Roman"),
-    legend.position = "none",
+    legend.position = "right",
     # legend.title = element_text(size = 12),
     # legend.text = element_text(size = 12),
     axis.title = element_text(size = 12),
@@ -1111,13 +1105,12 @@ g_abu_era_q012$layers <- lapply(g_abu_era_q012$layers, function(lyr) {
 print(g_abu_era_q012)
 
 # ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_q012_coverage_by_era_level095_conf095_nboot1000_knots1000_facet_man.png"),
+#   file.path(out_dir_fig, "figure_inext_abundance_q012_coverage_by_era_level095_conf095_nboot1000_knots1000_facet_nospp_man.png"),
 #   g_abu_era_q012,
 #   width = 6.5,
 #   height = 7.5,
 #   dpi = 300
 # )
-
 
 
 ##############################################################
@@ -1134,7 +1127,7 @@ targetC <- targetC_abu_era
 B <- 1000
 q_vec <- c(0, 1, 2)
 
-# Bootstrap abundance vector by resampling individuals.
+# Function to bootstrap abundance vector by resampling individuals.
 bootstrap_abund <- function(v) {
   sp <- rep(names(v), times = as.integer(v))
   sp_boot <- sample(sp, size = length(sp), replace = TRUE)
@@ -1188,7 +1181,7 @@ for (b in seq_len(B)) {
   # Delta = contemporary - historical
   boot_delta[b, ] <- q_cont[as.character(q_vec)] - q_hist[as.character(q_vec)]
 }
-exit
+
 boot_delta <- as.data.frame(boot_delta)
 
 summ_delta_era <- purrr::map_dfr(names(boot_delta), function(qname) {
@@ -1211,23 +1204,22 @@ summ_delta_era <- purrr::map_dfr(names(boot_delta), function(qname) {
 
 print(summ_delta_era)
 
-# Save Tables
-readr::write_csv(
-  summ_delta_era,
-  file.path(out_dir_tab, "table_inext_abundance_bootstrap_delta_contemporary_minus_historical_q012_at_target_coverage.csv")
-)
+# Save tables
+# readr::write_csv(
+#   summ_delta_era,
+#   file.path(out_dir_tab, "table_inext_abundance_bootstrap_delta_contemporary_minus_historical_q012_at_target_coverage_nospp.csv")
+# )
+# 
+# readr::write_csv(
+#   boot_delta,
+#   file.path(out_dir_tab, "table_inext_abundance_bootstrap_delta_raw_contemporary_minus_historical_q012_nospp.csv")
+# )
 
-readr::write_csv(
-  boot_delta,
-  file.path(out_dir_tab, "table_inext_abundance_bootstrap_delta_raw_contemporary_minus_historical_q012.csv")
-)
 
-
-
-############################################################
-#### iNEXT: POOLED ABUNDANCE BY ERA × SEA               ####
-#### Coverage-based SACs + bootstrap Δ Hill diversity   ####
-############################################################
+#############################################################
+#### iNEXT: POOLED ABUNDANCE BY ERA × SEA                ####
+#### Coverage-based SACs + bootstrap Δ Hill diversity    ####
+#############################################################
 
 ############################
 #### COLORS AND LABELS  ####
@@ -1309,9 +1301,9 @@ design <- design %>%
   )
 
 
-##########################################
+###########################################
 #### BUILD ABUNDANCE LIST BY ERA × SEA ####
-##########################################
+###########################################
 
 make_abund_vector <- function(X, rows) {
   v <- colSums(X[rows, , drop = FALSE], na.rm = TRUE)
@@ -1361,7 +1353,7 @@ print(summ_abu_era_sea)
 # Save Table
 # readr::write_csv(
 #   summ_abu_era_sea,
-#   file.path(out_dir_tab, "table_inext_abundance_summary_by_era_sea.csv")
+#   file.path(out_dir_tab, "table_inext_abundance_summary_by_era_sea_nospp.csv")
 # )
 
 
@@ -1385,7 +1377,7 @@ print(info_abu_era_sea)
 # Save Table
 # readr::write_csv(
 #   info_abu_era_sea,
-#   file.path(out_dir_tab, "table_inext_abundance_DataInfo_by_era_sea.csv")
+#   file.path(out_dir_tab, "table_inext_abundance_DataInfo_by_era_sea_nospp.csv")
 # )
 
 # Common target coverage within each sea.
@@ -1445,7 +1437,7 @@ print(est_abu_era_sea)
 # Save Table
 # readr::write_csv(
 #   est_abu_era_sea,
-#   file.path(out_dir_tab, "table_inext_abundance_estimateD_q012_coverage_by_era_sea.csv")
+#   file.path(out_dir_tab, "table_inext_abundance_estimateD_q012_coverage_by_era_sea_nospp.csv")
 # )
 
 
@@ -1466,9 +1458,9 @@ out_abu_era_sea <- iNEXT::iNEXT(
 )
 
 
-#################################
+##################################
 #### PREPARE COVERAGE PLOT DF ####
-#################################
+##################################
 
 plot_abu_era_sea <- out_abu_era_sea$iNextEst$coverage_based %>%
   tidyr::separate(
@@ -1574,19 +1566,18 @@ g_abu_era_sea_q0 <- ggplot() +
     x = "Sample Coverage",
     y = "Species Diversity"
   ) +
-  theme_classic(base_size = 18) +
+  theme_classic(base_size = 12) +
   theme(
     text = element_text(family = "Times New Roman"),
-    legend.position = "none",
-    axis.title = element_text(size = 18),
-    axis.text = element_text(size = 16),
+    legend.position = "bottom",
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 12),
     strip.background = element_blank(),
-    strip.text = element_text(size = 16)
+    strip.text = element_text(size = 12)
   )
 
 print(g_abu_era_sea_q0)
 
-# ---- tweak the line layer(s) that are already there ----
 line_size  <- 3
 line_alpha <- 0.6
 
@@ -1600,13 +1591,13 @@ g_abu_era_sea_q0$layers <- lapply(g_abu_era_sea_q0$layers, function(lyr) {
 
 print(g_abu_era_sea_q0)
 
-# ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_q0_coverage_by_era_sea_man.png"),
-#   g_abu_era_sea_q0,
-#   width = 6.5,
-#   height = 7.5,
-#   dpi = 300
-# )
+ggsave(
+  file.path(out_dir_fig, "figure_inext_abundance_q0_coverage_by_era_sea_leg_bot_nospp.png"),
+  g_abu_era_sea_q0,
+  width = 6.5,
+  height = 7.5,
+  dpi = 300
+)
 
 
 #########################################################
@@ -1687,7 +1678,7 @@ g_abu_era_sea_q012 <- ggplot() +
   theme_classic(base_size = 12) +
   theme(
     text = element_text(family = "Times New Roman"),
-    legend.position = "none",
+    legend.position = NULL,
     axis.title = element_text(size = 12),
     axis.text = element_text(size = 12),
     strip.background = element_blank(),
@@ -1696,22 +1687,8 @@ g_abu_era_sea_q012 <- ggplot() +
 
 print(g_abu_era_sea_q012)
 
-# ---- tweak the line layer(s) that are already there ----
-line_size  <- 3
-line_alpha <- 0.6
-
-g_abu_era_sea_q012$layers <- lapply(g_abu_era_sea_q012$layers, function(lyr) {
-  if (inherits(lyr$geom, "GeomLine")) {
-    lyr$aes_params$linewidth <- line_size   # use linewidth (ggplot2 >= 3.4)
-    lyr$aes_params$alpha     <- line_alpha
-  }
-  lyr
-})
-
-print(g_abu_era_sea_q012)
-
 # ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_q012_coverage_by_era_sea_faceted_man.png"),
+#   file.path(out_dir_fig, "figure_inext_abundance_q012_coverage_by_era_sea_faceted_nospp_man.png"),
 #   g_abu_era_sea_q012,
 #   width = 6.5,
 #   height = 7.5,
@@ -1721,7 +1698,7 @@ print(g_abu_era_sea_q012)
 
 ###########################################################
 #### BOOTSTRAP Δ HILL DIVERSITY BY SEA                 ####
-#### Δ = contemporary - historical at common coverage   ####
+#### Δ = contemporary - historical at common coverage  ####
 ###########################################################
 
 # Δ = contemporary - historical
@@ -1876,10 +1853,10 @@ print(summ_delta_era_sea)
 # Save Tables
 # readr::write_csv(
 #   summ_delta_era_sea,
-#   file.path(out_dir_tab, "table_inext_abundance_bootstrap_delta_contemporary_minus_historical_q012_by_sea.csv")
+#   file.path(out_dir_tab, "table_inext_abundance_bootstrap_delta_contemporary_minus_historical_q012_by_sea_nospp.csv")
 # )
 # 
 # readr::write_csv(
 #   boot_delta_era_sea_raw,
-#   file.path(out_dir_tab, "table_inext_abundance_bootstrap_delta_raw_contemporary_minus_historical_q012_by_sea.csv")
+#   file.path(out_dir_tab, "table_inext_abundance_bootstrap_delta_raw_contemporary_minus_historical_q012_by_sea_nospp.csv")
 # )
