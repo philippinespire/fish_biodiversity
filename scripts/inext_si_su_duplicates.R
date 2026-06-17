@@ -87,12 +87,6 @@ data_vegan <- read_csv(
 # you can leave it as a data.frame, or do:
 # comm_matrix <- as.matrix(comm_matrix)
 
-# No species complexes for those identified to only the genus or family level
-data_vegan_nospp <- read_csv(
-  "../data/si_su_duplicates/data_vegan_si_su_duplicates_community_matrix_nospp.csv"
-) %>%
-  column_to_rownames("station_code")
-
 # Environmental metadata. Keep station_code as a column not rownames.
 data_vegan.env <- read_csv(
   "../data/si_su_duplicates/data_vegan_si_su_duplicates_metadata.csv"
@@ -100,9 +94,6 @@ data_vegan.env <- read_csv(
 
 # check that the rows are aligned by station_code
 identical(rownames(data_vegan), data_vegan.env$station_code)
-
-# check that the rows are aligned by station_code
-identical(rownames(data_vegan_nospp), data_vegan.env$station_code)
 
 
 ################
@@ -296,17 +287,6 @@ est_abu_all <- iNEXT::estimateD(
 
 print(est_abu_all)
 
-# Build coverage-based curves.
-out_abu_all <- iNEXT::iNEXT(
-  inext_abu_all,
-  q = c(0, 1, 2),
-  datatype = "abundance",
-  se = TRUE,
-  conf = 0.95,
-  knots = 1000,
-  nboot = 1000
-)
-
 # Save tables.
 # readr::write_csv(
 #   summ_abu_all,
@@ -324,10 +304,21 @@ out_abu_all <- iNEXT::iNEXT(
 # )
 
 
+# Build coverage-based curves.
+out_abu_all <- iNEXT::iNEXT(
+  inext_abu_all,
+  q = c(0, 1, 2),
+  datatype = "abundance",
+  se = TRUE,
+  conf = 0.95,
+  knots = 1000,
+  nboot = 1000
+)
+
 ############################################################
-#### WHOLE DATASET: POOLED ABUNDANCE GAMMA DIVERSITY    ####
-#### 1. Species richness curve, q = 0                   ####
-#### 2. Faceted Hill diversity curves, q = 0, 1, 2      ####
+#### 1. WHOLE DATASET: POOLED ABUNDANCE GAMMA DIVERSITY ####
+#### 1.1 Species richness curve, q = 0                  ####
+#### 1.2 Faceted Hill diversity curves, q = 0, 1, 2     ####
 ############################################################
 
 ###############################
@@ -364,6 +355,14 @@ out_abu_all_q0$iNextEst$coverage_based <- out_abu_all_q0$iNextEst$coverage_based
 #### PLOT: WHOLE DATASET SPECIES RICHNESS  ####
 ###############################################
 
+# Check y limits from qD.UCL
+# q0 =     nospp = 1001.647
+nth(out_abu_all[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 1000) 
+# q1 =     nospp = 201.081
+nth(out_abu_all[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 2000)
+# q2 =     nospp = 69.788
+nth(out_abu_all[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 3000)
+
 g_abu_all_q0 <- iNEXT::ggiNEXT(
   out_abu_all_q0,
   type = 3,
@@ -373,29 +372,39 @@ g_abu_all_q0 <- iNEXT::ggiNEXT(
   scale_colour_manual(
     values = all_cols,
     labels = all_name_map,
-    name = NULL
+    name = NULL,
+    guide = "none"
   ) +
   scale_fill_manual(
     values = all_cols,
     labels = all_name_map,
-    name = NULL
+    name = NULL,
+    guide = "none"
   ) +
   coord_cartesian(xlim = c(0, 1.01)) +
   scale_x_continuous(
     # labels = scales::percent_format(accuracy = 1)
   ) +
-  scale_y_continuous(limits = c(0, 1200), breaks = seq(0, 1200, by = 300)) +
+  scale_y_continuous(limits = c(0, 1020), breaks = seq(0, 1000, by = 250)) +
   labs(
     x = "Sample Coverage",
     y = "Species Diversity"
   ) +
+  guides(
+    colour = "none",
+    fill   = "none",
+    shape  = "none",
+    linetype = guide_legend(title = NULL)
+  ) +
   theme_classic(base_size = 12) +
   theme(
     text = element_text(family = "Times New Roman"),
-    legend.position = "none",
+    legend.position = "bottom",
     axis.title = element_text(size = 12),
     axis.text = element_text(size = 12)
   )
+
+print(g_abu_all_q0)
 
 # Optional: thicken curve and reference point
 g_abu_all_q0$layers <- lapply(g_abu_all_q0$layers, function(lyr) {
@@ -413,7 +422,7 @@ g_abu_all_q0$layers <- lapply(g_abu_all_q0$layers, function(lyr) {
 print(g_abu_all_q0)
 
 # ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_all_q0_coverage_level095_conf095_nboot1000_knots1000_man.png"),
+#   file.path(out_dir_fig, "figure_inext_abundance_all_q0_coverage_level095_conf095_nboot1000_knots1000_leg_bot_man.png"),
 #   g_abu_all_q0,
 #   width = 6.5,
 #   height = 7.5,
@@ -421,217 +430,11 @@ print(g_abu_all_q0)
 # )
 
 
-#################################################
-#### PLOT: WHOLE DATASET q0, q1, q2 FACETED  ####
-#################################################
-
-g_abu_all_q012 <- iNEXT::ggiNEXT(
-  out_abu_all,
-  type = 3,
-  se = TRUE,
-  facet.var = "Order.q",
-  color.var = "Assemblage"
-) +
-  facet_wrap(
-    ~ Order.q,
-    ncol = 1,
-    scales = "free_y",
-    labeller = as_labeller(c(
-      "0" = "q = 0: Species Richness",
-      "1" = "q = 1: Common Species",
-      "2" = "q = 2: Dominant Species"
-    ))
-  ) +
-  scale_colour_manual(
-    values = all_cols,
-    labels = all_name_map,
-    name = NULL
-  ) +
-  scale_fill_manual(
-    values = all_cols,
-    labels = all_name_map,
-    name = NULL
-  ) +
-  coord_cartesian(xlim = c(0, 1.01)) +
-  scale_x_continuous(
-    # labels = scales::percent_format(accuracy = 1)
-  ) +
-  labs(
-    x = "Sample Coverage",
-    y = "Species Diversity"
-  ) +
-  theme_classic(base_size = 12) +
-  theme(
-    text = element_text(family = "Times New Roman"),
-    legend.position = "none",
-    axis.title = element_text(size = 12),
-    axis.text = element_text(size = 12),
-    strip.background = element_blank(),
-    strip.text = element_text(size = 12)
-  )
-
-# Optional: thicken curves and reference points
-g_abu_all_q012$layers <- lapply(g_abu_all_q012$layers, function(lyr) {
-  if (inherits(lyr$geom, "GeomLine")) {
-    lyr$aes_params$linewidth <- 2.2
-    lyr$aes_params$alpha <- 0.9
-  }
-  if (inherits(lyr$geom, "GeomPoint")) {
-    lyr$aes_params$size <- 4
-    lyr$aes_params$shape <- 16
-  }
-  lyr
-})
-
-print(g_abu_all_q012)
-
-
-# ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_all_q012_coverage_faceted.png"),
-#   g_abu_all_q012,
-#   width =5.5,
-#   height = 7.5,
-#   dpi = 300
-# )
-
-plot_abu_all_q012 <- out_abu_all$iNextEst$coverage_based %>%
-  dplyr::mutate(
-    Order.q = as.numeric(Order.q),
-    q_label = dplyr::case_when(
-      Order.q == 0 ~ "q = 0: Species Richness",
-      Order.q == 1 ~ "q = 1: Common Species",
-      Order.q == 2 ~ "q = 2: Dominant Species"
-    ),
-    q_label = factor(
-      q_label,
-      levels = c(
-        "q = 0: Species Richness",
-        "q = 1: Common Species",
-        "q = 2: Dominant Species"
-      )
-    )
-  )
-
-# Panel labels
-panel_labs <- tibble::tibble(
-  q_label = factor(
-    c(
-      "q = 0: Species Richness",
-      "q = 1: Common Species",
-      "q = 2: Dominant Species"
-    ),
-    levels = c(
-      "q = 0: Species Richness",
-      "q = 1: Common Species",
-      "q = 2: Dominant Species"
-    )
-  ),
-  panel_label = c("A", "B", "C")
-)
-
-# Observed/reference points
-plot_abu_all_ref <- plot_abu_all_q012 %>%
-  dplyr::filter(Method == "Observed")
-
-# Plot
-g_abu_all_q012 <- ggplot(
-  plot_abu_all_q012,
-  aes(x = SC, y = qD)
-) +
-  geom_ribbon(
-    aes(ymin = qD.LCL, ymax = qD.UCL),
-    fill = "grey70",
-    alpha = 0.35,
-    color = NA
-  ) +
-  geom_line(
-    linewidth = 2.2,
-    alpha = 0.9,
-    color = "black"
-  ) +
-  geom_point(
-    data = plot_abu_all_ref,
-    size = 4,
-    shape = 16,
-    color = "black"
-  ) +
-  geom_text(
-    data = panel_labs,
-    aes(x = -Inf, y = Inf, label = panel_label),
-    inherit.aes = FALSE,
-    hjust = -0.6,
-    vjust = 1.4,
-    family = "Times New Roman",
-    fontface = "bold",
-    size = 5
-  ) +
-  facet_wrap(
-    ~ q_label,
-    ncol = 1,
-    scales = "free_y"
-  ) +
-  ggh4x::facetted_pos_scales(
-    y = list(
-      q_label == "q = 0: Species Richness" ~ scale_y_continuous(
-        limits = c(0, 1200),
-        breaks = seq(0, 1200, 300)
-      ),
-      q_label == "q = 1: Common Species" ~ scale_y_continuous(
-        limits = c(0, 250),
-        breaks = seq(0, 250, 50)
-      ),
-      q_label == "q = 2: Dominant Species" ~ scale_y_continuous(
-        limits = c(0, 100),
-        breaks = seq(0, 100, 20)
-      )
-    )
-  ) +
-  coord_cartesian(xlim = c(0, 1.01)) +
-  labs(
-    x = "Sample Coverage",
-    y = "Species Diversity"
-  ) +
-  theme_classic(base_size = 12) +
-  theme(
-    text = element_text(family = "Times New Roman"),
-    legend.position = "none",
-    axis.title = element_text(size = 12),
-    axis.text = element_text(size = 12),
-    strip.background = element_blank(),
-    strip.text = element_text(size = 12)
-  )
-
-print(g_abu_all_q012)
-
-# Optional: thicken curves and reference points
-g_abu_all_q012$layers <- lapply(g_abu_all_q012$layers, function(lyr) {
-  if (inherits(lyr$geom, "GeomLine")) {
-    lyr$aes_params$linewidth <- 2.2
-    lyr$aes_params$alpha <- 0.9
-  }
-  if (inherits(lyr$geom, "GeomPoint")) {
-    lyr$aes_params$size <- 4
-    lyr$aes_params$shape <- 16
-  }
-  lyr
-})
-
-print(g_abu_all_q012)
-
-# ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_all_q012_coverage_level095_conf095_nboot1000_knots1000_facet_man.png"),
-#   g_abu_all_q012,
-#   width = 6.5,
-#   height = 7.5,
-#   dpi = 300
-# )
-
-
-#################################################
-#### Manuscript Figure 2. Coverage-based SAC Pooled Assemblage ####
-#### PLOT: WHOLE DATASET q0, q1, q2 FACETED  ####
-#### Manual y-axis scale for each Hill number ####
-#################################################
+####################################################################
+#### PLOT: WHOLE DATASET q0, q1, q2 FACETED                     ####
+#### Manuscript Figure S1. Coverage-based SAC Pooled Assemblage ####
+#### Manual y-axis scale for each Hill number                   ####
+####################################################################
 panel_labs <- tibble::tibble(
   Order.q = c(0, 1, 2),
   panel_label = c("A", "B", "C")
@@ -657,16 +460,16 @@ g_abu_all_q012 <- iNEXT::ggiNEXT(
   ggh4x::facetted_pos_scales(
     y = list(
       Order.q == 0 ~ scale_y_continuous(
-        limits = c(0, 1005),
+        limits = c(0, 1050),
         breaks = seq(0, 1000, 250)
       ),
       Order.q == 1 ~ scale_y_continuous(
-        limits = c(0, 205),
+        limits = c(0, 210),
         breaks = seq(0, 200, 50)
       ),
       Order.q == 2 ~ scale_y_continuous(
-        limits = c(0, 70),
-        breaks = seq(0, 60, 20)
+        limits = c(0, 80),
+        breaks = seq(0, 80, 20)
       )
     )
   ) +
@@ -741,121 +544,8 @@ print(g_abu_all_q012)
 
 
 #################################################
-#### PLOT: WHOLE DATASET q0, q1, q2 FACETED  ####
-#### Manual y-axis scale for each Hill number ####
-#################################################
-
-# Install if needed
-if (!requireNamespace("ggh4x", quietly = TRUE)) {
-  install.packages("ggh4x")
-}
-
-panel_labs <- tibble::tibble(
-  Order.q = c(0, 1, 2),
-  panel_label = c("A", "B", "C")
-)
-
-g_abu_all_q012 <- iNEXT::ggiNEXT(
-  out_abu_all,
-  type = 3,
-  se = TRUE,
-  facet.var = "Order.q",
-  color.var = "Assemblage"
-) +
-  facet_wrap(
-    ~ Order.q,
-    ncol = 1,
-    scales = "free_y",
-    labeller = as_labeller(c(
-      "0" = "q = 0: Species Richness",
-      "1" = "q = 1: Common Species",
-      "2" = "q = 2: Dominant Species"
-    ))
-  ) +
-  ggh4x::facetted_pos_scales(
-    y = list(
-      Order.q == 0 ~ scale_y_continuous(
-        limits = c(0, 1200),
-        breaks = seq(0, 1200, 300)
-      ),
-      Order.q == 1 ~ scale_y_continuous(
-        limits = c(0, 250),
-        breaks = seq(0, 250, 50)
-      ),
-      Order.q == 2 ~ scale_y_continuous(
-        limits = c(0, 100),
-        breaks = seq(0, 100, 20)
-      )
-    )
-  ) +
-  geom_text(
-    data = panel_labs,
-    aes(x = -Inf, y = Inf, label = panel_label),
-    inherit.aes = FALSE,
-    hjust = -0.6,
-    vjust = 1.4,
-    family = "Times New Roman",
-    fontface = "bold",
-    size = 4
-  ) +
-  scale_colour_manual(
-    values = all_cols,
-    labels = all_name_map,
-    name = NULL
-  ) +
-  scale_fill_manual(
-    values = all_cols,
-    labels = all_name_map,
-    name = NULL
-  ) +
-  coord_cartesian(xlim = c(0, 1.01)) +
-  labs(
-    x = "Sample Coverage",
-    y = "Species Diversity"
-  ) +
-  theme_classic(base_size = 12) +
-  theme(
-    text = element_text(family = "Times New Roman"),
-    legend.position = "none",
-    axis.title = element_text(size = 12),
-    axis.text = element_text(size = 12),
-    strip.background = element_blank(),
-    strip.text = element_text(size = 12)
-  )
-
-print(g_abu_all_q012)
-
-# Thicken curves and reference points
-g_abu_all_q012$layers <- lapply(g_abu_all_q012$layers, function(lyr) {
-  if (inherits(lyr$geom, "GeomLine")) {
-    lyr$aes_params$linewidth <- 2.2
-    lyr$aes_params$alpha <- 0.9
-  }
-  if (inherits(lyr$geom, "GeomPoint")) {
-    lyr$aes_params$size <- 4
-    lyr$aes_params$shape <- 16
-  }
-  lyr
-})
-
-print(g_abu_all_q012)
-
-# ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_all_q012_coverage_level095_conf095_nboot1000_knots1000_facet_man.png"),
-#   g_abu_all_q012,
-#   width = 6.5,
-#   height = 7.5,
-#   dpi = 300
-# )
-
-
-#################################################
 #### PLOT: WHOLE DATASET q0, q1, q2 TOGETHER ####
 #################################################
-
-library(tidyverse)
-library(ggplot2)
-
 # Prepare plotting dataframe directly from iNEXT coverage-based output
 plot_abu_all_q012 <- out_abu_all$iNextEst$coverage_based %>%
   dplyr::mutate(
@@ -932,10 +622,10 @@ g_abu_all_q012_together <- ggplot(
   ) +
   coord_cartesian(
     xlim = c(0, 1.01),
-    ylim = c(0, 1200)
+    ylim = c(0, 1050)
   ) +
   scale_y_continuous(
-    breaks = seq(0, 1200, 300)
+    breaks = seq(0, 1000, 250)
     # trans = 'log10'
   ) +
   labs(
@@ -1325,26 +1015,24 @@ summ_delta_era <- purrr::map_dfr(names(boot_delta), function(qname) {
 print(summ_delta_era)
 
 # Save Tables
-readr::write_csv(
-  summ_delta_era,
-  file.path(out_dir_tab, "table_inext_abundance_bootstrap_delta_contemporary_minus_historical_q012_at_target_coverage.csv")
-)
-
-readr::write_csv(
-  boot_delta,
-  file.path(out_dir_tab, "table_inext_abundance_bootstrap_delta_raw_contemporary_minus_historical_q012.csv")
-)
+# readr::write_csv(
+#   summ_delta_era,
+#   file.path(out_dir_tab, "table_inext_abundance_bootstrap_delta_contemporary_minus_historical_q012_at_target_coverage.csv")
+# )
+# 
+# readr::write_csv(
+#   boot_delta,
+#   file.path(out_dir_tab, "table_inext_abundance_bootstrap_delta_raw_contemporary_minus_historical_q012.csv")
+# )
 
 
 
 ############################################################
-#### iNEXT: POOLED ABUNDANCE BY ERA × SEA               ####
+#### 3. BY ERA X SEA iNEXT:                             ####
 #### Coverage-based SACs + bootstrap Δ Hill diversity   ####
 ############################################################
 
-############################
-#### COLORS AND LABELS  ####
-############################
+#### COLORS AND LABELS 
 
 era_cols <- c(
   "historical"    = "#F8766D",
@@ -1422,9 +1110,9 @@ design <- design %>%
   )
 
 
-##########################################
+###########################################
 #### BUILD ABUNDANCE LIST BY ERA × SEA ####
-##########################################
+###########################################
 
 make_abund_vector <- function(X, rows) {
   v <- colSums(X[rows, , drop = FALSE], na.rm = TRUE)
@@ -1471,16 +1159,7 @@ summ_abu_era_sea <- purrr::imap_dfr(inext_abu_era_sea, function(v, nm) {
 
 print(summ_abu_era_sea)
 
-# Save Table
-# readr::write_csv(
-#   summ_abu_era_sea,
-#   file.path(out_dir_tab, "table_inext_abundance_summary_by_era_sea.csv")
-# )
-
-
-####################################
-#### DATAINFO + TARGET COVERAGE ####
-####################################
+#### DATAINFO + TARGET COVERAGE
 
 info_abu_era_sea <- iNEXT::DataInfo(
   inext_abu_era_sea,
@@ -1494,12 +1173,6 @@ info_abu_era_sea <- iNEXT::DataInfo(
   )
 
 print(info_abu_era_sea)
-
-# Save Table
-# readr::write_csv(
-#   info_abu_era_sea,
-#   file.path(out_dir_tab, "table_inext_abundance_DataInfo_by_era_sea.csv")
-# )
 
 # Common target coverage within each sea.
 targetC_by_sea <- info_abu_era_sea %>%
@@ -1517,11 +1190,7 @@ targetC_global_era_sea <- min(0.95, min(info_abu_era_sea$SC, na.rm = TRUE))
 
 targetC_global_era_sea
 
-
-#########################################################
-#### ESTIMATE q0, q1, q2 AT COMMON COVERAGE BY SEA   ####
-#########################################################
-
+#### ESTIMATE q0, q1, q2 AT COMMON COVERAGE BY SEA
 q_vec <- c(0, 1, 2)
 
 est_abu_era_sea <- purrr::map_dfr(c("bohol", "sulu"), function(sea_i) {
@@ -1555,7 +1224,17 @@ est_abu_era_sea <- purrr::map_dfr(c("bohol", "sulu"), function(sea_i) {
 
 print(est_abu_era_sea)
 
-# Save Table
+# Save Tables
+# readr::write_csv(
+#   summ_abu_era_sea,
+#   file.path(out_dir_tab, "table_inext_abundance_summary_by_era_sea.csv")
+# )
+# 
+# readr::write_csv(
+#   info_abu_era_sea,
+#   file.path(out_dir_tab, "table_inext_abundance_DataInfo_by_era_sea.csv")
+# )
+# 
 # readr::write_csv(
 #   est_abu_era_sea,
 #   file.path(out_dir_tab, "table_inext_abundance_estimateD_q012_coverage_by_era_sea.csv")
