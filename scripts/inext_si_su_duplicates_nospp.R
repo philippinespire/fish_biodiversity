@@ -30,7 +30,9 @@ packages_used <-
     "iNEXT",
     "ggplot2",
     "patchwork",
-    "dplyr"
+    "dplyr",
+    "ggh4x",
+    "patchwork"
   )
 
 packages_to_install <- 
@@ -45,8 +47,6 @@ lapply(packages_used,
        require, 
        character.only = TRUE)
 
-# install.packages("ggplot2")
-library(ggplot2)
 
 ####################
 #### OUTPUT DIR ####
@@ -361,12 +361,14 @@ g_abu_all_q0 <- iNEXT::ggiNEXT(
   scale_colour_manual(
     values = all_cols,
     labels = all_name_map,
-    name = NULL
+    name = NULL,
+    guide = "none"
   ) +
   scale_fill_manual(
     values = all_cols,
     labels = all_name_map,
-    name = NULL
+    name = NULL,
+    guide = "none"
   ) +
   coord_cartesian(xlim = c(0, 1.01)) +
   scale_x_continuous(
@@ -377,10 +379,17 @@ g_abu_all_q0 <- iNEXT::ggiNEXT(
     x = "Sample Coverage",
     y = "Species Diversity"
   ) +
+  guides(
+    colour = "none",
+    color = "none",
+    fill = "none",
+    shape = "none",
+    linetype = guide_legend(title = NULL)
+  ) +
   theme_classic(base_size = 12) +
   theme(
     text = element_text(family = "Times New Roman"),
-    legend.position = "none",
+    legend.position = "bottom",
     axis.title = element_text(size = 12),
     axis.text = element_text(size = 12)
   )
@@ -403,7 +412,7 @@ g_abu_all_q0$layers <- lapply(g_abu_all_q0$layers, function(lyr) {
 print(g_abu_all_q0)
 
 # ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_all_q0_coverage_level095_conf095_nboot1000_knots1000_nospp_man.png"),
+#   file.path(out_dir_fig, "figure_inext_abundance_all_q0_coverage_level095_conf095_nboot1000_knots1000_leg_bot_nospp_man.png"),
 #   g_abu_all_q0,
 #   width = 6.5,
 #   height = 7.5,
@@ -525,110 +534,12 @@ panel_labs <- tibble::tibble(
 plot_abu_all_ref <- plot_abu_all_q012 %>%
   dplyr::filter(Method == "Observed")
 
-# Plot
-g_abu_all_q012 <- ggplot(
-  plot_abu_all_q012,
-  aes(x = SC, y = qD)
-) +
-  geom_ribbon(
-    aes(ymin = qD.LCL, ymax = qD.UCL),
-    fill = "grey70",
-    alpha = 0.35,
-    color = NA
-  ) +
-  geom_line(
-    linewidth = 2.2,
-    alpha = 0.9,
-    color = "black"
-  ) +
-  geom_point(
-    data = plot_abu_all_ref,
-    size = 4,
-    shape = 16,
-    color = "black"
-  ) +
-  geom_text(
-    data = panel_labs,
-    aes(x = -Inf, y = Inf, label = panel_label),
-    inherit.aes = FALSE,
-    hjust = -0.6,
-    vjust = 1.4,
-    family = "Times New Roman",
-    fontface = "bold",
-    size = 5
-  ) +
-  facet_wrap(
-    ~ q_label,
-    ncol = 1,
-    scales = "free_y"
-  ) +
-  ggh4x::facetted_pos_scales(
-    y = list(
-      q_label == "q = 0: Species Richness" ~ scale_y_continuous(
-        limits = c(0, 1020),
-        breaks = seq(0, 1000, 250)
-      ),
-      q_label == "q = 1: Common Species" ~ scale_y_continuous(
-        limits = c(0, 200),
-        breaks = seq(0, 200, 50)
-      ),
-      q_label == "q = 2: Dominant Species" ~ scale_y_continuous(
-        limits = c(0, 70),
-        breaks = seq(0, 60, 20)
-      )
-    )
-  ) +
-  coord_cartesian(xlim = c(0, 1.01)) +
-  labs(
-    x = "Sample Coverage",
-    y = "Species Diversity"
-  ) +
-  theme_classic(base_size = 12) +
-  theme(
-    text = element_text(family = "Times New Roman"),
-    legend.position = "none",
-    axis.title = element_text(size = 12),
-    axis.text = element_text(size = 12),
-    strip.background = element_blank(),
-    strip.text = element_text(size = 12)
-  )
-
-print(g_abu_all_q012)
-
-# Optional: thicken curves and reference points
-g_abu_all_q012$layers <- lapply(g_abu_all_q012$layers, function(lyr) {
-  if (inherits(lyr$geom, "GeomLine")) {
-    lyr$aes_params$linewidth <- 2.2
-    lyr$aes_params$alpha <- 0.9
-  }
-  if (inherits(lyr$geom, "GeomPoint")) {
-    lyr$aes_params$size <- 4
-    lyr$aes_params$shape <- 16
-  }
-  lyr
-})
-
-print(g_abu_all_q012)
-
-ggsave(
-  file.path(out_dir_fig, "figure_inext_abundance_all_q012_coverage_level095_conf095_nboot1000_knots1000_facet_nospp_man.png"),
-  g_abu_all_q012,
-  width = 6.5,
-  height = 7.5,
-  dpi = 300
-)
-
 
 #################################################
+#### Manuscript Figure 2. Coverage-based SAC Pooled Assemblage ####
 #### PLOT: WHOLE DATASET q0, q1, q2 FACETED  ####
 #### Manual y-axis scale for each Hill number ####
 #################################################
-
-# Install if needed
-if (!requireNamespace("ggh4x", quietly = TRUE)) {
-  install.packages("ggh4x")
-}
-
 panel_labs <- tibble::tibble(
   Order.q = c(0, 1, 2),
   panel_label = c("A", "B", "C")
@@ -654,16 +565,16 @@ g_abu_all_q012 <- iNEXT::ggiNEXT(
   ggh4x::facetted_pos_scales(
     y = list(
       Order.q == 0 ~ scale_y_continuous(
-        limits = c(0, 1200),
-        breaks = seq(0, 1200, 300)
+        limits = c(0, 1005),
+        breaks = seq(0, 1000, 250)
       ),
       Order.q == 1 ~ scale_y_continuous(
-        limits = c(0, 250),
-        breaks = seq(0, 250, 50)
+        limits = c(0, 205),
+        breaks = seq(0, 200, 50)
       ),
       Order.q == 2 ~ scale_y_continuous(
-        limits = c(0, 100),
-        breaks = seq(0, 100, 20)
+        limits = c(0, 70),
+        breaks = seq(0, 60, 20)
       )
     )
   ) +
@@ -675,17 +586,26 @@ g_abu_all_q012 <- iNEXT::ggiNEXT(
     vjust = 1.4,
     family = "Times New Roman",
     fontface = "bold",
-    size = 4
+    size = 4.5
   ) +
   scale_colour_manual(
     values = all_cols,
     labels = all_name_map,
-    name = NULL
+    name = NULL,
+    guide = "none"
   ) +
   scale_fill_manual(
     values = all_cols,
     labels = all_name_map,
-    name = NULL
+    name = NULL,
+    guide = "none"
+  ) +
+  guides(
+    colour = "none",
+    color = "none",
+    fill = "none",
+    shape = "none",
+    linetype = guide_legend(title = NULL)
   ) +
   coord_cartesian(xlim = c(0, 1.01)) +
   labs(
@@ -695,7 +615,7 @@ g_abu_all_q012 <- iNEXT::ggiNEXT(
   theme_classic(base_size = 12) +
   theme(
     text = element_text(family = "Times New Roman"),
-    legend.position = "none",
+    legend.position = "bottom",
     axis.title = element_text(size = 12),
     axis.text = element_text(size = 12),
     strip.background = element_blank(),
@@ -720,7 +640,7 @@ g_abu_all_q012$layers <- lapply(g_abu_all_q012$layers, function(lyr) {
 print(g_abu_all_q012)
 
 # ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_all_q012_coverage_level095_conf095_nboot1000_knots1000_facet_nospp_man.png"),
+#   file.path(out_dir_fig, "figure_inext_abundance_all_q012_coverage_level095_conf095_nboot1000_knots1000_facet_leg_bot_nospp_man.png"),
 #   g_abu_all_q012,
 #   width = 6.5,
 #   height = 7.5,
@@ -731,10 +651,6 @@ print(g_abu_all_q012)
 #################################################
 #### PLOT: WHOLE DATASET q0, q1, q2 TOGETHER ####
 #################################################
-
-library(tidyverse)
-library(ggplot2)
-
 # Prepare plotting dataframe directly from iNEXT coverage-based output
 plot_abu_all_q012 <- out_abu_all$iNextEst$coverage_based %>%
   dplyr::mutate(
@@ -1030,6 +946,121 @@ print(g_abu_era_q0)
 #   dpi = 300
 # )
 
+
+
+#### MANUSCRIPT FIGURE S2. ####
+
+panel_labs <- tibble::tibble(
+  Order.q = c(0, 1, 2),
+  panel_label = c("A", "B", "C")
+)
+
+g_abu_era_q012 <- iNEXT::ggiNEXT(
+  out_abu_era,
+  type = 3,
+  se = TRUE,
+  facet.var = "Order.q",
+  color.var = "Assemblage"
+) +
+  facet_wrap(
+    ~ Order.q,
+    ncol = 1,
+    scales = "free_y",
+    labeller = as_labeller(c(
+      "0" = "q = 0: Species Richness",
+      "1" = "q = 1: Common Species",
+      "2" = "q = 2: Dominant Species"
+    ))
+  ) +
+  ggh4x::facetted_pos_scales(
+    y = list(
+      Order.q == 0 ~ scale_y_continuous(
+        limits = c(0, 700),
+        breaks = seq(0, 716, 100)
+      ),
+      Order.q == 1 ~ scale_y_continuous(
+        limits = c(0, 200),
+        breaks = seq(0, 200, 50)
+      ),
+      Order.q == 2 ~ scale_y_continuous(
+        limits = c(0, 100),
+        breaks = seq(0, 100, 20)
+      )
+    )
+  ) +
+  geom_text(
+    data = panel_labs,
+    aes(x = -Inf, y = Inf, label = panel_label),
+    inherit.aes = FALSE,
+    hjust = -0.6,
+    vjust = 1.4,
+    family = "Times New Roman",
+    fontface = "bold",
+    size = 4.5
+  ) +
+  scale_colour_manual(
+    values = era_cols,
+    labels = era_name_map,
+    name = "Era"
+  ) +
+  scale_fill_manual(
+    values = era_cols,
+    labels = era_name_map,
+    name = "Era"
+  ) +
+  scale_shape_manual(
+    values = c(
+      "historical" = 16,     # filled circle
+      "contemporary" = 16    # filled triangle
+    ),
+    labels = era_name_map,
+    name = "Era"
+  ) +
+  guides(
+    colour = guide_legend(title = NULL),
+    fill = "none",
+    shape = "none",
+    linetype = guide_legend(title = NULL)
+  ) +
+  coord_cartesian(xlim = c(0, 1.01)) +
+  labs(
+    x = "Sample Coverage",
+    y = "Species Diversity"
+  ) +
+  theme_classic(base_size = 12) +
+  theme(
+    text = element_text(family = "Times New Roman"),
+    legend.position = "bottom",
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 12),
+    strip.background = element_blank(),
+    strip.text = element_text(size = 12)
+  )
+
+print(g_abu_era_q012)
+
+# Thicken curves and reference points
+g_abu_era_q012$layers <- lapply(g_abu_era_q012$layers, function(lyr) {
+  if (inherits(lyr$geom, "GeomLine")) {
+    lyr$aes_params$linewidth <- 2.2
+    lyr$aes_params$alpha <- 0.9
+  }
+  if (inherits(lyr$geom, "GeomPoint")) {
+    lyr$aes_params$size <- 4
+    lyr$aes_params$shape <- 16
+  }
+  lyr
+})
+
+print(g_abu_era_q012)
+
+# ggsave(
+#   file.path(out_dir_fig, "figure_inext_abundance_q012_coverage_by_era_level095_conf095_nboot1000_knots1000_leg_bot_nospp_man.png"),
+#   g_abu_era_q012,
+#   width = 6.5,
+#   height = 7.5,
+#   dpi = 300
+# )
 
 #####################################
 #### q = 0, 1, 2 faceted figure. ####
@@ -1591,13 +1622,13 @@ g_abu_era_sea_q0$layers <- lapply(g_abu_era_sea_q0$layers, function(lyr) {
 
 print(g_abu_era_sea_q0)
 
-ggsave(
-  file.path(out_dir_fig, "figure_inext_abundance_q0_coverage_by_era_sea_leg_bot_nospp.png"),
-  g_abu_era_sea_q0,
-  width = 6.5,
-  height = 7.5,
-  dpi = 300
-)
+# ggsave(
+#   file.path(out_dir_fig, "figure_inext_abundance_q0_coverage_by_era_sea_leg_bot_nospp.png"),
+#   g_abu_era_sea_q0,
+#   width = 6.5,
+#   height = 7.5,
+#   dpi = 300
+# )
 
 
 #########################################################
@@ -1694,6 +1725,578 @@ print(g_abu_era_sea_q012)
 #   height = 7.5,
 #   dpi = 300
 # )
+
+
+#############################################
+#### MANUSCRIPT FIGURE S3.               ####
+#### PREP DATA: ERA × SEA × q0/q1/q2     ####
+#############################################
+
+plot_abu_era_sea_q012 <- out_abu_era_sea$iNextEst$coverage_based %>%
+  dplyr::mutate(
+    Order.q = as.numeric(Order.q)
+  ) %>%
+  tidyr::separate(
+    Assemblage,
+    into = c("era", "sea"),
+    sep = "_",
+    remove = FALSE
+  ) %>%
+  dplyr::mutate(
+    era = factor(era, levels = c("historical", "contemporary")),
+    sea = factor(sea, levels = c("bohol", "sulu")),
+    sea_label = dplyr::recode(
+      sea,
+      "bohol" = "Bohol Sea",
+      "sulu" = "Sulu Sea"
+    ),
+    sea_label = factor(sea_label, levels = c("Bohol Sea", "Sulu Sea")),
+    q_label = dplyr::case_when(
+      Order.q == 0 ~ "q = 0: Species Richness",
+      Order.q == 1 ~ "q = 1: Common Species",
+      Order.q == 2 ~ "q = 2: Dominant Species"
+    ),
+    q_label = factor(
+      q_label,
+      levels = c(
+        "q = 0: Species Richness",
+        "q = 1: Common Species",
+        "q = 2: Dominant Species"
+      )
+    )
+  )
+
+# Separate line/ribbon data from observed reference points
+plot_lines_era_sea_q012 <- plot_abu_era_sea_q012 %>%
+  dplyr::filter(Method %in% c("Rarefaction", "Extrapolation"))
+
+ref_abu_era_sea_q012 <- plot_abu_era_sea_q012 %>%
+  dplyr::filter(Method == "Observed")
+
+panel_labs <- tidyr::expand_grid(
+  sea_label = factor(c("Bohol Sea", "Sulu Sea"),
+                     levels = c("Bohol Sea", "Sulu Sea")),
+  q_label = factor(
+    c(
+      "q = 0: Species Richness",
+      "q = 1: Common Species",
+      "q = 2: Dominant Species"
+    ),
+    levels = c(
+      "q = 0: Species Richness",
+      "q = 1: Common Species",
+      "q = 2: Dominant Species"
+    )
+  )
+) %>%
+  dplyr::mutate(panel_label = LETTERS[dplyr::row_number()])
+
+#############################################
+#### PLOT: q0/q1/q2 BY ERA AND SEA       ####
+#############################################
+
+g_abu_era_sea_q012 <- ggplot() +
+  geom_ribbon(
+    data = plot_lines_era_sea_q012,
+    aes(
+      x = SC,
+      ymin = qD.LCL,
+      ymax = qD.UCL,
+      fill = era,
+      group = interaction(era, Method)
+    ),
+    alpha = 0.18,
+    color = NA
+  ) +
+  geom_line(
+    data = plot_lines_era_sea_q012,
+    aes(
+      x = SC,
+      y = qD,
+      color = era,
+      linetype = Method,
+      group = interaction(era, Method)
+    ),
+    linewidth = 2.2,
+    alpha = 0.90
+  ) +
+  geom_point(
+    data = ref_abu_era_sea_q012,
+    aes(
+      x = SC,
+      y = qD,
+      color = era,
+      shape = era
+    ),
+    size = 4.0
+  ) +
+  geom_text(
+    data = panel_labs,
+    aes(
+      x = -Inf,
+      y = Inf,
+      label = panel_label
+    ),
+    inherit.aes = FALSE,
+    hjust = -0.6,
+    vjust = 1.4,
+    family = "Times New Roman",
+    fontface = "bold",
+    size = 4.5
+  ) +
+  ggh4x::facet_grid2(
+    rows = vars(sea_label),
+    cols = vars(q_label),
+    scales = "free_y",
+    independent = "y"
+  ) +
+  ggh4x::facetted_pos_scales(
+    y = list(
+      q_label == "q = 0: Species Richness" ~ scale_y_continuous(
+        limits = c(0, 500),
+        breaks = seq(0, 500, 100)
+      ),
+      q_label == "q = 1: Common Species" ~ scale_y_continuous(
+        limits = c(0, 150),
+        breaks = seq(0, 150, 50)
+      ),
+      q_label == "q = 2: Dominant Species" ~ scale_y_continuous(
+        limits = c(0, 80),
+        breaks = seq(0, 80, 20)
+      )
+    )
+  ) +
+  scale_colour_manual(
+    values = era_cols,
+    labels = era_name_map,
+    name = "Era"
+  ) +
+  scale_fill_manual(
+    values = era_cols,
+    labels = era_name_map,
+    name = "Era"
+  ) +
+  scale_shape_manual(
+    values = c(
+      "historical" = 16,
+      "contemporary" = 16
+    ),
+    labels = era_name_map,
+    name = "Era"
+  ) +
+  scale_linetype_manual(
+    values = c(
+      "Rarefaction" = "solid",
+      "Extrapolation" = "dashed"
+    ),
+    breaks = c("Rarefaction", "Extrapolation"),
+    name = NULL
+  ) +
+  coord_cartesian(xlim = c(0, 1.01)) +
+  labs(
+    x = "Sample Coverage",
+    y = "Species Diversity"
+  ) +
+  guides(
+    colour = guide_legend(title = NULL),
+    fill = "none",
+    shape = "none",
+    linetype = guide_legend(title = NULL)
+  ) +
+  theme_classic(base_size = 12) +
+  theme(
+    text = element_text(family = "Times New Roman"),
+    legend.position = "bottom",
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 12),
+    strip.background = element_blank(),
+    strip.text = element_text(size = 12)
+  )
+
+print(g_abu_era_sea_q012)
+
+# ggsave(
+#   file.path(out_dir_fig, "figure_inext_abundance_q012_coverage_by_era_sea_facet_qxsea_level095_conf095_nboot1000_knots1000_leg_bot_nospp_man.png"),
+#   g_abu_era_sea_q012,
+#   width = 6.5,
+#   height = 7.5,
+#   dpi = 300
+# )
+
+
+#############################################
+#### PANEL LABELS: 3 q ROWS × 2 SEA COLS ####
+#############################################
+
+panel_labs <- tidyr::expand_grid(
+  q_label = factor(
+    c(
+      "q = 0: Species Richness",
+      "q = 1: Common Species",
+      "q = 2: Dominant Species"
+    ),
+    levels = c(
+      "q = 0: Species Richness",
+      "q = 1: Common Species",
+      "q = 2: Dominant Species"
+    )
+  ),
+  sea_label = factor(
+    c("Bohol Sea", "Sulu Sea"),
+    levels = c("Bohol Sea", "Sulu Sea")
+  )
+) %>%
+  dplyr::mutate(panel_label = LETTERS[dplyr::row_number()])
+
+
+#############################################
+#### PLOT: q ROWS × SEA COLUMNS          ####
+#############################################
+
+g_abu_era_sea_q012 <- ggplot() +
+  geom_ribbon(
+    data = plot_lines_era_sea_q012,
+    aes(
+      x = SC,
+      ymin = qD.LCL,
+      ymax = qD.UCL,
+      fill = era,
+      group = interaction(era, Method)
+    ),
+    alpha = 0.18,
+    color = NA
+  ) +
+  geom_line(
+    data = plot_lines_era_sea_q012,
+    aes(
+      x = SC,
+      y = qD,
+      color = era,
+      linetype = Method,
+      group = interaction(era, Method)
+    ),
+    linewidth = 2.2,
+    alpha = 0.90
+  ) +
+  geom_point(
+    data = ref_abu_era_sea_q012,
+    aes(
+      x = SC,
+      y = qD,
+      color = era,
+      shape = era
+    ),
+    size = 4.0
+  ) +
+  geom_text(
+    data = panel_labs,
+    aes(
+      x = -Inf,
+      y = Inf,
+      label = panel_label
+    ),
+    inherit.aes = FALSE,
+    hjust = -0.6,
+    vjust = 1.4,
+    family = "Times New Roman",
+    fontface = "bold",
+    size = 4.5
+  ) +
+  ggh4x::facet_grid2(
+    rows = vars(q_label),
+    cols = vars(sea_label),
+    scales = "free_y",
+    independent = "y",
+    switch = "y"
+  ) +
+  ggh4x::facetted_pos_scales(
+    y = list(
+      q_label == "q = 0: Species Richness" ~ scale_y_continuous(
+        limits = c(0, 500),
+        breaks = seq(0, 500, 100)
+      ),
+      q_label == "q = 1: Common Species" ~ scale_y_continuous(
+        limits = c(0, 150),
+        breaks = seq(0, 150, 50)
+      ),
+      q_label == "q = 2: Dominant Species" ~ scale_y_continuous(
+        limits = c(0, 80),
+        breaks = seq(0, 80, 20)
+      )
+    )
+  ) +
+  scale_colour_manual(
+    values = era_cols,
+    labels = era_name_map,
+    name = "Era"
+  ) +
+  scale_fill_manual(
+    values = era_cols,
+    labels = era_name_map,
+    name = "Era"
+  ) +
+  scale_shape_manual(
+    values = c(
+      "historical" = 16,
+      "contemporary" = 16
+    ),
+    labels = era_name_map,
+    name = "Era"
+  ) +
+  scale_linetype_manual(
+    values = c(
+      "Rarefaction" = "solid",
+      "Extrapolation" = "dashed"
+    ),
+    breaks = c("Rarefaction", "Extrapolation"),
+    name = NULL
+  ) +
+  coord_cartesian(xlim = c(0, 1.01)) +
+  labs(
+    x = "Sample Coverage",
+    y = "Species Diversity"
+  ) +
+  guides(
+    colour = guide_legend(title = NULL),
+    fill = "none",
+    shape = "none",
+    linetype = guide_legend(title = NULL)
+  ) +
+  theme_classic(base_size = 12) +
+  theme(
+    text = element_text(family = "Times New Roman"),
+    legend.position = "bottom",
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 12),
+    
+    # Strip formatting
+    strip.background = element_blank(),
+    strip.placement = "outside",
+    strip.text.x = element_text(size = 12, face = "bold"),
+    strip.text.y.left = element_text(size = 12, face = "bold", angle = 0),
+    
+    # Give the left q-label strips a little space
+    panel.spacing = unit(0.8, "lines")
+  )
+
+print(g_abu_era_sea_q012)
+
+# ggsave(
+#   file.path(out_dir_fig, "figure_inext_abundance_q012_coverage_by_era_sea_facet_seaxq_level095_conf095_nboot1000_knots1000_leg_bot_nospp_man.png"),
+#   g_abu_era_sea_q012,
+#   width = 6.5,
+#   height = 7.5,
+#   dpi = 300
+# )
+
+##################################################### 
+#### Figure S3. Column: Sea by Row: q ###############
+##################################################### 
+
+make_q_row_plot <- function(q_keep,
+                            q_title,
+                            y_limits,
+                            y_breaks,
+                            panel_letters = c("A", "B"),
+                            show_sea_strips = TRUE,
+                            show_x_title = FALSE,
+                            show_x_text = FALSE) {
+  
+  # subset line/ribbon data
+  plot_row <- plot_lines_era_sea_q012 %>%
+    dplyr::filter(Order.q == q_keep)
+  
+  # subset observed/reference points
+  ref_row <- ref_abu_era_sea_q012 %>%
+    dplyr::filter(Order.q == q_keep)
+  
+  # panel labels for the two sea columns
+  panel_labs_row <- tibble::tibble(
+    sea_label = factor(
+      c("Bohol Sea", "Sulu Sea"),
+      levels = c("Bohol Sea", "Sulu Sea")
+    ),
+    panel_label = panel_letters
+  )
+  
+  p <- ggplot() +
+    geom_ribbon(
+      data = plot_row,
+      aes(
+        x = SC,
+        ymin = qD.LCL,
+        ymax = qD.UCL,
+        fill = era,
+        group = interaction(era, Method)
+      ),
+      alpha = 0.18,
+      color = NA
+    ) +
+    geom_line(
+      data = plot_row,
+      aes(
+        x = SC,
+        y = qD,
+        color = era,
+        linetype = Method,
+        group = interaction(era, Method)
+      ),
+      linewidth = 2.2,
+      alpha = 0.90
+    ) +
+    geom_point(
+      data = ref_row,
+      aes(
+        x = SC,
+        y = qD,
+        color = era,
+        shape = era
+      ),
+      size = 3.5
+    ) +
+    geom_text(
+      data = panel_labs_row,
+      aes(
+        x = -Inf,
+        y = Inf,
+        label = panel_label
+      ),
+      inherit.aes = FALSE,
+      hjust = -0.6,
+      vjust = 1.4,
+      family = "Times New Roman",
+      #fontface = "bold",
+      size = 4.0
+    ) +
+    facet_grid(
+      . ~ sea_label
+    ) +
+    scale_colour_manual(
+      values = era_cols,
+      labels = era_name_map,
+      name = "Era"
+    ) +
+    scale_fill_manual(
+      values = era_cols,
+      labels = era_name_map,
+      name = "Era"
+    ) +
+    scale_shape_manual(
+      values = c(
+        "historical" = 16,
+        "contemporary" = 16
+      ),
+      labels = era_name_map,
+      name = "Era"
+    ) +
+    scale_linetype_manual(
+      values = c(
+        "Rarefaction" = "solid",
+        "Extrapolation" = "dashed"
+      ),
+      breaks = c("Rarefaction", "Extrapolation"),
+      name = NULL
+    ) +
+    coord_cartesian(xlim = c(0, 1.01)) +
+    scale_y_continuous(
+      limits = y_limits,
+      breaks = y_breaks
+    ) +
+    labs(
+      title = q_title,
+      x = if (show_x_title) "Sample Coverage" else NULL,
+      y = "Species Diversity"
+    ) +
+    guides(
+      colour = guide_legend(title = NULL),
+      fill = "none",
+      shape = "none",
+      linetype = guide_legend(title = NULL)
+    ) +
+    theme_classic(base_size = 12) +
+    theme(
+      text = element_text(family = "Times New Roman"),
+      legend.position = "bottom",
+      plot.title = element_text(
+        size = 12,
+        #face = "bold",
+        hjust = 0.5
+      ),
+      axis.title = element_text(size = 12),
+      axis.text = element_text(size = 12),
+      strip.background = element_blank(),
+      strip.text = element_text(size = 12)
+    )
+  
+  # optionally suppress sea labels on lower rows
+  if (!show_sea_strips) {
+    p <- p +
+      theme(
+        strip.text.x = element_blank(),
+        strip.background = element_blank()
+      )
+  }
+  
+  # optionally suppress x-axis text/ticks for upper rows
+  if (!show_x_text) {
+    p <- p +
+      theme(
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank()
+      )
+  }
+  
+  p
+}
+
+p_q0 <- make_q_row_plot(
+  q_keep = 0,
+  q_title = "q = 0: Species Richness",
+  y_limits = c(0, 500),
+  y_breaks = seq(0, 500, 100),
+  panel_letters = c("A", "B"),
+  show_sea_strips = FALSE,
+  show_x_title = FALSE,
+  show_x_text = FALSE
+)
+
+p_q1 <- make_q_row_plot(
+  q_keep = 1,
+  q_title = "q = 1: Common Species",
+  y_limits = c(0, 150),
+  y_breaks = seq(0, 150, 50),
+  panel_letters = c("C", "D"),
+  show_sea_strips = FALSE,
+  show_x_title = FALSE,
+  show_x_text = FALSE
+)
+
+p_q2 <- make_q_row_plot(
+  q_keep = 2,
+  q_title = "q = 2: Dominant Species",
+  y_limits = c(0, 80),
+  y_breaks = seq(0, 80, 20),
+  panel_letters = c("E", "F"),
+  show_sea_strips = FALSE,
+  show_x_title = TRUE,
+  show_x_text = TRUE
+)
+
+g_abu_era_sea_q012 <- (p_q0 / p_q1 / p_q2) +
+  plot_layout(guides = "collect") &
+  theme(
+    legend.position = "bottom"
+  )
+
+print(g_abu_era_sea_q012)
+
+ggsave(
+  file.path(out_dir_fig, "figure_inext_abundance_q012_coverage_by_era_sea_facet_noseaxq_level095_conf095_nboot1000_knots1000_leg_bot_nospp_man.png"),
+  g_abu_era_sea_q012,
+  width = 6.5,
+  height = 7.5,
+  dpi = 300
+)
 
 
 ###########################################################

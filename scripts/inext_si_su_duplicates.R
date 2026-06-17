@@ -30,7 +30,9 @@ packages_used <-
     "iNEXT",
     "ggplot2",
     "patchwork",
-    "dplyr"
+    "dplyr",
+    "ggh4x",
+    "patchwork"
   )
 
 packages_to_install <- 
@@ -45,8 +47,6 @@ lapply(packages_used,
        require, 
        character.only = TRUE)
 
-install.packages("ggplot2")
-library(ggplot2)
 
 ####################
 #### OUTPUT DIR ####
@@ -620,6 +620,119 @@ print(g_abu_all_q012)
 
 # ggsave(
 #   file.path(out_dir_fig, "figure_inext_abundance_all_q012_coverage_level095_conf095_nboot1000_knots1000_facet_man.png"),
+#   g_abu_all_q012,
+#   width = 6.5,
+#   height = 7.5,
+#   dpi = 300
+# )
+
+
+#################################################
+#### Manuscript Figure 2. Coverage-based SAC Pooled Assemblage ####
+#### PLOT: WHOLE DATASET q0, q1, q2 FACETED  ####
+#### Manual y-axis scale for each Hill number ####
+#################################################
+panel_labs <- tibble::tibble(
+  Order.q = c(0, 1, 2),
+  panel_label = c("A", "B", "C")
+)
+
+g_abu_all_q012 <- iNEXT::ggiNEXT(
+  out_abu_all,
+  type = 3,
+  se = TRUE,
+  facet.var = "Order.q",
+  color.var = "Assemblage"
+) +
+  facet_wrap(
+    ~ Order.q,
+    ncol = 1,
+    scales = "free_y",
+    labeller = as_labeller(c(
+      "0" = "q = 0: Species Richness",
+      "1" = "q = 1: Common Species",
+      "2" = "q = 2: Dominant Species"
+    ))
+  ) +
+  ggh4x::facetted_pos_scales(
+    y = list(
+      Order.q == 0 ~ scale_y_continuous(
+        limits = c(0, 1005),
+        breaks = seq(0, 1000, 250)
+      ),
+      Order.q == 1 ~ scale_y_continuous(
+        limits = c(0, 205),
+        breaks = seq(0, 200, 50)
+      ),
+      Order.q == 2 ~ scale_y_continuous(
+        limits = c(0, 70),
+        breaks = seq(0, 60, 20)
+      )
+    )
+  ) +
+  geom_text(
+    data = panel_labs,
+    aes(x = -Inf, y = Inf, label = panel_label),
+    inherit.aes = FALSE,
+    hjust = -0.6,
+    vjust = 1.4,
+    family = "Times New Roman",
+    fontface = "bold",
+    size = 4.5
+  ) +
+  scale_colour_manual(
+    values = all_cols,
+    labels = all_name_map,
+    name = NULL,
+    guide = "none"
+  ) +
+  scale_fill_manual(
+    values = all_cols,
+    labels = all_name_map,
+    name = NULL,
+    guide = "none"
+  ) +
+  guides(
+    colour = "none",
+    color = "none",
+    fill = "none",
+    shape = "none",
+    linetype = guide_legend(title = NULL)
+  ) +
+  coord_cartesian(xlim = c(0, 1.01)) +
+  labs(
+    x = "Sample Coverage",
+    y = "Species Diversity"
+  ) +
+  theme_classic(base_size = 12) +
+  theme(
+    text = element_text(family = "Times New Roman"),
+    legend.position = "bottom",
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 12),
+    strip.background = element_blank(),
+    strip.text = element_text(size = 12)
+  )
+
+print(g_abu_all_q012)
+
+# Thicken curves and reference points
+g_abu_all_q012$layers <- lapply(g_abu_all_q012$layers, function(lyr) {
+  if (inherits(lyr$geom, "GeomLine")) {
+    lyr$aes_params$linewidth <- 2.2
+    lyr$aes_params$alpha <- 0.9
+  }
+  if (inherits(lyr$geom, "GeomPoint")) {
+    lyr$aes_params$size <- 4
+    lyr$aes_params$shape <- 16
+  }
+  lyr
+})
+
+print(g_abu_all_q012)
+
+# ggsave(
+#   file.path(out_dir_fig, "figure_inext_abundance_all_q012_coverage_level095_conf095_nboot1000_knots1000_facet_leg_bot_man.png"),
 #   g_abu_all_q012,
 #   width = 6.5,
 #   height = 7.5,
