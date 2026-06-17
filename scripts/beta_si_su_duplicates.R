@@ -308,11 +308,12 @@ adonis_era_sea_depth <- vegan::adonis2(
 
 adonis_era_sea_depth
 
-readr::write_csv(
-  as.data.frame(adonis_era_sea_depth) %>%
-    tibble::rownames_to_column("term"),
-  file.path(out_dir_tab, "table_adonis_bray_sqrt_era_sea_depth.csv")
-)
+# Save Table
+# readr::write_csv(
+#   as.data.frame(adonis_era_sea_depth) %>%
+#     tibble::rownames_to_column("term"),
+#   file.path(out_dir_tab, "table_adonis_bray_sqrt_era_sea_depth.csv")
+# )
 
 
 # Marginal tests: evaluates each term after accounting for all others.
@@ -325,6 +326,7 @@ adonis_era_sea_depth_margin <- vegan::adonis2(
 
 adonis_era_sea_depth_margin
 
+# Save Table
 # readr::write_csv(
 #   as.data.frame(adonis_era_sea_depth_margin) %>%
 #     tibble::rownames_to_column("term"),
@@ -333,7 +335,7 @@ adonis_era_sea_depth_margin
 
 
 ##################################################
-#### TEMPORAL CHANGE WITHIN BOHOL AND SULU     ####
+#### TEMPORAL CHANGE WITHIN BOHOL AND SULU    ####
 ##################################################
 
 adonis_by_sea <- purrr::map_dfr(levels(design$sea), function(sea_i) {
@@ -357,6 +359,7 @@ adonis_by_sea <- purrr::map_dfr(levels(design$sea), function(sea_i) {
 
 adonis_by_sea
 
+# Save Table
 # readr::write_csv(
 #   adonis_by_sea,
 #   file.path(out_dir_tab, "table_adonis_bray_sqrt_era_depth_by_sea.csv")
@@ -398,15 +401,16 @@ disp_df <- tibble::tibble(
   distance_to_centroid_era_sea = bd_era_sea$distances
 )
 
+# Save Table
 # readr::write_csv(
 #   disp_df,
 #   file.path(out_dir_tab, "table_betadisper_distances_to_centroid.csv")
 # )
 
 
-########################
+#########################
 #### NMDS ORDINATION ####
-########################
+#########################
 
 set.seed(123)
 
@@ -420,7 +424,18 @@ nmds_bray_sqrt <- vegan::metaMDS(
 )
 
 nmds_bray_sqrt
-stressplot(nmds_bray_sqrt)
+
+g_nmds_stressplot <- stressplot(nmds_bray_sqrt)
+
+print(g_nmds_stressplot)
+
+ggsave(
+  file.path(out_dir_fig, "figure_nmds_bray_sqrt_stressplot.png"),
+  g_nmds_stressplot,
+  width = 6.5,
+  height = 7.5,
+  dpi = 300
+)
 
 nmds_scores <- vegan::scores(nmds_bray_sqrt, display = "sites") %>%
   as.data.frame() %>%
@@ -451,19 +466,19 @@ g_nmds_era_sea <- ggplot(
     size = 4,
     alpha = 0.85
   ) +
-  stat_ellipse(
-    aes(color = era, group = interaction(era, sea)),
-    linewidth = 0.8,
-    linetype = "dashed",
-    level = 0.68,
-    show.legend = FALSE
-  ) +
-  # facet_wrap(~ sea_label) +
-  # scale_color_manual(
-  #   values = era_cols,
-  #   labels = era_name_map,
-  #   name = "Era"
+  # stat_ellipse(
+  #   aes(color = era, group = interaction(era, sea)),
+  #   linewidth = 0.8,
+  #   linetype = "dashed",
+  #   level = 0.68,
+  #   show.legend = FALSE
   # ) +
+  facet_wrap(~ sea_label) +
+  scale_color_manual(
+    values = era_cols,
+    labels = era_name_map,
+    name = "Era"
+  ) +
   scale_shape_manual(
     values = c(
       "bohol" = 16,
@@ -476,25 +491,33 @@ g_nmds_era_sea <- ggplot(
     x = "NMDS1",
     y = "NMDS2"
   ) +
-  theme_classic(base_size = 18) +
+  scale_y_continuous(
+    limits = c(-1.75, 1.75),
+    breaks = c(-1, 0, 1)
+  ) +
+  scale_x_continuous(
+    limits = c(-1.75, 1.75),
+    breaks = c(-1, 0, 1)
+  ) +
+  theme_classic(base_size = 12) +
   theme(
     text = element_text(family = "Times New Roman"),
-    legend.position = "top",
-    axis.title = element_text(size = 18),
-    axis.text = element_text(size = 16),
+    legend.position = "bottom",
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 12),
     strip.background = element_blank(),
-    strip.text = element_text(size = 16)
+    strip.text = element_text(size = 12)
   )
 
 print(g_nmds_era_sea)
 
-ggsave(
-  file.path(out_dir_fig, "figure_nmds_bray_sqrt_era_by_sea.png"),
-  g_nmds_era_sea,
-  width = 5.5,
-  height = 7.5,
-  dpi = 300
-)
+# ggsave(
+#   file.path(out_dir_fig, "figure_nmds_bray_sqrt_era_by_sea_facet_sea_leg_bot_man.png"),
+#   g_nmds_era_sea,
+#   width = 6.5,
+#   height = 7.5,
+#   dpi = 300
+# )
 
 
 ############################################################
@@ -695,9 +718,9 @@ site_scores_dbrda <- vegan::scores(
 head(site_scores_dbrda)
 
 
-##################################
+#####################################
 #### EXTRACT dbRDA BIPLOT SCORES ####
-##################################
+#####################################
 
 bp_scores_raw <- vegan::scores(
   mod_dbrda_full,
@@ -772,20 +795,20 @@ g_dbrda_era_sea <- ggplot(
   site_scores_dbrda,
   aes(x = dbRDA1, y = dbRDA2)
 ) +
-  geom_hline(yintercept = 0, linewidth = 0.3, linetype = "dashed", color = "grey60") +
-  geom_vline(xintercept = 0, linewidth = 0.3, linetype = "dashed", color = "grey60") +
+  #geom_hline(yintercept = 0, linewidth = 0.3, linetype = "dashed", color = "grey60") +
+  #geom_vline(xintercept = 0, linewidth = 0.3, linetype = "dashed", color = "grey60") +
   geom_point(
     aes(color = era, shape = sea),
     size = 4,
     alpha = 0.85
   ) +
-  stat_ellipse(
-    aes(color = era, group = interaction(era, sea)),
-    linewidth = 0.8,
-    linetype = "dashed",
-    level = 0.68,
-    show.legend = FALSE
-  ) +
+  # stat_ellipse(
+  #   aes(color = era, group = interaction(era, sea)),
+  #   linewidth = 0.8,
+  #   linetype = "dashed",
+  #   level = 0.68,
+  #   show.legend = FALSE
+  # ) +
   scale_color_manual(
     values = era_cols,
     labels = era_name_map,
@@ -803,23 +826,32 @@ g_dbrda_era_sea <- ggplot(
     x = x_lab,
     y = y_lab
   ) +
-  theme_classic(base_size = 18) +
+  scale_y_continuous(
+    limits = c(-2, 2),
+    breaks = seq(-2, 2, 1)
+  ) +
+  scale_x_continuous(
+    limits = c(-2, 2),
+    breaks = seq(-2, 2, 1)
+  ) +
+  theme_classic(base_size = 12) +
   theme(
     text = element_text(family = "Times New Roman"),
-    legend.position = "top",
-    axis.title = element_text(size = 18),
-    axis.text = element_text(size = 16)
+    legend.position = "bottom",
+    strip.background = element_blank(),
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 12)
   )
 
 print(g_dbrda_era_sea)
 
-ggsave(
-  file.path(out_dir_fig, "figure_dbrda_bray_sqrt_era_sea.png"),
-  g_dbrda_era_sea,
-  width = 6,
-  height = 7.5,
-  dpi = 300
-)
+# ggsave(
+#   file.path(out_dir_fig, "figure_dbrda_bray_sqrt_era_sea_leg_bot_man.png"),
+#   g_dbrda_era_sea,
+#   width = 6.5,
+#   height = 7.5,
+#   dpi = 300
+# )
 
 
 ##################################
@@ -832,20 +864,28 @@ arrow_mult <- 1.2 * min(
   diff(range(site_scores_dbrda$dbRDA2, na.rm = TRUE)) / diff(range(bp_scores_dbrda$dbRDA2, na.rm = TRUE))
 )
 
-bp_scores_plot <- bp_scores_dbrda %>%
+# bp_scores_plot <- bp_scores_dbrda %>%
+#   dplyr::mutate(
+#     dbRDA1_arrow = dbRDA1 * arrow_mult,
+#     dbRDA2_arrow = dbRDA2 * arrow_mult
+#   )
+
+bp_scores_depth_plot <- bp_scores_dbrda %>%
+  dplyr::filter(variable == "depth_scaled") %>%
   dplyr::mutate(
-    dbRDA1_arrow = dbRDA1 * arrow_mult,
-    dbRDA2_arrow = dbRDA2 * arrow_mult
+    variable_label = "Depth",
+    # dbRDA1_arrow = dbRDA1 * arrow_mult,
+    # dbRDA2_arrow = dbRDA2 * arrow_mult
   )
 
-g_dbrda_era_sea_depth <- g_dbrda_era_sea +
+g_dbrda_era_sea_vector_all <- g_dbrda_era_sea +
   geom_segment(
-    data = bp_scores_plot,
+    data = bp_scores_dbrda,
     aes(
       x = 0,
       y = 0,
-      xend = dbRDA1_arrow,
-      yend = dbRDA2_arrow
+      xend = dbRDA1,
+      yend = dbRDA2
     ),
     inherit.aes = FALSE,
     arrow = arrow(length = unit(0.25, "cm")),
@@ -853,104 +893,67 @@ g_dbrda_era_sea_depth <- g_dbrda_era_sea +
     color = "black"
   ) +
   geom_text(
-    data = bp_scores_depth,
+    data = bp_scores_dbrda,
     aes(
-      x = dbRDA1_arrow,
-      y = dbRDA2_arrow,
-      label = variable
+      x = dbRDA1,
+      y = dbRDA2,
+      label = variable_label
     ),
     inherit.aes = FALSE,
     family = "Times New Roman",
-    size = 5,
+    size = 4.5,
     hjust = 0.5,
     vjust = -0.6
   )
 
-print(g_dbrda_era_sea_depth)
+print(g_dbrda_era_sea_vector_all)
 
-ggsave(
-  file.path(out_dir_fig, "figure_dbrda_bray_sqrt_era_sea_depth_vector.png"),
-  g_dbrda_era_sea_depth,
-  width = 8,
-  height = 6.5,
-  dpi = 300
-)
+# ggsave(
+#   file.path(out_dir_fig, "figure_dbrda_bray_sqrt_era_sea_leg_bot_all_vector_man.png"),
+#   g_dbrda_era_sea_vector_all,
+#   width = 6.5,
+#   height = 7.5,
+#   dpi = 300
+# )
 
-
-
-
-
-
-###########################################
-#### dbRDA DEPTH VECTOR ONLY           ####
-###########################################
-
-# Keep only the depth vector
-bp_scores_depth_plot <- bp_scores_dbrda %>%
-  dplyr::filter(variable == "depth_scaled") %>%
-  dplyr::mutate(
-    variable_label = "Depth"
-  )
-
-# Calculate arrow multiplier based on the site-score space
-site_x_range <- diff(range(site_scores_dbrda$dbRDA1, na.rm = TRUE))
-site_y_range <- diff(range(site_scores_dbrda$dbRDA2, na.rm = TRUE))
-site_range <- min(site_x_range, site_y_range)
-
-depth_vec_len <- sqrt(
-  bp_scores_depth_plot$dbRDA1^2 +
-    bp_scores_depth_plot$dbRDA2^2
-)
-
-arrow_mult <- 0.35 * site_range / depth_vec_len
-
-# Add scaled arrow coordinates
-bp_scores_depth_plot <- bp_scores_depth_plot %>%
-  dplyr::mutate(
-    dbRDA1_arrow = dbRDA1 * arrow_mult,
-    dbRDA2_arrow = dbRDA2 * arrow_mult
-  )
-
-bp_scores_depth_plot
-
-g_dbrda_era_sea_depth <- g_dbrda_era_sea +
+#### DEPTH ONLY 
+g_dbrda_era_sea_vector_depth <- g_dbrda_era_sea +
   geom_segment(
     data = bp_scores_depth_plot,
     aes(
       x = 0,
       y = 0,
-      xend = dbRDA1_arrow,
-      yend = dbRDA2_arrow
+      xend = dbRDA1,
+      yend = dbRDA2
     ),
     inherit.aes = FALSE,
-    arrow = arrow(length = grid::unit(0.25, "cm")),
-    linewidth = 0.9,
+    arrow = arrow(length = unit(0.25, "cm")),
+    linewidth = 0.8,
     color = "black"
   ) +
   geom_text(
-    data = bp_scores_depth_plot,
+    data = bp_scores_ddepth_plot,
     aes(
-      x = dbRDA1_arrow,
-      y = dbRDA2_arrow,
+      x = dbRDA1,
+      y = dbRDA2,
       label = variable_label
     ),
     inherit.aes = FALSE,
     family = "Times New Roman",
-    size = 5,
-    hjust = -0.1,
-    vjust = -0.5
+    size = 4.5,
+    hjust = 0.5,
+    vjust = -0.6
   )
 
-print(g_dbrda_era_sea_depth)
+print(g_dbrda_era_sea_vector_depth)
 
-ggsave(
-  file.path(out_dir_fig, "figure_dbrda_bray_sqrt_era_sea_depth_vector.png"),
-  g_dbrda_era_sea_depth,
-  width = 6,
-  height = 7.5,
-  dpi = 300
-)
-
+# ggsave(
+#   file.path(out_dir_fig, "figure_dbrda_bray_sqrt_era_sea_leg_bot_depth_vector_man.png"),
+#   g_dbrda_era_sea_vector_depth,
+#   width = 6.5,
+#   height = 7.5,
+#   dpi = 300
+# )
 
 
 ################################################
@@ -1022,57 +1025,300 @@ dbrda_by_sea_r2 <- purrr::map_dfr(dbrda_by_sea, function(x) {
 # )
 
 
+##############################################
+#### NMDS ENVFIT: DEPTH ENVIRONMENTAL FIT ####
+##############################################
 
-########################################################
-#### OPTIONAL: PARTIAL dbRDA WITH STATION PAIR       ####
-########################################################
+# Make sure metadata are aligned with NMDS scores
+design_env <- nmds_scores %>%
+  dplyr::mutate(
+    era = factor(era, levels = c("historical", "contemporary")),
+    sea = factor(sea, levels = c("bohol", "sulu")),
+    era_sea = interaction(era, sea, sep = "_", drop = TRUE),
+    depth_m = as.numeric(depth_m),
+    depth_scaled = as.numeric(scale(depth_m))
+  )
 
-if ("station_pair" %in% names(design_dbrda)) {
+# Check grouping
+dplyr::count(design_env, era, sea, era_sea)
+
+
+set.seed(123)
+
+envfit_depth_era_sea <- vegan::envfit(
+  nmds_bray_sqrt ~ depth_scaled,
+  data = design_env,
+  permutations = 9999,
+  strata = design_env$era_sea,
+  na.rm = TRUE
+)
+
+envfit_depth_era_sea
+
+#############################################
+#### EXTRACT ENVFIT DEPTH RESULTS TABLE  ####
+#############################################
+
+# Get variable names from the vector scores, not from names(pvals)
+envfit_vec_names <- rownames(envfit_depth_era_sea$vectors$arrows)
+
+envfit_depth_tbl <- tibble::tibble(
+  variable = envfit_vec_names,
+  R2 = as.numeric(envfit_depth_era_sea$vectors$r),
+  p_value = as.numeric(envfit_depth_era_sea$vectors$pvals)
+) %>%
+  dplyr::mutate(
+    variable_label = dplyr::recode(
+      .data$variable,
+      "depth_scaled" = "Depth",
+      .default = .data$variable
+    ),
+    significant = p_value <= 0.05
+  )
+
+envfit_depth_tbl
+
+# Save Table
+# write_csv(
+#   envfit_depth_tbl,
+#   file.path(out_dir_tab, "nmds_envfit_depth_era_sea_restricted.csv")
+# )
+
+################################################
+#### EXTRACT ENVFIT VECTOR COORDS W/ FACET  ####
+################################################
+
+envfit_depth_scores <- vegan::scores(
+  envfit_depth_era_sea,
+  display = "vectors"
+) %>%
+  as.data.frame() %>%
+  tibble::rownames_to_column("variable") %>%
+  dplyr::left_join(envfit_depth_tbl, by = "variable") %>%
+  dplyr::filter(significant)
+
+envfit_depth_scores
+
+
+# Scale arrow to fit within your current NMDS limits
+nmds_xlim <- c(-1.75, 1.75)
+nmds_ylim <- c(-1.75, 1.75)
+
+if (nrow(envfit_depth_scores) > 0) {
   
-  design_pair <- design_dbrda %>%
-    dplyr::filter(!is.na(station_pair)) %>%
-    droplevels()
-  
-  X_pair <- X_dbrda[design_pair$station_code, , drop = FALSE]
-  X_pair <- X_pair[, colSums(X_pair, na.rm = TRUE) > 0, drop = FALSE]
-  
-  mod_dbrda_pair <- vegan::dbrda(
-    X_pair ~ era + depth_scaled + Condition(station_pair),
-    data = design_pair,
-    distance = "bray",
-    sqrt.dist = TRUE
+  arrow_mult_nmds <- 0.75 * min(
+    max(abs(nmds_xlim)) / max(abs(envfit_depth_scores$NMDS1), na.rm = TRUE),
+    max(abs(nmds_ylim)) / max(abs(envfit_depth_scores$NMDS2), na.rm = TRUE)
   )
   
-  anova_dbrda_pair_terms <- anova(
-    mod_dbrda_pair,
-    by = "terms",
-    permutations = 9999
+  envfit_depth_plot <- envfit_depth_scores %>%
+    dplyr::mutate(
+      NMDS1_arrow = NMDS1 * arrow_mult_nmds,
+      NMDS2_arrow = NMDS2 * arrow_mult_nmds
+    )
+  
+  # Repeat the same overall envfit vector in each sea facet
+  envfit_depth_plot_facet <- tidyr::crossing(
+    sea_label = unique(nmds_scores$sea_label),
+    envfit_depth_plot
   )
   
-  anova_dbrda_pair_margin <- anova(
-    mod_dbrda_pair,
-    by = "margin",
-    permutations = 9999
+  g_nmds_era_sea_envfit_facet <- g_nmds_era_sea +
+    geom_segment(
+      data = envfit_depth_plot_facet,
+      aes(
+        x = 0,
+        y = 0,
+        xend = NMDS1_arrow,
+        yend = NMDS2_arrow
+      ),
+      inherit.aes = FALSE,
+      arrow = grid::arrow(length = grid::unit(0.25, "cm")),
+      linewidth = 0.9,
+      color = "black"
+    ) +
+    geom_text(
+      data = envfit_depth_plot_facet,
+      aes(
+        x = NMDS1_arrow,
+        y = NMDS2_arrow,
+        label = variable_label
+      ),
+      inherit.aes = FALSE,
+      family = "Times New Roman",
+      size = 4.5,
+      hjust = 0.5,
+      vjust = -0.9,
+      color = "black"
+    )
+  
+  print(g_nmds_era_sea_envfit_facet)
+}
+
+# ggsave(
+#   file.path(out_dir_fig, "figure_nmds_bray_sqrt_era_by_sea_facet_sea_vector_depth_leg_bot_man.png"),
+#   g_nmds_era_sea_envfit_facet,
+#   width = 6.5,
+#   height = 7.5,
+#   dpi = 300
+# )
+
+
+##############################
+#### NMDS PLOT, NO FACET  ####
+##############################
+
+g_nmds_era_sea_envfit <- ggplot(
+  nmds_scores,
+  aes(x = NMDS1, y = NMDS2)
+) +
+  geom_point(
+    aes(color = era, shape = sea),
+    size = 4,
+    alpha = 0.85
+  ) +
+  geom_segment(
+    data = envfit_depth_plot,
+    aes(
+      x = 0,
+      y = 0,
+      xend = NMDS1_arrow,
+      yend = NMDS2_arrow
+    ),
+    inherit.aes = FALSE,
+    arrow = grid::arrow(length = grid::unit(0.25, "cm")),
+    linewidth = 0.9,
+    color = "black"
+  ) +
+  geom_text(
+    data = envfit_depth_plot,
+    aes(
+      x = NMDS1_arrow,
+      y = NMDS2_arrow,
+      label = variable_label
+    ),
+    inherit.aes = FALSE,
+    family = "Times New Roman",
+    size = 5,
+    hjust = 0.5,
+    vjust = -0.9,
+    color = "black"
+  ) +
+  scale_color_manual(
+    values = era_cols,
+    labels = era_name_map,
+    name = "Era"
+  ) +
+  scale_shape_manual(
+    values = c(
+      "bohol" = 16,
+      "sulu" = 17
+    ),
+    labels = sea_name_map,
+    name = "Sea"
+  ) +
+  coord_cartesian(
+    xlim = nmds_xlim,
+    ylim = nmds_ylim,
+    clip = "off"
+  ) +
+  scale_x_continuous(
+    breaks = c(-1, 0, 1)
+  ) +
+  scale_y_continuous(
+    breaks = c(-1, 0, 1)
+  ) +
+  labs(
+    x = "NMDS1",
+    y = "NMDS2"
+  ) +
+  theme_classic(base_size = 12) +
+  theme(
+    text = element_text(family = "Times New Roman"),
+    legend.position = "bottom",
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 12),
+    plot.margin = margin(5.5, 20, 5.5, 5.5)
   )
-  
-  anova_dbrda_pair_terms
-  anova_dbrda_pair_margin
-  
-  write_anova_table(
-    anova_dbrda_pair_terms,
-    file.path(out_dir_tab, "table_dbrda_bray_sqrt_partial_station_pair_terms.csv")
-  )
-  
-  write_anova_table(
-    anova_dbrda_pair_margin,
-    file.path(out_dir_tab, "table_dbrda_bray_sqrt_partial_station_pair_margin.csv")
+
+print(g_nmds_era_sea_envfit)
+
+# ggsave(
+#   file.path(out_dir_fig, "figure_nmds_bray_sqrt_era_by_sea_vector_depth_leg_bot_man.png"),
+#   g_nmds_era_sea_envfit,
+#   width = 6.5,
+#   height = 7.5,
+#   dpi = 300
+# )
+
+
+
+#########################################
+#### SENSITIVITY ENVFIT TESTS        ####
+#########################################
+
+set.seed(123)
+
+# 1. Unrestricted: descriptive, but can be confounded by sea/era
+envfit_depth_unrestricted <- vegan::envfit(
+  nmds_bray_sqrt ~ depth_scaled,
+  data = design_env,
+  permutations = 9999,
+  na.rm = TRUE
+)
+
+# 2. Sea-restricted: controls broad sea differences
+envfit_depth_sea_restricted <- vegan::envfit(
+  nmds_bray_sqrt ~ depth_scaled,
+  data = design_env,
+  permutations = 9999,
+  strata = design_env$sea,
+  na.rm = TRUE
+)
+
+# 3. Era × sea restricted: most conservative for this design
+envfit_depth_era_sea <- vegan::envfit(
+  nmds_bray_sqrt ~ depth_scaled,
+  data = design_env,
+  permutations = 9999,
+  strata = design_env$era_sea,
+  na.rm = TRUE
+)
+
+extract_envfit_vector <- function(fit, model_name) {
+ tibble::tibble(
+    model = model_name,
+    variable = rownames(fit$vectors$arrows),
+    R2 = as.numeric(fit$vectors$r),
+    p_value = as.numeric(fit$vectors$pvals)
   )
 }
 
+envfit_depth_compare <- dplyr::bind_rows(
+  extract_envfit_vector(envfit_depth_unrestricted, "Unrestricted"),
+  extract_envfit_vector(envfit_depth_sea_restricted, "Restricted within sea"),
+  extract_envfit_vector(envfit_depth_era_sea, "Restricted within era × sea")
+) %>%
+  dplyr::mutate(
+    variable_label = dplyr::recode(
+      variable,
+      "depth_scaled" = "Depth",
+      .default = variable
+    )
+  )
 
-######################################
+envfit_depth_compare
+
+# Save Table
+# write_csv(
+#   envfit_depth_compare,
+#   file.path(out_dir_tab, "nmds_envfit_depth_sensitivity.csv")
+# )
+
+
+#######################################
 #### PREPARE ENVIRONMENTAL FITTING ####
-######################################
+#######################################
 
 design_env <- design %>%
   dplyr::mutate(
@@ -1091,21 +1337,18 @@ dplyr::count(design_env, sea, municipality, era)
 dplyr::count(design_env, municipality, sea)
 
 
-##############################################
+###############################################
 #### ENVFIT: DEPTH AND SPATIAL FACTORS     ####
-##############################################
+###############################################
 
 set.seed(123)
 
 envfit_all <- vegan::envfit(
-  nmds_bray_sqrt ~ depth_scaled + era + sea + municipality,
+  nmds_bray_sqrt ~ depth_scaled + era + sea,
   data = design_env,
-  permutations = 9999,
+  permutations = 10000,
   na.rm = TRUE
 )
-
-envfit_all
-
 
 envfit_depth <- vegan::envfit(
   nmds_bray_sqrt ~ depth_scaled,
@@ -1141,9 +1384,9 @@ envfit_sea
 envfit_era
 
 
-#################################
+###################################
 #### SAVE ENVFIT RESULT TABLES ####
-#################################
+###################################
 
 # Continuous vector results, such as depth
 envfit_vectors_tbl <- tibble::tibble(
@@ -1210,9 +1453,9 @@ depth_vec_plot <- depth_vec %>%
 depth_vec_plot
 
 
-########################################
+#########################################
 #### EXTRACT MUNICIPALITY CENTROIDS  ####
-########################################
+#########################################
 
 municipality_centroids <- vegan::scores(
   envfit_all,
@@ -2125,19 +2368,19 @@ plot(bd_area)        # optional: distances-to-centroid by area bin
 D_all_e   <- hell_sub(idx_all)
 ad_global_e <- adonis2(D_all_e ~ year * site, data = design, permutations = 9999, by = "margin")
 # readr::write_csv(tidy_adonis(ad_global_e, "Hellinger (Euclidean) √density: year * site"),
-                 # "../data/vegan_results/vegan_step2_beta/table_hell_permanova_global_year_by_site.csv")
+# "../data/vegan_results/vegan_step2_beta/table_hell_permanova_global_year_by_site.csv")
 
 # Model: distance ~ year * site  + log(area_m2_hab_reef) (Bray on √density)
 ad_global_e_log_reef_area <- adonis2(D_all_e ~ year * site + log(area_m2_hab_reef), data = design, permutations = 9999, by = "margin")
 # readr::write_csv(tidy_adonis(ad_global_e_log_reef_area, "Hellinger (Euclidean) √density: year * site + log(area_m2_hab_reef"),
-                 # "../data/vegan_results/vegan_step2_beta/table_hell_permanova_global_year_by_site_log_area_reef.csv")
+# "../data/vegan_results/vegan_step2_beta/table_hell_permanova_global_year_by_site_log_area_reef.csv")
 
 # Dispersion checks that correspond to the factors:
 # (i) Dispersion by site (all years pooled)
 bd_site_e <- betadisper(D_all_e, group = design$site)
 pt_site_e <- permutest(bd_site_e, permutations = 9999)
 # readr::write_csv(tidy_permutest(pt_site_e, "PERMDISP Hellinger (by site, pooled years)", 9999),
-                 # "../data/vegan_results/vegan_step2_beta/table_hell_permdisp_by_site_pooled.csv")
+# "../data/vegan_results/vegan_step2_beta/table_hell_permdisp_by_site_pooled.csv")
 
 # (ii) Dispersion by year (all sites pooled)
 bd_year_e <- betadisper(D_all_e, group = design$year)
@@ -2224,7 +2467,7 @@ within_site_unpaired <- purrr::map_dfr(levels(design$site), function(s) {
 if (nrow(within_site_unpaired)) {
   within_site_unpaired <- within_site_unpaired %>%
     dplyr::mutate(p_adj_BH = p.adjust(p, method = "BH"),
-           site_pretty = recode(site, !!!site_name_map)) %>%
+                  site_pretty = recode(site, !!!site_name_map)) %>%
     relocate(site_pretty, .after = site)
   readr::write_csv(within_site_unpaired,
                    "../data/vegan_results/vegan_step2_beta/table_hell_permanova_year_within_site.csv")
