@@ -79,24 +79,24 @@ era_name_map <- c(
 
 # Community matrix (samples × species)
 # No species complexes for those identified to only the genus or family level
-data_vegan <- read_csv(
+data_vegan_nospp <- read_csv(
   "../data/si_su_duplicates/data_vegan_si_su_duplicates_community_matrix_nospp.csv"
 ) %>%
   column_to_rownames("station_code")
 
 # Environmental metadata. Keep station_code as a column not rownames.
-data_vegan.env <- read_csv(
+data_vegan_nospp.env <- read_csv(
   "../data/si_su_duplicates/data_vegan_si_su_duplicates_metadata.csv"
 )
 
 # check that the rows are aligned by station_code
-identical(rownames(data_vegan), data_vegan.env$station_code)
+identical(rownames(data_vegan_nospp), data_vegan_nospp.env$station_code)
 
 
 ################
 #### DESIGN ####
 ################
-data_vegan.env <- data_vegan.env %>%
+data_vegan_nospp.env <- data_vegan_nospp.env %>%
   dplyr::mutate(
     era  = recode(study, 
                   "si_1978" = "historical", 
@@ -109,17 +109,17 @@ data_vegan.env <- data_vegan.env %>%
 sea_name_map <- c(bohol = "Bohol", sulu = "Sulu")
 era_name_map <- c(historical = "Historical", contemporary = "Contemporary")
 
-# If station_code is still a column in data_vegan, move it to rownames.
-if ("station_code" %in% names(data_vegan)) {
-  X_counts <- data_vegan %>%
+# If station_code is still a column in data_vegan_nospp, move it to rownames.
+if ("station_code" %in% names(data_vegan_nospp)) {
+  X_counts <- data_vegan_nospp %>%
     tibble::column_to_rownames("station_code") %>%
     as.data.frame()
 } else {
-  X_counts <- as.data.frame(data_vegan)
+  X_counts <- as.data.frame(data_vegan_nospp)
 }
 
 # Standardize metadata.
-design <- data_vegan.env %>%
+design <- data_vegan_nospp.env %>%
   dplyr::mutate(
     era = tolower(as.character(era)),
     era = factor(era, levels = c("historical", "contemporary")),
@@ -131,7 +131,7 @@ if (!all(design$station_code %in% rownames(X_counts))) {
   if (nrow(X_counts) == nrow(design)) {
     rownames(X_counts) <- design$station_code
   } else {
-    stop("data_vegan rows cannot be matched to data_vegan.env$station_code.")
+    stop("data_vegan_nospp rows cannot be matched to data_vegan_nospp.env$station_code.")
   }
 }
 
@@ -146,25 +146,25 @@ non_numeric_cols <- names(X_counts)[!vapply(X_counts, is.numeric, logical(1))]
 
 if (length(non_numeric_cols) > 0) {
   stop(
-    "These columns in data_vegan are not numeric species-count columns: ",
+    "These columns in data_vegan_nospp are not numeric species-count columns: ",
     paste(non_numeric_cols, collapse = ", ")
   )
 }
 
 # Check for missing or invalid era values.
 if (any(is.na(design$era))) {
-  stop("Some rows in data_vegan.env have missing or non-standard era values.")
+  stop("Some rows in data_vegan_nospp.env have missing or non-standard era values.")
 }
 
 # Check that abundance data are non-negative.
 if (any(as.matrix(X_counts) < 0, na.rm = TRUE)) {
-  stop("Negative abundance values detected in data_vegan.")
+  stop("Negative abundance values detected in data_vegan_nospp.")
 }
 
 # Optional warning if counts are not integers.
 if (any(abs(as.matrix(X_counts) - round(as.matrix(X_counts))) > 1e-8, na.rm = TRUE)) {
   warning(
-    "Some values in data_vegan are not integers. ",
+    "Some values in data_vegan_nospp are not integers. ",
     "For iNEXT datatype = 'abundance', use raw individual counts, not densities."
   )
 }
@@ -244,36 +244,36 @@ filter_iNEXT_q <- function(out, q_keep = 0) {
 #####################################################
 
 # This treats the full ichthyocide survey as one pooled assemblage.
-abund_all <- make_abund_vector(X_counts)
+abund_all_nospp <- make_abund_vector(X_counts)
 
-inext_abu_all <- list(
-  "all" = abund_all
+inext_abu_all_nospp <- list(
+  "all" = abund_all_nospp
 )
 
 # Basic observed data summary: species and individuals.
-summ_abu_all <- summarize_abund_list(inext_abu_all) %>%
+summ_abu_all_nospp <- summarize_abund_list(inext_abu_all_nospp) %>%
   dplyr::mutate(
     n_stations = nrow(X_counts)
   )
 
-print(summ_abu_all)
+print(summ_abu_all_nospp)
 
 # iNEXT data information: sample size, observed richness, coverage, frequency counts.
-info_abu_all <- iNEXT::DataInfo(
-  inext_abu_all,
+info_abu_all_nospp <- iNEXT::DataInfo(
+  inext_abu_all_nospp,
   datatype = "abundance"
 )
 
-print(info_abu_all)
+print(info_abu_all_nospp)
 
 # Use observed coverage capped at 0.95 for the single pooled dataset.
-targetC_abu_all <- min(0.95, info_abu_all$SC, na.rm = TRUE)
+targetC_abu_all <- min(0.95, info_abu_all_nospp$SC, na.rm = TRUE)
 
 targetC_abu_all
 
 # Estimate q0, q1, q2 at this target coverage.
-est_abu_all <- iNEXT::estimateD(
-  inext_abu_all,
+est_abu_all_nospp <- iNEXT::estimateD(
+  inext_abu_all_nospp,
   q = c(0, 1, 2),
   datatype = "abundance",
   base = "coverage",
@@ -282,11 +282,11 @@ est_abu_all <- iNEXT::estimateD(
   nboot = 1000
 )
 
-print(est_abu_all)
+print(est_abu_all_nospp)
 
 # Build coverage-based curves.
-out_abu_all <- iNEXT::iNEXT(
-  inext_abu_all,
+out_abu_all_nospp <- iNEXT::iNEXT(
+  inext_abu_all_nospp,
   q = c(0, 1, 2),
   datatype = "abundance",
   se = TRUE,
@@ -297,36 +297,36 @@ out_abu_all <- iNEXT::iNEXT(
 
 # Save tables.
 # readr::write_csv(
-#   summ_abu_all,
+#   summ_abu_all_nospp,
 #   file.path(out_dir_tab, "table_inext_abundance_summary_whole_dataset_nospp.csv")
 # )
 # 
 # readr::write_csv(
-#   info_abu_all,
+#   info_abu_all_nospp,
 #   file.path(out_dir_tab, "table_inext_abundance_DataInfo_whole_dataset_nospp.csv")
 # )
 # 
 # readr::write_csv(
-#   est_abu_all,
+#   est_abu_all_nospp,
 #   file.path(out_dir_tab, "table_inext_abundance_estimateD_q012_coverage_whole_dataset_level095_conf095_nboot1000_nospp.csv")
 # )
 
 
 ############################################################
-#### WHOLE DATASET: POOLED ABUNDANCE GAMMA DIVERSITY    ####
-#### 1. Species richness curve, q = 0                   ####
-#### 2. Faceted Hill diversity curves, q = 0, 1, 2      ####
+#### 1. WHOLE DATASET: POOLED ABUNDANCE GAMMA DIVERSITY ####
+#### 1.1 Species richness curve, q = 0                  ####
+#### 1.2 Faceted Hill diversity curves, q = 0, 1, 2     ####
 ############################################################
 
 ###############################
 #### PLOT SETTINGS         ####
 ###############################
 
-# Check that out_abu_all contains all three q values
-table(out_abu_all$iNextEst$coverage_based$Order.q)
+# Check that out_abu_all_nospp contains all three q values
+table(out_abu_all_nospp$iNextEst$coverage_based$Order.q)
 
 # Assemblage name from the iNEXT object, probably "all"
-all_assemblage <- unique(out_abu_all$iNextEst$coverage_based$Assemblage)
+all_assemblage <- unique(out_abu_all_nospp$iNextEst$coverage_based$Assemblage)
 
 # Whole-dataset color
 all_cols <- setNames("#333333", all_assemblage)
@@ -339,12 +339,12 @@ all_name_map <- setNames("All stations", all_assemblage)
 #### FILTER WHOLE DATASET iNEXT OBJECT: q0 ####
 ###############################################
 
-out_abu_all_q0 <- out_abu_all
+out_abu_all_nospp_q0 <- out_abu_all_nospp
 
-out_abu_all_q0$iNextEst$size_based <- out_abu_all_q0$iNextEst$size_based %>%
+out_abu_all_nospp_q0$iNextEst$size_based <- out_abu_all_nospp_q0$iNextEst$size_based %>%
   dplyr::filter(.data[["Order.q"]] == 0)
 
-out_abu_all_q0$iNextEst$coverage_based <- out_abu_all_q0$iNextEst$coverage_based %>%
+out_abu_all_nospp_q0$iNextEst$coverage_based <- out_abu_all_nospp_q0$iNextEst$coverage_based %>%
   dplyr::filter(.data[["Order.q"]] == 0)
 
 
@@ -352,8 +352,16 @@ out_abu_all_q0$iNextEst$coverage_based <- out_abu_all_q0$iNextEst$coverage_based
 #### PLOT: WHOLE DATASET SPECIES RICHNESS  ####
 ###############################################
 
+# Check y limits from qD.UCL
+# q0 = 1001.647
+nth(out_abu_all_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 1000) 
+# q1 = 201.081
+nth(out_abu_all_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 2000)
+# q2 = 69.788
+nth(out_abu_all_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 3000)
+
 g_abu_all_q0 <- iNEXT::ggiNEXT(
-  out_abu_all_q0,
+  out_abu_all_nospp_q0,
   type = 3,
   se = TRUE,
   color.var = "Assemblage"
@@ -381,9 +389,8 @@ g_abu_all_q0 <- iNEXT::ggiNEXT(
   ) +
   guides(
     colour = "none",
-    color = "none",
-    fill = "none",
-    shape = "none",
+    fill   = "none",
+    shape  = "none",
     linetype = guide_legend(title = NULL)
   ) +
   theme_classic(base_size = 12) +
@@ -420,133 +427,18 @@ print(g_abu_all_q0)
 # )
 
 
-#################################################
-#### PLOT: WHOLE DATASET q0, q1, q2 FACETED  ####
-#################################################
-
-g_abu_all_q012 <- iNEXT::ggiNEXT(
-  out_abu_all,
-  type = 3,
-  se = TRUE,
-  facet.var = "Order.q",
-  color.var = "Assemblage"
-) +
-  facet_wrap(
-    ~ Order.q,
-    ncol = 1,
-    scales = "free_y",
-    labeller = as_labeller(c(
-      "0" = "q = 0: Species Richness",
-      "1" = "q = 1: Common Species",
-      "2" = "q = 2: Dominant Species"
-    ))
-  ) +
-  scale_colour_manual(
-    values = all_cols,
-    labels = all_name_map,
-    name = NULL
-  ) +
-  scale_fill_manual(
-    values = all_cols,
-    labels = all_name_map,
-    name = NULL
-  ) +
-  coord_cartesian(xlim = c(0, 1.01)) +
-  scale_x_continuous(
-    # labels = scales::percent_format(accuracy = 1)
-  ) +
-  labs(
-    x = "Sample Coverage",
-    y = "Species Diversity"
-  ) +
-  theme_classic(base_size = 12) +
-  theme(
-    text = element_text(family = "Times New Roman"),
-    legend.position = "none",
-    axis.title = element_text(size = 12),
-    axis.text = element_text(size = 12),
-    strip.background = element_blank(),
-    strip.text = element_text(size = 12)
-  )
-
-print(g_abu_all_q012)
-
-# Optional: thicken curves and reference points
-g_abu_all_q012$layers <- lapply(g_abu_all_q012$layers, function(lyr) {
-  if (inherits(lyr$geom, "GeomLine")) {
-    lyr$aes_params$linewidth <- 2.2
-    lyr$aes_params$alpha <- 0.9
-  }
-  if (inherits(lyr$geom, "GeomPoint")) {
-    lyr$aes_params$size <- 4
-    lyr$aes_params$shape <- 16
-  }
-  lyr
-})
-
-print(g_abu_all_q012)
-
-
-# ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_all_q012_coverage_faceted_nospp.png"),
-#   g_abu_all_q012,
-#   width =6.5,
-#   height = 7.5,
-#   dpi = 300
-# )
-
-plot_abu_all_q012 <- out_abu_all$iNextEst$coverage_based %>%
-  dplyr::mutate(
-    Order.q = as.numeric(Order.q),
-    q_label = dplyr::case_when(
-      Order.q == 0 ~ "q = 0: Species Richness",
-      Order.q == 1 ~ "q = 1: Common Species",
-      Order.q == 2 ~ "q = 2: Dominant Species"
-    ),
-    q_label = factor(
-      q_label,
-      levels = c(
-        "q = 0: Species Richness",
-        "q = 1: Common Species",
-        "q = 2: Dominant Species"
-      )
-    )
-  )
-
-# Panel labels
-panel_labs <- tibble::tibble(
-  q_label = factor(
-    c(
-      "q = 0: Species Richness",
-      "q = 1: Common Species",
-      "q = 2: Dominant Species"
-    ),
-    levels = c(
-      "q = 0: Species Richness",
-      "q = 1: Common Species",
-      "q = 2: Dominant Species"
-    )
-  ),
-  panel_label = c("A", "B", "C")
-)
-
-# Observed/reference points
-plot_abu_all_ref <- plot_abu_all_q012 %>%
-  dplyr::filter(Method == "Observed")
-
-
-#################################################
-#### Manuscript Figure 2. Coverage-based SAC Pooled Assemblage ####
-#### PLOT: WHOLE DATASET q0, q1, q2 FACETED  ####
-#### Manual y-axis scale for each Hill number ####
-#################################################
+####################################################################
+#### PLOT: WHOLE DATASET q0, q1, q2 FACETED                     ####
+#### Manuscript Figure S1. Coverage-based SAC Pooled Assemblage ####
+#### Manual y-axis scale for each Hill number                   ####
+####################################################################
 panel_labs <- tibble::tibble(
   Order.q = c(0, 1, 2),
   panel_label = c("A", "B", "C")
 )
 
 g_abu_all_q012 <- iNEXT::ggiNEXT(
-  out_abu_all,
+  out_abu_all_nospp,
   type = 3,
   se = TRUE,
   facet.var = "Order.q",
@@ -565,16 +457,16 @@ g_abu_all_q012 <- iNEXT::ggiNEXT(
   ggh4x::facetted_pos_scales(
     y = list(
       Order.q == 0 ~ scale_y_continuous(
-        limits = c(0, 1005),
+        limits = c(0, 1050),
         breaks = seq(0, 1000, 250)
       ),
       Order.q == 1 ~ scale_y_continuous(
-        limits = c(0, 205),
+        limits = c(0, 210),
         breaks = seq(0, 200, 50)
       ),
       Order.q == 2 ~ scale_y_continuous(
-        limits = c(0, 70),
-        breaks = seq(0, 60, 20)
+        limits = c(0, 80),
+        breaks = seq(0, 80, 20)
       )
     )
   ) +
@@ -652,7 +544,7 @@ print(g_abu_all_q012)
 #### PLOT: WHOLE DATASET q0, q1, q2 TOGETHER ####
 #################################################
 # Prepare plotting dataframe directly from iNEXT coverage-based output
-plot_abu_all_q012 <- out_abu_all$iNextEst$coverage_based %>%
+plot_abu_all_q012 <- out_abu_all_nospp$iNextEst$coverage_based %>%
   dplyr::mutate(
     Order.q = as.numeric(Order.q),
     q_label = dplyr::case_when(
@@ -727,10 +619,10 @@ g_abu_all_q012_together <- ggplot(
   ) +
   coord_cartesian(
     xlim = c(0, 1.01),
-    ylim = c(0, 1200)
+    ylim = c(0, 1050)
   ) +
   scale_y_continuous(
-    breaks = seq(0, 1200, 300)
+    breaks = seq(0, 1000, 250)
     # trans = 'log10'
   ) +
   labs(
@@ -779,15 +671,15 @@ print(g_abu_all_q012_together)
 #################################################
 
 # Build pooled abundance vectors by era.
-inext_abu_era <- lapply(levels(design$era), function(e) {
+inext_abu_era_nospp <- lapply(levels(design$era), function(e) {
   rows_e <- design$station_code[design$era == e]
   make_abund_vector(X_counts, rows = rows_e)
 })
 
-names(inext_abu_era) <- levels(design$era)
+names(inext_abu_era_nospp) <- levels(design$era)
 
 # Basic observed data summary: species and individuals by era.
-summ_abu_era <- summarize_abund_list(inext_abu_era) %>%
+summ_abu_era_nospp <- summarize_abund_list(inext_abu_era_nospp) %>%
   dplyr::mutate(
     n_stations = as.integer(table(design$era)[assemblage])
   ) %>%
@@ -800,25 +692,25 @@ summ_abu_era <- summarize_abund_list(inext_abu_era) %>%
     n_doubletons
   )
 
-print(summ_abu_era)
+print(summ_abu_era_nospp)
 
 # iNEXT data information by era.
-info_abu_era <- iNEXT::DataInfo(
-  inext_abu_era,
+info_abu_era_nospp <- iNEXT::DataInfo(
+  inext_abu_era_nospp,
   datatype = "abundance"
 )
 
-print(info_abu_era)
+print(info_abu_era_nospp)
 
 # Common target coverage for fair temporal comparison.
 # This uses the lower observed sample coverage between eras, capped at 0.95.
-targetC_abu_era <- min(0.95, min(info_abu_era$SC, na.rm = TRUE))
+targetC_abu_era <- min(0.95, min(info_abu_era_nospp$SC, na.rm = TRUE))
 
 targetC_abu_era
 
 # Coverage-standardized Hill numbers by era.
-est_abu_era <- iNEXT::estimateD(
-  inext_abu_era,
+est_abu_era_nospp <- iNEXT::estimateD(
+  inext_abu_era_nospp,
   q = c(0, 1, 2),
   datatype = "abundance",
   base = "coverage",
@@ -827,31 +719,32 @@ est_abu_era <- iNEXT::estimateD(
   nboot = 1000
 )
 
-print(est_abu_era)
+print(est_abu_era_nospp)
 
 # Save tables.
 # readr::write_csv(
-#   summ_abu_era,
+#   summ_abu_era_nospp,
 #   file.path(out_dir_tab, "table_inext_abundance_summary_by_era_nospp.csv")
 # )
 # 
 # readr::write_csv(
-#   info_abu_era,
+#   info_abu_era_nospp,
 #   file.path(out_dir_tab, "table_inext_abundance_DataInfo_by_era_nospp.csv")
 # )
 # 
 # readr::write_csv(
-#   est_abu_era,
+#   est_abu_era_nospp,
 #   file.path(out_dir_tab, "table_inext_abundance_estimateD_q012_coverage_by_era_level095_conf095_nboot1000_nospp.csv")
 # )
 
 
 #######################################
-#### 3. COVERAGE-BASED ERA CURVES  ####
+#### 2. BY ERA                     ####
+####    COVERAGE-BASED ERA CURVES  ####
 #######################################
 
-out_abu_era <- iNEXT::iNEXT(
-  inext_abu_era,
+out_abu_era_nospp <- iNEXT::iNEXT(
+  inext_abu_era_nospp,
   q = c(0, 1, 2),
   datatype = "abundance",
   se = TRUE,
@@ -860,21 +753,36 @@ out_abu_era <- iNEXT::iNEXT(
   nboot = 1000
 )
 
+# Check y limits from qD.UCL
+# q0 = 
+nth(out_abu_era_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 1000) 
+# q1 = 
+nth(out_abu_era_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 2000)
+# q2 = 
+nth(out_abu_era_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 3000)
+# q0 = 
+nth(out_abu_era_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 4000) 
+# q1 = 
+nth(out_abu_era_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 5000)
+# q2 = 
+nth(out_abu_era_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 6000)
+
+
 # q = 0 only: species richness / species accumulation curve.
-out_abu_era_q0 <- filter_iNEXT_q(out_abu_era, q_keep = 0)
+out_abu_era_nospp_q0 <- filter_iNEXT_q(out_abu_era_nospp, q_keep = 0)
 
 # reorder
-out_abu_era_q0_plot <- out_abu_era_q0
+out_abu_era_nospp_q0_plot <- out_abu_era_nospp_q0
 
 era_plot_order <- c("historical", "contemporary")
 
-out_abu_era_q0_plot$iNextEst$size_based <- out_abu_era_q0_plot$iNextEst$size_based %>%
+out_abu_era_nospp_q0_plot$iNextEst$size_based <- out_abu_era_nospp_q0_plot$iNextEst$size_based %>%
   dplyr::mutate(
     Assemblage = factor(Assemblage, levels = era_plot_order)
   ) %>%
   dplyr::arrange(Assemblage)
 
-out_abu_era_q0_plot$iNextEst$coverage_based <- out_abu_era_q0_plot$iNextEst$coverage_based %>%
+out_abu_era_nospp_q0_plot$iNextEst$coverage_based <- out_abu_era_nospp_q0_plot$iNextEst$coverage_based %>%
   dplyr::mutate(
     Assemblage = factor(Assemblage, levels = era_plot_order)
   ) %>%
@@ -882,7 +790,7 @@ out_abu_era_q0_plot$iNextEst$coverage_based <- out_abu_era_q0_plot$iNextEst$cove
 
 
 g_abu_era_q0 <- iNEXT::ggiNEXT(
-  out_abu_era_q0,
+  out_abu_era_nospp_q0,
   type = 3,
   se = TRUE,
   color.var = "Assemblage"
@@ -900,7 +808,7 @@ g_abu_era_q0 <- iNEXT::ggiNEXT(
   scale_shape_manual(
     values = c(
       "historical" = 16,     # filled circle
-      "contemporary" = 17    # filled triangle
+      "contemporary" = 16    # filled triangle
     ),
     labels = era_name_map,
     name = "Era"
@@ -913,7 +821,7 @@ g_abu_era_q0 <- iNEXT::ggiNEXT(
     x = "% Coverage",
     y = "Species Richness"
   ) +
-  theme_classic(base_size = 18) +
+  theme_classic(base_size = 12) +
   theme(
     text = element_text(family = "Times New Roman"),
     legend.position = NULL,
@@ -947,16 +855,17 @@ print(g_abu_era_q0)
 # )
 
 
-
-#### MANUSCRIPT FIGURE S2. ####
-
+#######################################
+#### 2. BY ERA                     ####
+#### MANUSCRIPT FIGURE S2.         ####
+#######################################
 panel_labs <- tibble::tibble(
   Order.q = c(0, 1, 2),
   panel_label = c("A", "B", "C")
 )
 
 g_abu_era_q012 <- iNEXT::ggiNEXT(
-  out_abu_era,
+  out_abu_era_nospp,
   type = 3,
   se = TRUE,
   facet.var = "Order.q",
@@ -1063,10 +972,11 @@ print(g_abu_era_q012)
 # )
 
 #####################################
+#### 2. BY ERA                   ####
 #### q = 0, 1, 2 faceted figure. ####
 #####################################
 g_abu_era_q012 <- iNEXT::ggiNEXT(
-  out_abu_era,
+  out_abu_era_nospp,
   type = 3,
   se = TRUE,
   facet.var = "Order.q",
@@ -1108,7 +1018,7 @@ g_abu_era_q012 <- iNEXT::ggiNEXT(
     x = "% Coverage",
     y = "Hill Diversity"
   ) +
-  theme_classic(base_size = 18) +
+  theme_classic(base_size = 12) +
   theme(
     text = element_text(family = "Times New Roman"),
     legend.position = "right",
@@ -1145,14 +1055,15 @@ print(g_abu_era_q012)
 
 
 ##############################################################
-#### 4. BOOTSTRAP DELTA: CONTEMPORARY - HISTORICAL        ####
+#### 2. BY ERA                                            ####
+####    BOOTSTRAP DELTA: CONTEMPORARY - HISTORICAL        ####
 ####    at common target coverage                         ####
 ##############################################################
 
 set.seed(123)
 
-v_hist <- inext_abu_era[["historical"]]
-v_cont <- inext_abu_era[["contemporary"]]
+v_hist <- inext_abu_era_nospp[["historical"]]
+v_cont <- inext_abu_era_nospp[["contemporary"]]
 
 targetC <- targetC_abu_era
 B <- 1000
@@ -1248,14 +1159,11 @@ print(summ_delta_era)
 
 
 #############################################################
-#### iNEXT: POOLED ABUNDANCE BY ERA × SEA                ####
+#### 3. BY ERA × SEA                                     ####
 #### Coverage-based SACs + bootstrap Δ Hill diversity    ####
 #############################################################
 
-############################
-#### COLORS AND LABELS  ####
-############################
-
+#### COLORS AND LABELS 
 era_cols <- c(
   "historical"    = "#F8766D",
   "contemporary" = "#00BFC4"
@@ -1278,20 +1186,18 @@ q_label_map <- c(
 )
 
 
-##################################
-#### ALIGN COMMUNITY + DESIGN ####
-##################################
+#### ALIGN COMMUNITY + DESIGN 
 
-# If station_code is still a column in data_vegan, move it to rownames.
-if ("station_code" %in% names(data_vegan)) {
-  X_counts <- data_vegan %>%
+# If station_code is still a column in data_vegan_nospp, move it to rownames.
+if ("station_code" %in% names(data_vegan_nospp)) {
+  X_counts <- data_vegan_nospp %>%
     tibble::column_to_rownames("station_code") %>%
     as.data.frame()
 } else {
-  X_counts <- as.data.frame(data_vegan)
+  X_counts <- as.data.frame(data_vegan_nospp)
 }
 
-design <- data_vegan.env %>%
+design <- data_vegan_nospp.env %>%
   dplyr::mutate(
     era = tolower(as.character(era)),
     sea = tolower(as.character(sea)),
@@ -1304,7 +1210,7 @@ if (!all(design$station_code %in% rownames(X_counts))) {
   if (nrow(X_counts) == nrow(design)) {
     rownames(X_counts) <- design$station_code
   } else {
-    stop("Rows in data_vegan cannot be matched to data_vegan.env$station_code.")
+    stop("Rows in data_vegan_nospp cannot be matched to data_vegan_nospp.env$station_code.")
   }
 }
 
@@ -1352,17 +1258,17 @@ make_abund_by_group <- function(X, metadata, group_col) {
   out
 }
 
-inext_abu_era_sea <- make_abund_by_group(
+inext_abu_era_sea_nospp <- make_abund_by_group(
   X = X_counts,
   metadata = design,
   group_col = "era_sea"
 )
 
 # Check assemblages.
-names(inext_abu_era_sea)
+names(inext_abu_era_sea_nospp)
 
 # Quick observed summary.
-summ_abu_era_sea <- purrr::imap_dfr(inext_abu_era_sea, function(v, nm) {
+summ_abu_era_sea_nospp <- purrr::imap_dfr(inext_abu_era_sea_nospp, function(v, nm) {
   tibble::tibble(
     assemblage = nm,
     n_stations = sum(design$era_sea == nm),
@@ -1379,11 +1285,11 @@ summ_abu_era_sea <- purrr::imap_dfr(inext_abu_era_sea, function(v, nm) {
     remove = FALSE
   )
 
-print(summ_abu_era_sea)
+print(summ_abu_era_sea_nospp)
 
 # Save Table
 # readr::write_csv(
-#   summ_abu_era_sea,
+#   summ_abu_era_sea_nospp,
 #   file.path(out_dir_tab, "table_inext_abundance_summary_by_era_sea_nospp.csv")
 # )
 
@@ -1392,8 +1298,8 @@ print(summ_abu_era_sea)
 #### DATAINFO + TARGET COVERAGE ####
 ####################################
 
-info_abu_era_sea <- iNEXT::DataInfo(
-  inext_abu_era_sea,
+info_abu_era_sea_nospp <- iNEXT::DataInfo(
+  inext_abu_era_sea_nospp,
   datatype = "abundance"
 ) %>%
   tidyr::separate(
@@ -1403,16 +1309,16 @@ info_abu_era_sea <- iNEXT::DataInfo(
     remove = FALSE
   )
 
-print(info_abu_era_sea)
+print(info_abu_era_sea_nospp)
 
 # Save Table
 # readr::write_csv(
-#   info_abu_era_sea,
+#   info_abu_era_sea_nospp,
 #   file.path(out_dir_tab, "table_inext_abundance_DataInfo_by_era_sea_nospp.csv")
 # )
 
 # Common target coverage within each sea.
-targetC_by_sea <- info_abu_era_sea %>%
+targetC_by_sea <- info_abu_era_sea_nospp %>%
   dplyr::group_by(sea) %>%
   dplyr::summarise(
     min_observed_SC = min(SC, na.rm = TRUE),
@@ -1423,7 +1329,7 @@ targetC_by_sea <- info_abu_era_sea %>%
 print(targetC_by_sea)
 
 # Optional global target if you want all four assemblages compared at one shared coverage.
-targetC_global_era_sea <- min(0.95, min(info_abu_era_sea$SC, na.rm = TRUE))
+targetC_global_era_sea <- min(0.95, min(info_abu_era_sea_nospp$SC, na.rm = TRUE))
 
 targetC_global_era_sea
 
@@ -1434,7 +1340,7 @@ targetC_global_era_sea
 
 q_vec <- c(0, 1, 2)
 
-est_abu_era_sea <- purrr::map_dfr(c("bohol", "sulu"), function(sea_i) {
+est_abu_era_sea_nospp <- purrr::map_dfr(c("bohol", "sulu"), function(sea_i) {
   
   target_i <- targetC_by_sea %>%
     dplyr::filter(sea == sea_i) %>%
@@ -1443,7 +1349,7 @@ est_abu_era_sea <- purrr::map_dfr(c("bohol", "sulu"), function(sea_i) {
   assemblages_i <- paste(c("historical", "contemporary"), sea_i, sep = "_")
   
   iNEXT::estimateD(
-    inext_abu_era_sea[assemblages_i],
+    inext_abu_era_sea_nospp[assemblages_i],
     q = q_vec,
     datatype = "abundance",
     base = "coverage",
@@ -1463,11 +1369,11 @@ est_abu_era_sea <- purrr::map_dfr(c("bohol", "sulu"), function(sea_i) {
     )
 })
 
-print(est_abu_era_sea)
+print(est_abu_era_sea_nospp)
 
 # Save Table
 # readr::write_csv(
-#   est_abu_era_sea,
+#   est_abu_era_sea_nospp,
 #   file.path(out_dir_tab, "table_inext_abundance_estimateD_q012_coverage_by_era_sea_nospp.csv")
 # )
 
@@ -1478,8 +1384,8 @@ print(est_abu_era_sea)
 
 set.seed(123)
 
-out_abu_era_sea <- iNEXT::iNEXT(
-  inext_abu_era_sea,
+out_abu_era_sea_nospp <- iNEXT::iNEXT(
+  inext_abu_era_sea_nospp,
   q = c(0, 1, 2),
   datatype = "abundance",
   se = TRUE,
@@ -1493,7 +1399,7 @@ out_abu_era_sea <- iNEXT::iNEXT(
 #### PREPARE COVERAGE PLOT DF ####
 ##################################
 
-plot_abu_era_sea <- out_abu_era_sea$iNextEst$coverage_based %>%
+plot_abu_era_sea <- out_abu_era_sea_nospp$iNextEst$coverage_based %>%
   tidyr::separate(
     Assemblage,
     into = c("era", "sea"),
@@ -1732,7 +1638,7 @@ print(g_abu_era_sea_q012)
 #### PREP DATA: ERA × SEA × q0/q1/q2     ####
 #############################################
 
-plot_abu_era_sea_q012 <- out_abu_era_sea$iNextEst$coverage_based %>%
+plot_abu_era_sea_q012 <- out_abu_era_sea_nospp$iNextEst$coverage_based %>%
   dplyr::mutate(
     Order.q = as.numeric(Order.q)
   ) %>%
@@ -2437,7 +2343,7 @@ boot_out_era_sea <- purrr::map(c("bohol", "sulu"), function(sea_i) {
   
   bootstrap_delta_one_sea(
     sea_i = sea_i,
-    inext_list = inext_abu_era_sea,
+    inext_list = inext_abu_era_sea_nospp,
     targetC = target_i,
     B = B,
     q_vec = q_vec
