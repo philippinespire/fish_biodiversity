@@ -1,0 +1,4 @@
+model,variable,R2,p_value,variable_label
+Unrestricted,depth_scaled,0.6418987208271902,1e-4,Depth
+Restricted within sea,depth_scaled,0.6418987208271902,1e-4,Depth
+Restricted within era × sea,depth_scaled,0.6418987208271902,1e-4,Depth
