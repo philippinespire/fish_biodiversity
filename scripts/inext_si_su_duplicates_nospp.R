@@ -32,7 +32,9 @@ packages_used <-
     "patchwork",
     "dplyr",
     "ggh4x",
-    "patchwork"
+    "patchwork",
+    "cowplot",
+    "grid"
   )
 
 packages_to_install <- 
@@ -754,17 +756,17 @@ out_abu_era_nospp <- iNEXT::iNEXT(
 )
 
 # Check y limits from qD.UCL
-# q0 = 
+# q0 = 693.3517
 nth(out_abu_era_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 1000) 
-# q1 = 
+# q1 = 189.628
 nth(out_abu_era_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 2000)
-# q2 = 
+# q2 = 98.04739
 nth(out_abu_era_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 3000)
-# q0 = 
+# q0 = 716.6604
 nth(out_abu_era_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 4000) 
-# q1 = 
+# q1 = 92.70747
 nth(out_abu_era_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 5000)
-# q2 = 
+# q2 = 20.36552
 nth(out_abu_era_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 6000)
 
 
@@ -814,17 +816,20 @@ g_abu_era_q0 <- iNEXT::ggiNEXT(
     name = "Era"
   ) +
   coord_cartesian(xlim = c(0, 1.01)) +
-  scale_x_continuous(
-    labels = scales::percent_format(accuracy = 1)
-  ) +
+  # scale_x_continuous(
+  #   labels = scales::percent_format(accuracy = 1)
+  # ) +
+  scale_y_continuous(
+    limits = c(0, 750),
+    breaks = seq(0, 750, 250)) +
   labs(
-    x = "% Coverage",
+    x = "Sample Coverage",
     y = "Species Richness"
   ) +
   theme_classic(base_size = 12) +
   theme(
     text = element_text(family = "Times New Roman"),
-    legend.position = NULL,
+    legend.position = "bottom",
     #legend.title = element_text(size = 12),
     #legend.text = element_text(size = 12),
     axis.title = element_text(size = 12),
@@ -847,7 +852,7 @@ g_abu_era_q0$layers <- lapply(g_abu_era_q0$layers, function(lyr) {
 print(g_abu_era_q0)
 
 # ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_q0_coverage_by_era_level095_conf095_nboot1000_knots1000_nospp_man.png"),
+#   file.path(out_dir_fig, "figure_inext_abundance_q0_coverage_by_era_level095_conf095_nboot1000_knots1000_leg_bot_nospp_man.png"),
 #   g_abu_era_q0,
 #   width = 6.5,
 #   height = 7.5,
@@ -965,88 +970,6 @@ print(g_abu_era_q012)
 
 # ggsave(
 #   file.path(out_dir_fig, "figure_inext_abundance_q012_coverage_by_era_level095_conf095_nboot1000_knots1000_leg_bot_nospp_man.png"),
-#   g_abu_era_q012,
-#   width = 6.5,
-#   height = 7.5,
-#   dpi = 300
-# )
-
-#####################################
-#### 2. BY ERA                   ####
-#### q = 0, 1, 2 faceted figure. ####
-#####################################
-g_abu_era_q012 <- iNEXT::ggiNEXT(
-  out_abu_era_nospp,
-  type = 3,
-  se = TRUE,
-  facet.var = "Order.q",
-  color.var = "Assemblage"
-) +
-  facet_wrap(
-    ~ Order.q,
-    ncol = 1,
-    scales = "free_y",
-    labeller = as_labeller(c(
-      "0" = "q = 0: Species Richness",
-      "1" = "q = 1: Common Species",
-      "2" = "q = 2: Dominant Species"
-    ))
-  ) +
-  scale_colour_manual(
-    values = era_cols,
-    labels = era_name_map,
-    name = "Era"
-  ) +
-  scale_fill_manual(
-    values = era_cols,
-    labels = era_name_map,
-    name = "Era"
-  ) +
-  scale_shape_manual(
-    values = c(
-      "historical" = 16,     # filled circle
-      "contemporary" = 17    # filled triangle
-    ),
-    labels = era_name_map,
-    name = "Era"
-  ) +
-  coord_cartesian(xlim = c(0, 1.01)) +
-  scale_x_continuous(
-    labels = scales::percent_format(accuracy = 1)
-  ) +
-  labs(
-    x = "% Coverage",
-    y = "Hill Diversity"
-  ) +
-  theme_classic(base_size = 12) +
-  theme(
-    text = element_text(family = "Times New Roman"),
-    legend.position = "right",
-    # legend.title = element_text(size = 12),
-    # legend.text = element_text(size = 12),
-    axis.title = element_text(size = 12),
-    axis.text = element_text(size = 12),
-    strip.background = element_blank(),
-    strip.text = element_text(size = 12)
-  )
-
-print(g_abu_era_q012)
-
-line_size  <- 3
-line_alpha <- 0.6
-
-g_abu_era_q012$layers <- lapply(g_abu_era_q012$layers, function(lyr) {
-  if (inherits(lyr$geom, "GeomLine")) {
-    lyr$aes_params$linewidth <- line_size   # use linewidth (ggplot2 >= 3.4)
-    lyr$aes_params$alpha     <- line_alpha
-  }
-  lyr
-})
-
-print(g_abu_era_q012)
-
-# ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_q012_coverage_by_era_level095_conf095_nboot1000_knots1000_facet_nospp_man.png"),
 #   g_abu_era_q012,
 #   width = 6.5,
 #   height = 7.5,
@@ -1238,9 +1161,7 @@ design <- design %>%
   )
 
 
-###########################################
-#### BUILD ABUNDANCE LIST BY ERA × SEA ####
-###########################################
+#### BUILD ABUNDANCE LIST BY ERA × SEA 
 
 make_abund_vector <- function(X, rows) {
   v <- colSums(X[rows, , drop = FALSE], na.rm = TRUE)
@@ -1287,16 +1208,8 @@ summ_abu_era_sea_nospp <- purrr::imap_dfr(inext_abu_era_sea_nospp, function(v, n
 
 print(summ_abu_era_sea_nospp)
 
-# Save Table
-# readr::write_csv(
-#   summ_abu_era_sea_nospp,
-#   file.path(out_dir_tab, "table_inext_abundance_summary_by_era_sea_nospp.csv")
-# )
 
-
-####################################
-#### DATAINFO + TARGET COVERAGE ####
-####################################
+#### DATAINFO + TARGET COVERAGE
 
 info_abu_era_sea_nospp <- iNEXT::DataInfo(
   inext_abu_era_sea_nospp,
@@ -1311,11 +1224,6 @@ info_abu_era_sea_nospp <- iNEXT::DataInfo(
 
 print(info_abu_era_sea_nospp)
 
-# Save Table
-# readr::write_csv(
-#   info_abu_era_sea_nospp,
-#   file.path(out_dir_tab, "table_inext_abundance_DataInfo_by_era_sea_nospp.csv")
-# )
 
 # Common target coverage within each sea.
 targetC_by_sea <- info_abu_era_sea_nospp %>%
@@ -1334,9 +1242,7 @@ targetC_global_era_sea <- min(0.95, min(info_abu_era_sea_nospp$SC, na.rm = TRUE)
 targetC_global_era_sea
 
 
-#########################################################
-#### ESTIMATE q0, q1, q2 AT COMMON COVERAGE BY SEA   ####
-#########################################################
+#### ESTIMATE q0, q1, q2 AT COMMON COVERAGE BY SEA   
 
 q_vec <- c(0, 1, 2)
 
@@ -1371,7 +1277,17 @@ est_abu_era_sea_nospp <- purrr::map_dfr(c("bohol", "sulu"), function(sea_i) {
 
 print(est_abu_era_sea_nospp)
 
-# Save Table
+# Save Tables
+# readr::write_csv(
+#   summ_abu_era_sea_nospp,
+#   file.path(out_dir_tab, "table_inext_abundance_summary_by_era_sea_nospp.csv")
+# )
+# 
+# readr::write_csv(
+#   info_abu_era_sea_nospp,
+#   file.path(out_dir_tab, "table_inext_abundance_DataInfo_by_era_sea_nospp.csv")
+# )
+# 
 # readr::write_csv(
 #   est_abu_era_sea_nospp,
 #   file.path(out_dir_tab, "table_inext_abundance_estimateD_q012_coverage_by_era_sea_nospp.csv")
@@ -1394,6 +1310,32 @@ out_abu_era_sea_nospp <- iNEXT::iNEXT(
   nboot = 1000
 )
 
+
+# Check y limits from qD.UCL
+# q0 = 492.8604
+nth(out_abu_era_sea_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 1000) 
+# q1 = 114.5311
+nth(out_abu_era_sea_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 2000)
+# q2 = 52.93616
+nth(out_abu_era_sea_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 3000)
+# q0 = 486.4451
+nth(out_abu_era_sea_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 4000) 
+# q1 = 120.5517
+nth(out_abu_era_sea_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 5000)
+# q2 = 51.92268
+nth(out_abu_era_sea_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 6000)
+# q0 = 496.8732
+nth(out_abu_era_sea_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 7000) 
+# q1 = 135.557
+nth(out_abu_era_sea_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 8000)
+# q2 = 69.23858
+nth(out_abu_era_sea_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 9000)
+# q0 = 495.8954
+nth(out_abu_era_sea_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 10000) 
+# q1 = 48.59573
+nth(out_abu_era_sea_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 11000)
+# q2 = 10.60733
+nth(out_abu_era_sea_nospp[["iNextEst"]][["coverage_based"]][["qD.UCL"]], 12000)
 
 ##################################
 #### PREPARE COVERAGE PLOT DF ####
@@ -1421,9 +1363,9 @@ ref_abu_era_sea <- plot_abu_era_sea %>%
   dplyr::filter(Method == "Observed")
 
 
-#####################################################
+#######################################################
 #### q0 COVERAGE-BASED SPECIES ACCUMULATION CURVES ####
-#####################################################
+#######################################################
 
 plot_q0 <- plot_abu_era_sea %>%
   dplyr::filter(Order.q == 0)
@@ -1490,7 +1432,7 @@ g_abu_era_sea_q0 <- ggplot() +
   scale_shape_manual(
     values = c(
       "historical" = 16,
-      "contemporary" = 17
+      "contemporary" = 16
     ),
     labels = era_name_map,
     name = "Era"
@@ -1502,6 +1444,12 @@ g_abu_era_sea_q0 <- ggplot() +
   labs(
     x = "Sample Coverage",
     y = "Species Diversity"
+  ) +
+  guides(
+    colour = guide_legend(title = NULL),
+    fill = "none",
+    shape = "none",
+    linetype = guide_legend(title = NULL)
   ) +
   theme_classic(base_size = 12) +
   theme(
@@ -1529,7 +1477,7 @@ g_abu_era_sea_q0$layers <- lapply(g_abu_era_sea_q0$layers, function(lyr) {
 print(g_abu_era_sea_q0)
 
 # ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_q0_coverage_by_era_sea_leg_bot_nospp.png"),
+#   file.path(out_dir_fig, "figure_inext_abundance_q0_coverage_by_era_sea_leg_bot_nospp_man.png"),
 #   g_abu_era_sea_q0,
 #   width = 6.5,
 #   height = 7.5,
@@ -1599,7 +1547,7 @@ g_abu_era_sea_q012 <- ggplot() +
   scale_shape_manual(
     values = c(
       "historical" = 16,
-      "contemporary" = 17
+      "contemporary" = 16
     ),
     labels = era_name_map,
     name = "Era"
@@ -1615,7 +1563,7 @@ g_abu_era_sea_q012 <- ggplot() +
   theme_classic(base_size = 12) +
   theme(
     text = element_text(family = "Times New Roman"),
-    legend.position = NULL,
+    legend.position = "bottom",
     axis.title = element_text(size = 12),
     axis.text = element_text(size = 12),
     strip.background = element_blank(),
@@ -1625,7 +1573,7 @@ g_abu_era_sea_q012 <- ggplot() +
 print(g_abu_era_sea_q012)
 
 # ggsave(
-#   file.path(out_dir_fig, "figure_inext_abundance_q012_coverage_by_era_sea_faceted_nospp_man.png"),
+#   file.path(out_dir_fig, "figure_inext_abundance_q012_coverage_by_era_sea_faceted_leg_bot_rt_nospp_man.png"),
 #   g_abu_era_sea_q012,
 #   width = 6.5,
 #   height = 7.5,
@@ -1854,6 +1802,20 @@ panel_labs <- tidyr::expand_grid(
 ) %>%
   dplyr::mutate(panel_label = LETTERS[dplyr::row_number()])
 
+legend_bottom <- cowplot::get_legend(
+  p_q2 +
+    theme(
+      legend.position = "bottom",
+      legend.box = "horizontal",
+      legend.direction = "horizontal"
+    ) +
+    guides(
+      colour = guide_legend(title = NULL, nrow = 1),
+      fill = "none",
+      shape = "none",
+      linetype = guide_legend(title = NULL, nrow = 1)
+    )
+)
 
 #############################################
 #### PLOT: q ROWS × SEA COLUMNS          ####
@@ -2155,6 +2117,20 @@ make_q_row_plot <- function(q_keep,
   p
 }
 
+legend_bottom <- cowplot::get_legend(
+  p_q2 +
+    theme(
+      legend.position = "bottom",
+      legend.box = "horizontal",
+      legend.direction = "horizontal"
+    ) +
+    guides(
+      colour = guide_legend(title = NULL, nrow = 1),
+      fill = "none",
+      shape = "none",
+      linetype = guide_legend(title = NULL, nrow = 1)
+    )
+)
 p_q0 <- make_q_row_plot(
   q_keep = 0,
   q_title = "q = 0: Species Richness",
@@ -2189,20 +2165,161 @@ p_q2 <- make_q_row_plot(
 )
 
 g_abu_era_sea_q012 <- (p_q0 / p_q1 / p_q2) +
-  plot_layout(guides = "collect") &
-  theme(
-    legend.position = "bottom"
-  )
+  patchwork::plot_layout(guides = "collect")
+
+g_abu_era_sea_q012 <- patchwork::wrap_plots(
+  p_q0,
+  p_q1,
+  p_q2,
+  ncol = 1,
+  guides = "collect"
+)
+
 
 print(g_abu_era_sea_q012)
 
-ggsave(
-  file.path(out_dir_fig, "figure_inext_abundance_q012_coverage_by_era_sea_facet_noseaxq_level095_conf095_nboot1000_knots1000_leg_bot_nospp_man.png"),
-  g_abu_era_sea_q012,
-  width = 6.5,
-  height = 7.5,
-  dpi = 300
+
+################################
+#### CREATE A LEGEND SOURCE ####
+################################
+
+# Use one of the original plots BEFORE removing the legend.
+# This makes sure a real legend exists and can be extracted.
+legend_source <- p_q2 +
+  theme(
+    legend.position = "bottom",
+    legend.box = "horizontal",
+    legend.direction = "horizontal",
+    legend.title = element_blank(),
+    legend.text = element_text(size = 11, family = "Times New Roman"),
+    legend.margin = margin(t = 0, r = 0, b = 0, l = 0),
+    legend.box.margin = margin(t = 0, r = 0, b = 0, l = 0)
+  ) +
+  guides(
+    colour = guide_legend(
+      title = NULL,
+      nrow = 1,
+      order = 1,
+      override.aes = list(linewidth = 2.2, alpha = 1)
+    ),
+    linetype = guide_legend(
+      title = NULL,
+      nrow = 1,
+      order = 2
+    ),
+    fill = "none",
+    shape = "none"
+  )
+
+# Extract the legend as a separate grob
+legend_bottom <- cowplot::get_legend(legend_source)
+
+##########################################
+#### CLEAN ROW PLOTS BUT KEEP HEIGHTS ####
+##########################################
+
+# Important:
+# For q0 and q1, hide the x-axis visually but keep the space
+# so all three rows retain equal panel heights.
+
+p_q0_clean <- p_q0 +
+  labs(x = NULL, y = NULL) +
+  theme(
+    legend.position = "none",
+    axis.title.x = element_blank(),
+    axis.text.x = element_text(color = "transparent"),
+    axis.ticks.x = element_line(color = "transparent"),
+    axis.line.x = element_line(color = "transparent")
+  )
+
+p_q1_clean <- p_q1 +
+  labs(x = NULL, y = NULL) +
+  theme(
+    legend.position = "none",
+    axis.title.x = element_blank(),
+    axis.text.x = element_text(color = "transparent"),
+    axis.ticks.x = element_line(color = "transparent"),
+    axis.line.x = element_line(color = "transparent")
+  )
+
+# q2 keeps the x-axis tick labels/ticks/line, but not its own x-axis title
+p_q2_clean <- p_q2 +
+  labs(x = NULL, y = NULL) +
+  theme(
+    legend.position = "none",
+    axis.title.x = element_blank()
+  )
+
+################################
+#### ALIGN THE THREE PLOTS  ####
+################################
+
+aligned_rows <- cowplot::align_plots(
+  p_q0_clean,
+  p_q1_clean,
+  p_q2_clean,
+  align = "v",
+  axis = "lr"
 )
+
+plot_body <- cowplot::plot_grid(
+  aligned_rows[[1]],
+  aligned_rows[[2]],
+  aligned_rows[[3]],
+  ncol = 1,
+  rel_heights = c(1, 1, 1)
+)
+
+################################
+#### ADD SHARED Y-AXIS LABEL ####
+################################
+
+plot_body_y <- cowplot::plot_grid(
+  cowplot::ggdraw() +
+    cowplot::draw_label(
+      "Species Diversity",
+      angle = 90,
+      fontfamily = "Times New Roman",
+      size = 12
+    ),
+  plot_body,
+  ncol = 2,
+  rel_widths = c(0.045, 1)
+)
+
+################################
+#### ADD SHARED X-AXIS LABEL ####
+################################
+
+x_axis_label <- cowplot::ggdraw() +
+  cowplot::draw_label(
+    "Sample Coverage",
+    fontfamily = "Times New Roman",
+    size = 12
+  )
+
+################################
+#### FINAL ASSEMBLED FIGURE  ####
+################################
+
+g_abu_era_sea_q012 <- cowplot::plot_grid(
+  plot_body_y,
+  x_axis_label,
+  legend_bottom,
+  ncol = 1,
+  rel_heights = c(1, 0.045, 0.10)
+)
+
+print(g_abu_era_sea_q012)
+
+
+# ggsave(
+#   file.path(out_dir_fig, "figure_inext_abundance_q012_coverage_by_era_sea_facet_noseaxq_level095_conf095_nboot1000_knots1000_nospp_man.png"),
+#   g_abu_era_sea_q012,
+#   width = 6.5,
+#   height = 7.5,
+#   dpi = 300
+# )
 
 
 ###########################################################
